@@ -1,0 +1,57 @@
+.sectionHeader {
+    color: #FCFCFC;
+    position: relative;
+}
+
+.sectionInner {
+    display: flex;
+    flex-direction: column;
+}
+
+.toggleNavBtn {
+    display: none;
+    cursor: pointer;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 1;
+    height: 10vh;
+}
+
+.navbarNav {
+    display: flex;
+    flex-grow: 2;
+    justify-content: flex-start;
+}
+
+.navbarNav a {
+    color: red;
+    margin-right: 20px;
+}
+
+.navbarNav a:hover {
+    color: #EC5118;
+}
+
+.navbarAside {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbarAside__phone {
+    user-select: text;
+    margin-right: 30px;
+    align-self: center;
+    color: red;
+}
+
+.navbarAside__search:after {
+    /*content: url("images/icons/search-icon.png");*/
+}
+
+.navbarAside__profile:after {
+    /*content: url("images/icons/profile-icon.png");*/
+}

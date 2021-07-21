@@ -36,6 +36,7 @@ button {
   border: 2px solid #FCFCFC;
   background: transparent;
   height: 45px;
+  width: 150px;
 }
 
 .primaryBtn:hover {
@@ -104,5 +105,9 @@ button {
 
 .scrollToTopButton:hover {
   background: cadetblue;
+}
 
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
 }

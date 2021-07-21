@@ -1,21 +1,13 @@
+.main {
+}
+
 .sectionBanner {
-    height: 90vh;
+    height: 500px;
     display: flex;
     flex-flow: column;
     align-items: center;
     justify-content: center;
-    flex-grow: 1;
-    background: cadetblue url("../../assets/images/header_bg.jpg") no-repeat;
-    background-size: cover;
+    /*background: cadetblue url("../../assets/images/header_bg.jpg") no-repeat;*/
+    /*background-size: cover;*/
 }
 
-.sectionBanner__title {
-    color: #FCFCFC;
-    font-size: 98px;
-    line-height: 145px;
-}
-
-.sectionBanner__primaryBtnWrapper {
-    width: 170px;
-    margin-top: 50px;
-}

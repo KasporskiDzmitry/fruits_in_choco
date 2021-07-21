@@ -3,7 +3,17 @@ import style from './AboutSection.module.css';
 
 const AboutSection = (props) => {
     return <div>
-        О нас
+        <div>
+            <h1>Кто мы</h1>
+        </div>
+        <div>
+            <div>
+                <img src="" alt="Наше фото"/>
+            </div>
+            <div>
+                Текст о нас
+            </div>
+        </div>
     </div>
 };
 

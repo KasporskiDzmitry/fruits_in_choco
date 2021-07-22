@@ -20,7 +20,7 @@ const appReducer = (state = initialState, action) => {
 
 const setSlides = slides => ({type: SET_SLIDES, slides });
 
-// thunk with promise
+// thunk with promise async
 export const loadSlides = () => dispatch => {
     // request to server for images by promise
 

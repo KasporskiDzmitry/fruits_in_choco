@@ -3,7 +3,7 @@ import style from "./Slider.module.css";
 import {Button, Carousel} from "react-bootstrap";
 
 const Slider = (props) => {
-    return <Carousel fade interval={3000} controls={false}>
+    return <Carousel fade interval={8000} controls={false}>
         {props.slides.map(slide => {
             return <Carousel.Item>
                 <img

@@ -16,14 +16,55 @@
     color: #FCFCFC;
     font-size: 52px;
     line-height: 145px;
+    animation: title-slidein .8s linear alternate;
+    position: relative;
 }
 
-.slideInfo__subtitle {
+@keyframes title-slidein {
+    from {
+        opacity: 0;
+        left: -200px;
+    }
+    to {
+        opacity: 1;
+        left: 0;
+    }
+}
+
+.slideInfo__subtitle h2 {
     font-size: 24px;
     color: red;
+    position: relative;
+    animation: subtitle-slidein .8s linear alternate;
 }
+
+@keyframes subtitle-slidein {
+    from {
+        bottom: -120px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
 
 .slideInfo__primaryBtnWrapper {
     width: 170px;
     margin-top: 50px;
+    position: relative;
+    animation: button-slidein .8s linear alternate;
 }
+
+@keyframes button-slidein {
+    from {
+        bottom: -120px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+

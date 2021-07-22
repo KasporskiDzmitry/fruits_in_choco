@@ -1,0 +1,24 @@
+.productWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+}
+
+.productImageWrapper {
+    width: 100%;
+    height: 400px;
+}
+
+.productImageWrapper a {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.productImageWrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+

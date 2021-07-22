@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Slider from "./Slider";
-import {loadSlides} from "../../../redux/app-reducer";
+import {loadSlides} from "../../../redux/main-reducer";
 
 class SliderContainer extends React.Component {
 

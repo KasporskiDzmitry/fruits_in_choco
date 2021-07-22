@@ -1,6 +1,11 @@
 .main {
 }
 
+.heading {
+    text-align: center;
+    margin: 40px 0 60px 0;
+}
+
 .sectionBanner {
     height: 500px;
     display: flex;

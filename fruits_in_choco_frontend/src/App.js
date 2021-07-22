@@ -14,7 +14,8 @@ import Preloader from "./components/common/Preloader/Preloader";
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
 const AboutContainer = React.lazy(() => import('./components/About/AboutContainer'));
-// const LoginPage = React.lazy(() => import('./components/Login/Login'));
+const AdminPage = React.lazy(() => import('./components/Admin/AdminContainer'));
+const LoginPage = React.lazy(() => import('./components/Login/Login'));
 // const RegistrationPage = React.lazy(() => import('./components/Registration/Registration'));
 
 
@@ -50,8 +51,10 @@ class App extends React.Component {
                            render={() => <ShopContainer/>}/>
                     <Route path='/about'
                            render={() => <AboutContainer/>}/>
-                    {/*<Route path='/login'*/}
-                    {/*       render={() => <LoginPage/>}/>*/}
+                    <Route path='/admin'
+                           render={() => <AdminPage/>}/>
+                    <Route path='/login'
+                           render={() => <LoginPage/>}/>
                     {/*<Route path='/registration'*/}
                     {/*       render={() => <RegistrationPage/>}/>*/}
                 </React.Suspense>

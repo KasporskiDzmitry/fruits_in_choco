@@ -14,14 +14,28 @@ const Main = (props) => {
                 <div className={style.heading}>
                     <h1>Что мы делаем</h1>
                 </div>
-                <div>
+                <div className={style.productsContainer}>
                     {props.products.map((product) => {
                         return <Product product={product} />
                     })}
                 </div>
             </div>
         </div>
-        <AboutSectionContainer/>
+        <div className={` sectionOuter ${style.aboutSection}`}>
+            <div className="sectionInner">
+                <div className={style.heading}>
+                    <h1>Кто мы</h1>
+                </div>
+                <div>
+                    <div>
+                        <img src="" alt="Наше фото"/>
+                    </div>
+                    <div>
+                        Текст о нас
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 };
 

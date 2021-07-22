@@ -1,13 +1,16 @@
 .productWrapper {
     display: flex;
     flex-direction: column;
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 450px;
+    text-align: center;
 }
 
 .productImageWrapper {
     width: 100%;
-    height: 400px;
+    height: 300px;
+    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .productImageWrapper a {
@@ -20,5 +23,19 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: .8s;
 }
 
+.productImageWrapper img:hover {
+    transform: scale(1.035) rotate(
+            0.05deg
+    );
+}
+
+.productTitle {
+
+}
+
+.productDescription p {
+    margin-bottom: 0;
+}

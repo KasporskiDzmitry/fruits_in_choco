@@ -10,11 +10,12 @@ const Product = ({product}) => {
                 <img src={product.imageUrl} alt={product.title} />
             </NavLink>
         </div>
-        <div className="productTitle">
+        <div className={style.productTitle}>
             <h2>{product.title}</h2>
         </div>
-        <div className="productDescription">
+        <div className={style.productDescription}>
             <p>{product.description}</p>
+            <NavLink to={'#'}>Подробнее</NavLink>
         </div>
     </div>
 };

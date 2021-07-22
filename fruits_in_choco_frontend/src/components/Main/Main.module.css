@@ -16,3 +16,13 @@
     /*background-size: cover;*/
 }
 
+.productsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.aboutSection {
+    background-color: bisque;
+
+}

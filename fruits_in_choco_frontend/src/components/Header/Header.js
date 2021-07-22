@@ -21,6 +21,18 @@ const Header = (props) => {
                     <NavLink to={'/contacts'}>Контакты</NavLink>
                 </nav>
                 <div className={style.navbarAside}>
+                    {props.isAuth
+                        ?
+                        <div>
+                            <NavLink to={'/'} onClick={props.logout}>Выйти</NavLink>
+                            {/*<button onClick={props.logout}>Выйти</button>*/}
+                        </div>
+                        :
+                        <div>
+                            <NavLink to={'/login'}>Войти</NavLink>
+                        </div>
+                    }
+
                     <div className={style.navbarAside__phone}>+375 (29) 111-22-33</div>
                     <div className={`${style.navbarAside__search} ${style.icon}`}></div>
                     <div className={`${style.navbarAside__profile} ${style.icon}`}></div>

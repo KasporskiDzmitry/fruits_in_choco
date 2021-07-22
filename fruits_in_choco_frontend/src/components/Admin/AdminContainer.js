@@ -7,13 +7,13 @@ import Admin from "./Admin";
 
 class AdminContainer extends React.Component {
     render() {
-        if (!this.props.isLoggedIn) return <Redirect to='/login'/>
+        // if (!this.props.isAuth && localStorage.getItem('role') === 'ADMIN') return <Redirect to='/login'/>
         return <Admin {...this.props} />
     }
 }
 
 const mapStateToProps = state => ({
-    isLoggedIn: state.adminReducer.isAdminLoggedIn
+    // isAuth: state.authReducer.isAuth
 });
 
 export default connect(mapStateToProps, {})(AdminContainer);

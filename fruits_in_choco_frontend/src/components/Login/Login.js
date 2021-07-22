@@ -3,7 +3,7 @@ import {Field, reduxForm} from "redux-form";
 import {Input} from '../common/FormsControls/FormsControls';
 import {required} from "../utils/validators/validators";
 import {connect} from "react-redux";
-import {login} from "../../redux/admin-reducer";
+import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import style from '../common/FormsControls/FormsControls.module.css';
 
@@ -36,7 +36,7 @@ const Login = props => {
     }
 
     if (props.isAuth) {
-        return <Redirect to={'/admin'} />
+        return <Redirect to={'/profile'} />
     }
 
     return <div>
@@ -47,7 +47,7 @@ const Login = props => {
 
 const mapStateToProps = state => {
     return {
-        isAuth: state.adminReducer.isAdminLoggedIn
+        isAuth: state.authReducer.isAuth
     }
 }
 

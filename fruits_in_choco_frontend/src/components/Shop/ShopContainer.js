@@ -1,19 +1,25 @@
 import React from "react";
 import Main from "./Shop.js";
 import {connect} from "react-redux";
+import {compose} from "redux";
 import Shop from "./Shop.js";
+import {withRouter} from "react-router-dom";
 
 class ShopContainer extends React.Component {
     render() {
         return (
-            <Shop/>
+            <Shop {...this.props}/>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    // isAuth: state.auth.isAuth,
-    // login: state.auth.login
+    pathnames: state.shopReducer.pathnames
 });
 
-export default connect(mapStateToProps, {})(ShopContainer);
+export default compose(
+    connect(mapStateToProps, {}),
+    withRouter
+)(ShopContainer)
+
+// export default connect(mapStateToProps, {})(ShopContainer);

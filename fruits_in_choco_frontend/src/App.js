@@ -16,6 +16,7 @@ const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer')
 const AboutContainer = React.lazy(() => import('./components/About/AboutContainer'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const LoginPage = React.lazy(() => import('./components/Login/Login'));
+const FruitsInChocolatePage = React.lazy(() => import('./components/Shop/FruitsInChocolate/FruitsInChocolateContainer'));
 // const RegistrationPage = React.lazy(() => import('./components/Registration/Registration'));
 
 

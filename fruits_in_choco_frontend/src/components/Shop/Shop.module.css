@@ -1,0 +1,11 @@
+.shopSection .sectionInner {
+    display: flex;
+}
+
+.shopInnerWrapper {
+    display: flex;
+}
+
+nav {
+    /*margin-bottom: 100px;*/
+}

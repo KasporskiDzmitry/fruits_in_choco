@@ -1,4 +1,4 @@
-.productWrapper {
+.cardWrapper {
     display: flex;
     flex-direction: column;
     width: 400px;
@@ -6,36 +6,37 @@
     text-align: center;
 }
 
-.productImageWrapper {
+.cardImageWrapper {
     width: 100%;
     height: 300px;
     margin-bottom: 20px;
     overflow: hidden;
+    cursor: pointer;
 }
 
-.productImageWrapper a {
+.cardImageWrapper a {
     width: 100%;
     height: 100%;
     padding: 0;
 }
 
-.productImageWrapper img {
+.cardImageWrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: .8s;
 }
 
-.productImageWrapper img:hover {
+.cardImageWrapper img:hover {
     transform: scale(1.035) rotate(
             0.05deg
     );
 }
 
-.productTitle {
+.cardTitle {
 
 }
 
-.productDescription p {
+.cardDescription p {
     margin-bottom: 0;
 }

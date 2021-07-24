@@ -3,8 +3,8 @@ import style from './Main.module.css';
 import AboutSectionContainer from "./AboutSection/AboutSectionContainer";
 import OurProductsSectionContainer from "./OurProductsSection/OurProductsSectionContainer";
 import SliderContainer from "./Slider/SliderContainer";
-import ProductContainer from "./OurProductsSection/Product/ProductContainer";
-import Product from "./OurProductsSection/Product/Product";
+import ProductContainer from "./OurProductsSection/CategoryCard/CategoryCardContainer";
+import CategoryCard from "./OurProductsSection/CategoryCard/CategoryCard";
 
 const Main = (props) => {
     return <div className={style.main}>
@@ -15,8 +15,8 @@ const Main = (props) => {
                     <h1>Что мы делаем</h1>
                 </div>
                 <div className={style.productsContainer}>
-                    {props.products.map((product) => {
-                        return <Product product={product} />
+                    {props.categoryCards.map(card => {
+                        return <CategoryCard history={props.history} card={card} selectCategory={props.selectCategory} />
                     })}
                 </div>
             </div>

@@ -3,12 +3,12 @@ import Main from "./Main.js";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {loadProducts} from "../../redux/main-reducer";
+import {loadCategoryCards, selectCategory} from "../../redux/main-reducer";
 
 class MainContainer extends React.Component {
 
     componentDidMount() {
-        this.props.loadProducts();
+        this.props.loadCategoryCards();
     }
 
 
@@ -20,13 +20,13 @@ class MainContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    products: state.mainPage.products
+    categoryCards: state.mainPage.categoryCards
     // isAuth: state.auth.isAuth,
     // login: state.auth.login
 });
 
 export default compose(
-    connect(mapStateToProps, {loadProducts}),
+    connect(mapStateToProps, {loadCategoryCards, selectCategory}),
     withRouter
 )(MainContainer)
 

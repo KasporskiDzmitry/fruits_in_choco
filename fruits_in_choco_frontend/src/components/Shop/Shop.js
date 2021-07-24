@@ -1,20 +1,21 @@
 import React from 'react';
 import style from './Shop.module.css';
 import {Breadcrumb} from "react-bootstrap";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import FruitsInChocolateContainer from "./FruitsInChocolate/FruitsInChocolateContainer";
 import BakeryContainer from "./Bakery/BakeryContainer";
 import BouquetsContainer from "./Bouquets/BouquetsContainer";
 import FitnessBakery from "./Bakery/FitnessBakery";
+import FilterContainer from "./Filter/FilterContainer";
+import Filter from "./Filter/Filter";
 
 const Shop = (props) => {
-
     const pathnames = props.location.pathname.split('/').filter(x => x);
 
 
     return <div className={`sectionOuter ${style.shopSection}`}>
         <div className="sectionInner">
-            <Breadcrumb>
+            <Breadcrumb className={style.breadCrumbs}>
                 {
                     pathnames.map((name, index) => {
                         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
@@ -28,12 +29,17 @@ const Shop = (props) => {
                     })
                 }
             </Breadcrumb>
-            <BrowserRouter>
-                <Route exact path='/shop/fruits_in_chocolate' render={() => <FruitsInChocolateContainer/>}/>
-                <Route exact path='/shop/bakery' render={() => <BakeryContainer/>}/>
-                <Route exact path='/shop/bakery/fitness_bakery' render={() => <FitnessBakery/>}/>
-                <Route exact path='/shop/bouquets' render={() => <BouquetsContainer/>}/>
-            </BrowserRouter>
+            <div className={style.shopInnerWrapper}>
+                <Filter products={props.products} selectedCategoryId={props.selectedCategory} />
+                <div>
+                    <Switch>
+                        <Route exact path='/shop/fruits_in_chocolate' render={() => <FruitsInChocolateContainer/>}/>
+                        <Route exact path='/shop/bakery' render={() => <BakeryContainer/>}/>
+                        <Route exact path='/shop/bakery/fitness_bakery' render={() => <FitnessBakery/>}/>
+                        <Route exact path='/shop/bouquets' render={() => <BouquetsContainer/>}/>
+                    </Switch>
+                </div>
+            </div>
         </div>
 
     </div>

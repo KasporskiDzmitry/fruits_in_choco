@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './OurProductsSection.module.css';
-import ProductContainer from "./Product/ProductContainer";
+import CategoryCardContainer from "./CategoryCard/CategoryCardContainer";
 
 const OurProductsSection = (props) => {
     return <div className={style.ourProductsSection}>
@@ -8,12 +8,9 @@ const OurProductsSection = (props) => {
             <h1>Что мы делаем</h1>
         </div>
         <div>
-            <ProductContainer />
-            <ProductContainer />
-            <ProductContainer />
-            <ProductContainer />
-            <ProductContainer />
-            <ProductContainer />
+            <CategoryCardContainer />
+            <CategoryCardContainer />
+            <CategoryCardContainer />
         </div>
     </div>
 };

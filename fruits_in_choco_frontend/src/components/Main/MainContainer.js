@@ -3,14 +3,10 @@ import Main from "./Main.js";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {loadCategoryCards, selectCategory} from "../../redux/main-reducer";
+import {selectCategory} from "../../redux/main-reducer";
+import {loadCategoryCards} from "../../redux/app-reducer";
 
 class MainContainer extends React.Component {
-
-    componentDidMount() {
-        this.props.loadCategoryCards();
-    }
-
 
     render() {
         return (
@@ -20,13 +16,13 @@ class MainContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    categoryCards: state.mainPage.categoryCards
+    categoryCards: state.appReducer.categories
     // isAuth: state.auth.isAuth,
     // login: state.auth.login
 });
 
 export default compose(
-    connect(mapStateToProps, {loadCategoryCards, selectCategory}),
+    connect(mapStateToProps, {selectCategory}),
     withRouter
 )(MainContainer)
 

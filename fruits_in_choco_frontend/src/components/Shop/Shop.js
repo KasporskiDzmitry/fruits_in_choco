@@ -12,7 +12,6 @@ import Filter from "./Filter/Filter";
 const Shop = (props) => {
     const pathnames = props.location.pathname.split('/').filter(x => x);
 
-
     return <div className={`sectionOuter ${style.shopSection}`}>
         <div className="sectionInner">
             <Breadcrumb className={style.breadCrumbs}>
@@ -30,7 +29,7 @@ const Shop = (props) => {
                 }
             </Breadcrumb>
             <div className={style.shopInnerWrapper}>
-                <Filter products={props.products} selectedCategoryId={props.selectedCategory} />
+                <Filter products={props.products} selectedCategoryId={props.selectedCategory} categories={props.categories}/>
                 <div>
                     <Switch>
                         <Route exact path='/shop/fruits_in_chocolate' render={() => <FruitsInChocolateContainer/>}/>

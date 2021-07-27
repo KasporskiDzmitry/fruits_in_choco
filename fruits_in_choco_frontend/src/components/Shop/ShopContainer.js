@@ -22,7 +22,8 @@ class ShopContainer extends React.Component {
 const mapStateToProps = state => ({
     pathnames: state.shopReducer.pathnames,
     products: state.shopReducer.products,
-    selectedCategory: state.mainPage.selectedCategory
+    selectedCategory: state.mainPage.selectedCategory,
+    categories: state.appReducer.categories
 });
 
 export default compose(

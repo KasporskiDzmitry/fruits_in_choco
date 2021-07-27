@@ -5,22 +5,25 @@ import style from './Filter.module.css';
 export const Filter = (props) => {
     return <div className={style.filterWrapper}>
         {
-            props.products.map(i => {
-                return <Accordion defaultActiveKey={props.selectedCategoryId} flush>
-                    <Accordion.Item eventKey={i.categoryID}>
-                        <Accordion.Header>{i.categoryTitle}</Accordion.Header>
+            props.categories.map(i => (
+                <Accordion defaultActiveKey={props.selectedCategoryId} flush>
+                    <Accordion.Item eventKey={i.id}>
+                        <Accordion.Header>{i.name}</Accordion.Header>
                         <Accordion.Body>
                             {
-                                i.items.map(p => {
-                                    return <div>
-                                        {p.title}
+                                [...new Set(props.products
+                                    .filter(p => p.category.id === i.id)
+                                    .map(productItem => productItem.productType.name))
+                                ].map(i => (
+                                    <div>
+                                        {i}
                                     </div>
-                                })
+                                ))
                             }
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
-            })
+            ))
         }
     </div>
 

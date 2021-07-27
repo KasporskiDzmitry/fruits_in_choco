@@ -1,17 +1,20 @@
 import RequestService from "./RequestService";
+import {loadProducts} from "./shop-reducer";
+import {loadCategories} from "./main-reducer";
 
 const SET_CATEGORIES = 'SET_CATEGORIES';
+const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
 const initialState = {
-    categories: []
+    initialized: false
 }
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_CATEGORIES: {
+        case INITIALIZED_SUCCESS: {
             return {
                 ...state,
-                categories: action.categories
+                initialized: true
             }
         }
         default: {
@@ -19,19 +22,13 @@ const appReducer = (state = initialState, action) => {
         }
     }
 }
+export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
 const setCategories= categories => ({type: SET_CATEGORIES, categories});
 
-
-export const loadCategories = () => async dispatch => {
-    try {
-        const response = await RequestService.get('/categories');
-        console.log(123)
-        dispatch(setCategories(response.data));
-    } catch (e) {
-        console.log(e)
-    }
+export const init = () => async dispatch => {
+    await Promise.all([dispatch(loadCategories()), dispatch(loadProducts())])
+    dispatch(initializedSuccess());
 };
-
 
 export default appReducer;

@@ -8,6 +8,7 @@ import BouquetsContainer from "./Bouquets/BouquetsContainer";
 import FitnessBakery from "./Bakery/FitnessBakery";
 import FilterContainer from "./Filter/FilterContainer";
 import Filter from "./Filter/Filter";
+import ProductCard from "./ProductCard/ProductCard";
 
 const Shop = (props) => {
     const pathnames = props.location.pathname.split('/').filter(x => x);
@@ -30,13 +31,23 @@ const Shop = (props) => {
             </Breadcrumb>
             <div className={style.shopInnerWrapper}>
                 <Filter products={props.products} selectedCategoryId={props.selectedCategory} categories={props.categories}/>
-                <div>
-                    <Switch>
-                        <Route exact path='/shop/fruits_in_chocolate' render={() => <FruitsInChocolateContainer/>}/>
-                        <Route exact path='/shop/bakery' render={() => <BakeryContainer/>}/>
-                        <Route exact path='/shop/bakery/fitness_bakery' render={() => <FitnessBakery/>}/>
-                        <Route exact path='/shop/bouquets' render={() => <BouquetsContainer/>}/>
-                    </Switch>
+                <div className={style.productsWrapper}>
+                    <div className={style.productsPanel}>
+
+                    </div>
+                    <div className={style.products}>
+                        {
+                            props.products.filter(i => i.category.id === props.selectedCategory)
+                                .map(card => <ProductCard card={card} />)
+                        }
+                    </div>
+
+                    {/*<Switch>*/}
+                    {/*    <Route exact path='/shop/fruits_in_chocolate' render={() => <FruitsInChocolateContainer/>}/>*/}
+                    {/*    <Route exact path='/shop/bakery' render={() => <BakeryContainer/>}/>*/}
+                    {/*    <Route exact path='/shop/bakery/fitness_bakery' render={() => <FitnessBakery/>}/>*/}
+                    {/*    <Route exact path='/shop/bouquets' render={() => <BouquetsContainer/>}/>*/}
+                    {/*</Switch>*/}
                 </div>
             </div>
         </div>

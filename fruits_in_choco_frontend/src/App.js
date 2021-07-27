@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import Preloader from "./components/common/Preloader/Preloader";
+import {init} from "./redux/app-reducer";
 // import {initializeApp, setGlobalError} from "./redux/app-reducer";
 // import Preloader from "./components/common/Preloader/Preloader";
 
@@ -29,6 +30,7 @@ class App extends React.Component {
 
 
     componentDidMount() {
+        this.props.init();
         // this.props.initializeApp();
         // window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
     }
@@ -66,9 +68,9 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    initialized: null,
+    initialized: state.appReducer.initialized
 });
 
 export default compose(
-    connect(mapStateToProps, {})(App)
+    connect(mapStateToProps, {init})(App)
 );

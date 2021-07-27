@@ -5,7 +5,18 @@
 .shopInnerWrapper {
     display: flex;
 }
+.productsWrapper {
+    display: flex;
+    flex-direction: column;
+    background: #EC5118;
+    width: 80%;
+}
 
-nav {
-    /*margin-bottom: 100px;*/
+.productsPanel {
+    height: 50px;
+    background: red;
+}
+
+.products {
+    display: flex;
 }

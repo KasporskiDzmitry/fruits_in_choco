@@ -1,10 +1,13 @@
+import RequestService from "./RequestService";
+
 const SET_SLIDES = 'SET_SLIDES';
 const SELECT_CATEGORY = 'SELECT_CATEGORY';
-
+const SET_CATEGORIES = 'SET_CATEGORIES';
 
 const initialState = {
     slides: [],
-    selectedCategory: 0
+    categories: [],
+    selectedCategory: 1
 }
 
 const mainReducer = (state = initialState, action) => {
@@ -13,6 +16,12 @@ const mainReducer = (state = initialState, action) => {
             return {
                 ...state,
                 slides: action.slides
+            }
+        }
+        case SET_CATEGORIES: {
+            return {
+                ...state,
+                categories: action.categories
             }
         }
         case SELECT_CATEGORY: {
@@ -30,6 +39,7 @@ const mainReducer = (state = initialState, action) => {
 
 // Actions
 const setSlides = slides => ({type: SET_SLIDES, slides});
+const setCategories= categories => ({type: SET_CATEGORIES, categories});
 
 // Thunks
 // thunk with promise async
@@ -59,6 +69,15 @@ export const loadSlides = () => dispatch => {
         }
     ]))
 }
+
+export const loadCategories = () => async dispatch => {
+    try {
+        const response = await RequestService.get('/categories');
+        dispatch(setCategories(response.data));
+    } catch (e) {
+        console.log(e)
+    }
+};
 
 
 export const selectCategory = categoryId => ({type: SELECT_CATEGORY, categoryId});

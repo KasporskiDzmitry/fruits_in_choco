@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
     pathnames: state.shopReducer.pathnames,
     products: state.shopReducer.products,
     selectedCategory: state.mainPage.selectedCategory,
-    categories: state.appReducer.categories
+    categories: state.mainPage.categories
 });
 
 export default compose(

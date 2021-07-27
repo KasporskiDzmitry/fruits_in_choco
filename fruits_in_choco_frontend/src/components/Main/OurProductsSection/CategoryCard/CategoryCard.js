@@ -8,7 +8,11 @@ const CategoryCard = ({card, history, selectCategory, setFilteredTypes, products
         e.preventDefault();
         selectCategory(card.id);
         setFilteredTypes(products.filter(i => i.category.id === card.id).map(p => p.productType.id));
-        history.push(card.url);
+        history.push({
+            pathname: card.url,
+            search: `?categoryId=${card.id}`,
+            state: {categoryId: card.id}
+        });
     }
 
     return <div className={style.cardWrapper}>

@@ -30,7 +30,8 @@ const Shop = (props) => {
                 }
             </Breadcrumb>
             <div className={style.shopInnerWrapper}>
-                <Filter products={props.products} selectedCategoryId={props.selectedCategory}
+                <Filter products={props.products}
+                        selectedCategoryId={props.location.state ? props.location.state.categoryId : null}
                         filteredTypes={props.filteredTypes} setFilteredTypes={props.setFilteredTypes}
                         categories={props.categories}/>
                 <div className={style.productsWrapper}>
@@ -39,8 +40,10 @@ const Shop = (props) => {
                     </div>
                     <div className={style.products}>
                         {
-                            props.products.filter(i => i.category.id === props.selectedCategory)
-                                .map(card => <ProductCard card={card}/>)
+                            props.filteredTypes.length > 0
+                                ? props.products.filter(i => props.filteredTypes.includes(i.productType.id))
+                                    .map(card => <ProductCard card={card}/>)
+                                : props.products.map(card => <ProductCard card={card}/>)
                         }
                     </div>
 

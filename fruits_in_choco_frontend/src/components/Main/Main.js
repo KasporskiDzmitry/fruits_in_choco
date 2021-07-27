@@ -16,7 +16,7 @@ const Main = (props) => {
                 </div>
                 <div className={style.productsContainer}>
                     {props.categoryCards.map(card => {
-                        return <CategoryCard history={props.history} card={card} selectCategory={props.selectCategory} />
+                        return <CategoryCard history={props.history} card={card} setFilteredTypes={props.setFilteredTypes} products={props.products} selectCategory={props.selectCategory} />
                     })}
                 </div>
             </div>

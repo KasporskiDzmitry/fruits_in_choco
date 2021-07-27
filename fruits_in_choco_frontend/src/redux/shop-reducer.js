@@ -1,6 +1,7 @@
 import RequestService from "./RequestService";
 
 const SET_PRODUCTS = 'SET_PRODUCTS';
+const SET_FILTERED_TYPES = 'SET_FILTERED_TYPES';
 
 const initialState = {
     pathnames: [
@@ -10,7 +11,8 @@ const initialState = {
         {path: '/bouquets', name: 'Букеты'},
         {path: '/fitness_bakery', name: 'ПП выпечка'},
     ],
-    products: []
+    products: [],
+    filteredTypes: []
 }
 
 const shopReducer = (state = initialState, action) => {
@@ -21,6 +23,12 @@ const shopReducer = (state = initialState, action) => {
                 products: action.products
             }
         }
+        case SET_FILTERED_TYPES: {
+            return {
+                ...state,
+                filteredTypes: action.filteredTypes
+            }
+        }
         default: {
             return state
         }
@@ -29,6 +37,7 @@ const shopReducer = (state = initialState, action) => {
 
 // actions
 export const setProducts = products => ({type: SET_PRODUCTS, products});
+export const setFilteredTypes = filteredTypes => ({type: SET_FILTERED_TYPES, filteredTypes});
 
 //thunks
 export const loadProducts = () => async dispatch => {

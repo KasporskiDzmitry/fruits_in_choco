@@ -2,11 +2,12 @@ import React from 'react';
 import style from './CategoryCard.module.css';
 import {NavLink} from "react-router-dom";
 
-const CategoryCard = ({card, history, selectCategory}) => {
+const CategoryCard = ({card, history, selectCategory, setFilteredTypes, products}) => {
 
     const onClick = (e) => {
         e.preventDefault();
         selectCategory(card.id);
+        setFilteredTypes(products.filter(i => i.category.id === card.id).map(p => p.productType.id));
         history.push(card.url);
     }
 

@@ -1,13 +1,12 @@
 import RequestService from "./RequestService";
 
 const SET_SLIDES = 'SET_SLIDES';
-const SELECT_CATEGORY = 'SELECT_CATEGORY';
 const SET_CATEGORIES = 'SET_CATEGORIES';
 
 const initialState = {
     slides: [],
     categories: [],
-    selectedCategory: 1
+    // selectedCategory: 1
 }
 
 const mainReducer = (state = initialState, action) => {
@@ -22,12 +21,6 @@ const mainReducer = (state = initialState, action) => {
             return {
                 ...state,
                 categories: action.categories
-            }
-        }
-        case SELECT_CATEGORY: {
-            return {
-                ...state,
-                selectedCategory: action.categoryId
             }
         }
         default: {
@@ -78,8 +71,5 @@ export const loadCategories = () => async dispatch => {
         console.log(e)
     }
 };
-
-
-export const selectCategory = categoryId => ({type: SELECT_CATEGORY, categoryId});
 
 export default mainReducer;

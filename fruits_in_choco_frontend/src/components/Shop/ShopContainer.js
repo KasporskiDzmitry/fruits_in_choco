@@ -1,17 +1,11 @@
 import React from "react";
-import Main from "./Shop.js";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import Shop from "./Shop.js";
 import {withRouter} from "react-router-dom";
-import {loadProducts, setFilteredTypes} from "../../redux/shop-reducer";
+import {setFilteredTypes} from "../../redux/shop-reducer";
 
 class ShopContainer extends React.Component {
-
-    componentDidMount() {
-        this.props.loadProducts();
-    }
-
     componentWillUnmount() {
         this.props.setFilteredTypes([]);
     }
@@ -24,16 +18,13 @@ class ShopContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    pathnames: state.shopReducer.pathnames,
+    pathnames: state.appReducer.pathnames,
     products: state.shopReducer.products,
-    selectedCategory: state.mainPage.selectedCategory,
     categories: state.mainPage.categories,
     filteredTypes: state.shopReducer.filteredTypes
 });
 
 export default compose(
-    connect(mapStateToProps, {loadProducts, setFilteredTypes}),
+    connect(mapStateToProps, {setFilteredTypes}),
     withRouter
 )(ShopContainer)
-
-// export default connect(mapStateToProps, {})(ShopContainer);

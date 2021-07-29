@@ -1,11 +1,13 @@
-import RequestService from "./RequestService";
 import {loadProducts} from "./shop-reducer";
 import {loadCategories} from "./main-reducer";
 
-const SET_CATEGORIES = 'SET_CATEGORIES';
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
 const initialState = {
+    pathnames: [
+        {path: '/', name: 'Главная'},
+        {path: '/shop', name: 'Магазин'}
+    ],
     initialized: false
 }
 
@@ -23,8 +25,6 @@ const appReducer = (state = initialState, action) => {
     }
 }
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
-
-const setCategories= categories => ({type: SET_CATEGORIES, categories});
 
 export const init = () => async dispatch => {
     await Promise.all([dispatch(loadCategories()), dispatch(loadProducts())])

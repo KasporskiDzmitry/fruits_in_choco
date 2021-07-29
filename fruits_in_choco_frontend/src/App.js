@@ -1,24 +1,19 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-// import Navbar from './components/Navbar/Navbar';
-import {Route, Switch} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Footer from './components/Footer/Footer';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import Preloader from "./components/common/Preloader/Preloader";
 import {init} from "./redux/app-reducer";
-// import {initializeApp, setGlobalError} from "./redux/app-reducer";
-// import Preloader from "./components/common/Preloader/Preloader";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
 const AboutContainer = React.lazy(() => import('./components/About/AboutContainer'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const LoginPage = React.lazy(() => import('./components/Login/Login'));
-const FruitsInChocolatePage = React.lazy(() => import('./components/Shop/FruitsInChocolate/FruitsInChocolateContainer'));
-// const RegistrationPage = React.lazy(() => import('./components/Registration/Registration'));
 
 
 class App extends React.Component {
@@ -31,7 +26,6 @@ class App extends React.Component {
 
     componentDidMount() {
         this.props.init();
-        // this.props.initializeApp();
         // window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
     }
 
@@ -40,10 +34,6 @@ class App extends React.Component {
     }
 
     render() {
-        // if (!this.props.initialized) {
-        //   return <Preloader/>
-        // }
-        //
         return (
             <div className='app-wrapper'>
                 <HeaderContainer/>
@@ -58,8 +48,6 @@ class App extends React.Component {
                            render={() => <ProfilePage/>}/>
                     <Route path='/login'
                            render={() => <LoginPage/>}/>
-                    {/*<Route path='/registration'*/}
-                    {/*       render={() => <RegistrationPage/>}/>*/}
                 </React.Suspense>
                 <Footer/>
             </div>

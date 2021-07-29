@@ -4,13 +4,6 @@ const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_FILTERED_TYPES = 'SET_FILTERED_TYPES';
 
 const initialState = {
-    pathnames: [
-        {path: '/shop', name: 'Магазин'},
-        {path: '/fruits_in_chocolate', name: 'Фрукты в шоколаде'},
-        {path: '/bakery', name: 'Выпечка'},
-        {path: '/bouquets', name: 'Букеты'},
-        {path: '/fitness_bakery', name: 'ПП выпечка'},
-    ],
     products: [],
     filteredTypes: []
 }

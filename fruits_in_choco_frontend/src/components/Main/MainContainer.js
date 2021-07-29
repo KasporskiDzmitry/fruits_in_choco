@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {selectCategory, setFilteredTypes}),
+    connect(mapStateToProps, {setFilteredTypes}),
     withRouter
 )(MainContainer)
 

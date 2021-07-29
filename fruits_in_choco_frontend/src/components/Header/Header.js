@@ -25,7 +25,6 @@ const Header = (props) => {
                         ?
                         <div>
                             <NavLink to={'/'} onClick={props.logout}>Выйти</NavLink>
-                            {/*<button onClick={props.logout}>Выйти</button>*/}
                         </div>
                         :
                         <div>
@@ -40,21 +39,6 @@ const Header = (props) => {
             </div>
         </div>
     </header>
-
-    // return <header className={style.header}>
-    //     <img src="https://www.freelogodesign.org/Content/img/logo-ex-7.png"/>
-    //
-    //     <div className={style.loginBlock}>
-    //         {isAuth ?
-    //             <div>{login} - <button onClick={logout}>Log out</button></div>
-    //             : <div>
-    //                 <NavLink to={'/login'}>Login</NavLink>
-    //                 <NavLink to={'/registration'}>Registration</NavLink>}
-    //             </div>
-    //         }
-    //
-    //     </div>
-    // </header>
 };
 
 export default Header;

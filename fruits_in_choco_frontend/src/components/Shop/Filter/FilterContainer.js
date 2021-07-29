@@ -1,10 +1,16 @@
 import React from "react";
 import {connect} from "react-redux";
 import Filter from "./Filter.js";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 class FilterContainer extends React.Component {
+
+    componentDidMount() {
+        this.props.setFilteredTypes([...new Set(this.props.products.filter(p => p.category.id === this.props.selectedCategoryId).map(k => k.productType))]);
+    }
+
     render() {
-        console.log(this.props.selectedCategory)
         return (
             <Filter {...this.props}/>
         );
@@ -12,8 +18,9 @@ class FilterContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    products: state.shopReducer.products,
-    selectedCategory: state.mainPage.selectedCategory
 });
 
-export default connect(mapStateToProps, {})(FilterContainer);
+export default compose(
+    connect(mapStateToProps, {}),
+    withRouter
+)(FilterContainer)

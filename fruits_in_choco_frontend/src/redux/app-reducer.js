@@ -27,7 +27,7 @@ const appReducer = (state = initialState, action) => {
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
 export const init = () => async dispatch => {
-    await Promise.all([dispatch(loadCategories()), dispatch(loadProducts())])
+    await Promise.all([dispatch(loadCategories())])
     dispatch(initializedSuccess());
 };
 

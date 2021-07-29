@@ -4,10 +4,10 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.CategoryRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
-import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("productService")
@@ -23,6 +23,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> getProductsFilteredByTypes(List<Integer> types) {
+        List<Product> products = productRepository.findAll();
+        List<Product> filteredProducts = new ArrayList<>();
+        for (Product p : products) {
+            if (types.contains(p.getProductType().getId())) {
+                filteredProducts.add(p);
+            }
+        }
+        return filteredProducts;
     }
 
     @Override

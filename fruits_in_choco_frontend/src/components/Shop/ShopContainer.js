@@ -3,11 +3,20 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import Shop from "./Shop.js";
 import {withRouter} from "react-router-dom";
-import {setFilteredTypes} from "../../redux/shop-reducer";
+import {loadProducts, loadProductsByTypes, setFilteredTypes, setProducts} from "../../redux/shop-reducer";
 
 class ShopContainer extends React.Component {
+    componentDidMount() {
+        if (this.props.filteredTypes) {
+            this.props.loadProductsByTypes(this.props.filteredTypes)
+        } else {
+            this.props.loadProducts();
+        }
+
+    }
+
     componentWillUnmount() {
-        this.props.setFilteredTypes([]);
+        this.props.setFilteredTypes(this.props.categories[0].types.map(i => i.id));
     }
 
     render() {
@@ -25,6 +34,6 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {setFilteredTypes}),
+    connect(mapStateToProps, {setFilteredTypes, loadProducts, loadProductsByTypes, setProducts}),
     withRouter
 )(ShopContainer)

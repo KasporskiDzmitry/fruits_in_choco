@@ -5,7 +5,7 @@ const SET_FILTERED_TYPES = 'SET_FILTERED_TYPES';
 
 const initialState = {
     products: [],
-    filteredTypes: []
+    filteredTypes: null
 }
 
 const shopReducer = (state = initialState, action) => {
@@ -34,13 +34,23 @@ export const setFilteredTypes = filteredTypes => ({type: SET_FILTERED_TYPES, fil
 
 //thunks
 export const loadProducts = () => async dispatch => {
-
     try {
         const response = await RequestService.get('/product');
         dispatch(setProducts(response.data));
     } catch (error) {
         console.log(error);
     }
+}
+
+export const loadProductsByTypes = (types) => async dispatch => {
+    try {
+        const response = await RequestService.post('/product/search', {types});
+        dispatch(setProducts(response.data));
+    } catch (error) {
+        console.log(error)
+
+    }
+
 }
 
 export default shopReducer;

@@ -5,6 +5,7 @@ import {useLocation} from "react-router-dom";
 import FilterContainer from "./Filter/FilterContainer";
 import ProductCard from "./ProductCard/ProductCard";
 import * as qs from "qs";
+import Filter from "./Filter/Filter";
 
 const Shop = (props) => {
     const pathnames = useLocation().pathname.split('/').filter(x => x);
@@ -30,19 +31,15 @@ const Shop = (props) => {
                 }
             </Breadcrumb>
             <div className={style.shopInnerWrapper}>
-                <FilterContainer products={props.products} selectedCategoryId={selectedCategoryId}
-                        filteredTypes={props.filteredTypes} setFilteredTypes={props.setFilteredTypes}
-                        categories={props.categories} />
+                <Filter selectedCategoryId={selectedCategoryId} filteredTypes={props.filteredTypes}
+                        categories={props.categories} loadProductsByTypes={props.loadProductsByTypes}/>
                 <div className={style.productsWrapper}>
                     <div className={style.productsPanel}>
 
                     </div>
                     <div className={style.products}>
                         {
-                            props.filteredTypes.length > 0
-                                ? props.products.filter(i => props.filteredTypes.includes(i.productType))
-                                    .map(card => <ProductCard card={card}/>)
-                                : props.products.map(card => <ProductCard card={card}/>)
+                            props.products.map(i => <ProductCard card={i}/>)
                         }
                     </div>
                 </div>

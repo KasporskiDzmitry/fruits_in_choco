@@ -1,37 +1,43 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Accordion} from "react-bootstrap";
 import style from './Filter.module.css';
 
 export const Filter = (props) => {
+    const defaultFilterParams = props.categories[0].types.map(i => i.id);
+    const [filterParams, setFilterParams] = useState(!props.filteredTypes ? defaultFilterParams : [...props.filteredTypes]);
 
-    const selectType = (type) => {
-        if (props.filteredTypes.indexOf(type) !== -1) {
-            props.setFilteredTypes(props.filteredTypes.filter(i => i !== type));
+    useEffect(() => {
+        props.loadProductsByTypes(filterParams)
+    }, [filterParams]);
+
+    const selectType = (typeId) => {
+        if (filterParams.indexOf(typeId) !== -1) {
+            setFilterParams(filterParams.filter(i => i !== typeId));
             return;
         }
-        props.setFilteredTypes([...props.filteredTypes, type]);
-    }
+        setFilterParams([...filterParams, typeId]);
+        console.log(filterParams)
+    };
 
     return <div className={style.filterWrapper}>
         {
             props.categories.map(i => (
-                <Accordion defaultActiveKey={props.selectedCategoryId}>
+                <Accordion defaultActiveKey={i.types.map(k => k.id).includes(filterParams[0]) && i.id}>
                     <Accordion.Item eventKey={i.id}>
                         <Accordion.Header>{i.name}</Accordion.Header>
                         <Accordion.Body>
                             {
-                                // оптимизировать и упростить!!!
-                                [...new Set(props.products.filter(p => p.category.id === i.id).map(k => k.productType))]
-                                    .map(type => (
+                                i.types.map(type => (
+                                    <div>
                                         <div>
-                                            <div>
-                                                <input type="checkbox" checked={props.filteredTypes.includes(type)} onClick={(e) => selectType(type)}/>
-                                            </div>
-                                            <div>
-                                                {type}
-                                            </div>
+                                            <input type="checkbox" checked={filterParams.includes(type.id)}
+                                                   onChange={(e) => selectType(type.id)}/>
                                         </div>
-                                    ))
+                                        <div>
+                                            {type.name}
+                                        </div>
+                                    </div>
+                                ))
                             }
                         </Accordion.Body>
                     </Accordion.Item>

@@ -8,9 +8,8 @@ const CategoryCard = ({card, selectCategory, setFilteredTypes, products}) => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        // selectCategory(card.id);
-        // setFilteredTypes(products.filter(i => i.category.id === card.id).map(p => p.productType.id));
-        hs.push(`shop?categoryId=${card.id}`);
+        setFilteredTypes(card.types.map(i => i.id));
+        hs.push('shop');
     }
 
     return <div className={style.cardWrapper}>

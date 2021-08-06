@@ -3,7 +3,14 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import Shop from "./Shop.js";
 import {withRouter} from "react-router-dom";
-import {loadProducts, loadProductsByTypes, setFilteredTypes, setProducts} from "../../redux/shop-reducer";
+import {
+    loadProducts,
+    loadProductsByTypes,
+    setFilteredTypes,
+    setIsAscSort,
+    setProducts,
+    setSortBy
+} from "../../redux/shop-reducer";
 
 class ShopContainer extends React.Component {
     componentDidMount() {
@@ -30,10 +37,12 @@ const mapStateToProps = state => ({
     pathnames: state.appReducer.pathnames,
     products: state.shopReducer.products,
     categories: state.mainPage.categories,
-    filteredTypes: state.shopReducer.filteredTypes
+    filteredTypes: state.shopReducer.filteredTypes,
+    sortBy: state.shopReducer.sortBy,
+    isAscSort: state.shopReducer.isAscSort
 });
 
 export default compose(
-    connect(mapStateToProps, {setFilteredTypes, loadProducts, loadProductsByTypes, setProducts}),
+    connect(mapStateToProps, {setFilteredTypes, loadProducts, loadProductsByTypes, setProducts, setSortBy, setIsAscSort}),
     withRouter
 )(ShopContainer)

@@ -5,17 +5,44 @@
 .shopInnerWrapper {
     display: flex;
 }
+
 .productsWrapper {
     display: flex;
     flex-direction: column;
-    background: #EC5118;
     width: 80%;
+    padding: 0 20px;
 }
 
-.productsPanel {
+/* Sorting panel */
+
+.sortPanelWrapper {
     height: 50px;
-    background: red;
+    margin-bottom: 10px;
 }
+
+.sortPanel {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.text {
+    margin-right: 20px;
+}
+
+.selectArea {
+    width: 200px;
+}
+
+.sortArrow {
+    text-align: center;
+    width: 25px;
+    border: 1px solid black;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+/* Products list */
 
 .products {
     display: flex;

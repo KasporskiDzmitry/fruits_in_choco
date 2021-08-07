@@ -16,8 +16,6 @@ const Shop = (props) => {
     const pathnames = useLocation().pathname.split('/').filter(x => x);
     pathnames.unshift('');
 
-    const selectedCategoryId = parseInt(qs.parse(useLocation().search, {ignoreQueryPrefix: true}).categoryId);
-
     return <div className={`sectionOuter ${style.shopSection}`}>
         <div className="sectionInner">
             <Breadcrumb className={style.breadCrumbs}>
@@ -36,10 +34,10 @@ const Shop = (props) => {
                 }
             </Breadcrumb>
             <div className={style.shopInnerWrapper}>
-                <Filter selectedCategoryId={selectedCategoryId} filteredTypes={props.filteredTypes}
-                        categories={props.categories} loadProductsByTypes={props.loadProductsByTypes}/>
+                <Filter categories={props.categories} loadProductsByTypes={props.loadProductsByTypes} loadProducts={props.loadProducts}/>
                 <div className={style.productsWrapper}>
-                    <SortPanel isAscSort={props.isAscSort} setSortBy={props.setSortBy} setIsAscSort={props.setIsAscSort}/>
+                    <SortPanel isAscSort={props.isAscSort} setSortBy={props.setSortBy}
+                               setIsAscSort={props.setIsAscSort}/>
                     <ProductsList products={props.products} sortBy={props.sortBy} isAscSort={props.isAscSort}/>
                 </div>
             </div>

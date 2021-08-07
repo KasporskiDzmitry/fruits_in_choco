@@ -14,6 +14,7 @@ const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer')
 const AboutContainer = React.lazy(() => import('./components/About/AboutContainer'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const LoginPage = React.lazy(() => import('./components/Login/Login'));
+const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
 
 
 class App extends React.Component {
@@ -42,6 +43,8 @@ class App extends React.Component {
                            render={() => <MainContainer/>}/>
                     <Route path='/shop'
                            render={() => <ShopContainer/>}/>
+                    <Route path='/product/:id'
+                           render={() => <ProductPage/>}/>
                     <Route path='/about'
                            render={() => <AboutContainer/>}/>
                     <Route path='/profile'

@@ -5,8 +5,7 @@ const SET_CATEGORIES = 'SET_CATEGORIES';
 
 const initialState = {
     slides: [],
-    categories: [],
-    // selectedCategory: 1
+    categories: []
 }
 
 const mainReducer = (state = initialState, action) => {

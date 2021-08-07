@@ -3,7 +3,6 @@ import Main from "./Main.js";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {selectCategory} from "../../redux/main-reducer";
 import {loadCategoryCards} from "../../redux/app-reducer";
 import {setFilteredTypes} from "../../redux/shop-reducer";
 
@@ -24,7 +23,7 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {setFilteredTypes}),
+    connect(mapStateToProps, {}),
     withRouter
 )(MainContainer)
 

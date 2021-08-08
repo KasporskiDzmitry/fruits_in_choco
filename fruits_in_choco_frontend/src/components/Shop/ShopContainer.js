@@ -6,9 +6,7 @@ import {withRouter} from "react-router-dom";
 import {
     loadProducts,
     loadProductsByTypes,
-    setIsAscSort,
-    setProducts,
-    setSortBy
+    setProducts
 } from "../../redux/shop-reducer";
 
 class ShopContainer extends React.Component {
@@ -22,12 +20,10 @@ class ShopContainer extends React.Component {
 const mapStateToProps = state => ({
     pathnames: state.appReducer.pathnames,
     products: state.shopReducer.products,
-    categories: state.mainPage.categories,
-    sortBy: state.shopReducer.sortBy,
-    isAscSort: state.shopReducer.isAscSort
+    categories: state.mainPage.categories
 });
 
 export default compose(
-    connect(mapStateToProps, {loadProducts, loadProductsByTypes, setProducts, setSortBy, setIsAscSort}),
+    connect(mapStateToProps, {loadProducts, loadProductsByTypes, setProducts}),
     withRouter
 )(ShopContainer)

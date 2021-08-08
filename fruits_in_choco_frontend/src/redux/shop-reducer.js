@@ -1,16 +1,9 @@
 import RequestService from "./RequestService";
 
 const SET_PRODUCTS = 'SET_PRODUCTS';
-const SET_SORT_BY = 'SET_SORT_BY';
-const SET_IS_ASC_SORT = 'SET_IS_ASC_SORT';
 
 const initialState = {
-    products: [],
-
-
-    // filteredTypes: null,
-    sortBy: 'price',
-    isAscSort: true
+    products: []
 }
 
 const shopReducer = (state = initialState, action) => {
@@ -21,18 +14,6 @@ const shopReducer = (state = initialState, action) => {
                 products: action.products
             }
         }
-        case SET_SORT_BY: {
-            return {
-                ...state,
-                sortBy: action.sortBy
-            }
-        }
-        case SET_IS_ASC_SORT: {
-            return {
-                ...state,
-                isAscSort: action.isAscSort
-            }
-        }
         default: {
             return state
         }
@@ -41,8 +22,6 @@ const shopReducer = (state = initialState, action) => {
 
 // actions
 export const setProducts = products => ({type: SET_PRODUCTS, products});
-export const setSortBy = sortBy => ({type: SET_SORT_BY, sortBy});
-export const setIsAscSort = isAscSort => ({type: SET_IS_ASC_SORT, isAscSort});
 
 //thunks
 export const loadProducts = () => async dispatch => {

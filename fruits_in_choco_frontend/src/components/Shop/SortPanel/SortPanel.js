@@ -1,14 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import style from "../Shop.module.css";
 import {Form} from "react-bootstrap";
 
-const SortPanel = ({isAscSort, setSortBy, setIsAscSort}) => {
+const SortPanel = ({products, setProducts}) => {
+    const [sortBy, setSortBy] = useState('price');
+    const [isAscSort, setIsAscSort] = useState(true);
+
+    useEffect(() => {
+        const sortedProducts = [...products].sort((a, b) => {
+            if (a[sortBy] > b[sortBy]) {
+                return 1;
+            }
+            if (a[sortBy] < b[sortBy]) {
+                return -1;
+            }
+            return 0;
+        });
+        isAscSort ? setProducts(sortedProducts) : setProducts(sortedProducts.reverse());
+    }, [sortBy, isAscSort]);
 
     const handleChange = (e) => {
         setSortBy(e.target.value);
     };
 
-    const handleClick = (e) => {
+    const handleClick = () => {
         setIsAscSort(!isAscSort);
     };
 
@@ -25,6 +40,6 @@ const SortPanel = ({isAscSort, setSortBy, setIsAscSort}) => {
             }
         </div>
     </div>
-}
+};
 
 export default SortPanel;

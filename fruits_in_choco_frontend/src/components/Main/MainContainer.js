@@ -3,8 +3,6 @@ import Main from "./Main.js";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {loadCategoryCards} from "../../redux/app-reducer";
-import {setFilteredTypes} from "../../redux/shop-reducer";
 
 class MainContainer extends React.Component {
 
@@ -18,8 +16,6 @@ class MainContainer extends React.Component {
 const mapStateToProps = state => ({
     categoryCards: state.mainPage.categories,
     products: state.shopReducer.products
-    // isAuth: state.auth.isAuth,
-    // login: state.auth.login
 });
 
 export default compose(

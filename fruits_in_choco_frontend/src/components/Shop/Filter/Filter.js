@@ -4,6 +4,7 @@ import {useLocation} from "react-router-dom";
 import style from './Filter.module.css';
 
 export const Filter = (props) => {
+    const initialRender = useRef(true);
     const selectedCategory = useLocation().state?.category;
     const [filterParams, setFilterParams] = useState([]);
 
@@ -15,15 +16,20 @@ export const Filter = (props) => {
         }
     }, []);
 
-    // подумать!!!
+    useEffect(() => {
+        if (initialRender.current) {
+            initialRender.current = false;
+        } else {
+            props.loadProductsByTypes(filterParams);
+        }
+    }, [filterParams]);
+
     const selectType = (typeId) => {
         if (filterParams.indexOf(typeId) !== -1) {
             setFilterParams(filterParams.filter(i => i !== typeId));
-            props.loadProductsByTypes(filterParams.filter(i => i !== typeId));
             return;
         }
         setFilterParams([...filterParams, typeId]);
-        props.loadProductsByTypes([...filterParams, typeId]);
     };
 
     return <div className={style.filterWrapper}>
@@ -51,6 +57,6 @@ export const Filter = (props) => {
             ))
         }
     </div>
-}
+};
 
 export default Filter

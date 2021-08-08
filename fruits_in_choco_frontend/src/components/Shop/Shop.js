@@ -2,17 +2,11 @@ import React, {useState} from 'react';
 import style from './Shop.module.css';
 import {Breadcrumb} from "react-bootstrap";
 import {useLocation} from "react-router-dom";
-import {Form} from "react-bootstrap";
 import ProductCard from "./ProductCard/ProductCard";
-import * as qs from "qs";
 import Filter from "./Filter/Filter";
-import ProductsList from "./ProductsList/ProductsList";
 import SortPanel from "./SortPanel/SortPanel";
 
 const Shop = (props) => {
-    const [sortBy, setSortBy] = useState('price');
-    const [isAscSort, setIsAscSort] = useState(true);
-
     const pathnames = useLocation().pathname.split('/').filter(x => x);
     pathnames.unshift('');
 
@@ -34,15 +28,18 @@ const Shop = (props) => {
                 }
             </Breadcrumb>
             <div className={style.shopInnerWrapper}>
-                <Filter categories={props.categories} loadProductsByTypes={props.loadProductsByTypes} loadProducts={props.loadProducts}/>
+                <Filter categories={props.categories} loadProductsByTypes={props.loadProductsByTypes}
+                        loadProducts={props.loadProducts}/>
                 <div className={style.productsWrapper}>
-                    <SortPanel isAscSort={props.isAscSort} setSortBy={props.setSortBy}
-                               setIsAscSort={props.setIsAscSort}/>
-                    <ProductsList products={props.products} sortBy={props.sortBy} isAscSort={props.isAscSort}/>
+                    <SortPanel products={props.products} setProducts={props.setProducts}/>
+                    <div className={style.products}>
+                        {
+                            props.products.map(i => <ProductCard card={i}/>)
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 };
 

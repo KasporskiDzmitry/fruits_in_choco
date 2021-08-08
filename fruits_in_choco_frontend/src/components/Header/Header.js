@@ -3,7 +3,6 @@ import style from './Header.module.css';
 import {NavLink} from "react-router-dom";
 
 const Header = (props) => {
-
     return <header className={`sectionOuter ${style.sectionHeader}`}>
         <div className={`sectionInner ${style.sectionInner}`}>
             <div className={style.toggleNavBtn}>

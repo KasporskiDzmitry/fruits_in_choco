@@ -1,40 +1,43 @@
 import RequestService from "./RequestService";
 import {stopSubmit} from "redux-form";
 
-const SET_USER_DATA = 'SET_USER_DATA';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 const initialState = {
-    userId: null,
-    email: null,
-    login: null,
+    userId: '',
+    email: '',
+    login: '',
     isAuth: false
-}
+};
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_USER_DATA: {
+        case LOGIN_SUCCESS: {
             return {
                 ...state,
                 ...action.payload
+            }
+        }
+
+        case LOGOUT_SUCCESS: {
+            return {
+                ...state,
+               ...action.payload
             }
         }
         default: {
             return state
         }
     }
-}
+};
 
-export const setAuthUserData = (userId, email, login, isAuth) => ({
-    type: SET_USER_DATA,
+const loginSuccess = (userId, email, login, isAuth) => ({
+    type: LOGIN_SUCCESS,
     payload: {userId, email, login, isAuth}
-})
+});
 
-export const getAuthUserData = () => async dispatch => {
-    if (localStorage.isLoggedIn) {
-        const {email, token, role, userId} = localStorage;
-        dispatch(setAuthUserData(userId, email, token, true));
-    }
-}
+const logoutSuccess = (userId, email, login, isAuth) => ({type: LOGOUT_SUCCESS, payload: {userId, email, login, isAuth}});
 
 export const login = (email, password) => async dispatch => {
     try {
@@ -44,11 +47,11 @@ export const login = (email, password) => async dispatch => {
         localStorage.setItem('role', response.data.role);
         localStorage.setItem('userId', response.data.userId);
         localStorage.setItem('isLoggedIn', 'true');
-        dispatch(getAuthUserData());
+        dispatch(loginSuccess(response.data.userId, response.data.email, response.data.login, true));
     } catch (error) {
         dispatch(stopSubmit('login', {_error: error.response.data}));
     }
-}
+};
 
 export const logout = () => dispatch => {
     localStorage.removeItem('email');
@@ -56,7 +59,7 @@ export const logout = () => dispatch => {
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
     localStorage.removeItem('isLoggedIn');
-    dispatch(setAuthUserData(null, null, null, false));
-}
+    dispatch(logoutSuccess('', '', '', false));
+};
 
 export default authReducer;

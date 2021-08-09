@@ -15,13 +15,14 @@ class ProductPageContainer extends React.Component {
 
     render() {
         return (
-            <ProductPage product={this.props.product}/>
+            <ProductPage product={this.props.product} isAuth={this.props.isAuth}/>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    product: state.shopReducer.currentProduct
+    product: state.shopReducer.currentProduct,
+    isAuth: state.authReducer.isAuth
 });
 
 export default compose(

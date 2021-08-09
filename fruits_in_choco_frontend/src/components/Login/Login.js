@@ -4,8 +4,9 @@ import {Input} from '../common/FormsControls/FormsControls';
 import {required} from "../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
-import {Redirect} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 import style from '../common/FormsControls/FormsControls.module.css';
+import {compose} from "redux";
 
 const LoginForm = ({handleSubmit, error}) => {
     return (
@@ -36,7 +37,8 @@ const Login = props => {
     }
 
     if (props.isAuth) {
-        return <Redirect to={'/profile'} />
+        props.history.goBack();
+        // return <Redirect to={'/profile'} />
     }
 
     return <div>
@@ -51,4 +53,9 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {login})(Login);
+export default compose(
+    connect(mapStateToProps, {login}),
+    withRouter
+)(Login);
+
+// export default (Login);

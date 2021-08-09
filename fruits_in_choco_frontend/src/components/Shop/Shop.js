@@ -5,6 +5,7 @@ import {useLocation} from "react-router-dom";
 import ProductCard from "./ProductCard/ProductCard";
 import Filter from "./Filter/Filter";
 import SortPanel from "./SortPanel/SortPanel";
+import Preloader from "../common/Preloader/Preloader";
 
 const Shop = (props) => {
     const pathnames = useLocation().pathname.split('/').filter(x => x);
@@ -18,7 +19,7 @@ const Shop = (props) => {
                         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
 
                         const isLast = index === pathnames.length - 1;
-                        const nameForLink = props.pathnames.filter(i => i.path === `/${name}`)[0];
+                        const nameForLink = props.pathnames.find(i => i.path === `/${name}`);
 
                         return isLast ?
                             <Breadcrumb.Item href={routeTo} active>{nameForLink.name}</Breadcrumb.Item>
@@ -32,11 +33,15 @@ const Shop = (props) => {
                         loadProducts={props.loadProducts}/>
                 <div className={style.productsWrapper}>
                     <SortPanel products={props.products} setProducts={props.setProducts}/>
-                    <div className={style.products}>
-                        {
-                            props.products.map(i => <ProductCard card={i}/>)
-                        }
-                    </div>
+                    {
+                        props.isFetching ?
+                            <Preloader/> :
+                            <div className={style.products}>
+                                {
+                                    props.products.map(i => <ProductCard card={i}/>)
+                                }
+                            </div>
+                    }
                 </div>
             </div>
         </div>

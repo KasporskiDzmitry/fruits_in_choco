@@ -23,7 +23,7 @@ const Header = (props) => {
                     {props.isAuth
                         ?
                         <div>
-                            <NavLink to={'/'} onClick={props.logout}>Выйти</NavLink>
+                            <NavLink to={'#'} onClick={props.logout}>Выйти</NavLink>
                         </div>
                         :
                         <div>

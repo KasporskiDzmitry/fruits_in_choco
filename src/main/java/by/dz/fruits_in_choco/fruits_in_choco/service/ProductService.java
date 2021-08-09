@@ -9,6 +9,8 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
+    Product getProductById(int id);
+
     List<Product> getProductsFilteredByTypes(List<Integer> types);
 
     List<Category> getAllCategories();

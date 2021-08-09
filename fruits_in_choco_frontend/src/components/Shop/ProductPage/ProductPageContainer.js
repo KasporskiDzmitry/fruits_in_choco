@@ -3,10 +3,11 @@ import {connect} from "react-redux";
 import ProductPage from "./ProductPage";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
+import {loadProductById} from "../../../redux/shop-reducer";
 
 class ProductPageContainer extends React.Component {
     componentDidMount() {
-        console.log(this.props.history)
+        this.props.loadProductById(this.props.history.location.state.id);
     }
 
     componentWillUnmount() {
@@ -14,16 +15,16 @@ class ProductPageContainer extends React.Component {
 
     render() {
         return (
-            <ProductPage {...this.props}/>
+            <ProductPage product={this.props.product}/>
         );
     }
 }
 
 const mapStateToProps = state => ({
-
+    product: state.shopReducer.currentProduct
 });
 
 export default compose(
-    connect(mapStateToProps, {}),
+    connect(mapStateToProps, {loadProductById}),
     withRouter
 )(ProductPageContainer)

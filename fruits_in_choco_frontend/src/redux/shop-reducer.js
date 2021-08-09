@@ -1,10 +1,12 @@
 import RequestService from "./RequestService";
 
 const SET_PRODUCTS = 'SET_PRODUCTS';
+const SET_CURRENT_PRODUCT = 'SET_CURRENT_PRODUCT';
 
 const initialState = {
-    products: []
-}
+    products: [],
+    currentProduct: {}
+};
 
 const shopReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -14,14 +16,21 @@ const shopReducer = (state = initialState, action) => {
                 products: action.products
             }
         }
+        case SET_CURRENT_PRODUCT: {
+            return {
+                ...state,
+                currentProduct: action.currentProduct
+            }
+        }
         default: {
             return state
         }
     }
-}
+};
 
 // actions
 export const setProducts = products => ({type: SET_PRODUCTS, products});
+const setCurrentProduct = currentProduct => ({type: SET_CURRENT_PRODUCT, currentProduct});
 
 //thunks
 export const loadProducts = () => async dispatch => {
@@ -32,6 +41,16 @@ export const loadProducts = () => async dispatch => {
         console.log(error);
     }
 }
+
+export const loadProductById = id => async dispatch => {
+    try {
+        const response = await RequestService.get(`/product/${id}`);
+        console.log(response.data)
+        dispatch(setCurrentProduct(response.data));
+    } catch (e) {
+        console.log(e);
+    }
+};
 
 export const loadProductsByTypes = (types) => async dispatch => {
     try {

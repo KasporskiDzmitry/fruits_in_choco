@@ -41,4 +41,8 @@ public class ProductServiceImpl implements ProductService {
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
+
+    public Product getProductById(int id) {
+        return productRepository.findById(id).get();
+    }
 }

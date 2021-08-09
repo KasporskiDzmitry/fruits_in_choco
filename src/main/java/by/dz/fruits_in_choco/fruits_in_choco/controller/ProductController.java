@@ -22,6 +22,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProducts());
     }
 
+    @GetMapping("/product/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable int id) {
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
+
     @PostMapping("/product/search")
     public ResponseEntity<?> getProductsFilteredByTypes(@RequestBody ProductRequest request) {
         return ResponseEntity.ok(productService.getProductsFilteredByTypes(request.getTypes()));

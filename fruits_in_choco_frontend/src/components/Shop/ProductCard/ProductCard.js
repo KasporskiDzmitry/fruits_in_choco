@@ -9,7 +9,7 @@ export const ProductCard = ({card}) => {
         <Card.Body>
             <Card.Title>{card.name}</Card.Title>
             <Card.Text>{card.description}</Card.Text>
-            <Link to={`/product/${card.id}`}>
+            <Link to={{pathname: `/product/${card.id}`, state: {id: card.id}}}>
                 <Button variant="primary">Go somewhere</Button>
             </Link>
         </Card.Body>

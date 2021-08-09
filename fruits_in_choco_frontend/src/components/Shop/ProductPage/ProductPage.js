@@ -1,8 +1,16 @@
 import React from "react";
 
-const ProductPage = (props) => {
+const ProductPage = ({product}) => {
     return <div>
-        Product page
+        <div>
+            Product id: {product.id}
+        </div>
+        <div>
+            Product name: {product.name}
+        </div>
+        <div>
+            Product price: {product.price}
+        </div>
     </div>
 }
 

@@ -2,8 +2,21 @@ import React from 'react';
 import {connect} from "react-redux";
 import Profile from "./Profile";
 import AdminContainer from "../Admin/AdminContainer";
+import {getProfile} from "../../redux/profile-reducer";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 class ProfileContainer extends React.Component {
+    componentDidMount() {
+        console.log(123)
+        if (!localStorage.getItem("isLoggedIn")) {
+            this.props.history.push('/login')
+        } else {
+            this.props.getProfile();
+        }
+    }
+
+
     render() {
         if (localStorage.getItem('role') === 'ADMIN') return <AdminContainer {...this.props} />
         return <Profile {...this.props} />
@@ -11,7 +24,9 @@ class ProfileContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    // isAuth: state.authReducer.isAuth
 });
 
-export default connect(mapStateToProps, {})(ProfileContainer);
+export default compose (
+    connect(mapStateToProps, {getProfile}),
+    withRouter
+)(ProfileContainer)

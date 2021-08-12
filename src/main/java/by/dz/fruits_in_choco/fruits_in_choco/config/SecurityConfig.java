@@ -25,11 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .cors().and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/auth/login", "/product", "/product/{id}", "/product/search", "/categories").permitAll()
+                .antMatchers("/auth/login", "/auth/logout", "/product", "/product/{id}", "/product/search", "/categories").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

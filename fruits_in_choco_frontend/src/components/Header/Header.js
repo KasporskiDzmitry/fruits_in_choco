@@ -1,8 +1,11 @@
 import React from 'react';
 import style from './Header.module.css';
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
+import {useLocation} from 'react-router-dom';
 
 const Header = (props) => {
+    const location = useLocation().pathname;
+
     return <header className={`sectionOuter ${style.sectionHeader}`}>
         <div className={`sectionInner ${style.sectionInner}`}>
             <div className={style.toggleNavBtn}>
@@ -20,10 +23,15 @@ const Header = (props) => {
                     <NavLink to={'/contacts'}>Контакты</NavLink>
                 </nav>
                 <div className={style.navbarAside}>
-                    {props.isAuth
+                    {localStorage.getItem('isLoggedIn') || props.isAuth
                         ?
                         <div>
-                            <NavLink to={'#'} onClick={props.logout}>Выйти</NavLink>
+                            <div>
+                                <NavLink to={'/profile'}>Профиль</NavLink>
+                            </div>
+                            <div>
+                                <NavLink to={'/'} onClick={props.logout}>Выйти</NavLink>
+                            </div>
                         </div>
                         :
                         <div>

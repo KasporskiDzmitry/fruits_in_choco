@@ -53,7 +53,8 @@ export const login = (email, password) => async dispatch => {
     }
 };
 
-export const logout = () => dispatch => {
+export const logout = () => async dispatch => {
+    await RequestService.post("/auth/logout", null, true);
     localStorage.removeItem('email');
     localStorage.removeItem('token');
     localStorage.removeItem('role');

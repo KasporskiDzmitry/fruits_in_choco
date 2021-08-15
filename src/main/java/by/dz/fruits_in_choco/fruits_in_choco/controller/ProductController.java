@@ -36,4 +36,9 @@ public class ProductController {
     public ResponseEntity<?> getAllCategories() {
         return ResponseEntity.ok(productService.getAllCategories());
     }
+
+//    @GetMapping("/reviews")
+//    public ResponseEntity<?> getReviewsByProductId(@PathVariable int id) {
+//        return ResponseEntity.ok(productService.getReviewsByProductId(id));
+//    }
 }

@@ -47,14 +47,14 @@ export const login = (email, password) => async dispatch => {
         localStorage.setItem('role', response.data.role);
         localStorage.setItem('userId', response.data.userId);
         localStorage.setItem('isLoggedIn', 'true');
-        dispatch(loginSuccess(response.data.userId, response.data.email, response.data.login, true));
+        dispatch(loginSuccess(response.data.userId, response.data.email, 'login', true));
     } catch (error) {
         dispatch(stopSubmit('login', {_error: error.response.data}));
     }
 };
 
 export const logout = () => async dispatch => {
-    await RequestService.post("/auth/logout", null, true);
+    await RequestService.post("/auth/logout", null);
     localStorage.removeItem('email');
     localStorage.removeItem('token');
     localStorage.removeItem('role');

@@ -8,7 +8,6 @@ import {withRouter} from "react-router-dom";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        console.log(123)
         if (!localStorage.getItem("isLoggedIn")) {
             this.props.history.push('/login')
         } else {
@@ -24,6 +23,7 @@ class ProfileContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    profile: state.profileReducer.profile
 });
 
 export default compose (

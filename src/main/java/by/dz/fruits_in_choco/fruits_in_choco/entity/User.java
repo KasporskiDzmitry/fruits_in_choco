@@ -1,8 +1,12 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.productReview.ProductReview;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -25,4 +29,10 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+
+    @OneToMany (mappedBy="user", fetch=FetchType.EAGER)
+    @JsonManagedReference
+    @ToString.Exclude
+    private List<ProductReview> reviews;
 }

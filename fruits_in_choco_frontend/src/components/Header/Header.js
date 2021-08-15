@@ -27,10 +27,11 @@ const Header = (props) => {
                         ?
                         <div>
                             <div>
-                                <NavLink to={'/profile'}>Профиль</NavLink>
+                                <NavLink to={'/profile'}>{props.login}</NavLink>
                             </div>
                             <div>
-                                <NavLink to={'/'} onClick={props.logout}>Выйти</NavLink>
+                                // продумать логаут (куда делать редирект)
+                                <NavLink to={'#'} onClick={props.logout}>Выйти</NavLink>
                             </div>
                         </div>
                         :

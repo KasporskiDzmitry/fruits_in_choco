@@ -7,7 +7,7 @@ import {loadProductById} from "../../../redux/shop-reducer";
 
 class ProductPageContainer extends React.Component {
     componentDidMount() {
-        this.props.loadProductById(this.props.history.location.state.id);
+        this.props.loadProductById(this.props.history.location.pathname.split('/').pop());
     }
 
     componentWillUnmount() {
@@ -22,6 +22,7 @@ class ProductPageContainer extends React.Component {
 
 const mapStateToProps = state => ({
     product: state.shopReducer.currentProduct,
+    isFetching: state.shopReducer.isFetching,
     isAuth: state.authReducer.isAuth
 });
 

@@ -1,5 +1,6 @@
 import RequestService from "./RequestService";
 import {stopSubmit} from "redux-form";
+import {getProfile} from "./profile-reducer";
 
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
@@ -46,6 +47,7 @@ export const login = (email, password) => async dispatch => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('role', response.data.role);
         localStorage.setItem('userId', response.data.userId);
+        localStorage.setItem('name', response.data.name);
         localStorage.setItem('isLoggedIn', 'true');
         dispatch(loginSuccess(response.data.userId, response.data.email, 'login', true));
     } catch (error) {

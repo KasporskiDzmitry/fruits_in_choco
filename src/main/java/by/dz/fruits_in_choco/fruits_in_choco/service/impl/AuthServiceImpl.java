@@ -32,15 +32,16 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String token = jwtTokenProvider.createToken(email, user.getRole().name());
-        return generateMapForResponse(email, token, user.getRole().name(), user.getId());
+        return generateMapForResponse(email, token, user.getRole().name(), user.getId(), user.getFirstName() + " " + user.getLastName());
     }
 
-    private Map<String, String> generateMapForResponse(String email, String token, String role, Long id) {
+    private Map<String, String> generateMapForResponse(String email, String token, String role, Long id, String name) {
         Map<String, String> response = new HashMap<>();
         response.put("email", email);
         response.put("token", token);
         response.put("role", role);
         response.put("userId", String.valueOf(id));
+        response.put("name", name);
 
         return response;
     }

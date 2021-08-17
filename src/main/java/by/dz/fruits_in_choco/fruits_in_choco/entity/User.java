@@ -30,9 +30,8 @@ public class User {
     @Column(name = "role")
     private Role role;
 
+    // добавить поле логин
 
-    @OneToMany (mappedBy="user", fetch=FetchType.EAGER)
-    @JsonManagedReference
-    @ToString.Exclude
+    @OneToMany
     private List<ProductReview> reviews;
 }

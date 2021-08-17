@@ -16,5 +16,4 @@ public interface ProductService {
 
     List<Category> getAllCategories();
 
-    List<ProductReview> getReviewsByProductId(int id);
 }

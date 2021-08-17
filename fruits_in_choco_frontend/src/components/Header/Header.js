@@ -6,6 +6,8 @@ import {useLocation} from 'react-router-dom';
 const Header = (props) => {
     const location = useLocation().pathname;
 
+    console.log(location)
+
     return <header className={`sectionOuter ${style.sectionHeader}`}>
         <div className={`sectionInner ${style.sectionInner}`}>
             <div className={style.toggleNavBtn}>
@@ -23,7 +25,7 @@ const Header = (props) => {
                     <NavLink to={'/contacts'}>Контакты</NavLink>
                 </nav>
                 <div className={style.navbarAside}>
-                    {localStorage.getItem('isLoggedIn') || props.isAuth
+                    {props.isAuth
                         ?
                         <div>
                             <div>
@@ -31,7 +33,7 @@ const Header = (props) => {
                             </div>
                             <div>
                                 // продумать логаут (куда делать редирект)
-                                <NavLink to={'#'} onClick={props.logout}>Выйти</NavLink>
+                                <NavLink to={location === '/profile' ? '/' : '#'} onClick={props.logout}>Выйти</NavLink>
                             </div>
                         </div>
                         :

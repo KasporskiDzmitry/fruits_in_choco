@@ -13,21 +13,6 @@ const Shop = (props) => {
 
     return <div className={`sectionOuter ${style.shopSection}`}>
         <div className="sectionInner">
-            <Breadcrumb className={style.breadCrumbs}>
-                {
-                    pathnames.map((name = `/${name}`, index) => {
-                        const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
-
-                        const isLast = index === pathnames.length - 1;
-                        const nameForLink = props.pathnames.find(i => i.path === `/${name}`);
-
-                        return isLast ?
-                            <Breadcrumb.Item href={routeTo} active>{nameForLink.name}</Breadcrumb.Item>
-                            :
-                            <Breadcrumb.Item href={routeTo}>{nameForLink.name}</Breadcrumb.Item>
-                    })
-                }
-            </Breadcrumb>
             <div className={style.shopInnerWrapper}>
                 <Filter categories={props.categories} loadProductsByTypes={props.loadProductsByTypes}
                         loadProducts={props.loadProducts}/>

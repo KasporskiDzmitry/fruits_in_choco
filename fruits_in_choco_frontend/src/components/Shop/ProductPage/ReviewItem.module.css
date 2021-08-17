@@ -1,0 +1,21 @@
+.reviewItem {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.heading h2, span {
+    font-size: 20px;
+}
+
+.reviewItem h3 {
+    font-size: 14px;
+}

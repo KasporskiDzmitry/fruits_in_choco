@@ -7,12 +7,13 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name="product")
-public class Product {
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,8 +27,6 @@ public class Product {
     @JoinColumn(name = "type_id")
     private ProductType productType;
 
-    @OneToMany (mappedBy="product", fetch=FetchType.EAGER)
-    @JsonManagedReference
-    @ToString.Exclude
+    @OneToMany
     private List<ProductReview> reviews;
 }

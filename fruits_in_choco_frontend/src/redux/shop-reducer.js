@@ -7,6 +7,7 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const initialState = {
     products: [],
     currentProduct: {},
+    currentProductReviews: [],
     isFetching: false
 };
 
@@ -27,7 +28,8 @@ const shopReducer = (state = initialState, action) => {
         case SET_CURRENT_PRODUCT: {
             return {
                 ...state,
-                currentProduct: action.currentProduct
+                currentProduct: action.currentProduct,
+                currentProductReviews: action.currentProduct.reviews
             }
         }
         default: {
@@ -62,5 +64,10 @@ export const loadProductsByTypes = (types) => async dispatch => {
     dispatch(toggleIsFetching(false));
     dispatch(setProducts(response.data));
 };
+
+export const addReview = (review) => async dispatch => {
+    const response = await RequestService.post('/product/review', review, true);
+    dispatch(setCurrentProduct(response.data));
+}
 
 export default shopReducer;

@@ -1,4 +1,5 @@
 import RequestService from "./RequestService";
+import {getProfile} from "./profile-reducer";
 
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_CURRENT_PRODUCT = 'SET_CURRENT_PRODUCT';
@@ -68,6 +69,8 @@ export const loadProductsByTypes = (types) => async dispatch => {
 export const addReview = (review) => async dispatch => {
     const response = await RequestService.post('/product/review', review, true);
     dispatch(setCurrentProduct(response.data));
+
+    dispatch(getProfile());
 }
 
 export default shopReducer;

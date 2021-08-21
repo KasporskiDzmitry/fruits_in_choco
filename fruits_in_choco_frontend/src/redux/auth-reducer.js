@@ -49,6 +49,7 @@ export const login = (email, password) => async dispatch => {
         localStorage.setItem('userId', response.data.userId);
         localStorage.setItem('name', response.data.name);
         localStorage.setItem('isLoggedIn', 'true');
+        dispatch(getProfile());
         dispatch(loginSuccess(response.data.userId, response.data.email, 'login', true));
     } catch (error) {
         dispatch(stopSubmit('login', {_error: error.response.data}));

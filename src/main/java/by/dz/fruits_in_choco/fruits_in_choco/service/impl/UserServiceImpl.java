@@ -28,10 +28,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Product saveProductReview(ProductReview review, int productId) {
+    public Product saveProductReview(ProductReview review, int productId, int reviewerId) {
         Product product = productRepository.findById(productId);
-        List<ProductReview> reviews = product.getReviews();
-        reviews.add(review);
+        User user = userRepository.findById(reviewerId);
+
+        List<ProductReview> productReviews = product.getReviews();
+        List<ProductReview> userReviews = user.getReviews();
+        productReviews.add(review);
+        userReviews.add(review);
         productReviewRepository.save(review);
         return product;
     }

@@ -6,8 +6,6 @@ import {useLocation} from 'react-router-dom';
 const Header = (props) => {
     const location = useLocation().pathname;
 
-    console.log(location)
-
     return <header className={`sectionOuter ${style.sectionHeader}`}>
         <div className={`sectionInner ${style.sectionInner}`}>
             <div className={style.toggleNavBtn}>

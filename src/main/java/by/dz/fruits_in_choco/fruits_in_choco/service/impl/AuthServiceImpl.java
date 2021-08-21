@@ -35,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
         return generateMapForResponse(email, token, user.getRole().name(), user.getId(), user.getFirstName() + " " + user.getLastName());
     }
 
-    private Map<String, String> generateMapForResponse(String email, String token, String role, Long id, String name) {
+    private Map<String, String> generateMapForResponse(String email, String token, String role, int id, String name) {
         Map<String, String> response = new HashMap<>();
         response.put("email", email);
         response.put("token", token);

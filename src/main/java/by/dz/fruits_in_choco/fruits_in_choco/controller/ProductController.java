@@ -43,7 +43,7 @@ public class ProductController {
 
     @PostMapping("/product/review")
     public ResponseEntity<?> saveReview(@RequestBody ProductReviewRequest request) {
-        Product product = userMapper.addReviewToProduct(request, request.getProductId());
+        Product product = userMapper.addReviewToProduct(request, request.getProductId(), request.getReviewerId());
         return ResponseEntity.ok(product);
     }
 }

@@ -46,7 +46,7 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews})
                                         корзину</Button>
                                 </div>
                                 <div>
-                                    {reviews.map(i => <ReviewItem review={i}/>)}
+                                    {reviews.map(i => <ReviewItem review={i} profile={profile}/>)}
                                 </div>
                                 {
                                     localStorage.getItem('isLoggedIn') ?
@@ -58,6 +58,7 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews})
                                                       onChange={print}></textarea>
                                             <button onClick={() => addReview({
                                                 reviewer: localStorage.getItem('name'),
+                                                reviewerId: localStorage.getItem('userId'),
                                                 text: reviewText,
                                                 stars: stars,
                                                 datetime: new Date(),

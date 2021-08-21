@@ -7,6 +7,7 @@ import java.util.Date;
 @Data
 public class ProductReviewRequest {
 
+    int reviewerId;
     int productId;
 
     String reviewer;

@@ -39,4 +39,12 @@ public class UserServiceImpl implements UserService {
         productReviewRepository.save(review);
         return product;
     }
+
+    @Override
+    public void updateReview(ProductReview review) {
+        ProductReview productReview = productReviewRepository.findById(review.getId()).get();
+        productReview.setText(review.getText());
+        productReview.setStars(review.getStars());
+        productReviewRepository.save(productReview);
+    }
 }

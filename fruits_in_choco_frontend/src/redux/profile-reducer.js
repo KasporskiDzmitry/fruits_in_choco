@@ -25,7 +25,6 @@ export const setProfile = (profile) => ({type: SET_PROFILE, profile});
 
 
 export const getProfile = () => async dispatch => {
-    console.log(123123123)
     try {
         const response = await RequestService.get(`/profile`, true);
         dispatch(setProfile(response.data));

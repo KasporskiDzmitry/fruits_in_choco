@@ -2,22 +2,30 @@ import React, {useState} from "react";
 import style from './ProductPage.module.css';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import {Button} from "react-bootstrap";
 import Preloader from "../../common/Preloader/Preloader";
 import ReviewItem from "./ReviewItem";
-import {Field, reduxForm} from "redux-form";
-import {Input, Textarea} from "../../common/FormsControls/FormsControls";
-import {maxLengthCreator, required} from "../../utils/validators/validators";
+import ReviewForm from "./ReviewForm";
 
-const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews}) => {
+const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews, editReview, updateReview}) => {
     const [stars, setStars] = useState(0);
     const [reviewText, setReviewText] = useState('');
 
-
-    const print = (e) => {
+    const handleChange = (e) => {
         setReviewText(e.target.value);
     }
+
+    const handleSubmit = (e) => {
+        addReview({
+            reviewer: localStorage.getItem('name'),
+            reviewerId: localStorage.getItem('userId'),
+            text: reviewText,
+            stars: stars,
+            datetime: new Date(),
+            productId: product.id
+        })
+    }
+
 
     return <div className={`sectionOuter ${style.productPageWrapper}`}>
         <div className="sectionInner">
@@ -46,7 +54,7 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews})
                                         корзину</Button>
                                 </div>
                                 <div>
-                                    {reviews.map(i => <ReviewItem review={i} profile={profile}/>)}
+                                    {reviews.map(i => <ReviewItem review={i} profile={profile} updateReview={updateReview} />)}
                                 </div>
                                 {
                                     localStorage.getItem('isLoggedIn') ?
@@ -54,18 +62,7 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews})
                                             <Rating name="rating" value={stars} onChange={(event, newValue) => {
                                                 setStars(newValue);
                                             }}/>
-                                            <textarea name="review" id="review" cols="30" rows="10"
-                                                      onChange={print}></textarea>
-                                            <button onClick={() => addReview({
-                                                reviewer: localStorage.getItem('name'),
-                                                reviewerId: localStorage.getItem('userId'),
-                                                text: reviewText,
-                                                stars: stars,
-                                                datetime: new Date(),
-                                                productId: product.id
-                                            })}>Отправить
-                                            </button>
-                                            {/*<ReviewReduxForm onSubmit={onSubmit}/>*/}
+                                            <ReviewForm handleSubmit={handleSubmit} handleChange={handleChange} value={reviewText}/>
                                         </div> :
                                         <div>
                                             Войдите или зарегистрируйтесь, чтобы оставить отзыв о товаре
@@ -77,29 +74,6 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews})
             }
         </div>
     </div>
-}
-
-const maxLength100 = maxLengthCreator(100);
-
-const ReviewForm = ({handleSubmit, error}) => {
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                Оставьте отзыв о товаре
-                <div>
-                    <Field component={Textarea} validate={[required, maxLength100]} name={'text'}
-                           placeholder={'Enter your message'}/>
-                </div>
-                <div>
-                    <button>Send</button>
-                </div>
-            </form>
-        </div>
-
-    )
-}
-
-const ReviewReduxForm = reduxForm({form: 'reviewForm'})(ReviewForm);
-
+};
 
 export default ProductPage;

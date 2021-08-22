@@ -9,7 +9,6 @@ public class ProductReviewRequest {
 
     int reviewerId;
     int productId;
-
     String reviewer;
     String text;
     int stars;

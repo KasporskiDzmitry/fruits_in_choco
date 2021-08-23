@@ -11,7 +11,7 @@ class ProfileContainer extends React.Component {
         if (!localStorage.getItem("isLoggedIn")) {
             this.props.history.push('/login')
         } else {
-            // this.props.getProfile();
+            this.props.getProfile();
         }
     }
 

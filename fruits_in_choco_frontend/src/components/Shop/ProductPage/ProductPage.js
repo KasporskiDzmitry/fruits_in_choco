@@ -11,9 +11,9 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews, 
     const [stars, setStars] = useState(0);
     const [reviewText, setReviewText] = useState('');
 
-    const handleChange = (e) => {
-        setReviewText(e.target.value);
-    }
+    const handleChange = (text) => {
+        setReviewText(text);
+    };
 
     const handleSubmit = (e) => {
         addReview({
@@ -24,7 +24,7 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews, 
             datetime: new Date(),
             productId: product.id
         })
-    }
+    };
 
 
     return <div className={`sectionOuter ${style.productPageWrapper}`}>
@@ -53,22 +53,24 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews, 
                                     <Button className={style.addToCartButton} variant="outline-primary">В
                                         корзину</Button>
                                 </div>
-                                <div>
-                                    {reviews.map(i => <ReviewItem review={i} profile={profile} updateReview={updateReview} />)}
-                                </div>
-                                {
-                                    localStorage.getItem('isLoggedIn') ?
-                                        <div>
-                                            <Rating name="rating" value={stars} onChange={(event, newValue) => {
-                                                setStars(newValue);
-                                            }}/>
-                                            <ReviewForm handleSubmit={handleSubmit} handleChange={handleChange} value={reviewText}/>
-                                        </div> :
-                                        <div>
-                                            Войдите или зарегистрируйтесь, чтобы оставить отзыв о товаре
-                                        </div>
-                                }
                             </div>
+                        </div>
+                        <div className={style.reviewsWrapper}>
+                            <div>
+                                {reviews.map(i => <ReviewItem isAuth={isAuth} review={i} profile={profile} updateReview={updateReview} />)}
+                            </div>
+                            {
+                                localStorage.getItem('isLoggedIn') ?
+                                    <div>
+                                        <Rating name="rating" value={stars} onChange={(event, newValue) => {
+                                            setStars(newValue);
+                                        }}/>
+                                        <ReviewForm handleSubmit={handleSubmit} handleChange={handleChange} value={reviewText}/>
+                                    </div> :
+                                    <div>
+                                        Войдите или зарегистрируйтесь, чтобы оставить отзыв о товаре
+                                    </div>
+                            }
                         </div>
                     </>
             }

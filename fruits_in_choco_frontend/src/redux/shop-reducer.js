@@ -46,7 +46,8 @@ const shopReducer = (state = initialState, action) => {
                 ...state,
                 currentProductReviews: state.currentProductReviews.map(i => {
                     if (i.id === action.review.id) {
-                        return {...i, text: action.review.text, datetime: action.review.datetime}
+                        console.log(action.review.stars)
+                        return {...i, text: action.review.text, datetime: action.review.datetime, stars: action.review.stars}
                     }
                     return i;
                 })

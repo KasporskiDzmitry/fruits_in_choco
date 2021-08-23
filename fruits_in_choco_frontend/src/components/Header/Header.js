@@ -23,11 +23,11 @@ const Header = (props) => {
                     <NavLink to={'/contacts'}>Контакты</NavLink>
                 </nav>
                 <div className={style.navbarAside}>
-                    {props.isAuth
+                    {localStorage.getItem('isLoggedIn') || props.isAuth
                         ?
                         <div>
                             <div>
-                                <NavLink to={'/profile'}>{props.login}</NavLink>
+                                <NavLink to={'/profile'}>{localStorage.getItem('name')}</NavLink>
                             </div>
                             <div>
                                 // продумать логаут (куда делать редирект)

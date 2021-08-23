@@ -4,7 +4,7 @@ import style from './ReviewItem.module.css';
 import ReviewForm from "./ReviewForm";
 
 const ReviewItem = (props) => {
-    const hasReview =  props.profile.reviews ? localStorage.getItem('isLoggedIn') && props.profile.reviews.map(i => i.id).includes(props.review.id) : false;
+    const hasReview =  props.isAuth || localStorage.getItem('isLoggedIn') ? props.profile.reviews.map(i => i.id).includes(props.review.id) : false;
 
     const [editMode, setEditMode] = useState(false);
     const [reviewText, setReviewText] = useState(props.review.text);

@@ -6,6 +6,7 @@ const SET_CURRENT_PRODUCT = 'SET_CURRENT_PRODUCT';
 const SET_CURRENT_PRODUCT_REVIEWS = 'SET_CURRENT_PRODUCT_REVIEWS';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const UPDATE_REVIEW = 'UPDATE_REVIEW';
+const DELETE_REVIEW = 'DELETE_REVIEW';
 
 const initialState = {
     products: [],
@@ -53,6 +54,15 @@ const shopReducer = (state = initialState, action) => {
                 })
             }
         }
+        case DELETE_REVIEW: {
+            return {
+                ...state,
+                currentProductReviews: [
+                    ...state.currentProductReviews.slice(0, state.currentProductReviews.indexOf(action.review)),
+                    ...state.currentProductReviews.slice(state.currentProductReviews.indexOf(action.review), 1)
+                ]
+            }
+        }
         default: {
             return state
         }
@@ -65,6 +75,7 @@ const setCurrentProduct = currentProduct => ({type: SET_CURRENT_PRODUCT, current
 const setCurrentProductReviews = reviews => ({type: SET_CURRENT_PRODUCT_REVIEWS, reviews});
 const toggleIsFetching = isFetching => ({type: TOGGLE_IS_FETCHING, isFetching});
 const updateReviewSuccess = review => ({type: UPDATE_REVIEW, review});
+const deleteReviewSuccess = id => ({type: DELETE_REVIEW, id});
 
 //thunks
 export const loadProducts = () => async dispatch => {
@@ -101,6 +112,12 @@ export const updateReview = review => async dispatch => {
     const response = await RequestService.put(`/product/review`, review, true);
 
     dispatch(updateReviewSuccess(review));
+}
+
+export const deleteReview = review => async dispatch => {
+    const response = await RequestService.delete(`/product/review/${review.id}`, true);
+
+    dispatch(deleteReviewSuccess(review));
 }
 
 export default shopReducer;

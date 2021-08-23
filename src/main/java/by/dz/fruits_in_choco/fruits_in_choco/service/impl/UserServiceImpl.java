@@ -28,9 +28,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Product saveProductReview(ProductReview review, int productId, int reviewerId) {
-        Product product = productRepository.findById(productId);
-        User user = userRepository.findById(reviewerId);
+    public Product saveProductReview(ProductReview review) {
+        Product product = productRepository.findById(review.getProductId());
+        User user = userRepository.findById(review.getReviewerId());
 
         List<ProductReview> productReviews = product.getReviews();
         List<ProductReview> userReviews = user.getReviews();
@@ -46,5 +46,23 @@ public class UserServiceImpl implements UserService {
         productReview.setText(review.getText());
         productReview.setStars(review.getStars());
         productReviewRepository.save(productReview);
+    }
+
+    @Override
+    public void deleteReview(int id) {
+        ProductReview review = productReviewRepository.findById(id).get();
+        User user = userRepository.findById(review.getReviewerId());
+        Product product = productRepository.findById(review.getProductId());
+
+        List<ProductReview> userReviews = user.getReviews();
+        userReviews.remove(review);
+
+        List<ProductReview> productReviews = product.getReviews();
+        productReviews.remove(review);
+
+        productRepository.save(product);
+        userRepository.save(user);
+
+        productReviewRepository.deleteById(id);
     }
 }

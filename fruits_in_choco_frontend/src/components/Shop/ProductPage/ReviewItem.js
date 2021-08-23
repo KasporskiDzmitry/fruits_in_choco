@@ -4,7 +4,7 @@ import style from './ReviewItem.module.css';
 import ReviewForm from "./ReviewForm";
 
 const ReviewItem = (props) => {
-    const hasReview =  props.isAuth || localStorage.getItem('isLoggedIn') ? props.profile.reviews.map(i => i.id).includes(props.review.id) : false;
+    const isLoggedUserReview =  props.isAuth || localStorage.getItem('isLoggedIn') ? props.review.reviewerId == localStorage.getItem('userId') : false;
 
     const [editMode, setEditMode] = useState(false);
     const [reviewText, setReviewText] = useState(props.review.text);
@@ -22,9 +22,14 @@ const ReviewItem = (props) => {
     return <div className={style.reviewItem}>
         {!editMode ?
             <div>
-                {hasReview ?
+                {isLoggedUserReview ?
                     <div>
                         <button onClick={activateEditMode}>Редактировать</button>
+                        <button onClick={() => {
+                            if (window.confirm('Удалить?')) {
+                                props.deleteReview(props.review)
+                            }
+                        }}>Удалить</button>
                     </div>
                     : null}
 

@@ -17,8 +17,8 @@ public class UserMapper {
     private final ModelMapper modelMapper;
     private final UserService userService;
 
-    public Product addReviewToProduct(ProductReviewRequest request, int productId, int reviewerId) {
-        return userService.saveProductReview(convertToEntity(request), productId, reviewerId);
+    public Product addReviewToProduct(ProductReviewRequest request) {
+        return userService.saveProductReview(convertToEntity(request));
     }
 
     private ProductReview convertToEntity(ProductReviewRequest request) {

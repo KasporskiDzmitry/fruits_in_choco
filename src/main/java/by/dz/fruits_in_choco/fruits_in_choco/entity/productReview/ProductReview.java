@@ -19,6 +19,10 @@ public class ProductReview {
     private int id;
     @Column(name = "reviewer")
     private String reviewer;
+    @Column(name = "reviewer_id")
+    private int reviewerId;
+    @Column(name = "product_id")
+    private int productId;
     @Column(name = "text")
     private String text;
     @Column(name = "stars")

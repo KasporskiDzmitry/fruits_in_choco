@@ -26,13 +26,19 @@ public class UserController {
 
     @PostMapping("/product/review")
     public ResponseEntity<?> saveReview(@RequestBody ProductReviewRequest request) {
-        Product product = userMapper.addReviewToProduct(request, request.getProductId(), request.getReviewerId());
+        Product product = userMapper.addReviewToProduct(request);
         return ResponseEntity.ok(product);
     }
 
     @PutMapping("/product/review")
     public ResponseEntity<?> updateReview(@RequestBody ProductReview review) {
         userService.updateReview(review);
-        return ResponseEntity.ok(200);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/product/review/{id}")
+    public ResponseEntity<?> deleteReview(@PathVariable int id) {
+        userService.deleteReview(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -7,7 +7,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import ReviewItem from "./ReviewItem";
 import ReviewForm from "./ReviewForm";
 
-const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews, editReview, updateReview}) => {
+const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews, editReview, updateReview, deleteReview}) => {
     const [stars, setStars] = useState(0);
     const [reviewText, setReviewText] = useState('');
 
@@ -57,7 +57,7 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, reviews, 
                         </div>
                         <div className={style.reviewsWrapper}>
                             <div>
-                                {reviews.map(i => <ReviewItem isAuth={isAuth} review={i} profile={profile} updateReview={updateReview} />)}
+                                {reviews.map(i => <ReviewItem isAuth={isAuth} review={i} profile={profile} updateReview={updateReview} deleteReview={deleteReview}/>)}
                             </div>
                             {
                                 localStorage.getItem('isLoggedIn') ?

@@ -1,9 +1,6 @@
 import React from 'react';
 import style from './Main.module.css';
-import AboutSectionContainer from "./AboutSection/AboutSectionContainer";
-import OurProductsSectionContainer from "./OurProductsSection/OurProductsSectionContainer";
 import SliderContainer from "./Slider/SliderContainer";
-import ProductContainer from "./OurProductsSection/CategoryCard/CategoryCardContainer";
 import CategoryCard from "./OurProductsSection/CategoryCard/CategoryCard";
 
 const Main = (props) => {
@@ -16,7 +13,7 @@ const Main = (props) => {
                 </div>
                 <div className={style.productsContainer}>
                     {props.categoryCards.map(card => {
-                        return <CategoryCard card={card} setFilteredTypes={props.setFilteredTypes} products={props.products} selectCategory={props.selectCategory}/>
+                        return <CategoryCard card={card} history={props.history} setFilteredTypes={props.setFilteredTypes}/>
                     })}
                 </div>
             </div>

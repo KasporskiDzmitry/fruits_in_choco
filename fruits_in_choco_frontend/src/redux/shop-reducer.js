@@ -8,10 +8,14 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const UPDATE_REVIEW = 'UPDATE_REVIEW';
 const DELETE_REVIEW = 'DELETE_REVIEW';
 
+const SET_FILTERED_TYPES = 'SET_FILTERED_TYPES';
+
+
 const initialState = {
     products: [],
     currentProduct: {},
     currentProductReviews: [],
+    filteredTypes: [],
 
     isFetching: false
 };
@@ -63,6 +67,13 @@ const shopReducer = (state = initialState, action) => {
                 ]
             }
         }
+
+        case SET_FILTERED_TYPES: {
+            return {
+                ...state,
+                filteredTypes: action.types
+            }
+        }
         default: {
             return state
         }
@@ -76,6 +87,9 @@ const setCurrentProductReviews = reviews => ({type: SET_CURRENT_PRODUCT_REVIEWS,
 const toggleIsFetching = isFetching => ({type: TOGGLE_IS_FETCHING, isFetching});
 const updateReviewSuccess = review => ({type: UPDATE_REVIEW, review});
 const deleteReviewSuccess = id => ({type: DELETE_REVIEW, id});
+
+export const setFilteredTypes = types => ({type: SET_FILTERED_TYPES, types});
+
 
 //thunks
 export const loadProducts = () => async dispatch => {

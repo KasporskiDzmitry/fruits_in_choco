@@ -15,7 +15,7 @@ const Shop = (props) => {
         <div className="sectionInner">
             <div className={style.shopInnerWrapper}>
                 <Filter categories={props.categories} loadProductsByTypes={props.loadProductsByTypes}
-                        loadProducts={props.loadProducts}/>
+                        loadProducts={props.loadProducts} selectedCategory={props.selectedCategory} setFilteredTypes={props.setFilteredTypes} filteredTypes={props.filteredTypes}/>
                 <div className={style.productsWrapper}>
                     <SortPanel products={props.products} setProducts={props.setProducts}/>
                     {

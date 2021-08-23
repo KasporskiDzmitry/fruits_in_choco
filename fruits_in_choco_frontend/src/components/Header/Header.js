@@ -6,6 +6,12 @@ import {useLocation} from 'react-router-dom';
 const Header = (props) => {
     const location = useLocation().pathname;
 
+    const handleClick = (e) => {
+        e.preventDefault();
+        props.setFilteredTypes(props.productTypes)
+        props.history.push({pathname: `/shop`, state: {categoryId: 0}})
+    }
+
     return <header className={`sectionOuter ${style.sectionHeader}`}>
         <div className={`sectionInner ${style.sectionInner}`}>
             <div className={style.toggleNavBtn}>
@@ -16,7 +22,8 @@ const Header = (props) => {
                     <NavLink to={'/'}>FRUITS IN CHOCO</NavLink>
                 </div>
                 <nav className={style.navbarNav}>
-                    <NavLink to={'/shop'}>Магазин</NavLink>
+                    <a href="/shop" onClick={handleClick}>Магазин</a>
+                    {/*<NavLink to={'/shop'}>Магазин</NavLink>*/}
                     <NavLink to={'/promotions'}>Акции</NavLink>
                     <NavLink to={'/buyers'}>Покупателям</NavLink>
                     <NavLink to={'/reviews'}>Отзывы</NavLink>

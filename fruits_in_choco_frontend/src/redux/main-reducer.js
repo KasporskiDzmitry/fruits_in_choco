@@ -1,4 +1,5 @@
 import RequestService from "./RequestService";
+import {setFilteredTypes} from "./shop-reducer";
 
 const SET_SLIDES = 'SET_SLIDES';
 const SET_CATEGORIES = 'SET_CATEGORIES';
@@ -78,6 +79,7 @@ export const loadCategories = () => async dispatch => {
     try {
         const response = await RequestService.get('/categories');
         dispatch(setCategories(response.data));
+        dispatch(setFilteredTypes(response.data.map(i => i.types).flat().map(i => i.id)));
     } catch (e) {
         console.log(e)
     }

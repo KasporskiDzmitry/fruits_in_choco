@@ -23,14 +23,16 @@ export const Filter = (props) => {
         } else {
             if (filterParams.length === 0) {
                 props.loadProducts();
+            } else {
+                props.loadProductsByTypes(filterParams);
             }
-            props.loadProductsByTypes(filterParams);
         }
     }, [filterParams]);
 
 
     // внешний фильтр (ссылка магазин в header)
     useEffect(() => {
+        console.log(123)
         props.loadProductsByTypes(props.filteredTypes);
     }, [props.filteredTypes]);
 

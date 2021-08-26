@@ -19,24 +19,24 @@ const SortPanel = ({products, setProducts}) => {
         isAscSort ? setProducts(sortedProducts) : setProducts(sortedProducts.reverse());
     }, [sortBy, isAscSort]);
 
-    const handleChange = (e) => {
+    const selectSortBy = (e) => {
         setSortBy(e.target.value);
     };
 
-    const handleClick = () => {
+    const selectIsAscSort = () => {
         setIsAscSort(!isAscSort);
     };
 
     return <div className={style.sortPanelWrapper}>
         <div className={style.sortPanel}>
             <span className={style.text}>Сортировка по: </span>
-            <Form.Select className={style.selectArea} aria-label="Default select example" onChange={handleChange}>
+            <Form.Select className={style.selectArea} aria-label="Default select example" onChange={selectSortBy}>
                 <option value="price">цене</option>
                 <option value="name">алфавиту</option>
             </Form.Select>
             {isAscSort ?
-                <span className={style.sortArrow} onClick={handleClick}>&uarr;</span> :
-                <span className={style.sortArrow} onClick={handleClick}>&darr;</span>
+                <span className={style.sortArrow} onClick={selectIsAscSort}>&uarr;</span> :
+                <span className={style.sortArrow} onClick={selectIsAscSort}>&darr;</span>
             }
         </div>
     </div>

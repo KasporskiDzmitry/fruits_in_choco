@@ -13,7 +13,11 @@ import {selectCategory} from "../../redux/main-reducer";
 class ShopContainer extends React.Component {
 
     componentDidMount() {
-        // this.props.loadProductsByTypes(this.props.filteredTypes);
+        // if (this.props.filteredTypes.length === 0) {
+        //     this.props.loadProducts();
+        // } else {
+        //     this.props.loadProductsByTypes(this.props.filteredTypes);
+        // }
     }
 
     componentWillUnmount() {

@@ -26,7 +26,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsFilteredByTypes(List<Integer> types) {
-        return productRepository.findByProductType_IdIn(types);
+        List<Product> products = productRepository.findByProductType_IdIn(types);
+        return products;
     }
 
     @Override

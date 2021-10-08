@@ -104,7 +104,7 @@ export const loadProductById = id => async dispatch => {
     const response = await RequestService.get(`/product/${id}`);
     dispatch(toggleIsFetching(false));
     dispatch(setCurrentProduct(response.data));
-    dispatch(setCurrentProductReviews(response.data.reviews));
+    dispatch(setCurrentProductReviews(response.data.ratings));
 };
 
 export const loadProductsByTypes = (types) => async dispatch => {
@@ -115,21 +115,22 @@ export const loadProductsByTypes = (types) => async dispatch => {
 };
 
 export const addReview = (review) => async dispatch => {
-    const response = await RequestService.post('/product/review', review, true);
+    const response = await RequestService.post(`/product/${review.productId}/rateProduct`, review, true);
     dispatch(setCurrentProduct(response.data));
-    dispatch(setCurrentProductReviews(response.data.reviews));
+    dispatch(setCurrentProductReviews(response.data.ratings));
 
-    dispatch(getProfile());
+    // зачем ??
+    // dispatch(getProfile());
 }
 
 export const updateReview = review => async dispatch => {
-    const response = await RequestService.put(`/product/review`, review, true);
+    const response = await RequestService.put(`/product/${review.productId}/rating/${review.userId}`, review, true);
 
     dispatch(updateReviewSuccess(review));
 }
 
 export const deleteReview = review => async dispatch => {
-    const response = await RequestService.delete(`/product/review/${review.id}`, true);
+    const response = await RequestService.delete(`/product/rating/${review.id}`, true);
 
     dispatch(deleteReviewSuccess(review));
 }

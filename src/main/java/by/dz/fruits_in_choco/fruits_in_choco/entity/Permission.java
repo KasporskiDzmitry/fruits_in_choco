@@ -1,8 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity;
 
 public enum Permission {
-    DEVELOPERS_READ("developers:read"),
-    DEVELOPERS_WRITE("developers:write");
+    USER("USER"),
+    ADMIN("ADMIN");
 
     private final String permission;
 

@@ -13,9 +13,9 @@ import java.util.Map;
 
 @Service("authService")
 public class AuthServiceImpl implements AuthService {
-    private UserRepository userRepository;
-    private JwtTokenProvider jwtTokenProvider;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordEncoder passwordEncoder;
 
 
     public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, PasswordEncoder passwordEncoder) {
@@ -35,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
         return generateMapForResponse(email, token, user.getRole().name(), user.getId(), user.getFirstName() + " " + user.getLastName());
     }
 
-    private Map<String, String> generateMapForResponse(String email, String token, String role, int id, String name) {
+    private Map<String, String> generateMapForResponse(String email, String token, String role, Long id, String name) {
         Map<String, String> response = new HashMap<>();
         response.put("email", email);
         response.put("token", token);

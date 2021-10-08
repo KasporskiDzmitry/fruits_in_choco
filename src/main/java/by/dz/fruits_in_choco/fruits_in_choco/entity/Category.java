@@ -1,27 +1,26 @@
-package by.dz.fruits_in_choco.fruits_in_choco.entity.product;
+package by.dz.fruits_in_choco.fruits_in_choco.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "categories")
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
     private String description;
     @Column(name = "imageURL")
     private String imageURL;
-    @OneToMany (mappedBy="category", fetch=FetchType.EAGER)
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @ToString.Exclude
     private List<ProductType> types;
 }

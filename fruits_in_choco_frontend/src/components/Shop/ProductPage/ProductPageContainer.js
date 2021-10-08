@@ -22,7 +22,7 @@ class ProductPageContainer extends React.Component {
 
 const mapStateToProps = state => ({
     product: state.shopReducer.currentProduct,
-    reviews: state.shopReducer.currentProductReviews,
+    ratings: state.shopReducer.currentProductReviews,
     isFetching: state.shopReducer.isFetching,
     isAuth: state.authReducer.isAuth,
     profile: state.profileReducer.profile

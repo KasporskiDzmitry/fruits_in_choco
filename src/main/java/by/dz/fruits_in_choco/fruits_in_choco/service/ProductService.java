@@ -1,19 +1,30 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Category;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.productReview.ProductReview;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRatingKey;
 
 import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getAllProducts();
+    List<Product> getProducts(int page, int size, String direction, String sortBy);
 
-    Product getProductById(int id);
+    Product getProductById(Long id);
 
-    List<Product> getProductsFilteredByTypes(List<Integer> types);
+    List<Product> getProductsFilteredByTypes(List<Long> types);
 
-    List<Category> getAllCategories();
+    Product saveProduct(Product product);
+
+    Product updateProduct(Product product, Long id);
+
+    void deleteProductById(Long id);
+
+    Product rateProduct(ProductRatingRequest request, Long id);
+
+    void updateRating(ProductRating rating);
+
+    void deleteRating(Long id);
 
 }

@@ -7,8 +7,8 @@ const ReviewItem = (props) => {
     const isLoggedUserReview =  props.isAuth || localStorage.getItem('isLoggedIn') ? props.review.reviewerId == localStorage.getItem('userId') : false;
 
     const [editMode, setEditMode] = useState(false);
-    const [reviewText, setReviewText] = useState(props.review.text);
-    const [stars, setStars] = useState(props.review.stars);
+    const [message, setMessage] = useState(props.review.message);
+    const [rating, setRating] = useState(props.review.rating);
 
     const activateEditMode = () => {
         setEditMode(true);
@@ -16,8 +16,14 @@ const ReviewItem = (props) => {
 
     const deactivateEditMode = (e) => {
         setEditMode(false);
-        props.updateReview({...props.review, text: reviewText, stars: stars});
+        props.updateReview({...props.review, text: message, stars: rating});
     };
+
+    const deleteReview = () => {
+        if (window.confirm('Удалить?')) {
+            props.deleteReview(props.review)
+        }
+    }
 
     return <div className={style.reviewItem}>
         {!editMode ?
@@ -25,26 +31,21 @@ const ReviewItem = (props) => {
                 {isLoggedUserReview ?
                     <div>
                         <button onClick={activateEditMode}>Редактировать</button>
-                        <button onClick={() => {
-                            if (window.confirm('Удалить?')) {
-                                props.deleteReview(props.review)
-                            }
-                        }}>Удалить</button>
-                    </div>
-                    : null}
+                        <button onClick={deleteReview}>Удалить</button>
+                    </div> : null}
 
                 <div className={style.heading}>
                     <h2>{props.review.reviewer}</h2>
-                    <Rating name="reviewRating" value={stars} readOnly/>
+                    <Rating name="reviewRating" value={rating} readOnly/>
                 </div>
                 <h3>{new Date(props.review.datetime).toLocaleString()}</h3>
-                <p>{reviewText}</p>
+                <p>{message}</p>
             </div> :
             <div>
-                <Rating name="rating" value={stars} onChange={(event, newValue) => {
-                    setStars(newValue);
+                <Rating name="rating" value={rating} onChange={(event, newValue) => {
+                    setRating(newValue);
                 }}/>
-                <ReviewForm handleChange={setReviewText} handleSubmit={deactivateEditMode} value={reviewText}/>
+                <ReviewForm handleChange={setMessage} handleSubmit={deactivateEditMode} value={message}/>
             </div>
         }
         </div>

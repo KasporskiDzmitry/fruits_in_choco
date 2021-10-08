@@ -1,12 +1,13 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.productReview.ProductReview;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
+
+import java.util.List;
 
 public interface UserService {
-    Product saveProductReview(ProductReview review);
-
-    void updateReview(ProductReview review);
-
-    void deleteReview(int id);
+    List<User> getUsers(int page, int size, String direction, String sortBy);
+    User getUserById(Long id);
+    User updateProfile(User newProfile);
 }

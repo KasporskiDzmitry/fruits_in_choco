@@ -30,7 +30,7 @@ const Header = (props) => {
                     <NavLink to={'/contacts'}>Контакты</NavLink>
                 </nav>
                 <div className={style.navbarAside}>
-                    {localStorage.getItem('isLoggedIn') || props.isAuth
+                    {localStorage.getItem('isLoggedIn') === 'true'
                         ?
                         <div>
                             <div>

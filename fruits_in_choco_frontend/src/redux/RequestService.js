@@ -40,4 +40,28 @@ const setHeader = (isAuthRequired, contentType) => {
     axios.defaults.headers.common["Content-Type"] = contentType
 };
 
+const responseSuccessHandler = response => {
+    return response;
+};
+
+const responseErrorHandler = error => {
+    if (error.response) {
+        if (error.response.status === 401) {
+            window.location.href = '/login';
+        }
+
+    } else if (error.request) {
+        console.error(error.request);
+    } else {
+        console.error('Error', error.message);
+    }
+
+    return Promise.reject(error);
+};
+
+axios.interceptors.response.use(
+    response => responseSuccessHandler(response),
+    error => responseErrorHandler(error)
+);
+
 export default new RequestService();

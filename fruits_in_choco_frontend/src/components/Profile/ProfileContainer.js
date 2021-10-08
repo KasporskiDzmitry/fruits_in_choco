@@ -5,6 +5,7 @@ import AdminContainer from "../Admin/AdminContainer";
 import {getProfile} from "../../redux/profile-reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
+import Preloader from "../common/Preloader/Preloader";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -17,8 +18,15 @@ class ProfileContainer extends React.Component {
 
 
     render() {
-        if (localStorage.getItem('role') === 'ADMIN') return <AdminContainer {...this.props} />
-        return <Profile {...this.props} />
+        if (!this.props.profile) {
+            return <Preloader/>
+        } else {
+            if (localStorage.getItem('role') === 'ADMIN') {
+                return <AdminContainer {...this.props} />;
+            } else {
+                return <Profile {...this.props} />
+            }
+        }
     }
 }
 

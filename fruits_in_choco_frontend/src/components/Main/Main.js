@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Main.module.css';
 import SliderContainer from "./Slider/SliderContainer";
-import CategoryCard from "./OurProductsSection/CategoryCard/CategoryCard";
+import CategoryCard from "./CategoryCard/CategoryCard";
 
 const Main = (props) => {
     return <div className={style.main}>

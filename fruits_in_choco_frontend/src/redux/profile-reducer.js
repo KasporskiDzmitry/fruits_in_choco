@@ -3,7 +3,7 @@ import RequestService from "./RequestService";
 const SET_PROFILE = 'SET_PROFILE';
 
 const initialState = {
-    profile: {}
+    profile: null
 }
 
 const profileReducer = (state = initialState, action) => {

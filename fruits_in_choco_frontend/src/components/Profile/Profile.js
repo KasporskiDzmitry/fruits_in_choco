@@ -2,7 +2,7 @@ import React from "react";
 import style from "./Profile.module.css";
 import {Tabs, Tab} from "react-bootstrap";
 
-const Profile = ({profile}) => {
+const Profile = ({firstName, lastName, email}) => {
     return (
         <div className={`sectionOuter ${style.shopSection}`}>
             <div className="sectionInner">
@@ -11,9 +11,9 @@ const Profile = ({profile}) => {
                 </div>
                 <Tabs defaultActiveKey="userInfo" id="uncontrolled-tab-example" className="mb-3">
                     <Tab eventKey="userInfo" title="Личная информация">
-                        <div>Имя: {profile.firstName}</div>
-                        <div>Фамилия: {profile.lastName}</div>
-                        <div>email: {profile.email}</div>
+                        <div>Имя: {firstName}</div>
+                        <div>Фамилия: {lastName}</div>
+                        <div>email: {email}</div>
                     </Tab>
                     <Tab eventKey="orders" title="История заказов">
                         <div className={style.orderInfo}>Заказ</div>
@@ -22,7 +22,7 @@ const Profile = ({profile}) => {
                         <div className={style.orderInfo}>Заказ</div>
                     </Tab>
                 </Tabs>
-                СТРАНИЦА ПОЛЬЗОВАТЕЛЯ {profile.firstName}
+                СТРАНИЦА ПОЛЬЗОВАТЕЛЯ {firstName}
             </div>
         </div>
     )

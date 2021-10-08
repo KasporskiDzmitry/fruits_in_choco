@@ -4,8 +4,8 @@ import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import {Button} from "react-bootstrap";
 import Preloader from "../../common/Preloader/Preloader";
-import ReviewItem from "./ReviewItem";
-import ReviewForm from "./ReviewForm";
+import ReviewItem from "./Review/ReviewItem";
+import ReviewForm from "./Review/ReviewForm";
 
 const ProductPage = ({product, isAuth, isFetching, addReview, profile, ratings, editReview, updateReview, deleteReview}) => {
     const [stars, setStars] = useState(0);

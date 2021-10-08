@@ -57,5 +57,3 @@ export default compose(
     connect(mapStateToProps, {login}),
     withRouter
 )(Login);
-
-// export default (Login);

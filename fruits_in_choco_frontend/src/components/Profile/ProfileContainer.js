@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from "react-redux";
 import Profile from "./Profile";
 import AdminContainer from "../Admin/AdminContainer";
-import {getProfile} from "../../redux/profile-reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
+import {getProfile} from "../../redux/thunks/profile_thunks";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {

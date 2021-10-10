@@ -3,12 +3,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import thunkMiddleware from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
-import appReducer from "./app-reducer";
-import mainReducer from "./main-reducer";
-import adminReducer from "./admin-reducer";
-import authReducer from "./auth-reducer";
-import shopReducer from "./shop-reducer";
-import profileReducer from "./profile-reducer";
+import appReducer from "./reducers/app-reducer";
+import mainReducer from "./reducers/main-reducer";
+import adminReducer from "./reducers/admin-reducer";
+import authReducer from "./reducers/auth-reducer";
+import shopReducer from "./reducers/shop-reducer";
+import profileReducer from "./reducers/profile-reducer";
+import registrationReducer from "./reducers/registration-reducer";
 
 let reducers = combineReducers({
     form: formReducer,
@@ -17,15 +18,14 @@ let reducers = combineReducers({
     authReducer: authReducer,
     adminReducer: adminReducer,
     shopReducer: shopReducer,
-    profileReducer: profileReducer
-})
+    profileReducer: profileReducer,
+    registrationReducer: registrationReducer
+});
 
 const composeEnhancers = composeWithDevTools({
     trace: true
-})
+});
 
 let store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
-
-window.store = store;
 
 export default store;

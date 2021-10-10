@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import style from './Shop.module.css';
+import style from './Shop.module.scss';
 import {Breadcrumb} from "react-bootstrap";
 import {useLocation} from "react-router-dom";
 import ProductCard from "./ProductCard/ProductCard";

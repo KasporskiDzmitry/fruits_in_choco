@@ -1,5 +1,5 @@
 const initialState = {
-}
+};
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -7,6 +7,6 @@ const adminReducer = (state = initialState, action) => {
             return state
         }
     }
-}
+};
 
 export default adminReducer;

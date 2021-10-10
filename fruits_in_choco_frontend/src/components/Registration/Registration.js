@@ -4,9 +4,9 @@ import {Input} from '../common/FormsControls/FormsControls';
 import {required} from "../utils/validators/validators";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import style from '../common/FormsControls/FormsControls.module.css';
+import style from '../common/FormsControls/FormsControls.module.scss';
 import {compose} from "redux";
-import {registration} from "../../redux/registration-reducer";
+import {registration} from "../../redux/thunks/registration_thunks";
 
 const RegistrationForm = ({handleSubmit, error}) => {
     return (
@@ -24,9 +24,11 @@ const RegistrationForm = ({handleSubmit, error}) => {
                 <Field placeholder={'Password'} name={'password'} component={Input} validate={[required]}
                        type={'password'}/>
             </div>
-            {error && <div className={style.formSummaryError}>
-                {error}
-            </div>
+            {
+                error &&
+                <div className={style.formSummaryError}>
+                    {error}
+                </div>
             }
             <div>
                 <button>Register</button>
@@ -46,20 +48,15 @@ const Registration = props => {
             lastName: formData.lastName
         };
         props.registration(user);
-    }
+    };
 
     return <div>
         <h1>Registration</h1>
         <RegistrationReduxForm onSubmit={onSubmit}/>
     </div>
-}
-
-const mapStateToProps = state => {
-    return {
-    }
-}
+};
 
 export default compose(
-    connect(mapStateToProps, {registration}),
+    connect(state => {}, {registration}),
     withRouter
 )(Registration);

@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./Slider.module.css";
+import style from "./Slider.module.scss";
 import {Button, Carousel} from "react-bootstrap";
 
 const Slider = (props) => {

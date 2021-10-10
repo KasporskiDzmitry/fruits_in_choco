@@ -1,7 +1,7 @@
 import React from 'react'
 import {Card, Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import style from './ProductCard.module.css';
+import style from '../Shop.module.scss';
 
 export const ProductCard = ({card}) => {
 

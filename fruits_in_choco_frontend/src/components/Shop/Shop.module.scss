@@ -48,3 +48,13 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.filterWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.card {
+    margin: 10px;
+}

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Accordion} from "react-bootstrap";
-import style from './Filter.module.css';
+import style from '../Shop.module.scss';
 import {useLocation} from 'react-router-dom'
 
 export const Filter = (props) => {

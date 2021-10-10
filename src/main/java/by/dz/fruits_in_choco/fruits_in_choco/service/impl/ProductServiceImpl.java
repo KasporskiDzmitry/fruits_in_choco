@@ -87,7 +87,9 @@ public class ProductServiceImpl implements ProductService {
         product.getRatings().add(rating);
         user.getRatings().add(rating);
 
-        return productRepository.findById(request.getProductId()).get();
+        productRatingRepository.save(rating);
+
+        return product;
     }
 
     @Override

@@ -1,7 +1,4 @@
-import {loadProducts} from "./shop-reducer";
-import {loadCategories} from "./main-reducer";
-
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
+import {INITIALIZED_SUCCESS} from "../action_types/app_action_types";
 
 const initialState = {
     pathnames: [
@@ -9,7 +6,7 @@ const initialState = {
         {path: '/shop', name: 'Магазин'}
     ],
     initialized: false
-}
+};
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -23,12 +20,7 @@ const appReducer = (state = initialState, action) => {
             return state
         }
     }
-}
-export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
-
-export const init = () => async dispatch => {
-    await Promise.all([dispatch(loadCategories())])
-    dispatch(initializedSuccess());
 };
+
 
 export default appReducer;

@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './Main.module.css';
+import style from './Main.module.scss';
 import SliderContainer from "./Slider/SliderContainer";
 import CategoryCard from "./CategoryCard/CategoryCard";
 

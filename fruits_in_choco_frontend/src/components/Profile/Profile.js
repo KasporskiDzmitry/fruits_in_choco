@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./Profile.module.css";
+import style from "./Profile.module.scss";
 import {Tabs, Tab} from "react-bootstrap";
 
 const Profile = ({firstName, lastName, email}) => {

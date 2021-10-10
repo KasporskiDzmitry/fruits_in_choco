@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './CategoryCard.module.css';
+import style from '../Main.module.scss';
 
 const CategoryCard = ({card, setFilteredTypes, history}) => {
     const handleClick = (e) => {

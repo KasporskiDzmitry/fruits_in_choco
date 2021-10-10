@@ -1,13 +1,13 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './App.scss';
 import {Route} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Footer from './components/Footer/Footer';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import Preloader from "./components/common/Preloader/Preloader";
-import {init} from "./redux/app-reducer";
+import {init} from "./redux/thunks/app_thunks";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));

@@ -1,9 +1,5 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRatingKey;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRatingRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;

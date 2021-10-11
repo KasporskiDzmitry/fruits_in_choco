@@ -9,35 +9,16 @@ import java.util.Date;
 @Entity
 @Table(name = "rating")
 public class ProductRating {
-//    @EmbeddedId
-//    ProductRatingKey id;
-//
-//    @ManyToOne
-//    @MapsId("user_id")
-//    @JoinColumn(name = "user_id")
-//    @JsonIgnore
-//    User user;
-//
-//    @ManyToOne
-//    @MapsId("product_id")
-//    @JoinColumn(name = "product_id")
-//    @JsonIgnore
-//    Product product;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "author")
     private String author;
 
-    @Column(name = "rating")
     private int rating;
 
-    @Column(name = "message")
     private String message;
 
-    @Column(name = "date")
     private Date date;
 
     @Override

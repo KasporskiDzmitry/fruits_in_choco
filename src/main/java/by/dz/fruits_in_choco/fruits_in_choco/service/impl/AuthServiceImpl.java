@@ -1,5 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.AuthenticationResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
@@ -7,9 +8,6 @@ import by.dz.fruits_in_choco.fruits_in_choco.service.AuthService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service("authService")
 public class AuthServiceImpl implements AuthService {
@@ -25,23 +23,20 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Map<String, String> login(String email) {
+    public AuthenticationResponse login(String email) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User doesn't exists");
         }
 
         String token = jwtTokenProvider.createToken(email, user.getRole().name());
-        return generateMapForResponse(email, token, user.getRole().name(), user.getId(), user.getFirstName() + " " + user.getLastName());
-    }
 
-    private Map<String, String> generateMapForResponse(String email, String token, String role, Long id, String name) {
-        Map<String, String> response = new HashMap<>();
-        response.put("email", email);
-        response.put("token", token);
-        response.put("role", role);
-        response.put("userId", String.valueOf(id));
-        response.put("name", name);
+        AuthenticationResponse response = new AuthenticationResponse();
+        response.setEmail(email);
+        response.setToken(token);
+        response.setRole(user.getRole().name());
+        response.setName(user.getFirstName() + " " + user.getLastName());
+        response.setId(user.getId());
 
         return response;
     }

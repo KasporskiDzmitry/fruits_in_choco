@@ -1,0 +1,3 @@
+export const SET_SLIDES = 'SET_SLIDES';
+export const SET_CATEGORIES = 'SET_CATEGORIES';
+export const SELECT_CATEGORY = 'SELECT_CATEGORY';

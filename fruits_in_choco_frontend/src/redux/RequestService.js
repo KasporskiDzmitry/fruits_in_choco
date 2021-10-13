@@ -2,9 +2,10 @@ import React from 'react';
 import axios from 'axios';
 
 import {API_BASE_URL} from "../components/utils/constants/url";
+import store from "./redux-store";
+import {refreshTokenSuccess} from "./actions/auth_actions";
 
 class RequestService {
-
     get = (url, isAuthRequired = false, contentType = "application/json") => {
         return createRequest("GET", url, null, isAuthRequired, contentType);
     };
@@ -27,41 +28,44 @@ const createRequest = (method, url, body, isAuthRequired, contentType) => {
         method: method,
         url: API_BASE_URL + url,
         data: body,
-        headers: setHeader(isAuthRequired, contentType)
+        headers: setHeader(isAuthRequired, contentType),
+        withCredentials: true
     });
 };
 
 const setHeader = (isAuthRequired, contentType) => {
     if (isAuthRequired) {
-        axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
+        const state = store.getState();
+        // axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
+        axios.defaults.headers.common["Authorization"] = state.authReducer.token;
     } else {
         delete axios.defaults.headers.common['Authorization']
     }
     axios.defaults.headers.common["Content-Type"] = contentType
 };
 
-const responseSuccessHandler = response => {
-    return response;
-};
-
-const responseErrorHandler = error => {
-    if (error.response) {
-        if (error.response.status === 401) {
+// Response interceptor for API calls
+axios.interceptors.response.use((response) => {
+    return response
+}, async function (error) {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
+        try {
+            const response = await new RequestService().post("/auth/refreshToken");
+            store.dispatch(refreshTokenSuccess(response.data));
+            originalRequest.headers.Authorization = response.data;
+            return axios(originalRequest);
+        } catch (e) {
+            localStorage.removeItem('email');
+            localStorage.removeItem('name');
+            localStorage.removeItem('role');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('isLoggedIn');
             window.location.href = '/login';
         }
-
-    } else if (error.request) {
-        console.error(error.request);
-    } else {
-        console.error('Error', error.message);
     }
-
     return Promise.reject(error);
-};
-
-axios.interceptors.response.use(
-    response => responseSuccessHandler(response),
-    error => responseErrorHandler(error)
-);
+});
 
 export default new RequestService();

@@ -1,10 +1,11 @@
-import {LOGIN_SUCCESS, LOGOUT_SUCCESS} from "../action_types/auth_action_types";
+import {LOGIN_SUCCESS, LOGOUT_SUCCESS, REFRESH_TOKEN_SUCCESS} from "../action_types/auth_action_types";
 
 const initialState = {
     userId: '',
     email: '',
     login: '',
-    isAuth: false
+    isAuth: false,
+    token: ''
 };
 
 const authReducer = (state = initialState, action) => {
@@ -15,11 +16,19 @@ const authReducer = (state = initialState, action) => {
                 ...action.payload
             }
         }
-
-        case LOGOUT_SUCCESS: {
+        case REFRESH_TOKEN_SUCCESS: {
             return {
                 ...state,
-               ...action.payload
+                token: action.token
+            }
+        }
+        case LOGOUT_SUCCESS: {
+            return {
+                userId: null,
+                email: null,
+                login: null,
+                isAuth: false,
+                token: null
             }
         }
         default: {

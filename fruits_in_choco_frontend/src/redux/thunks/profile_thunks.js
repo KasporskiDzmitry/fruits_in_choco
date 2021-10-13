@@ -6,6 +6,6 @@ export const getProfile = () => async dispatch => {
         const response = await RequestService.get(`/profile`, true);
         dispatch(setProfile(response.data));
     } catch (e) {
-        console.log(e.response.data);
+        console.log(e);
     }
 };

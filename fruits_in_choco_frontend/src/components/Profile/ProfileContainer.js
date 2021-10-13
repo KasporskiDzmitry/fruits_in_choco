@@ -9,11 +9,12 @@ import {getProfile} from "../../redux/thunks/profile_thunks";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        if (!localStorage.getItem("isLoggedIn")) {
-            this.props.history.push('/login')
-        } else {
-            this.props.getProfile();
-        }
+        // if (!localStorage.getItem("isLoggedIn")) {
+        //     this.props.history.push('/login')
+        // } else {
+        //     this.props.getProfile();
+        // }
+        this.props.getProfile();
     }
 
 

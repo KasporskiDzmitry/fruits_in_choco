@@ -42,7 +42,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile(Authentication authentication) {
-        return ResponseEntity.ok(userService.getUserByEmail(authentication.getName()));
+        return ResponseEntity.ok(userMapper.getProfile(authentication.getName()));
     }
 
     @PreAuthorize("hasAuthority('USER')")

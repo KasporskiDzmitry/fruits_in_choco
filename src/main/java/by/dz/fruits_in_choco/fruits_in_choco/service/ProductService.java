@@ -21,9 +21,4 @@ public interface ProductService {
     void deleteProductById(Long id);
 
     Product rateProduct(ProductRatingRequest request, Long id);
-
-    void updateRating(ProductRating rating);
-
-    void deleteRating(Long id);
-
 }

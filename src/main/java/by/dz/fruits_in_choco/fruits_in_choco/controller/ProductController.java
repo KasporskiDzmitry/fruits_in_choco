@@ -61,21 +61,4 @@ public class ProductController {
     public ResponseEntity<?> rateProduct(@RequestBody ProductRatingRequest request, @PathVariable Long id) {
         return ResponseEntity.ok(productService.rateProduct(request, id));
     }
-
-//    @PreAuthorize("hasAuthority('USER')")
-//    @PutMapping("/product/{id}/rating")
-//    public ResponseEntity<?> updateRating(@RequestBody ProductRating rating, @PathVariable Long id) {
-//        productService.updateRating(rating);
-//        return ResponseEntity.noContent().build();
-//    }
-
-    @PreAuthorize("hasAuthority('USER')")
-    @DeleteMapping("/product/{idProduct}/rating/{idRating}")
-    public ResponseEntity<?> deleteRating(@PathVariable Long idProduct, @PathVariable Long idRating) {
-//        ProductRatingKey id = new ProductRatingKey();
-//        id.setProduct_id(idProduct);
-//        id.setUser_id(idUser);
-        productService.deleteRating(idRating);
-        return ResponseEntity.noContent().build();
-    }
 }

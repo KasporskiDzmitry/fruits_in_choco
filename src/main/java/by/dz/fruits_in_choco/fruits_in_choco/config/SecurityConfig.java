@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth/login",
+                        "/auth/refreshToken",
                         "/registration",
                         "/category",
                         "/category/{id}",

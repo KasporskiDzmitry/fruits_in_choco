@@ -11,6 +11,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,6 +31,10 @@ public class UserMapper {
 
     private UserResponse convertToResponseDto(User user) {
         return modelMapper.map(user, UserResponse.class);
+    }
+
+    public UserResponse getProfile(String email) {
+        return convertToResponseDto(userService.getUserByEmail(email));
     }
 
     public UserResponse updateProfile(UserRequest userRequest) {

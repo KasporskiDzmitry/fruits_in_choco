@@ -23,8 +23,6 @@ public class JwtTokenProvider {
     private String secretKey;
     @Value("${jwt.header}")
     private String authorizationHeader;
-    @Value("${jwt.expiration}")
-    private long validityInMilliseconds;
 
     public JwtTokenProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -35,16 +33,16 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, String role) {
+    public String createToken(String username, String role, Long validity) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("role", role);
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
+//        Date validity = new Date(now.getTime() + validity);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(validity)
+                .setExpiration(new Date(now.getTime() + validity))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }

@@ -91,30 +91,4 @@ public class ProductServiceImpl implements ProductService {
 
         return product;
     }
-
-    @Override
-    public void updateRating(ProductRating review) {
-//        ProductRating productRating = productRatingRepository.findById(review.getId()).get();
-//        productRating.setMessage(review.getMessage());
-//        productRating.setRating(review.getRating());
-//        productRatingRepository.save(productRating);
-    }
-
-    @Override
-    public void deleteRating(Long id) {
-//        ProductRating rating = productRatingRepository.findById(id).get();
-//        User user = userRepository.findById(rating.ge()).get();
-//        Product product = productRepository.findById(rating.getProductId()).get();
-//
-//        List<ProductRating> userRatings = user.getRatings();
-//        userRatings.remove(rating);
-//
-//        List<ProductRating> productRatings = product.getRatings();
-//        productRatings.remove(rating);
-//
-//        productRepository.save(product);
-//        userRepository.save(user);
-//
-//        productRatingRepository.deleteById(id);
-    }
 }

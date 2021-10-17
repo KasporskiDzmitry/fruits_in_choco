@@ -1,71 +1,43 @@
-.main {
-}
-
 .heading {
     text-align: center;
-    margin: 40px 0 60px 0;
+    margin: 40px 0 40px 0;
 }
 
-.sectionBanner {
-    height: 500px;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-    /*background: cadetblue url("../../assets/images/header_bg.jpg") no-repeat;*/
-    /*background-size: cover;*/
-}
+//.sectionBanner {
+//    height: 500px;
+//    display: flex;
+//    flex-flow: column;
+//    align-items: center;
+//    justify-content: center;
+//    /*background: cadetblue url("../../assets/images/header_bg.jpg") no-repeat;*/
+//    /*background-size: cover;*/
+//}
 
-.productsContainer {
+.categoriesContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .aboutSection {
+    border-top: 1px solid white;
     background-color: bisque;
 
-}
+    .aboutSectionWrapper {
+        display: flex;
+        align-items: start;
 
-.cardWrapper {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    height: 450px;
-    text-align: center;
-}
+        .aboutSectionImageWrapper {
+            margin-right: 50px;
 
-.cardImageWrapper {
-    width: 100%;
-    height: 300px;
-    margin-bottom: 20px;
-    overflow: hidden;
-    cursor: pointer;
-}
+            img {
+                border-radius: 5px;
+                width: 600px;
+            }
+        }
 
-.cardImageWrapper a {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-}
+        .aboutSectionDescription {
 
-.cardImageWrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: .8s;
-}
-
-.cardImageWrapper img:hover {
-    transform: scale(1.035) rotate(
-                    0.05deg
-    );
-}
-
-.cardTitle {
-
-}
-
-.cardDescription p {
-    margin-bottom: 0;
+        }
+    }
 }

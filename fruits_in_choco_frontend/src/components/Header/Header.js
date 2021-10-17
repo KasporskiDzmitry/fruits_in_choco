@@ -42,12 +42,6 @@ const Header = (props) => {
                         </> :
                         <>
                             <div className={`${style.icon} ${style.signInUP}`} onClick={props.togglePopUp}>Вход и регистрация</div>
-                            {/*<NavLink to={'/login'}>*/}
-                            {/*    <FontAwesomeIcon icon={faSignInAlt} />*/}
-                            {/*</NavLink>*/}
-                            {/*<NavLink to={'/registration'}>*/}
-                            {/*    <FontAwesomeIcon icon={faRegistered} />*/}
-                            {/*</NavLink>*/}
                         </>
                     }
                 </div>

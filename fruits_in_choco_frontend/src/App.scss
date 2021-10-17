@@ -4,13 +4,13 @@
   font-family: Roboto, sans-serif;
 }
 
-.app-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
 a {
   text-decoration: none;
+}
+
+.appWrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .sectionOuter {
@@ -23,78 +23,9 @@ a {
   margin: 0 auto;
 }
 
-.logo {
-  font-family: 'Oswald', sans-serif;
-  font-size: 24px;
-  line-height: 36px;
-  cursor: pointer;
-  color: #FCFCFC;
-  margin-right: 50px;
-}
-
-button {
-  width: 100%;
-  cursor: pointer;
-  outline: none;
-  font-size: 16px;
-  line-height: 140%;
-}
-
-.primaryBtn {
-  border: 2px solid #FCFCFC;
-  background: transparent;
-  height: 45px;
-  width: 150px;
-}
-
-.primaryBtn:hover {
-  background: #EC5118;
-}
-
-.secondaryBtn {
-  background: #EC5118;
-  border: none;
-  height: 50px;
-}
-
-.secondaryBtn:hover {
-  background: #cf5204;
-}
-
 .icon:after {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
-
-.progressBar {
-  position: fixed;
-  top: 0;
-  height: 3px;
-  width: 0%;
-  background: rgb(217, 157, 43);
-  background: linear-gradient(90deg, rgba(217, 157, 43, 1) 0%, rgba(179, 2, 2, 1) 100%, rgba(241, 71, 29, 1) 100%);
-  transition: .3s;
-}
-
-.scrollToTopButton {
-  display: none;
-  position: fixed;
-  left: 30px;
-  width: 55px;
-  height: 55px;
-  bottom: 30px;
-  border-radius: 50px;
-  background: aquamarine;
-  opacity: .7;
-  font-size: 45px;
-  cursor: pointer;
-  text-align: center;
-  transition: .3s;
-}
-
-.scrollToTopButton:hover {
-  background: cadetblue;
-}
-

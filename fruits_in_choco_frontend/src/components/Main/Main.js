@@ -11,7 +11,7 @@ const Main = (props) => {
                 <div className={style.heading}>
                     <h1>Что мы делаем</h1>
                 </div>
-                <div className={style.productsContainer}>
+                <div className={style.categoriesContainer}>
                     {props.categoryCards.map(card => <CategoryCard key={card.id} card={card} history={props.history}
                                                                    setFilteredTypes={props.setFilteredTypes}/>)}
                 </div>
@@ -22,11 +22,11 @@ const Main = (props) => {
                 <div className={style.heading}>
                     <h1>Кто мы</h1>
                 </div>
-                <div>
-                    <div>
-                        <img src="" alt="Наше фото"/>
+                <div className={style.aboutSectionWrapper}>
+                    <div className={style.aboutSectionImageWrapper}>
+                        <img src="https://www.povarenok.ru/data/cache/2021feb/17/12/2833978_74029.jpg" alt="Наше фото"/>
                     </div>
-                    <div>
+                    <div className={style.aboutSectionDescription}>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras arcu quam, tristique non
                             commodo vitae, dignissim eu dolor. Vestibulum ante ipsum primis in faucibus orci luctus et

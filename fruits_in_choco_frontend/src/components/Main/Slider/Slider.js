@@ -1,6 +1,7 @@
 import React from "react";
-import style from "./Slider.module.scss";
 import {Carousel} from "react-bootstrap";
+import {Button} from 'react-bootstrap';
+import style from "./Slider.module.scss";
 
 const Slider = (props) => {
     return <Carousel fade interval={8000} controls={false}>
@@ -20,7 +21,7 @@ const Slider = (props) => {
                             <h2>{slide.subtitle}</h2>
                         </div>
                         <div className={style.slideInfo__primaryBtnWrapper}>
-                            <button className='primaryBtn'>Подробнее</button>
+                            <Button variant="flat" size="xxl">Подробнее</Button>
                         </div>
                     </div>
                 </Carousel.Caption>

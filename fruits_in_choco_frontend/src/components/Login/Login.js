@@ -8,6 +8,7 @@ import style from '../common/FormsControls/FormsControls.module.scss';
 import {compose} from "redux";
 import {login} from "../../redux/thunks/auth_thunks";
 import {togglePopUp} from "../../redux/actions/app_actions";
+import {Button} from 'react-bootstrap';
 
 const LoginForm = ({handleSubmit, error}) => {
     return (
@@ -24,7 +25,7 @@ const LoginForm = ({handleSubmit, error}) => {
             </div>
             }
             <div>
-                <button>Login</button>
+                <Button>Login</Button>
             </div>
         </form>
     )

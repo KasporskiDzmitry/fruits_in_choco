@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {createRef} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Route} from 'react-router-dom';
+import {NavLink, Route} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Footer from './components/Footer/Footer';
 import {connect} from 'react-redux';
@@ -10,18 +10,19 @@ import {init} from "./redux/thunks/app_thunks";
 import {togglePopUp} from "./redux/actions/app_actions";
 import {PopUp} from "./components/common/PopUp/PopUp";
 import {SignInSignUpPopUp} from "./components/SignInSignUpPopUp/SignInSignUpPopUp";
+import style from './App.scss';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowUp, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import {ScrollToTopButton} from "./components/common/ScrollToTopButton/ScrollToTopButton";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
 const AboutContainer = React.lazy(() => import('./components/About/AboutContainer'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
-const LoginPage = React.lazy(() => import('./components/Login/Login'));
-const RegistrationPage = React.lazy(() => import('./components/Registration/Registration'));
 const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
 
 
 class App extends React.Component {
-
     catchAllUnhandledErrors = (e) => {
         // alert('Some error with: ' + e.reason)
         // this.props.setGlobalError(e.reason);
@@ -38,7 +39,8 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className='app-wrapper'>
+            <div className={style.appWrapper}>
+                <ScrollToTopButton/>
                 <HeaderContainer/>
                 <React.Suspense fallback={<Preloader/>}>
                     <Route exact path='/'

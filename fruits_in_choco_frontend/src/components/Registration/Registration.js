@@ -8,6 +8,7 @@ import style from '../common/FormsControls/FormsControls.module.scss';
 import {compose} from "redux";
 import {registration} from "../../redux/thunks/registration_thunks";
 import {togglePopUp} from "../../redux/actions/app_actions";
+import {Button} from 'react-bootstrap';
 
 const RegistrationForm = ({handleSubmit, error}) => {
     return (
@@ -32,7 +33,7 @@ const RegistrationForm = ({handleSubmit, error}) => {
                 </div>
             }
             <div>
-                <button>Register</button>
+                <Button>Register</Button>
             </div>
         </form>
     )

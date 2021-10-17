@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Button} from "react-bootstrap";
 import style from '../ProductPage.module.scss'
 import Rating from "@material-ui/lab/Rating";
 
@@ -28,7 +29,7 @@ const ReviewForm = (props) => {
                 <textarea required name="reviewForm" id="" cols="70" rows="8" onChange={e => setMessage(e.target.value)} value={message}/>
             </div>
             <div className={style.btnWrapper}>
-                <button>Send</button>
+                <Button>Send</Button>
             </div>
         </form>
     </div>

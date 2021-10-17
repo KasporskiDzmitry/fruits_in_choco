@@ -7,6 +7,7 @@ import {withRouter} from "react-router-dom";
 import style from '../common/FormsControls/FormsControls.module.scss';
 import {compose} from "redux";
 import {registration} from "../../redux/thunks/registration_thunks";
+import {togglePopUp} from "../../redux/actions/app_actions";
 
 const RegistrationForm = ({handleSubmit, error}) => {
     return (
@@ -48,6 +49,7 @@ const Registration = props => {
             lastName: formData.lastName
         };
         props.registration(user);
+        props.togglePopUp();
     };
 
     return <div>
@@ -57,6 +59,6 @@ const Registration = props => {
 };
 
 export default compose(
-    connect(state => {}, {registration}),
+    connect(state => {}, {registration, togglePopUp}),
     withRouter
 )(Registration);

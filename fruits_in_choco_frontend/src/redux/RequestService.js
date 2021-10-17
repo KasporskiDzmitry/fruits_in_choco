@@ -1,9 +1,10 @@
-import React from 'react';
 import axios from 'axios';
 
 import {API_BASE_URL} from "../components/utils/constants/url";
 import store from "./redux-store";
 import {refreshTokenSuccess} from "./actions/auth_actions";
+import {togglePopUp} from "./actions/app_actions";
+import {logout, refreshToken} from "./thunks/auth_thunks";
 
 class RequestService {
     get = (url, isAuthRequired = false, contentType = "application/json") => {
@@ -36,7 +37,6 @@ const createRequest = (method, url, body, isAuthRequired, contentType) => {
 const setHeader = (isAuthRequired, contentType) => {
     if (isAuthRequired) {
         const state = store.getState();
-        // axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = state.authReducer.token;
     } else {
         delete axios.defaults.headers.common['Authorization']
@@ -61,8 +61,7 @@ axios.interceptors.response.use((response) => {
             localStorage.removeItem('name');
             localStorage.removeItem('role');
             localStorage.removeItem('userId');
-            localStorage.removeItem('isLoggedIn');
-            window.location.href = '/login';
+            window.location.href = '/';
         }
     }
     return Promise.reject(error);

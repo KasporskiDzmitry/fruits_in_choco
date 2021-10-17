@@ -7,6 +7,7 @@ import {withRouter} from "react-router-dom";
 import style from '../common/FormsControls/FormsControls.module.scss';
 import {compose} from "redux";
 import {login} from "../../redux/thunks/auth_thunks";
+import {togglePopUp} from "../../redux/actions/app_actions";
 
 const LoginForm = ({handleSubmit, error}) => {
     return (
@@ -27,33 +28,29 @@ const LoginForm = ({handleSubmit, error}) => {
             </div>
         </form>
     )
-}
+};
 
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 
 const Login = props => {
     const onSubmit = formData => {
         props.login(formData.email, formData.password);
-    }
-
-    if (props.isAuth) {
-        props.history.goBack();
-        // return <Redirect to={'/profile'} />
-    }
+        props.togglePopUp();
+    };
 
     return <div>
         <h1>Login</h1>
         <LoginReduxForm onSubmit={onSubmit}/>
     </div>
-}
+};
 
 const mapStateToProps = state => {
     return {
         isAuth: state.authReducer.isAuth
     }
-}
+};
 
 export default compose(
-    connect(mapStateToProps, {login}),
+    connect(mapStateToProps, {login, togglePopUp}),
     withRouter
 )(Login);

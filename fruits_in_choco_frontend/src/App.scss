@@ -4,6 +4,15 @@
   font-family: Roboto, sans-serif;
 }
 
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
 .sectionOuter {
   padding-left: 0;
   padding-right: 0;
@@ -52,22 +61,6 @@ button {
   background: #cf5204;
 }
 
-.icon {
-  cursor: pointer;
-  border-radius: 20px;
-  width: 35px;
-  height: 35px;
-  position: relative;
-}
-
-.icon:hover {
-  background: #EC5118;
-}
-
-.icon:before {
-  /*content: url("images/icons/ellipse-icon.png");*/
-}
-
 .icon:after {
   position: absolute;
   top: 50%;
@@ -75,14 +68,13 @@ button {
   transform: translateX(-50%) translateY(-50%);
 }
 
-
 .progressBar {
   position: fixed;
   top: 0;
   height: 3px;
   width: 0%;
-  background: rgb(217,157,43);
-  background: linear-gradient(90deg, rgba(217,157,43,1) 0%, rgba(179,2,2,1) 100%, rgba(241,71,29,1) 100%);
+  background: rgb(217, 157, 43);
+  background: linear-gradient(90deg, rgba(217, 157, 43, 1) 0%, rgba(179, 2, 2, 1) 100%, rgba(241, 71, 29, 1) 100%);
   transition: .3s;
 }
 
@@ -106,7 +98,3 @@ button {
   background: cadetblue;
 }
 
-.app-wrapper {
-  display: flex;
-  flex-direction: column;
-}

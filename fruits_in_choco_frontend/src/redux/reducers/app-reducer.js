@@ -1,11 +1,12 @@
-import {INITIALIZED_SUCCESS} from "../action_types/app_action_types";
+import {INITIALIZED_SUCCESS, TOGGLE_POPUP} from "../action_types/app_action_types";
 
 const initialState = {
     pathnames: [
         {path: '/', name: 'Главная'},
         {path: '/shop', name: 'Магазин'}
     ],
-    initialized: false
+    initialized: false,
+    isPopUpShow: false
 };
 
 const appReducer = (state = initialState, action) => {
@@ -14,6 +15,12 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 initialized: true
+            }
+        }
+        case TOGGLE_POPUP: {
+            return {
+                ...state,
+                isPopUpShow: !state.isPopUpShow
             }
         }
         default: {

@@ -22,17 +22,18 @@ class ProfileContainer extends React.Component {
         if (!this.props.profile) {
             return <Preloader/>
         } else {
-            if (localStorage.getItem('role') === 'ADMIN') {
+            if (this.props.role === 'ADMIN') {
                 return <AdminContainer {...this.props} />;
             } else {
-                return <Profile {...this.props} />
+                return <Profile profile={this.props.profile} />
             }
         }
     }
 }
 
 const mapStateToProps = state => ({
-    profile: state.profileReducer.profile
+    profile: state.profileReducer.profile,
+    role: state.authReducer.role
 });
 
 export default compose (

@@ -9,14 +9,6 @@ export const Filter = (props) => {
 
     const [filterParams, setFilterParams] = useState([]);
 
-    // useEffect(() => {
-    //     if (props.selectedCategory === 0) {
-    //         props.loadProducts();
-    //     } else {
-    //         props.loadProductsByTypes(props.filteredTypes);
-    //     }
-    // }, [props.selectedCategory]);
-
     useEffect(() => {
         if (initialRender.current) {
             initialRender.current = false;
@@ -32,18 +24,8 @@ export const Filter = (props) => {
 
     // внешний фильтр (ссылка магазин в header)
     useEffect(() => {
-        console.log(123)
         props.loadProductsByTypes(props.filteredTypes);
     }, [props.filteredTypes]);
-
-
-    // const selectType = (typeId) => {
-    //     if (filterParams.indexOf(typeId) !== -1) {
-    //         setFilterParams(filterParams.filter(i => i !== typeId));
-    //         return;
-    //     }
-    //     setFilterParams([...filterParams, typeId]);
-    // };
 
     const selectType = (typeId) => {
         if (filterParams.indexOf(typeId) !== -1) {
@@ -56,13 +38,13 @@ export const Filter = (props) => {
     return <div className={style.filterWrapper}>
         {
             props.categories.map(i => (
-                <Accordion defaultActiveKey={categoryId}>
+                <Accordion key={i.id} defaultActiveKey={categoryId}>
                     <Accordion.Item eventKey={i.id}>
                         <Accordion.Header>{i.name}</Accordion.Header>
                         <Accordion.Body>
                             {
                                 i.types.map(type => (
-                                    <div>
+                                    <div key={type.id}>
                                         <div>
                                             <input type="checkbox" onChange={(e) => selectType(type.id)}/>
                                         </div>

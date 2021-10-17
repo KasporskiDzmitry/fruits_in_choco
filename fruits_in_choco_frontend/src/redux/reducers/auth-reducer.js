@@ -3,9 +3,10 @@ import {LOGIN_SUCCESS, LOGOUT_SUCCESS, REFRESH_TOKEN_SUCCESS} from "../action_ty
 const initialState = {
     userId: '',
     email: '',
-    login: '',
-    isAuth: false,
-    token: ''
+    name: '',
+    role: '',
+    token: '',
+    isAuth: false
 };
 
 const authReducer = (state = initialState, action) => {

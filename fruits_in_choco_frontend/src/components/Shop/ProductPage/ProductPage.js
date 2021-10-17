@@ -40,7 +40,7 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, ratings})
                             {ratings.map(i => <ReviewItem {...i}/>)}
                         </div>
                         {
-                            localStorage.getItem('isLoggedIn') === "true" ?
+                            localStorage.name ?
                                 <ReviewForm handleSubmit={addReview} productId={product.id}/> :
                                 <div>
                                     Войдите или зарегистрируйтесь, чтобы оставить отзыв о товаре

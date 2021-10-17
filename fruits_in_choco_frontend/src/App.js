@@ -1,6 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
 import {Route} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Footer from './components/Footer/Footer';
@@ -8,6 +7,9 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import Preloader from "./components/common/Preloader/Preloader";
 import {init} from "./redux/thunks/app_thunks";
+import {togglePopUp} from "./redux/actions/app_actions";
+import {PopUp} from "./components/common/PopUp/PopUp";
+import {SignInSignUpPopUp} from "./components/SignInSignUpPopUp/SignInSignUpPopUp";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
@@ -24,7 +26,6 @@ class App extends React.Component {
         // alert('Some error with: ' + e.reason)
         // this.props.setGlobalError(e.reason);
     };
-
 
     componentDidMount() {
         this.props.init();
@@ -50,21 +51,21 @@ class App extends React.Component {
                            render={() => <AboutContainer/>}/>
                     <Route path='/profile'
                            render={() => <ProfilePage/>}/>
-                    <Route path='/login'
-                           render={() => <LoginPage/>}/>
-                    <Route path='/registration'
-                           render={() => <RegistrationPage/>}/>
                 </React.Suspense>
                 <Footer/>
+                {
+                    this.props.isPopUpShow && <PopUp togglePopUp={this.props.togglePopUp}><SignInSignUpPopUp/></PopUp>
+                }
             </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    initialized: state.appReducer.initialized
+    initialized: state.appReducer.initialized,
+    isPopUpShow: state.appReducer.isPopUpShow
 });
 
 export default compose(
-    connect(mapStateToProps, {init})(App)
+    connect(mapStateToProps, {init, togglePopUp})(App)
 );

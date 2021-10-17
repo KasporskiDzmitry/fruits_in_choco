@@ -1,11 +1,14 @@
-.sectionHeader {
-    color: #FCFCFC;
-    position: relative;
-}
+@import 'src/Variables';
 
-.sectionInner {
-    display: flex;
-    flex-direction: column;
+.sectionHeader {
+    color: $linkColor;
+    position: relative;
+    background: moccasin;
+
+    .sectionInner {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .toggleNavBtn {
@@ -19,39 +22,50 @@
     justify-content: space-between;
     flex-shrink: 1;
     height: 80px;
+
+    .navbarNav {
+        display: flex;
+        flex-grow: 2;
+        justify-content: flex-start;
+
+        a {
+            color: red;
+            margin-right: 20px;
+
+            &:hover {
+                color: #EC5118;
+            }
+        }
+    }
+
+    .navbarAside {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        > * {
+            margin-left: 20px;
+        }
+
+        .icon {
+            cursor: pointer;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: #EC5118;
+
+            &:hover {
+                background: red;
+            }
+        }
+
+        .signInUP {
+            font-size: 14px;
+            width: 140px;
+        }
+    }
 }
 
-.navbarNav {
-    display: flex;
-    flex-grow: 2;
-    justify-content: flex-start;
-}
-
-.navbarNav a {
-    color: red;
-    margin-right: 20px;
-}
-
-.navbarNav a:hover {
-    color: #EC5118;
-}
-
-.navbarAside {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.navbarAside__phone {
-    user-select: text;
-    margin-right: 30px;
-    align-self: center;
-    color: red;
-}
-
-.navbarAside__search:after {
-    /*content: url("images/icons/search-icon.png");*/
-}
-
-.navbarAside__profile:after {
-    /*content: url("images/icons/profile-icon.png");*/
-}

@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import style from './Shop.module.scss';
-import {Breadcrumb} from "react-bootstrap";
 import {useLocation} from "react-router-dom";
 import ProductCard from "./ProductCard/ProductCard";
 import Filter from "./Filter/Filter";
@@ -23,7 +22,7 @@ const Shop = (props) => {
                             <Preloader/> :
                             <div className={style.products}>
                                 {
-                                    props.products.map(i => <ProductCard card={i}/>)
+                                    props.products.map(i => <ProductCard card={i} key={i.id}/>)
                                 }
                             </div>
                     }

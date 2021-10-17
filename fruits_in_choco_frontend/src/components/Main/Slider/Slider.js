@@ -1,11 +1,11 @@
 import React from "react";
 import style from "./Slider.module.scss";
-import {Button, Carousel} from "react-bootstrap";
+import {Carousel} from "react-bootstrap";
 
 const Slider = (props) => {
     return <Carousel fade interval={8000} controls={false}>
         {props.slides.map(slide => {
-            return <Carousel.Item>
+            return <Carousel.Item key={slide.id}>
                 <img
                     className={style.sliderImage}
                     src={slide.url}

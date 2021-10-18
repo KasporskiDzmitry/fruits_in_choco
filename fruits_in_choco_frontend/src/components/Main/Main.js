@@ -1,9 +1,15 @@
 import React, {useEffect} from 'react';
 import style from './Main.module.scss';
 import SliderContainer from "./Slider/SliderContainer";
-import CategoryCard from "./CategoryCard/CategoryCard";
+import {Card} from "../common/Card/Card";
 
 const Main = (props) => {
+    const selectCategory = (e, card) => {
+        e.preventDefault();
+        props.setFilteredTypes(card.types.map(i => i.id));
+        props.history.push({pathname: `/shop`, state: {categoryId: card.id}})
+    };
+
     return <div className={style.main}>
         <SliderContainer/>
         <div className={`sectionOuter ${style.ourProductsSection}`}>
@@ -12,8 +18,11 @@ const Main = (props) => {
                     <h1>Что мы делаем</h1>
                 </div>
                 <div className={style.categoriesContainer}>
-                    {props.categoryCards.map(card => <CategoryCard key={card.id} card={card} history={props.history}
-                                                                   setFilteredTypes={props.setFilteredTypes}/>)}
+                    {props.categoryCards.map(card => <Card key={card.id} name={card.name}
+                                                           description={'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the\n' +
+                                                           '                industry\'s standard dummy text ever since the 1500s, when an unknown s standard dummy text ever since the 1500s, when an unknowns standard dummy text ever since the 1500s, when an unknowns standard dummy text ever since the 1500s, when an unknowns standard dummy text ever since the 1500s, when an unknowns standard dummy text ever since the 1500s, when an unknowns standard dummy text ever since the 1500s, when an unknown'}
+                                                           imageURL={card.imageURL}
+                                                           onClick={(e) => selectCategory(e, card)}/>)}
                 </div>
             </div>
         </div>

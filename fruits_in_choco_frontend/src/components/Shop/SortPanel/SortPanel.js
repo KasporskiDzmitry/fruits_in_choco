@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import style from "../Shop.module.scss";
+import style from "./SortPanel.module.scss";
 import {Form} from "react-bootstrap";
 
 const SortPanel = ({products, setProducts}) => {

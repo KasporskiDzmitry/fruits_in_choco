@@ -59,7 +59,13 @@ const Registration = props => {
     </div>
 };
 
+const mapStateToProps = state => {
+    return {
+
+    }
+}
+
 export default compose(
-    connect(state => {}, {registration, togglePopUp}),
+    connect(mapStateToProps, {registration, togglePopUp}),
     withRouter
 )(Registration);

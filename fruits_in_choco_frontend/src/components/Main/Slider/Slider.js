@@ -21,7 +21,7 @@ const Slider = (props) => {
                             <h2>{slide.subtitle}</h2>
                         </div>
                         <div className={style.slideInfo__primaryBtnWrapper}>
-                            <Button variant="flat" size="xxl">Подробнее</Button>
+                            <Button variant="primary" className={style.btn}>Подробнее</Button>
                         </div>
                     </div>
                 </Carousel.Caption>

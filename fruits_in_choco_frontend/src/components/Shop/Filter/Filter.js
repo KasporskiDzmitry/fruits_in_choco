@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Accordion} from "react-bootstrap";
-import style from '../Shop.module.scss';
+import style from './Filter.module.scss';
 import {useLocation} from 'react-router-dom'
 
 export const Filter = (props) => {
@@ -38,9 +38,9 @@ export const Filter = (props) => {
     return <div className={style.filterWrapper}>
         {
             props.categories.map(i => (
-                <Accordion key={i.id} defaultActiveKey={categoryId}>
-                    <Accordion.Item eventKey={i.id}>
-                        <Accordion.Header>{i.name}</Accordion.Header>
+                <Accordion key={i.id} defaultActiveKey={categoryId} className={style.acc}>
+                    <Accordion.Item className={style.accordion} eventKey={i.id}>
+                        <Accordion.Header className={style.header}>{i.name}</Accordion.Header>
                         <Accordion.Body>
                             {
                                 i.types.map(type => (

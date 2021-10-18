@@ -29,7 +29,7 @@ const ReviewForm = (props) => {
                 <textarea required name="reviewForm" id="" cols="70" rows="8" onChange={e => setMessage(e.target.value)} value={message}/>
             </div>
             <div className={style.btnWrapper}>
-                <Button>Send</Button>
+                <Button type={"submit"}>Send</Button>
             </div>
         </form>
     </div>

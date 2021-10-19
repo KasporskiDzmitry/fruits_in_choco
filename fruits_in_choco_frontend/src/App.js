@@ -14,6 +14,8 @@ import style from './App.scss';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowUp, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {ScrollToTopButton} from "./components/common/ScrollToTopButton/ScrollToTopButton";
+import {Cart} from "./components/Shop/Cart/Cart";
+import {removeFromCart, toggleIsCartShow} from "./redux/actions/shop_actions";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
@@ -40,6 +42,7 @@ class App extends React.Component {
     render() {
         return (
             <div className={style.appWrapper}>
+                <Cart isCartShow={this.props.isCartShow} toggleIsCartShow={this.props.toggleIsCartShow} products={this.props.productsInCart} removeFromCart={this.props.removeFromCart}/>
                 <ScrollToTopButton/>
                 <HeaderContainer/>
                 <React.Suspense fallback={<Preloader/>}>
@@ -65,9 +68,11 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
     initialized: state.appReducer.initialized,
-    isPopUpShow: state.appReducer.isPopUpShow
+    isPopUpShow: state.appReducer.isPopUpShow,
+    isCartShow: state.shopReducer.isCartShow,
+    productsInCart: state.shopReducer.cart
 });
 
 export default compose(
-    connect(mapStateToProps, {init, togglePopUp})(App)
+    connect(mapStateToProps, {init, togglePopUp, toggleIsCartShow, removeFromCart})(App)
 );

@@ -1,10 +1,12 @@
 import React from 'react';
 import style from './Shop.module.scss';
-import {useLocation} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import Filter from "./Filter/Filter";
 import SortPanel from "./SortPanel/SortPanel";
 import Preloader from "../common/Preloader/Preloader";
 import {Button, CardGroup, Card} from "react-bootstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCartPlus, faCheckCircle, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 
 const Shop = (props) => {
     const pathnames = useLocation().pathname.split('/').filter(x => x);
@@ -29,22 +31,27 @@ const Shop = (props) => {
 
                             <div className={style.products}>
                                 {
-                                    props.products.map(i => {
-                                        return <Card className={style.cardWrapper} key={i.id}>
+                                    props.products.map(product => {
+                                        return <Card className={style.cardWrapper} key={product.id}>
                                             <div className={style.cardImageWrapper}>
                                                 <Card.Img variant="top"
                                                           src={'https://alimero.ru/img/rsz/scl/400/%2Fuploads%2Fimages%2F00%2F00%2F01%2F2018%2F08%2F07%2F4db3d9.jpeg'}
-                                                          onClick={(e) => selectProduct(e, i.id)}/>
+                                                          onClick={(e) => selectProduct(e, product.id)}/>
                                             </div>
                                             <Card.Body className={style.cardBody}>
-                                                <Card.Title className={style.cardTitle}>{i.name}</Card.Title>
+                                                <Card.Title className={style.cardTitle}>{product.name}</Card.Title>
                                                 <Card.Text className={style.cardDescription}>Short
                                                     description</Card.Text>
                                             </Card.Body>
                                             <Card.Footer className={style.cardFooter}>
-                                                <Card.Title className={style.cardPrice}>{i.price}</Card.Title>
-                                                <Button onClick={(e) => (e) => selectProduct(e, i.id)}>В
-                                                    корзину</Button>
+                                                <Card.Title className={style.cardPrice}>{product.price}</Card.Title>
+                                                <div className={style.toCartButton}>
+                                                    {
+                                                        props.cart.find(i => i.id === product.id) ?
+                                                            <FontAwesomeIcon icon={faCheckCircle}/> :
+                                                            <FontAwesomeIcon icon={faCartPlus} onClick={() => props.addToCart(product)}/>
+                                                    }
+                                                </div>
                                             </Card.Footer>
                                         </Card>
                                     })

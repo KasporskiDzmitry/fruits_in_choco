@@ -8,14 +8,10 @@ import {
     faSignOutAlt,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
+import {Cart} from "../Shop/Cart/Cart";
 
 const Header = (props) => {
     const location = useLocation().pathname;
-    const [isCartShow, setIsCartShow] = useState(false);
-
-    const toggleCart = () => {
-        setIsCartShow(!isCartShow);
-    };
 
     const handleClickOnShopRef = (e) => {
         e.preventDefault();
@@ -40,7 +36,8 @@ const Header = (props) => {
                 </nav>
                 <div className={style.navbarAside}>
                     <div className={style.cartIcon}>
-                        <FontAwesomeIcon icon={faCartArrowDown} onClick={toggleCart}/>
+                        <FontAwesomeIcon icon={faCartArrowDown} onClick={props.toggleIsCartShow}/>
+                        <span>{props.productsInCart}</span>
                     </div>
                     {localStorage.name ?
                         <>
@@ -60,12 +57,6 @@ const Header = (props) => {
                         </>
                     }
                 </div>
-            </div>
-        </div>
-        <div className={isCartShow ? `${style.cart} ${style.show}` : `${style.cart}`}>
-            Cart here
-            <div onClick={toggleCart}>
-                close
             </div>
         </div>
     </header>

@@ -1,8 +1,13 @@
 @import 'src/Variables';
 
+header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
 .sectionHeader {
     color: $linkColor;
-    position: relative;
     background: moccasin;
 
     .sectionInner {
@@ -30,7 +35,7 @@
     align-items: center;
     justify-content: space-between;
     flex-shrink: 1;
-    height: 80px;
+    height: 60px;
 
     .navbarNav {
         display: flex;
@@ -89,20 +94,5 @@
     }
 }
 
-.cart {
-    background: darkgrey;
-    display: flex;
-    flex-direction: column;
-    width: 0;
-    height: 100vh;
-    position: fixed;
-    right: 0;
-    top: 0;
-    transition: .3s;
-    z-index: 10;
-}
 
-.show {
-    width: 250px;
-}
 

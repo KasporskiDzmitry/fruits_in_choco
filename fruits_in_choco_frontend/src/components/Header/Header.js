@@ -1,12 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import style from './Header.module.scss';
 import {NavLink} from "react-router-dom";
 import {useLocation} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCoffee, faRegistered, faSignInAlt, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCartArrowDown,
+    faSignOutAlt,
+    faUser
+} from "@fortawesome/free-solid-svg-icons";
 
 const Header = (props) => {
     const location = useLocation().pathname;
+    const [isCartShow, setIsCartShow] = useState(false);
+
+    const toggleCart = () => {
+        setIsCartShow(!isCartShow);
+    };
 
     const handleClickOnShopRef = (e) => {
         e.preventDefault();
@@ -30,21 +39,33 @@ const Header = (props) => {
                     <NavLink to={'/contacts'}>Контакты</NavLink>
                 </nav>
                 <div className={style.navbarAside}>
+                    <div className={style.cartIcon}>
+                        <FontAwesomeIcon icon={faCartArrowDown} onClick={toggleCart}/>
+                    </div>
                     {localStorage.name ?
                         <>
                             <NavLink className={style.icon} to={'/profile'}>
-                                <FontAwesomeIcon icon={faUser} />
+                                <FontAwesomeIcon icon={faUser}/>
                             </NavLink>
                             {/*продумать логаут (куда делать редирект)*/}
-                            <NavLink className={style.icon} to={location === '/profile' ? '/' : '#'} onClick={props.logout}>
-                                <FontAwesomeIcon icon={faSignOutAlt} />
+                            <NavLink className={style.icon} to={location === '/profile' ? '/' : '#'}
+                                     onClick={props.logout}>
+                                <FontAwesomeIcon icon={faSignOutAlt}/>
                             </NavLink>
                         </> :
                         <>
-                            <div className={`${style.icon} ${style.signInUP}`} onClick={props.togglePopUp}>Вход и регистрация</div>
+                            <div className={`${style.icon} ${style.signInUP}`} onClick={props.togglePopUp}>Вход и
+                                регистрация
+                            </div>
                         </>
                     }
                 </div>
+            </div>
+        </div>
+        <div className={isCartShow ? `${style.cart} ${style.show}` : `${style.cart}`}>
+            Cart here
+            <div onClick={toggleCart}>
+                close
             </div>
         </div>
     </header>

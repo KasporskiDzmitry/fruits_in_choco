@@ -75,6 +75,34 @@
             font-size: 14px;
             width: 140px;
         }
+
+        .cartIcon {
+            cursor: pointer;
+            color: green;
+            font-size: 25px;
+            width: 100px;
+
+            &:hover {
+                color: blue;
+            }
+        }
     }
+}
+
+.cart {
+    background: darkgrey;
+    display: flex;
+    flex-direction: column;
+    width: 0;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: .3s;
+    z-index: 10;
+}
+
+.show {
+    width: 250px;
 }
 

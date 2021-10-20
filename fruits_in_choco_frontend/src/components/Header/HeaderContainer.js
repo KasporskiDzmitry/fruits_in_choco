@@ -9,6 +9,7 @@ import {setFilteredTypes, toggleIsCartShow} from "../../redux/actions/shop_actio
 import {togglePopUp} from "../../redux/actions/app_actions";
 
 class HeaderContainer extends React.Component {
+
     render() {
         return <Header {...this.props} />
     }

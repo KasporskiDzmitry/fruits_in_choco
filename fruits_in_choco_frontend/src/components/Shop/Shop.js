@@ -16,6 +16,13 @@ const Shop = (props) => {
         e.preventDefault();
         props.history.push({pathname: `/product/${productId}`, state: {id: productId}})
     };
+    
+    const addToCart = (product) => {
+        props.addToCart(product);
+        const productsInLocalStorage = JSON.parse(localStorage.getItem('products')) || [];
+        localStorage.setItem('products', JSON.stringify([...productsInLocalStorage, product]));
+        localStorage.totalSum = (parseInt(localStorage.totalSum) || 0) + product.price;
+    };
 
     return <div className={`sectionOuter ${style.shopSection}`}>
         <div className="sectionInner">
@@ -40,16 +47,15 @@ const Shop = (props) => {
                                             </div>
                                             <Card.Body className={style.cardBody}>
                                                 <Card.Title className={style.cardTitle}>{product.name}</Card.Title>
-                                                <Card.Text className={style.cardDescription}>Short
-                                                    description</Card.Text>
+                                                <Card.Text className={style.cardDescription}>Short description</Card.Text>
                                             </Card.Body>
                                             <Card.Footer className={style.cardFooter}>
                                                 <Card.Title className={style.cardPrice}>{product.price}</Card.Title>
                                                 <div className={style.toCartButton}>
                                                     {
                                                         props.cart.find(i => i.id === product.id) ?
-                                                            <FontAwesomeIcon icon={faCheckCircle}/> :
-                                                            <FontAwesomeIcon icon={faCartPlus} onClick={() => props.addToCart(product)}/>
+                                                            <FontAwesomeIcon className={style.checked} icon={faCheckCircle}/> :
+                                                            <FontAwesomeIcon icon={faCartPlus} onClick={() => addToCart(product)}/>
                                                     }
                                                 </div>
                                             </Card.Footer>

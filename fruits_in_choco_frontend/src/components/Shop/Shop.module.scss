@@ -81,7 +81,11 @@
             }
 
             .toCartButton {
+                cursor: pointer;
+            }
 
+            .checked {
+                color: green;
             }
         }
     }

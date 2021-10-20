@@ -13,6 +13,9 @@ import {Cart} from "../Shop/Cart/Cart";
 const Header = (props) => {
     const location = useLocation().pathname;
 
+    const productsInCart = localStorage.products ? JSON.parse(localStorage.products).length : props.productsInCart;
+
+
     const handleClickOnShopRef = (e) => {
         e.preventDefault();
         props.setFilteredTypes(props.productTypes);
@@ -37,7 +40,7 @@ const Header = (props) => {
                 <div className={style.navbarAside}>
                     <div className={style.cartIcon}>
                         <FontAwesomeIcon icon={faCartArrowDown} onClick={props.toggleIsCartShow}/>
-                        <span>{props.productsInCart}</span>
+                        <span>{productsInCart}</span>
                     </div>
                     {localStorage.name ?
                         <>

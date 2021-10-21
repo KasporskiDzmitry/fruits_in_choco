@@ -3,8 +3,7 @@ import axios from 'axios';
 import {API_BASE_URL} from "../components/utils/constants/url";
 import store from "./redux-store";
 import {refreshTokenSuccess} from "./actions/auth_actions";
-import {togglePopUp} from "./actions/app_actions";
-import {logout, refreshToken} from "./thunks/auth_thunks";
+import {removeUserInfoFromLS} from "../utils/localStorageFunctions";
 
 class RequestService {
     get = (url, isAuthRequired = false, contentType = "application/json") => {
@@ -57,10 +56,7 @@ axios.interceptors.response.use((response) => {
             originalRequest.headers.Authorization = response.data;
             return axios(originalRequest);
         } catch (e) {
-            localStorage.removeItem('email');
-            localStorage.removeItem('name');
-            localStorage.removeItem('role');
-            localStorage.removeItem('userId');
+            removeUserInfoFromLS();
             window.location.href = '/';
         }
     }

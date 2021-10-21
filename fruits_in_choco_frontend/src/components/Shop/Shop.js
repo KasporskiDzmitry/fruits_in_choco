@@ -7,6 +7,7 @@ import Preloader from "../common/Preloader/Preloader";
 import {Button, CardGroup, Card} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartPlus, faCheckCircle, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import {addProductToCart} from "../../utils/localStorageFunctions";
 
 const Shop = (props) => {
     const pathnames = useLocation().pathname.split('/').filter(x => x);
@@ -19,9 +20,7 @@ const Shop = (props) => {
     
     const addToCart = (product) => {
         props.addToCart(product);
-        const productsInLocalStorage = JSON.parse(localStorage.getItem('products')) || [];
-        localStorage.setItem('products', JSON.stringify([...productsInLocalStorage, product]));
-        localStorage.totalSum = (parseInt(localStorage.totalSum) || 0) + product.price;
+        addProductToCart(product);
     };
 
     return <div className={`sectionOuter ${style.shopSection}`}>
@@ -53,7 +52,7 @@ const Shop = (props) => {
                                                 <Card.Title className={style.cardPrice}>{product.price}</Card.Title>
                                                 <div className={style.toCartButton}>
                                                     {
-                                                        props.cart.find(i => i.id === product.id) ?
+                                                        JSON.parse(localStorage.products).find(i => i.id === product.id) ?
                                                             <FontAwesomeIcon className={style.checked} icon={faCheckCircle}/> :
                                                             <FontAwesomeIcon icon={faCartPlus} onClick={() => addToCart(product)}/>
                                                     }

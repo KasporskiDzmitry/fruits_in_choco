@@ -22,6 +22,7 @@ const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer')
 const AboutContainer = React.lazy(() => import('./components/About/AboutContainer'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
+const OrderPage = React.lazy(() => import('./components/Order/OrderContainer'));
 
 
 class App extends React.Component {
@@ -42,7 +43,8 @@ class App extends React.Component {
     render() {
         return (
             <div className={style.appWrapper}>
-                <Cart isCartShow={this.props.isCartShow} toggleIsCartShow={this.props.toggleIsCartShow} products={this.props.productsInCart} removeFromCart={this.props.removeFromCart}/>
+                <Cart isCartShow={this.props.isCartShow} toggleIsCartShow={this.props.toggleIsCartShow}
+                      products={this.props.productsInCart} removeFromCart={this.props.removeFromCart}/>
                 <ScrollToTopButton/>
                 <HeaderContainer/>
                 <React.Suspense fallback={<Preloader/>}>
@@ -56,6 +58,8 @@ class App extends React.Component {
                            render={() => <AboutContainer/>}/>
                     <Route path='/profile'
                            render={() => <ProfilePage/>}/>
+                    <Route path='/order'
+                           render={() => <OrderPage/>}/>
                 </React.Suspense>
                 <Footer/>
                 {

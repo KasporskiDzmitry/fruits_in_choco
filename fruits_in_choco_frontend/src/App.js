@@ -14,15 +14,15 @@ import style from './App.scss';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowUp, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {ScrollToTopButton} from "./components/common/ScrollToTopButton/ScrollToTopButton";
-import {Cart} from "./components/Shop/Cart/Cart";
-import {removeFromCart, toggleIsCartShow} from "./redux/actions/shop_actions";
+import {CartLayout} from "./components/CartLayout/CartLayout";
+import {removeFromCart, toggleIsCartShow, updateProductInCart} from "./redux/actions/shop_actions";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
 const AboutContainer = React.lazy(() => import('./components/About/AboutContainer'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
-const OrderPage = React.lazy(() => import('./components/Order/OrderContainer'));
+const CartPage = React.lazy(() => import('./components/Cart/CartContainer'));
 
 
 class App extends React.Component {
@@ -43,8 +43,8 @@ class App extends React.Component {
     render() {
         return (
             <div className={style.appWrapper}>
-                <Cart isCartShow={this.props.isCartShow} toggleIsCartShow={this.props.toggleIsCartShow}
-                      products={this.props.productsInCart} removeFromCart={this.props.removeFromCart}/>
+                <CartLayout isCartShow={this.props.isCartShow} toggleIsCartShow={this.props.toggleIsCartShow}
+                            products={this.props.productsInCart} removeFromCart={this.props.removeFromCart} updateProduct={this.props.updateProductInCart}/>
                 <ScrollToTopButton/>
                 <HeaderContainer/>
                 <React.Suspense fallback={<Preloader/>}>
@@ -58,8 +58,8 @@ class App extends React.Component {
                            render={() => <AboutContainer/>}/>
                     <Route path='/profile'
                            render={() => <ProfilePage/>}/>
-                    <Route path='/order'
-                           render={() => <OrderPage/>}/>
+                    <Route path='/cart'
+                           render={() => <CartPage/>}/>
                 </React.Suspense>
                 <Footer/>
                 {
@@ -78,5 +78,5 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {init, togglePopUp, toggleIsCartShow, removeFromCart})(App)
+    connect(mapStateToProps, {init, togglePopUp, toggleIsCartShow, removeFromCart, updateProductInCart})(App)
 );

@@ -3,7 +3,7 @@ import axios from 'axios';
 import {API_BASE_URL} from "../components/utils/constants/url";
 import store from "./redux-store";
 import {refreshTokenSuccess} from "./actions/auth_actions";
-import {removeUserInfoFromLS} from "../utils/localStorageFunctions";
+import {removeUserInfoFromLS} from "../components/utils/localStorageFunctions";
 
 class RequestService {
     get = (url, isAuthRequired = false, contentType = "application/json") => {

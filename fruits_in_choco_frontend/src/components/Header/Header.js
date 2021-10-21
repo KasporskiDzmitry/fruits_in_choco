@@ -8,7 +8,7 @@ import {
     faSignOutAlt,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
-import {Cart} from "../Shop/Cart/Cart";
+import {CartLayout} from "../CartLayout/CartLayout";
 
 const Header = (props) => {
     const location = useLocation().pathname;

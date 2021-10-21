@@ -1,7 +1,7 @@
 import RequestService from "../RequestService";
 import {loginSuccess, logoutSuccess, refreshTokenSuccess} from "../actions/auth_actions";
 import {stopSubmit} from "redux-form";
-import {removeUserInfoFromLS, saveUserInfoToLS} from "../../utils/localStorageFunctions";
+import {removeUserInfoFromLS, saveUserInfoToLS} from "../../components/utils/localStorageFunctions";
 
 export const login = (email, password) => async dispatch => {
     try {

@@ -4,7 +4,7 @@ import {
     SET_PRODUCTS,
     TOGGLE_IS_FETCHING,
     ADD_TO_CART,
-    REMOVE_FROM_CART, TOGGLE_IS_CART_SHOW
+    REMOVE_FROM_CART, TOGGLE_IS_CART_SHOW, UPDATE_PRODUCT_IN_CART
 } from "../action_types/shop_action_types";
 
 const initialState = {
@@ -29,6 +29,13 @@ const shopReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cart: [...state.cart, action.product]
+            }
+        }
+        case UPDATE_PRODUCT_IN_CART: {
+            return {
+                ...state,
+                cart: [...state.cart.slice(0, state.cart.findIndex(i => i.id === action.product.id)),
+                    action.product, ...state.cart.slice(state.cart.findIndex(i => i.id === action.product.id) + 1)]
             }
         }
         case REMOVE_FROM_CART: {

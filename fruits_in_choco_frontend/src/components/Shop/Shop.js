@@ -4,7 +4,7 @@ import Filter from "./Filter/Filter";
 import SortPanel from "./SortPanel/SortPanel";
 import Preloader from "../common/Preloader/Preloader";
 import {addProductToCart} from "../utils/localStorageFunctions";
-import {ProductCard} from "./ProductCard/ProductCard";
+import ProductCard from "./ProductCard/ProductCard";
 
 const Shop = (props) => {
     const addToCart = (product) => {

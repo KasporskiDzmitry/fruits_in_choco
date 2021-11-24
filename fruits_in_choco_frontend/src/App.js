@@ -8,13 +8,13 @@ import {compose} from 'redux';
 import Preloader from "./components/common/Preloader/Preloader";
 import {init} from "./redux/thunks/app_thunks";
 import {togglePopUp} from "./redux/actions/app_actions";
-import {PopUp} from "./components/common/PopUp/PopUp";
-import {SignInSignUpPopUp} from "./components/SignInSignUpPopUp/SignInSignUpPopUp";
+import PopUp from "./components/common/PopUp/PopUp";
+import SignInSignUpPopUp from "./components/SignInSignUpPopUp/SignInSignUpPopUp";
 import style from './App.scss';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowUp, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
-import {ScrollToTopButton} from "./components/common/ScrollToTopButton/ScrollToTopButton";
-import {CartLayout} from "./components/CartLayout/CartLayout";
+import ScrollToTopButton from "./components/common/ScrollToTopButton/ScrollToTopButton";
+import CartLayout from "./components/CartLayout/CartLayout";
 import {removeFromCart, toggleIsCartShow, updateProductInCart} from "./redux/actions/shop_actions";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));

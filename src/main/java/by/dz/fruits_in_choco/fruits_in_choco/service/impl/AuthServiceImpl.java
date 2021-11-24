@@ -1,7 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.AuthenticationResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.RefreshTokenResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;

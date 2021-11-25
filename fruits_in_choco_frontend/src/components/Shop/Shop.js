@@ -7,15 +7,6 @@ import {addProductToCart} from "../utils/localStorageFunctions";
 import ProductCard from "./ProductCard/ProductCard";
 
 const Shop = (props) => {
-    const addToCart = (product) => {
-        const cartProduct = {
-            ...product,
-            quantity: 1
-        };
-        props.addToCart(cartProduct);
-        addProductToCart(cartProduct);
-    };
-
     return <div className={`sectionOuter ${style.shopSection}`}>
         <div className="sectionInner">
             <div className={style.shopInnerWrapper}>
@@ -30,7 +21,7 @@ const Shop = (props) => {
 
                             <div className={style.products}>
                                 {
-                                    props.products.map(product => <ProductCard product={product} addToCart={addToCart} />)
+                                    props.products.map(product => <ProductCard key={product.id} history={props.history} product={product} addToCart={props.addToCart} />)
                                 }
                             </div>
                     }

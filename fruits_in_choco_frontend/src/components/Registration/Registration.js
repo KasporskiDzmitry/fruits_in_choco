@@ -33,7 +33,7 @@ const RegistrationForm = ({handleSubmit, error}) => {
                 </div>
             }
             <div>
-                <Button>Register</Button>
+                <Button type={"submit"}>Register</Button>
             </div>
         </form>
     )

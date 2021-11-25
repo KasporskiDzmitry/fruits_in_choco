@@ -1,12 +1,13 @@
 .heading {
     text-align: center;
-    margin: 40px 0 40px 0;
+    margin-top: 40px;
 }
 
 .categoriesContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 90vh;
 
     .cardWrapper {
         border: none;
@@ -53,7 +54,7 @@
         .cardFooter {
             background: none;
             border: none;
-            margin-bottom: 20px;
+            //margin-bottom: 20px;
         }
     }
 }

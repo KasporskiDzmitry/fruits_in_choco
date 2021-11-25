@@ -1,6 +1,6 @@
-import React, {createRef} from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {NavLink, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Footer from './components/Footer/Footer';
 import {connect} from 'react-redux';
@@ -11,8 +11,6 @@ import {togglePopUp} from "./redux/actions/app_actions";
 import PopUp from "./components/common/PopUp/PopUp";
 import SignInSignUpPopUp from "./components/SignInSignUpPopUp/SignInSignUpPopUp";
 import style from './App.scss';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowUp, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import ScrollToTopButton from "./components/common/ScrollToTopButton/ScrollToTopButton";
 import CartLayout from "./components/CartLayout/CartLayout";
 import {removeFromCart, toggleIsCartShow, updateProductInCart} from "./redux/actions/shop_actions";
@@ -43,6 +41,7 @@ class App extends React.Component {
     render() {
         return (
             <div className={style.appWrapper}>
+                {this.props.isPopUpShow && <PopUp togglePopUp={this.props.togglePopUp}><SignInSignUpPopUp /></PopUp>}
                 <CartLayout isCartShow={this.props.isCartShow} toggleIsCartShow={this.props.toggleIsCartShow}
                             products={this.props.productsInCart} removeFromCart={this.props.removeFromCart} updateProduct={this.props.updateProductInCart}/>
                 <ScrollToTopButton/>
@@ -62,9 +61,6 @@ class App extends React.Component {
                            render={() => <CartPage/>}/>
                 </React.Suspense>
                 <Footer/>
-                {
-                    this.props.isPopUpShow && <PopUp togglePopUp={this.props.togglePopUp}><SignInSignUpPopUp/></PopUp>
-                }
             </div>
         )
     }

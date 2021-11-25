@@ -1,0 +1,35 @@
+.cartLayoutContainer {
+  position: fixed;
+  right: 0;
+  width: 0;
+  transition: .3s ease-in;
+  z-index: 10;
+  background: white;
+  height: 100vh;
+
+  .closeWrapper {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+
+    .close {
+      width: 25px;
+      height: 25px;
+      border: 1px solid black;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: .3s;
+
+      &:hover {
+        background: aqua;
+      }
+    }
+  }
+}
+
+.show {
+  width: 450px;
+}

@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import style from './Main.module.scss';
 import SliderContainer from "./Slider/SliderContainer";
-// import {Card} from "../common/Card/Card";
-import {Button, CardGroup, Card} from "react-bootstrap";
+import {CardGroup} from "react-bootstrap";
+import CategoryCard from "./CategoryCard";
 
 const Main = (props) => {
     const selectCategory = (e, card) => {
@@ -21,26 +21,7 @@ const Main = (props) => {
                 <div className={style.categoriesContainer}>
                     <CardGroup>
                         {
-                            props.categoryCards.map(i => {
-                                return <Card className={style.cardWrapper} key={i.id}>
-                                    <div className={style.cardImageWrapper}>
-                                        <Card.Img variant="top" src={i.imageURL} onClick={(e) => selectCategory(e, i)}/>
-                                    </div>
-                                    <Card.Body>
-                                        <Card.Title className={style.cardTitle}>{i.name}</Card.Title>
-                                        <Card.Text className={style.cardDescription}>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            indusindustry\'s standard dummy text ever since the 1500s, when an unknown s
-                                            standard dummy text ever since the 1500s, when an unknowns standard dummy
-                                            text ever since the 1500s, when an unknowns standard dummy text ever since
-                                            the 1500s, when an unknowns standard dummy text ever since the 1500s, when
-                                            an unknowns standard dummy text ever try. Lorem Ipsum has been
-                                            the</Card.Text>
-                                    </Card.Body>
-                                    <Card.Footer className={style.cardFooter}>
-                                        <Button onClick={(e) => selectCategory(e, i)}>Подробнее</Button>
-                                    </Card.Footer>
-                                </Card>
-                            })
+                            props.categoryCards.map(i => <CategoryCard key={i.id} category={i} selectCategory={selectCategory}/>)
                         }
                     </CardGroup>
                 </div>

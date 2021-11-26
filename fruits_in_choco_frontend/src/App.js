@@ -14,6 +14,8 @@ import style from './App.scss';
 import ScrollToTopButton from "./components/common/ScrollToTopButton/ScrollToTopButton";
 import CartLayout from "./components/CartLayout/CartLayout";
 import {removeFromCart, toggleIsCartShow, updateProductInCart} from "./redux/actions/shop_actions";
+import {registration} from "./redux/thunks/registration_thunks";
+import {login} from "./redux/thunks/auth_thunks";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
@@ -41,7 +43,9 @@ class App extends React.Component {
     render() {
         return (
             <div className={style.appWrapper}>
-                {this.props.isPopUpShow && <PopUp togglePopUp={this.props.togglePopUp}><SignInSignUpPopUp /></PopUp>}
+                {this.props.isPopUpShow && <PopUp togglePopUp={this.props.togglePopUp}>
+                    <SignInSignUpPopUp login={this.props.login} registration={this.props.registration} togglePopUp={this.props.togglePopUp}/>
+                </PopUp>}
                 <CartLayout isCartShow={this.props.isCartShow} toggleIsCartShow={this.props.toggleIsCartShow}
                             products={this.props.productsInCart} removeFromCart={this.props.removeFromCart} updateProduct={this.props.updateProductInCart}/>
                 <ScrollToTopButton/>
@@ -74,5 +78,5 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {init, togglePopUp, toggleIsCartShow, removeFromCart, updateProductInCart})(App)
+    connect(mapStateToProps, {init, login, registration, togglePopUp, toggleIsCartShow, removeFromCart, updateProductInCart})(App)
 );

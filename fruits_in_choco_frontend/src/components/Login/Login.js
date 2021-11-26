@@ -45,13 +45,15 @@ const Login = props => {
     </div>
 };
 
-const mapStateToProps = state => {
-    return {
-        isAuth: state.authReducer.isAuth
-    }
-};
+// const mapStateToProps = state => {
+//     return {
+//         isAuth: state.authReducer.isAuth
+//     }
+// };
+//
+// export default compose(
+//     connect(mapStateToProps, {login, togglePopUp}),
+//     withRouter
+// )(Login);
 
-export default compose(
-    connect(mapStateToProps, {login, togglePopUp}),
-    withRouter
-)(Login);
+export default Login;

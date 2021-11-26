@@ -1,33 +1,45 @@
 import React from "react";
 import style from './ProductCard.module.scss'
 import {Button, Card} from "react-bootstrap";
-import {addProductToCart} from "../../utils/localStorageFunctions";
+import {faCartPlus, faCheckCircle} from "@fortawesome/free-solid-svg-icons";
+import {addProductToCart, isProductInCart} from "../../utils/localStorageFunctions";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const ProductCard = ({product, addToCart, history}) => {
-    const saveProductToCart = (product) => {
-        const cartProduct = {
-            ...product,
-            quantity: 1
-        };
-        addToCart(cartProduct);
-        addProductToCart(cartProduct);
+    const saveProductToCart = () => {
+        if (!isProductInCart(product.id)) {
+            const cartProduct = {
+                ...product,
+                quantity: 1
+            };
+            addToCart(cartProduct);
+            addProductToCart(cartProduct);
+        }
     };
 
-    const selectProduct = (e, id) => {
+    const selectProduct = (e) => {
         e.preventDefault();
-        history.push({pathname: `/product/${id}`})
+        history.push({pathname: `/product/${product.id}`})
     };
+
+    const toCartButtonClassName = !isProductInCart(product.id) ? style.toCartButton : `${style.toCartButton} ${style.checked}`
 
     return <Card className={style.cardWrapper}>
-        <div className={style.cardImageWrapper}>
-            <Card.Img variant="top" src={product.imageURL} onClick={(e) => saveProductToCart(product)}/>
+        <div className={style.cardImageWrapper} onClick={selectProduct}>
+            <Card.Img  variant="top" src={'https://i2.wp.com/completelydelicious.com/wp-content/uploads/2020/05/chocolate-oreo-parfait-8-500x500.jpg'} onClick={(e) => saveProductToCart(product)}/>
         </div>
         <Card.Body>
             <Card.Title className={style.cardTitle}>{product.name}</Card.Title>
         </Card.Body>
         <Card.Footer className={style.cardFooter}>
-            <Button onClick={(e) => selectProduct(e, product.id)}>Подробнее</Button>
-            <Button onClick={(e) => saveProductToCart(product)}>В корзину</Button>
+            <div className={style.cardPrice}>{product.price}</div>
+            <Button className={toCartButtonClassName}>
+                {
+                    isProductInCart(product.id) ?
+                        <FontAwesomeIcon icon={faCheckCircle} /> :
+                        <FontAwesomeIcon icon={faCartPlus} onClick={saveProductToCart}/>
+                }
+            </Button>
         </Card.Footer>
     </Card>
 }

@@ -5,13 +5,14 @@
 
 .categoriesContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 90vh;
 
     .cardWrapper {
         border: none;
         height: 550px;
+        width: 400px;
         text-align: center;
         margin: 10px;
 

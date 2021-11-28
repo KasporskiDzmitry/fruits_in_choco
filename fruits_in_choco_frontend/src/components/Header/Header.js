@@ -12,7 +12,7 @@ import {
 const Header = (props) => {
     const location = useLocation().pathname;
 
-    const productsInCart = localStorage.products ? JSON.parse(localStorage.products).length : props.productsInCart;
+    // const productsInCart = !localStorage.products ? props.productsInCart : JSON.parse(localStorage.products).length;
 
 
     const handleClickOnShopRef = (e) => {
@@ -39,7 +39,7 @@ const Header = (props) => {
                 <div className={style.navbarAside}>
                     <div className={style.cartIcon}>
                         <FontAwesomeIcon icon={faCartArrowDown} onClick={props.toggleIsCartShow}/>
-                        <span>{productsInCart}</span>
+                        <span>{props.productsInCart.length}</span>
                     </div>
                     {localStorage.name ?
                         <>

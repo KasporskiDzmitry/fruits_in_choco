@@ -19,10 +19,14 @@ export const isProductInCart = (id) => {
     }
 }
 
-export const saveUserInfoToLS = () => {
-
+export const saveUserInfoToLS = (user) => {
+    localStorage.setItem('name', user.name);
+    localStorage.setItem('email', user.email);
+    localStorage.setItem('role', user.role);
 }
 
 export const removeUserInfoFromLS = () => {
-
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+    localStorage.removeItem('role');
 }

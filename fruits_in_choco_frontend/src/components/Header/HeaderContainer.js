@@ -21,7 +21,9 @@ const mapStateToProps = state => ({
     isAuth: state.authReducer.isAuth,
     login: state.authReducer.login,
     productTypes: state.mainPage.categories.map(i => i.types).flat().map(i => i.id),
-    productsInCart: state.shopReducer.cart.length
+    productsInCart: state.shopReducer.cart.length > 0 ?
+        state.shopReducer.cart :
+        localStorage.products ? JSON.parse(localStorage.products) : []
 });
 
 export default compose(

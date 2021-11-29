@@ -2,12 +2,8 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {Input} from '../common/FormsControls/FormsControls';
 import {required} from "../utils/validators/validators";
-import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
 import style from '../common/FormsControls/FormsControls.module.scss';
-import {compose} from "redux";
 import {login} from "../../redux/thunks/auth_thunks";
-import {togglePopUp} from "../../redux/actions/app_actions";
 import {Button} from 'react-bootstrap';
 
 const LoginForm = ({handleSubmit, error}) => {
@@ -36,7 +32,6 @@ const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 const Login = props => {
     const onSubmit = formData => {
         props.login(formData.email, formData.password);
-        props.togglePopUp();
     };
 
     return <div>
@@ -44,16 +39,5 @@ const Login = props => {
         <LoginReduxForm onSubmit={onSubmit}/>
     </div>
 };
-
-// const mapStateToProps = state => {
-//     return {
-//         isAuth: state.authReducer.isAuth
-//     }
-// };
-//
-// export default compose(
-//     connect(mapStateToProps, {login, togglePopUp}),
-//     withRouter
-// )(Login);
 
 export default Login;

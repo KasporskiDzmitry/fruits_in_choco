@@ -23,3 +23,8 @@ export const Input = props => {
     const {input, meta, child, ...restProps} = props;
     return <FormControl {...props}><input {...input} {...restProps}/></FormControl>
 };
+
+export const Select = props => {
+    const {input, meta, child, ...restProps} = props;
+    return <FormControl {...props}><select {...input} {...restProps} /></FormControl>
+}

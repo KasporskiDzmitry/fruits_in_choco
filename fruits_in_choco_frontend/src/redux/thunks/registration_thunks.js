@@ -8,6 +8,7 @@ export const registration = user => async dispatch => {
         await RequestService.post("/registration", user);
         dispatch(toggleIsFetching(false));
         dispatch(registerSuccess());
+        dispatch(togglePopUp());
         // window.location.href = '/login'; // убрать отсюда
     } catch (error) {
         dispatch(registerFailure(error.response.data));

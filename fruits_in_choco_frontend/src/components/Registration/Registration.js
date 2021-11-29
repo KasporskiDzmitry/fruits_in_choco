@@ -50,7 +50,6 @@ const Registration = props => {
             lastName: formData.lastName
         };
         props.registration(user);
-        props.togglePopUp();
     };
 
     return <div>
@@ -58,16 +57,5 @@ const Registration = props => {
         <RegistrationReduxForm onSubmit={onSubmit}/>
     </div>
 };
-
-// const mapStateToProps = state => {
-//     return {
-//
-//     }
-// }
-//
-// export default compose(
-//     connect(mapStateToProps, {registration, togglePopUp}),
-//     withRouter
-// )(Registration);
 
 export default Registration;

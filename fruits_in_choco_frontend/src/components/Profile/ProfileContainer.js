@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Profile from "./Profile";
-import AdminContainer from "../Admin/AdminContainer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
 import {getProfile} from "../../redux/thunks/profile_thunks";
+import Admin from "../Admin/Admin";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -22,8 +22,8 @@ class ProfileContainer extends React.Component {
         if (!this.props.profile) {
             return <Preloader/>
         } else {
-            if (this.props.role === 'ADMIN') {
-                return <AdminContainer {...this.props} />;
+            if (localStorage.role === 'ADMIN') {
+                return <Admin {...this.props} />;
             } else {
                 return <Profile profile={this.props.profile} />
             }
@@ -32,8 +32,7 @@ class ProfileContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    profile: state.profileReducer.profile,
-    role: state.authReducer.role
+    profile: state.profileReducer.profile
 });
 
 export default compose (

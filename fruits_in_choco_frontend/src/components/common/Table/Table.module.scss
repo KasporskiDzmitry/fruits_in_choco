@@ -1,0 +1,77 @@
+@import "./src/App";
+
+.wrapper {
+  width: 100%;
+  @include flexCenter();
+
+  .tableControlsWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 30px 0;
+
+    .filter {
+      @include flexCenter();
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+
+      input {
+        height: 36px;
+        font-size: 14px;
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .tableWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+
+    table {
+      border-collapse: collapse;
+      font-size: 18px;
+      margin: 30px;
+
+      thead td {
+        text-align: center;
+        cursor: pointer;
+      }
+
+      td {
+        overflow: hidden;
+        max-width: 150px;
+        width: 150px;
+        border: 1px solid black;
+        padding: 5px;
+      }
+    }
+
+    tbody {
+      .odd {
+        background: $trBgColor;
+      }
+
+      tr:hover {
+        background: darken($trBgColor, 10%);
+      }
+    }
+
+    .loading tbody {
+      position: relative;
+
+      &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 150px 150px;
+        content: "";
+      }
+    }
+  }
+}

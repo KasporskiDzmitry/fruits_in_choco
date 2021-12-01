@@ -1,0 +1,17 @@
+.innerWrapper {
+  display: flex;
+  margin-top: 30px;
+}
+
+.navbarNav {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+
+  a {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}

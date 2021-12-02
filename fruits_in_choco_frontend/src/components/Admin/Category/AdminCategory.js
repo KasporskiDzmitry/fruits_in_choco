@@ -1,10 +1,8 @@
 import React from 'react';
+import Table from "../../common/Table/Table";
 
 const AdminCategory = (props) => {
     return <div>
-        {
-            props.categories.map(i => <div>{i.name}</div>)
-        }
     </div>
 }
 

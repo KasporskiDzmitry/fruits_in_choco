@@ -12,8 +12,7 @@ const AdminUser = (props) => {
     }
 
     return <div>
-        <Table data={props.users} names={names} dataToShow={props.users} setDataToShow={() => {
-        }} currentPage={0} setCurrentPage={() => {}}/>
+        <Table data={props.users} names={names} dataToShow={props.data} setDataToShow={props.setData} currentPage={0} setCurrentPage={props.setCurrentPage}/>
     </div>
 }
 

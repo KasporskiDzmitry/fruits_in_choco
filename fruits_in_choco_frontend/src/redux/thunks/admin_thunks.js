@@ -3,6 +3,7 @@ import RequestService from "../RequestService";
 import {reset} from "redux-form";
 import {loadProducts} from "./shop_thunks";
 import {setUsers} from "../actions/admin_actions";
+import {setData} from "../actions/table_actions";
 
 export const addProduct = (product) => async dispatch => {
     dispatch(toggleIsFetching(true));
@@ -17,4 +18,5 @@ export const loadUsers = () => async dispatch => {
     const response = await RequestService.get('/admin/user', true);
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(response.data));
+    dispatch(setData(response.data));
 }

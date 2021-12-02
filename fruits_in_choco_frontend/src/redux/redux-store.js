@@ -10,6 +10,7 @@ import authReducer from "./reducers/auth-reducer";
 import shopReducer from "./reducers/shop-reducer";
 import profileReducer from "./reducers/profile-reducer";
 import registrationReducer from "./reducers/registration-reducer";
+import tableReducer from "./reducers/table-reducer";
 
 let reducers = combineReducers({
     form: formReducer,
@@ -19,7 +20,8 @@ let reducers = combineReducers({
     adminReducer: adminReducer,
     shopReducer: shopReducer,
     profileReducer: profileReducer,
-    registrationReducer: registrationReducer
+    registrationReducer: registrationReducer,
+    tableReducer: tableReducer
 });
 
 const composeEnhancers = composeWithDevTools({

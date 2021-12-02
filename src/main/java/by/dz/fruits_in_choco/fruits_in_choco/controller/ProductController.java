@@ -3,6 +3,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.controller;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.mapper.ProductMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.ProductServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,9 +14,11 @@ import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 @RestController
 public class ProductController {
     private final ProductServiceImpl productService;
+    private final ProductMapper mapper;
 
-    public ProductController(ProductServiceImpl productService) {
+    public ProductController(ProductServiceImpl productService, ProductMapper mapper) {
         this.productService = productService;
+        this.mapper = mapper;
     }
 
     @GetMapping("/product")
@@ -24,7 +27,7 @@ public class ProductController {
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
             @RequestParam(required = false, defaultValue = DEFAULT_SORT_BY_FIELD) String sortBy,
             @RequestParam(required = false, defaultValue = DEFAULT_SORT_DIRECTION) String direction) {
-        return ResponseEntity.ok(productService.getProducts(page, size, direction, sortBy));
+        return ResponseEntity.ok(mapper.getProducts(page, size, direction, sortBy));
     }
 
     @GetMapping("/product/{id}")

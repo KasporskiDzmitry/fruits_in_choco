@@ -1,17 +1,13 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.RegistrationRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.UserRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.UserResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
 import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 @Component

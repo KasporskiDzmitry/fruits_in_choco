@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import AdminProduct from "./AdminProduct";
 import {loadProducts} from "../../../redux/thunks/shop_thunks";
+import {setCurrentPage, setData} from "../../../redux/actions/table_actions";
 
 class AdminProductContainer extends React.Component {
 
@@ -15,7 +16,9 @@ class AdminProductContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    products: state.shopReducer.products
+    products: state.shopReducer.products,
+    categories: state.mainPage.categories,
+    data: state.tableReducer.data
 })
 
-export default connect(mapStateToProps, {loadProducts})(AdminProductContainer);
+export default connect(mapStateToProps, {loadProducts, setData, setCurrentPage})(AdminProductContainer);

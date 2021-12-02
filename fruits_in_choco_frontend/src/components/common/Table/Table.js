@@ -21,22 +21,17 @@ const Table = (props) => {
         const regExp = new RegExp(column, 'i');
         props.setDataToShow(props.data.filter(i => {
             for (let prop in i) {
-                if (i[prop].match(regExp)) {
+                if (i[prop].toString().match(regExp)) {
                     return true;
                 }
             }
-            // i.firstName.match(regExp) ||
-            // i.lastName.match(regExp) ||
-            // i.email.match(regExp) ||
-            // i.phone.match(regExp) ||
-            // i.adress.state.match(regExp)
         }));
         props.setCurrentPage(0);
     };
 
     const sort = (sortBy) => {
         setSortBy(sortBy);
-        const sortedData = props.data.sort((a, b) => {
+        const sortedData = props.dataToShow.sort((a, b) => {
             if (a[sortBy] > b[sortBy]) {
                 return 1;
             }

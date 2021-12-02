@@ -5,12 +5,14 @@ import {
     setProducts,
     toggleIsFetching
 } from "../actions/shop_actions";
+import {setData} from "../actions/table_actions";
 
 export const loadProducts = () => async dispatch => {
     dispatch(toggleIsFetching(true));
     const response = await RequestService.get('/product');
     dispatch(toggleIsFetching(false));
     dispatch(setProducts(response.data));
+    dispatch(setData(response.data));
 };
 
 export const loadProductById = id => async dispatch => {

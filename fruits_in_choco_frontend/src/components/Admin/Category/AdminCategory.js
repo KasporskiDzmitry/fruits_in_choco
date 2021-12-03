@@ -1,8 +1,9 @@
 import React from 'react';
-import Table from "../../common/Table/Table";
+import CategoryTable from "./CategoryTable";
 
 const AdminCategory = (props) => {
     return <div>
+        <CategoryTable data={props.categories}/>
     </div>
 }
 

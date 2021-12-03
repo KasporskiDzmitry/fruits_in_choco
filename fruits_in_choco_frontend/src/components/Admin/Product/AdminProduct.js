@@ -1,28 +1,24 @@
 import React from "react";
-import Table from "../../common/Table/Table";
+import ProductTable from "./ProductTable";
 
 const AdminProduct = (props) => {
-    const names = {
-        id: "ID",
-        name: "Название",
-        price: "Цена",
-        type: "Тип",
-        category: "Категория"
-    }
-
     const convertData = (data) => {
-        return data.map(i => {
-            const category = props.categories.find(c => c.id == i.typeId)
-            return {
-                ...i,
-                type: category.types.find(t => t.id == i.typeId).name,
-                category: category.name
-            }
-        })
+        if (data.length > 0) {
+            return data.map(i => {
+                const category = props.categories.find(c => c.id === i.typeId)
+                return {
+                    ...i,
+                    type: category.types.length < 0 ? 'N/A' : category.types.find(t => t.id == i.typeId).name,
+                    category: category.name
+                }
+            })
+        } else {
+            return data;
+        }
     }
 
     return <div>
-        <Table data={convertData(props.products)} names={names} dataToShow={convertData(props.data)} setDataToShow={props.setData} currentPage={0} setCurrentPage={props.setCurrentPage}/>
+        <ProductTable data={convertData(props.products)}/>
     </div>
 }
 

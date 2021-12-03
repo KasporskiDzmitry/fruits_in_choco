@@ -9,7 +9,7 @@ class AdminCategoryContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    categories: state.mainPage.categories
+    categories: state.mainPage.categories,
 });
 
 export default connect(mapStateToProps, {})(AdminCategoryContainer);

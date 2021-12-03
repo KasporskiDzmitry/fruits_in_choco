@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
-import sematable, { Table } from 'sematable';
+import sematable, {makeSelectors, Table} from 'sematable';
+import ProductTableActions from "./ProductTableActions";
 
 const columns = [
     { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
@@ -8,6 +9,7 @@ const columns = [
     { key: 'price', header: 'Цена', sortable: true },
     { key: 'type', header: 'Тип', sortable: true },
     { key: 'category', header: 'Категория', sortable: true },
+    { key: 'actions', header: 'Actions', Component: ProductTableActions }
 ];
 
 const propTypes = {
@@ -21,7 +23,6 @@ class ProductTable extends Component {
         return (
             <Table
                 {...this.props}
-                selectable
                 columns={columns}
             />
         );

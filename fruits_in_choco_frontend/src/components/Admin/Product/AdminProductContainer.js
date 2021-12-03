@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import AdminProduct from "./AdminProduct";
 import {loadProducts} from "../../../redux/thunks/shop_thunks";
+import {makeSelectors} from "sematable";
 
 class AdminProductContainer extends React.Component {
 
@@ -16,7 +17,7 @@ class AdminProductContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
     products: state.shopReducer.products,
-    categories: state.mainPage.categories,
+    categories: state.mainPage.categories
 })
 
 export default connect(mapStateToProps, {loadProducts})(AdminProductContainer);

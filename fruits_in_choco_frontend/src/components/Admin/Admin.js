@@ -9,6 +9,7 @@ const AdminCategoryContainer = React.lazy(() => import('./Category/AdminCategory
 const AdminProductContainer = React.lazy(() => import('./Product/AdminProductContainer'));
 const AdminUserContainer = React.lazy(() => import('./User/AdminUserContainer'));
 const AddProduct = React.lazy(() => import('./AddProduct/AddProduct'));
+const AdminProductPage = React.lazy(() => import('./ProductPage/AdminProductPageContainer'))
 
 class Admin extends React.Component {
     render() {
@@ -25,10 +26,12 @@ class Admin extends React.Component {
                         <React.Suspense fallback={<Preloader/>}>
                             <Route path='/profile/admin/category'
                                    render={() => <AdminCategoryContainer />}/>
-                            <Route path='/profile/admin/product'
+                            <Route exact path='/profile/admin/product'
                                    render={() => <AdminProductContainer />}/>
+                            <Route path='/profile/admin/product/:id'
+                                   render={() => <AdminProductPage />}/>
                             <Route path='/profile/admin/add_product'
-                                   render={() => <AddProduct categories={this.props.categories} addProduct={this.props.addProduct} isProductAddedSuccess={this.props.isProductAddedSuccess}/>}/>
+                                   render={() => <AddProduct isFetching={this.props.isFetching} categories={this.props.categories} addProduct={this.props.addProduct} isProductAddedSuccess={this.props.isProductAddedSuccess}/>}/>
                             <Route path='/profile/admin/user'
                                    render={() => <AdminUserContainer />}/>
                         </React.Suspense>
@@ -41,7 +44,8 @@ class Admin extends React.Component {
 
 const mapStateToProps = (state) => ({
     categories: state.mainPage.categories,
-    isProductAddedSuccess: state.adminReducer.isProductAddedSuccess
+    isProductAddedSuccess: state.adminReducer.isProductAddedSuccess,
+    isFetching: state.adminReducer.isFetching
 })
 
 export default connect(mapStateToProps, {addProduct})(Admin);

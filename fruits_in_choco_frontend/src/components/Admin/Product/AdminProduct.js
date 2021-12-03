@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ProductTable from "./ProductTable";
 
 const AdminProduct = (props) => {
@@ -16,6 +16,8 @@ const AdminProduct = (props) => {
             return data;
         }
     }
+
+    console.log(props.selectedRows)
 
     return <div>
         <ProductTable data={convertData(props.products)}/>

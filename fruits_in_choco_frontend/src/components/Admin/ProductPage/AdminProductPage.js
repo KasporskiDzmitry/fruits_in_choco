@@ -5,8 +5,9 @@ import {Button} from 'react-bootstrap';
 import {required} from "../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../common/FormsControls/FormsControls";
 import Expire from "../../common/Expire/Expire";
+import Preloader from "../../common/Preloader/Preloader";
 
-const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
+const EditProductForm = ({handleSubmit, error, categories, isFetching}) => {
 
     const [categoryId, setCategoryId] = useState(null);
 
@@ -35,7 +36,8 @@ const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
                 <option></option>
                 {
                     categoryId &&
-                    categories.find(i => i.id === categoryId).types.map(i => <option key={i.id} value={i.id}>{i.name}</option>)
+                    categories.find(i => i.id === categoryId).types.map(i => <option key={i.id}
+                                                                                     value={i.id}>{i.name}</option>)
                 }
             </Field>
             {error && <div className={style.formSummaryError}>
@@ -49,27 +51,34 @@ const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
     )
 };
 
-const AddProductReduxForm = reduxForm({form: 'add_product'})(AddProductForm);
+const EditProductReduxForm = reduxForm({form: 'edit_product'})(EditProductForm);
 
-const AddProduct = props => {
+const AdminProductPage = props => {
     const onSubmit = formData => {
-        props.addProduct({
-            name: formData.name,
-            description: formData.description,
-            type: props.categories.find(i => i.id === parseInt(formData.category)).types.find(i => i.id === parseInt(formData.type)),
-            price: parseInt(formData.price)
-        });
+        // props.addProduct({
+        //     name: formData.name,
+        //     description: formData.description,
+        //     type: props.categories.find(i => i.id === parseInt(formData.category)).types.find(i => i.id === parseInt(formData.type)),
+        //     price: parseInt(formData.price)
+        // });
     };
 
     return <div>
-        <h1>Add product</h1>
         {
-            props.isProductAddedSuccess && <div>
-                <Expire delay="3000"><h3>ПРОДУКТ УСПЕШНО ДОБАВЛЕН</h3></Expire>
-            </div>
+            props.isFetching ?
+                <Preloader/> :
+                <div>
+                    <h1>{props.product?.name}</h1>
+                    {
+                        props.isProductAddedSuccess && <div>
+                            <Expire delay="3000"><h3>ПРОДУКТ УСПЕШНО ИЗМЕНЕН</h3></Expire>
+                        </div>
+                    }
+                    <EditProductReduxForm onSubmit={onSubmit} isFetching={props.isFetching}
+                                          categories={props.categories}/>
+                </div>
         }
-        <AddProductReduxForm onSubmit={onSubmit} isFetching={props.isFetching} categories={props.categories}/>
     </div>
 };
 
-export default AddProduct;
+export default AdminProductPage;

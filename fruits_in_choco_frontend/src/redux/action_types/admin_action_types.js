@@ -1,1 +1,2 @@
 export const SET_USERS = 'SET_USERS';
+export const PRODUCT_ADDED_SUCCESS = 'PRODUCT_ADDED_SUCCESS';

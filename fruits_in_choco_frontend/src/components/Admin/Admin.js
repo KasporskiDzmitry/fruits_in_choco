@@ -28,7 +28,7 @@ class Admin extends React.Component {
                             <Route path='/profile/admin/product'
                                    render={() => <AdminProductContainer />}/>
                             <Route path='/profile/admin/add_product'
-                                   render={() => <AddProduct categories={this.props.categories} addProduct={this.props.addProduct}/>}/>
+                                   render={() => <AddProduct categories={this.props.categories} addProduct={this.props.addProduct} isProductAddedSuccess={this.props.isProductAddedSuccess}/>}/>
                             <Route path='/profile/admin/user'
                                    render={() => <AdminUserContainer />}/>
                         </React.Suspense>
@@ -40,7 +40,8 @@ class Admin extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    categories: state.mainPage.categories
+    categories: state.mainPage.categories,
+    isProductAddedSuccess: state.adminReducer.isProductAddedSuccess
 })
 
 export default connect(mapStateToProps, {addProduct})(Admin);

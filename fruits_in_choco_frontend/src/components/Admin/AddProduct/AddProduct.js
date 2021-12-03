@@ -4,6 +4,7 @@ import style from '../../common/FormsControls/FormsControls.module.scss';
 import {Button} from 'react-bootstrap';
 import {required} from "../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../common/FormsControls/FormsControls";
+import Expire from "../../common/Expire/Expire";
 
 const AddProductForm = ({handleSubmit, error, categories}) => {
 
@@ -52,7 +53,6 @@ const AddProductReduxForm = reduxForm({form: 'product'})(AddProductForm);
 
 const AddProduct = props => {
     const onSubmit = formData => {
-        console.log(formData)
         props.addProduct({
             name: formData.name,
             description: formData.description,
@@ -63,6 +63,11 @@ const AddProduct = props => {
 
     return <div>
         <h1>Add product</h1>
+        {
+            props.isProductAddedSuccess && <div>
+                <Expire delay="3000"><h3>ПРОДУКТ УСПЕШНО ДОБАВЛЕН</h3></Expire>
+            </div>
+        }
         <AddProductReduxForm onSubmit={onSubmit} categories={props.categories}/>
     </div>
 };

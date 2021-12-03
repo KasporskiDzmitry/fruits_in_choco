@@ -1,7 +1,8 @@
-import {SET_USERS} from "../action_types/admin_action_types";
+import {PRODUCT_ADDED_SUCCESS, SET_USERS} from "../action_types/admin_action_types";
 
 const initialState = {
-    users: []
+    users: [],
+    isProductAddedSuccess: false
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -10,6 +11,12 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: action.users
+            }
+        }
+        case PRODUCT_ADDED_SUCCESS: {
+            return {
+                ...state,
+                isProductAddedSuccess: true
             }
         }
         default: {

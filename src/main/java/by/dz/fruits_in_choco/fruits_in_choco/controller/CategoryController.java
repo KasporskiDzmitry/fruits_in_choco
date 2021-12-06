@@ -1,5 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.CategoryRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.CategoryServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,8 @@ public class CategoryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/admin/category")
-    public ResponseEntity<?> saveCategory(@RequestBody Category category) {
-        return ResponseEntity.ok(categoryService.saveCategory(category));
+    public ResponseEntity<?> saveCategory(@RequestBody CategoryRequest request) {
+        return ResponseEntity.ok(categoryService.saveCategory(request));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

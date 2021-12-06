@@ -1,8 +1,11 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.CategoryRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductType;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.CategoryRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
+import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductTypeRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,16 +13,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final ProductTypeRepository typeRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository, ProductTypeRepository typeRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.typeRepository = typeRepository;
     }
 
     @Override
@@ -29,8 +35,21 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category saveCategory(Category category) {
-        return categoryRepository.save(category);
+    public Category saveCategory(CategoryRequest request) {
+        Category category = new Category();
+        category.setName(request.getName());
+        category.setDescription(request.getDescription());
+        category.setImageURL(request.getImageURL());
+
+        Category savedCategory = categoryRepository.save(category);
+        request.getTypes()
+                .forEach(i -> {
+                    ProductType type = new ProductType();
+                    type.setName(i);
+                    type.setCategory(savedCategory);
+                    typeRepository.save(type);
+                });
+        return savedCategory;
     }
 
     @Override

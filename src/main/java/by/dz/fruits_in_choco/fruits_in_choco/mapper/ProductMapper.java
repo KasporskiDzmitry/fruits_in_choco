@@ -25,8 +25,6 @@ public class ProductMapper {
     public List<ProductResponse> getProducts(int page, int size, String direction, String sortBy) {
         List<Product> products = service.getProducts(page, size, direction, sortBy);
 
-        System.out.println(products);
-
         return products.stream()
                 .map(product -> {
                     ProductResponse response = new ProductResponse();

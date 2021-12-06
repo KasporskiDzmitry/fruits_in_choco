@@ -1,6 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service;
 
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.CategoryRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface CategoryService {
 
     List<Category> getCategories(int page, int size, String direction, String sortBy);
 
-    Category saveCategory(Category category);
+    Category saveCategory(CategoryRequest request);
 
     Category updateCategory(Category category, Long id);
 

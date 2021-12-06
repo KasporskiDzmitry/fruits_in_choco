@@ -1,10 +1,11 @@
-import {PRODUCT_ADDED_SUCCESS, SET_PRODUCT, SET_USERS, TOGGLE_IS_FETCHING} from "../action_types/admin_action_types";
+import {PRODUCT_ADDED_SUCCESS, CATEGORY_ADDED_SUCCESS, SET_PRODUCT, SET_USERS, TOGGLE_IS_FETCHING} from "../action_types/admin_action_types";
 
 const initialState = {
     users: [],
     product: {},
     isFetching: false,
-    isProductAddedSuccess: false
+    isProductAddedSuccess: false,
+    isCategoryAddedSuccess: false
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -31,6 +32,12 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isProductAddedSuccess: true
+            }
+        }
+        case CATEGORY_ADDED_SUCCESS: {
+            return {
+                ...state,
+                isCategoryAddedSuccess: true
             }
         }
         default: {

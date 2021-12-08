@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Field, reduxForm} from "redux-form";
-import style from '../../common/FormsControls/FormsControls.module.scss';
+import formsControlsStyle from '../../common/FormsControls/FormsControls.module.scss';
+import style from './AddProduct.module.scss';
 import {Button} from 'react-bootstrap';
 import {required} from "../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../common/FormsControls/FormsControls";
@@ -15,30 +16,39 @@ const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field placeholder={'Name'} name={'name'} component={Input} validate={[required]}/>
+        <form onSubmit={handleSubmit} className={style.form}>
+            <div className={style.fieldWrapper}>
+                <div className={style.label}>Название</div>
+                <Field className={style.field} placeholder={'Name'} name={'name'} component={Input} validate={[required]}/>
             </div>
-            <div>
-                <Field placeholder={'Price'} name={'price'} component={Input} validate={[required]}/>
+            <div className={style.fieldWrapper}>
+                <div className={style.label}>Цена</div>
+                <Field className={style.field} placeholder={'Price'} name={'price'} component={Input} validate={[required]}/>
             </div>
-            <div>
-                <Field placeholder={'Description'} name={'description'} component={Textarea} validate={[required]}/>
+            <div className={style.fieldWrapper}>
+                <div className={style.label}>Описание</div>
+                <Field className={style.field} placeholder={'Description'} name={'description'} component={Textarea} validate={[required]}/>
             </div>
-            <Field name="category" component={Select} validate={[required]} onChange={selectCategory}>
-                <option></option>
-                {
-                    categories.map(i => <option key={i.id} value={i.id}>{i.name}</option>)
-                }
-            </Field>
-            <Field name="type" component={Select} disabled={!categoryId} validate={[required]}>
-                <option></option>
-                {
-                    categoryId &&
-                    categories.find(i => i.id === categoryId).types.map(i => <option key={i.id} value={i.id}>{i.name}</option>)
-                }
-            </Field>
-            {error && <div className={style.formSummaryError}>
+            <div className={style.fieldWrapper}>
+                <div className={style.label}>Категория</div>
+                <Field className={style.field} name="category" component={Select} validate={[required]} onChange={selectCategory}>
+                    <option></option>
+                    {
+                        categories.map(i => <option key={i.id} value={i.id}>{i.name}</option>)
+                    }
+                </Field>
+            </div>
+            <div className={style.fieldWrapper}>
+                <div className={style.label}>Тип</div>
+                <Field className={style.field} name="type" component={Select} disabled={!categoryId} validate={[required]}>
+                    <option></option>
+                    {
+                        categoryId &&
+                        categories.find(i => i.id === categoryId).types.map(i => <option key={i.id} value={i.id}>{i.name}</option>)
+                    }
+                </Field>
+            </div>
+            {error && <div className={formsControlsStyle.formSummaryError}>
                 {error}
             </div>
             }
@@ -61,7 +71,7 @@ const AddProduct = props => {
         });
     };
 
-    return <div>
+    return <div className={style.addProductContainer}>
         <h1>Add product</h1>
         {
             props.isProductAddedSuccess && <div>

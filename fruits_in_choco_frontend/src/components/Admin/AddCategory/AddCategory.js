@@ -1,6 +1,7 @@
 import React from "react";
 import {Field, FieldArray, reduxForm} from "redux-form";
-import style from '../../common/FormsControls/FormsControls.module.scss';
+import formsControlsStyle from '../../common/FormsControls/FormsControls.module.scss';
+import style from './AddCategory.module.scss';
 import {Button} from 'react-bootstrap';
 import {required} from "../../utils/validators/validators";
 import {Input, Textarea} from "../../common/FormsControls/FormsControls";
@@ -9,23 +10,18 @@ import Expire from "../../common/Expire/Expire";
 const renderTypeFields = ({fields, meta: {error}}) => (
     <div>
         <div>
-            <button type="button" onClick={() => fields.push()}>
-                Add type
-            </button>
+            <Button type="button" onClick={() => fields.push()}>Add type</Button>
         </div>
         {fields.map((i, index) => (
-            <div key={index}>
-                <Button
-                    type="button"
-                    title="Remove type"
-                    onClick={() => fields.remove(index)}
-                >Remove type</Button>
+            <div key={index} className={style.fieldWrapper}>
                 <Field
+                    className={style.field}
                     name={i}
                     type="text"
                     component={Input}
                     validate={[required]}
                 />
+                <div className={style.removeField} onClick={() => fields.remove(index)}>&#10005;</div>
             </div>
         ))}
         {error && <div className="error">{error}</div>}
@@ -34,21 +30,23 @@ const renderTypeFields = ({fields, meta: {error}}) => (
 
 const AddCategoryForm = ({handleSubmit, error, isFetching}) => {
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field placeholder={'Name'} name={'name'} component={Input} validate={[required]}/>
+        <form onSubmit={handleSubmit} className={style.form}>
+            <div className={style.fieldWrapper}>
+                <div className={style.label}>Название</div>
+                <Field className={style.field} placeholder={'Name'} name={'name'} component={Input} validate={[required]}/>
             </div>
-            <div>
-                <Field placeholder={'Image URL'} name={'imageURL'} component={Input} validate={[required]}/>
+            <div className={style.fieldWrapper}>
+                <div className={style.label}>URL изображения</div>
+                <Field className={style.field} placeholder={'Image URL'} name={'imageURL'} component={Input} validate={[required]}/>
             </div>
-            <div>
-                <Field placeholder={'Description'} name={'description'} component={Textarea} validate={[required]}/>
+            <div className={style.fieldWrapper}>
+                <div className={style.label}>Описание</div>
+                <Field className={style.field} placeholder={'Description'} name={'description'} component={Textarea} validate={[required]}/>
             </div>
             <FieldArray name="types" component={renderTypeFields}/>
-            {error && <div className={style.formSummaryError}>
+            {error && <div className={formsControlsStyle.formSummaryError}>
                 {error}
-            </div>
-            }
+            </div>}
             <div>
                 <Button type="submit" disabled={isFetching}>Add</Button>
             </div>
@@ -63,11 +61,11 @@ const AddCategory = props => {
         props.addCategory(formData);
     };
 
-    return <div>
+    return <div className={style.addCategoryContainer}>
         <h1>Add category</h1>
         {
             props.isCategoryAddedSuccess && <div>
-                <Expire delay="3000"><h3>КАТЕГОРИЯ УСПЕШНО ДОБАВЛЕН</h3></Expire>
+                <Expire delay="3000"><h3>КАТЕГОРИЯ УСПЕШНО ДОБАВЛЕНА</h3></Expire>
             </div>
         }
         <AddCategoryReduxForm onSubmit={onSubmit} isFetching={props.isFetching}/>

@@ -10,7 +10,6 @@ $userInfoBgColor: #f1f1f1;
   flex-direction: column;
 }
 
-
 * {
   box-sizing: border-box;
   text-decoration: none;
@@ -41,4 +40,52 @@ a {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+}
+
+.form {
+
+  button {
+    margin-bottom: 10px;
+  }
+
+  .fieldWrapper {
+    width: 400px;
+    display: flex;
+
+    * {
+      margin-bottom: 6px;
+    }
+
+    .label {
+      padding: 12px 12px 12px 0;
+      width: 30%;
+    }
+
+    .field {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none;
+    }
+
+    .removeField {
+      width: 40px;
+      height: 40px;
+      background: bisque;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 10px;
+      box-shadow: 4px 4px 8px rgba(34, 60, 80, 0.2);
+      font-weight: bold;
+      transition: .2s;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
 }

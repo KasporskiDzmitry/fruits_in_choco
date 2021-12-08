@@ -24,7 +24,7 @@ class Admin extends React.Component {
                         <NavLink to={'/profile/admin/add_category'}>Добавить категорию</NavLink>
                         <NavLink to={'/profile/admin/user'}>Пользователи</NavLink>
                     </nav>
-                    <div>
+                    <>
                         <React.Suspense fallback={<Preloader/>}>
                             <Route path='/profile/admin/category'
                                    render={() => <AdminCategoryContainer/>}/>
@@ -44,7 +44,7 @@ class Admin extends React.Component {
                             <Route path='/profile/admin/user'
                                    render={() => <AdminUserContainer/>}/>
                         </React.Suspense>
-                    </div>
+                    </>
                 </div>
             </div>
         </div>

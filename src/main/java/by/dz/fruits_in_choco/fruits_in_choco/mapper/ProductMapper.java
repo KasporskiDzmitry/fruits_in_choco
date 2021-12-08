@@ -26,16 +26,26 @@ public class ProductMapper {
         List<Product> products = service.getProducts(page, size, direction, sortBy);
 
         return products.stream()
-                .map(product -> {
-                    ProductResponse response = new ProductResponse();
-
-                    response.setId(product.getId());
-                    response.setName(product.getName());
-                    response.setDescription(product.getDescription());
-                    response.setPrice(product.getPrice());
-                    response.setTypeId(product.getType().getId());
-                    return response;
-                })
+                .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    public List<ProductResponse> getProductsFilteredByTypes(List<Long> types) {
+        List<Product> products = service.getProductsFilteredByTypes(types);
+
+        return products.stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    public ProductResponse convertToResponseDTO(Product product) {
+        ProductResponse response = new ProductResponse();
+
+        response.setId(product.getId());
+        response.setName(product.getName());
+        response.setDescription(product.getDescription());
+        response.setPrice(product.getPrice());
+        response.setTypeId(product.getType().getId());
+        return response;
     }
 }

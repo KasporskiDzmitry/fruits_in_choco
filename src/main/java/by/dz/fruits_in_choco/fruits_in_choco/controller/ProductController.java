@@ -37,7 +37,7 @@ public class ProductController {
 
     @PostMapping("/product/search")
     public ResponseEntity<?> getProductsFilteredByTypes(@RequestBody ProductRequest request) {
-        return ResponseEntity.ok(productService.getProductsFilteredByTypes(request.getTypes()));
+        return ResponseEntity.ok(mapper.getProductsFilteredByTypes(request.getTypes()));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

@@ -22,7 +22,7 @@ const ProductCard = ({product, addToCart, history}) => {
         history.push({pathname: `/product/${product.id}`})
     };
 
-    const toCartButtonClassName = !isProductInCart(product.id) ? style.toCartButton : `${style.toCartButton} ${style.checked}`
+    const toCartButtonClassName = isProductInCart(product.id) ? `${style.toCartButton} ${style.checked}` : style.toCartButton
 
     return <Card className={style.cardWrapper}>
         <div className={style.cardImageWrapper} onClick={selectProduct}>
@@ -33,7 +33,7 @@ const ProductCard = ({product, addToCart, history}) => {
         </Card.Body>
         <Card.Footer className={style.cardFooter}>
             <div className={style.cardPrice}>{product.price}</div>
-            <Button className={toCartButtonClassName}>
+            <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)}>
                 {
                     isProductInCart(product.id) ?
                         <FontAwesomeIcon icon={faCheckCircle} /> :

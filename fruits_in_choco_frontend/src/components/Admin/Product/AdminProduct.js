@@ -17,8 +17,6 @@ const AdminProduct = (props) => {
         }
     }
 
-    console.log(props.selectedRows)
-
     return <div>
         <ProductTable data={convertData(props.products)}/>
     </div>

@@ -29,7 +29,6 @@ class ShopContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    pathnames: state.appReducer.pathnames,
     products: state.shopReducer.products,
     categories: state.mainPage.categories,
     isFetching: state.shopReducer.isFetching,

@@ -2,6 +2,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.CategoryRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
+import by.dz.fruits_in_choco.fruits_in_choco.mapper.CategoryMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.CategoryServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,14 +15,16 @@ import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 public class CategoryController {
 
     private final CategoryServiceImpl categoryService;
+    private final CategoryMapper mapper;
 
-    public CategoryController(CategoryServiceImpl categoryService) {
+    public CategoryController(CategoryServiceImpl categoryService, CategoryMapper mapper) {
         this.categoryService = categoryService;
+        this.mapper = mapper;
     }
 
     @GetMapping("/category/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
-        return ResponseEntity.ok(categoryService.getCategoryById(id));
+        return ResponseEntity.ok(mapper.getCategoryById(id));
     }
 
     @GetMapping("/category")
@@ -30,7 +33,7 @@ public class CategoryController {
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
             @RequestParam(required = false, defaultValue = DEFAULT_SORT_BY_FIELD) String sortBy,
             @RequestParam(required = false, defaultValue = DEFAULT_SORT_DIRECTION) String direction) {
-        return ResponseEntity.ok(categoryService.getCategories(page, size, direction, sortBy));
+        return ResponseEntity.ok(mapper.getCategories(page, size, direction, sortBy));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

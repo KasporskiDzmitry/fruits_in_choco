@@ -21,6 +21,8 @@ public class Product implements Serializable {
 
     private int price;
 
+    private String imageURL;
+
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "type_id")
@@ -36,6 +38,7 @@ public class Product implements Serializable {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
+                ", imageURL=" + imageURL +
                 ", typeId=" + type.getId() +
                 ", ratings=" + ratings +
                 '}';

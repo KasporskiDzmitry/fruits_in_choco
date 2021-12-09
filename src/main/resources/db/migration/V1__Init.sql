@@ -4,6 +4,7 @@ create table product
     description varchar(255),
     name varchar(255),
     price integer not null,
+    imageURL varchar(400),
     type_id bigint, primary key (id)
 );
 

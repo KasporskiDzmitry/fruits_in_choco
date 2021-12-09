@@ -40,7 +40,10 @@ public class ProductMapper {
 
     public ProductResponse mapToResponseDTO(Product product) {
         modelMapper.typeMap(Product.class, ProductResponse.class).addMappings(mapper -> {
-            mapper.map(src -> src.getType().getId(), ProductResponse::setTypeId);
+            mapper.map(src -> src.getType().getId(),
+                    ProductResponse::setTypeId);
+            mapper.map(src -> src.getType().getCategory().getId(),
+                    ProductResponse::setCategoryId);
         });
         return modelMapper.map(product, ProductResponse.class);
     }

@@ -1,18 +1,13 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.RegistrationRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.UserRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.UserResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
-import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
-import by.dz.fruits_in_choco.fruits_in_choco.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import javax.print.attribute.standard.Destination;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,31 +16,33 @@ import java.util.stream.Collectors;
 public class ProductMapper {
 
     private final ProductService service;
+    private final ModelMapper modelMapper;
 
     public List<ProductResponse> getProducts(int page, int size, String direction, String sortBy) {
         List<Product> products = service.getProducts(page, size, direction, sortBy);
 
         return products.stream()
-                .map(this::convertToResponseDTO)
+                .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    public ProductResponse getProductById(Long id) {
+        return mapToResponseDTO(service.getProductById(id));
     }
 
     public List<ProductResponse> getProductsFilteredByTypes(List<Long> types) {
         List<Product> products = service.getProductsFilteredByTypes(types);
 
         return products.stream()
-                .map(this::convertToResponseDTO)
+                .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
     }
 
-    public ProductResponse convertToResponseDTO(Product product) {
-        ProductResponse response = new ProductResponse();
-
-        response.setId(product.getId());
-        response.setName(product.getName());
-        response.setDescription(product.getDescription());
-        response.setPrice(product.getPrice());
-        response.setTypeId(product.getType().getId());
-        return response;
+    public ProductResponse mapToResponseDTO(Product product) {
+        modelMapper.typeMap(Product.class, ProductResponse.class).addMappings(mapper -> {
+            mapper.map(src -> src.getType().getId(), ProductResponse::setTypeId);
+        });
+        return modelMapper.map(product, ProductResponse.class);
     }
+
 }

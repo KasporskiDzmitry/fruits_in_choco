@@ -8,6 +8,12 @@ export const addProductToCart = (product) => {
     }
 }
 
+export const removeProductFromCart = (id) => {
+    const products = localStorage.products;
+    localStorage.removeItem('products');
+    localStorage.setItem('products', JSON.stringify(Array.from(JSON.parse(products)).filter(i => i.id !== id)));
+}
+
 export const isProductInCart = (id) => {
     const products = localStorage.products;
     if (products) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './CartLayout.module.scss'
+import {removeProductFromCart} from "../utils/localStorageFunctions";
 
 const CartLayout = (props) => {
     const layoutClassName = props.isCartShow ? `${style.cartLayoutContainer} ${style.show}` : style.cartLayoutContainer;
@@ -10,13 +11,19 @@ const CartLayout = (props) => {
         </div>
         <div className={style.itemsList}>
             {
-                props.products.map(i => <CartItem key={i.id + "cart"} {...i}/>)
+                props.products.map(i => <CartItem key={i.id + "cart"} {...i} {...props}/>)
             }
         </div>
     </div>
 }
 
-const CartItem = ({name, description, price}) => {
+const CartItem = ({id, name, description, price, removeFromCart}) => {
+
+    const removeItem = () => {
+        removeFromCart(id);
+        removeProductFromCart(id);
+    }
+
     return <div className={style.item}>
         <div className={style.imageWrapper}>
             <img src="" alt=""/>
@@ -28,6 +35,9 @@ const CartItem = ({name, description, price}) => {
             <div className={style.controlBtn}>-</div>
             <div className={style.count}>3</div>
             <div className={style.controlBtn}>+</div>
+        </div>
+        <div onClick={removeItem}>
+            delete
         </div>
         <div className={style.totalPrice}>100</div>
     </div>

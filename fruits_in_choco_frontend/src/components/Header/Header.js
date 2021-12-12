@@ -47,7 +47,7 @@ const Header = (props) => {
                                 <FontAwesomeIcon icon={faUser}/>
                             </NavLink>
                             {/*продумать логаут (куда делать редирект)*/}
-                            <NavLink className={style.icon} to={location === '/profile' ? '/' : '#'}
+                            <NavLink className={style.icon} to={location.includes('/profile') ? '/' : '#'}
                                      onClick={props.logout}>
                                 <FontAwesomeIcon icon={faSignOutAlt}/>
                             </NavLink>

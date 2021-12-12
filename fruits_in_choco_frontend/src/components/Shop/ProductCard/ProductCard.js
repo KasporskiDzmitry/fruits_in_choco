@@ -26,18 +26,18 @@ const ProductCard = ({product, addToCart, history}) => {
 
     return <Card className={style.cardWrapper}>
         <div className={style.cardImageWrapper} onClick={selectProduct}>
-            <Card.Img  variant="top" src={'https://i2.wp.com/completelydelicious.com/wp-content/uploads/2020/05/chocolate-oreo-parfait-8-500x500.jpg'} onClick={(e) => saveProductToCart(product)}/>
+            <Card.Img  variant="top" src={'https://i2.wp.com/completelydelicious.com/wp-content/uploads/2020/05/chocolate-oreo-parfait-8-500x500.jpg'}/>
         </div>
         <Card.Body>
             <Card.Title className={style.cardTitle}>{product.name}</Card.Title>
         </Card.Body>
         <Card.Footer className={style.cardFooter}>
             <div className={style.cardPrice}>{product.price}</div>
-            <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)}>
+            <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)} onClick={saveProductToCart}>
                 {
                     isProductInCart(product.id) ?
                         <FontAwesomeIcon icon={faCheckCircle} /> :
-                        <FontAwesomeIcon icon={faCartPlus} onClick={saveProductToCart}/>
+                        <FontAwesomeIcon icon={faCartPlus} />
                 }
             </Button>
         </Card.Footer>

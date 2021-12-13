@@ -3,11 +3,16 @@ package by.dz.fruits_in_choco.fruits_in_choco.controller;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.ProductMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.ProductServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 
@@ -21,7 +26,7 @@ public class ProductController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/product")
+    @GetMapping("/products")
     public ResponseEntity<?> getProducts(
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE) int page,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
@@ -30,38 +35,60 @@ public class ProductController {
         return ResponseEntity.ok(mapper.getProducts(page, size, direction, sortBy));
     }
 
-    @GetMapping("/product/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/admin/products")
+    public ResponseEntity<?> getProductsAdmin(
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE) int page,
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
+            @RequestParam(required = false, defaultValue = DEFAULT_SORT_BY_FIELD) String sortBy,
+            @RequestParam(required = false, defaultValue = DEFAULT_SORT_DIRECTION) String direction) {
+        return ResponseEntity.ok(mapper.getProducts(page, size, direction, sortBy));
+    }
+
+    @GetMapping("/products/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         return ResponseEntity.ok(mapper.getProductById(id));
     }
 
-    @PostMapping("/product/search")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/admin/products/{id}")
+    public ResponseEntity<?> getProductByIdAdmin(@PathVariable Long id) {
+        return ResponseEntity.ok(mapper.getProductById(id));
+    }
+
+    @PostMapping("/products/search")
     public ResponseEntity<?> getProductsFilteredByTypes(@RequestBody ProductRequest request) {
         return ResponseEntity.ok(mapper.getProductsFilteredByTypes(request.getTypes()));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/admin/product")
+    @PostMapping("/admin/products")
     public ResponseEntity<?> saveProduct(@RequestBody Product product) {
         return ResponseEntity.ok(productService.saveProduct(product));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping("/admin/product/{id}")
+    @PutMapping("/admin/products/{id}")
     public ResponseEntity<?> updateProduct(@RequestBody Product product, @PathVariable Long id) {
         return ResponseEntity.ok(productService.updateProduct(product, id));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @DeleteMapping("/admin/product/{id}")
+    @DeleteMapping("/admin/products/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
         return ResponseEntity.ok(200);
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    @PostMapping("/product/{id}/rateProduct")
+    @PostMapping("/products/{id}/ratings")
     public ResponseEntity<?> rateProduct(@RequestBody ProductRatingRequest request, @PathVariable Long id) {
         return ResponseEntity.ok(productService.rateProduct(request, id));
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PutMapping("/products/{productId}/ratings/{ratingId}")
+    public ResponseEntity<?> approveRating(@RequestBody ProductRatingRequest rating, @PathVariable Long productId, @PathVariable Long ratingId) {
+        return ResponseEntity.ok(productService.approveReview(rating, productId, ratingId));
     }
 }

@@ -9,14 +9,14 @@ import {setProduct} from "../actions/admin_actions";
 
 export const loadProducts = () => async dispatch => {
     dispatch(toggleIsFetching(true));
-    const response = await RequestService.get('/product');
+    const response = await RequestService.get('/products');
     dispatch(toggleIsFetching(false));
     dispatch(setProducts(response.data));
 };
 
 export const loadProductById = id => async dispatch => {
     dispatch(toggleIsFetching(true));
-    const response = await RequestService.get(`/product/${id}`);
+    const response = await RequestService.get(`/products/${id}`);
     dispatch(setCurrentProduct(response.data));
     dispatch(setCurrentProductReviews(response.data.ratings));
     dispatch(setProduct(response.data));
@@ -25,13 +25,13 @@ export const loadProductById = id => async dispatch => {
 
 export const loadProductsByTypes = (types) => async dispatch => {
     dispatch(toggleIsFetching(true));
-    const response = await RequestService.post('/product/search', {types});
+    const response = await RequestService.post('/products/search', {types});
     dispatch(toggleIsFetching(false));
     dispatch(setProducts(response.data));
 };
 
 export const addReview = (review) => async dispatch => {
-    const response = await RequestService.post(`/product/${review.productId}/rateProduct`, review, true);
+    const response = await RequestService.post(`/products/${review.productId}/ratings`, review, true);
     dispatch(setCurrentProduct(response.data));
     dispatch(setCurrentProductReviews(response.data.ratings));
 

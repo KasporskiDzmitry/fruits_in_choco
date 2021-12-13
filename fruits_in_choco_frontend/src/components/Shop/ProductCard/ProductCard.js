@@ -19,7 +19,7 @@ const ProductCard = ({product, addToCart, history}) => {
 
     const selectProduct = (e) => {
         e.preventDefault();
-        history.push({pathname: `/product/${product.id}`})
+        history.push({pathname: `/products/${product.id}`})
     };
 
     const toCartButtonClassName = isProductInCart(product.id) ? `${style.toCartButton} ${style.checked}` : style.toCartButton

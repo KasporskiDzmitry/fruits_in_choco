@@ -1,6 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,6 +22,10 @@ public class ProductRating {
 
     private Date date;
 
+    @Column(columnDefinition = "TINYINT")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean approved;
+
     @Override
     public String toString() {
         return "ProductRating{" +
@@ -29,6 +34,7 @@ public class ProductRating {
                 ", rating=" + rating +
                 ", message='" + message + '\'' +
                 ", date=" + date +
+                ", approved=" + approved +
                 '}';
     }
 }

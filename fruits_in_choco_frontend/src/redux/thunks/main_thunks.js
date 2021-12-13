@@ -35,7 +35,7 @@ export const loadSlides = () => dispatch => {
 
 export const loadCategories = () => async dispatch => {
     try {
-        const response = await RequestService.get('/category');
+        const response = await RequestService.get('/categories');
         dispatch(setCategories(response.data));
         dispatch(setFilteredTypes(response.data.map(i => i.types).flat().map(i => i.id)));
     } catch (e) {

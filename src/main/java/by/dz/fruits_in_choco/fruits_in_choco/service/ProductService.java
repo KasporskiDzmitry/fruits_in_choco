@@ -21,4 +21,6 @@ public interface ProductService {
     void deleteProductById(Long id);
 
     Product rateProduct(ProductRatingRequest request, Long id);
+
+    Product approveReview(ProductRatingRequest rating, Long productId, Long ratingId);
 }

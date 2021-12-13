@@ -1,11 +1,21 @@
-import {PRODUCT_ADDED_SUCCESS, CATEGORY_ADDED_SUCCESS, SET_PRODUCT, SET_USERS, TOGGLE_IS_FETCHING} from "../action_types/admin_action_types";
+import {
+    SET_REVIEW,
+    PRODUCT_ADDED_SUCCESS,
+    CATEGORY_ADDED_SUCCESS,
+    SET_PRODUCT,
+    SET_USERS,
+    TOGGLE_IS_FETCHING,
+    REVIEW_APPROVED_SUCCESS
+} from "../action_types/admin_action_types";
 
 const initialState = {
     users: [],
     product: {},
+    review: {},
     isFetching: false,
     isProductAddedSuccess: false,
-    isCategoryAddedSuccess: false
+    isCategoryAddedSuccess: false,
+    isReviewApprovedSuccess: false
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -20,6 +30,18 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 product: action.product
+            }
+        }
+        case SET_REVIEW: {
+            return {
+                ...state,
+                review: action.review
+            }
+        }
+        case REVIEW_APPROVED_SUCCESS: {
+            return {
+                ...state,
+                isReviewApprovedSuccess: true
             }
         }
         case TOGGLE_IS_FETCHING: {

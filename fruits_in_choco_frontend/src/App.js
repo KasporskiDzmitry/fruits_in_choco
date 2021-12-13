@@ -55,7 +55,7 @@ class App extends React.Component {
                            render={() => <MainContainer/>}/>
                     <Route path='/shop'
                            render={() => <ShopContainer/>}/>
-                    <Route path='/product/:id'
+                    <Route path='/products/:id'
                            render={() => <ProductPage/>}/>
                     <Route path='/about'
                            render={() => <AboutContainer/>}/>

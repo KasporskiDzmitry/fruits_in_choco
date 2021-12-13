@@ -16,7 +16,7 @@ class ProductTableActions extends Component {
         const row = this.props.row;
         return (
             <div>
-                <NavLink to={`/profile/admin/product/${row.id}`}>Edit</NavLink>
+                <NavLink to={`/profile/admin/products/${row.id}`}>Edit</NavLink>
                 <div onClick={(e) => this.handleDelete(e, row.id)}>
                     Delete
                 </div>

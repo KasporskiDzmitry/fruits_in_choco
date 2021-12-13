@@ -1,15 +1,15 @@
 import React from "react";
 import AdminProductPage from "./AdminProductPage";
 import {connect} from "react-redux";
-import {addProduct} from "../../../redux/thunks/admin_thunks";
-import {addReview, loadProductById} from "../../../redux/thunks/shop_thunks";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
+import {loadProductById} from "../../../redux/thunks/shop_thunks";
+import {loadProductByIdAdmin} from "../../../redux/thunks/admin_thunks";
 
 class AdminProductPageContainer extends React.Component {
 
     componentDidMount() {
-        this.props.loadProductById(this.props.history.location.pathname.split('/').pop());
+        this.props.loadProductByIdAdmin(this.props.history.location.pathname.split('/').pop());
     }
 
     render() {
@@ -23,6 +23,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {loadProductById}),
+    connect(mapStateToProps, {loadProductByIdAdmin}),
     withRouter
 )(AdminProductPageContainer)

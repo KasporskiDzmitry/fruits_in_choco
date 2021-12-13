@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import sematable, {makeSelectors, Table} from 'sematable';
 import ProductTableActions from "./ProductTableActions";
+import Reviews from "./Reviews";
 
 const columns = [
     { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
@@ -9,6 +10,7 @@ const columns = [
     { key: 'price', header: 'Цена', sortable: true },
     { key: 'type', header: 'Тип', sortable: true },
     { key: 'category', header: 'Категория', sortable: true },
+    { key: 'reviews', header: 'Отзывы', Component: Reviews },
     { key: 'actions', header: 'Actions', Component: ProductTableActions }
 ];
 

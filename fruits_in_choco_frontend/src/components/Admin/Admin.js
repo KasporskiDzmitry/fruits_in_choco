@@ -18,19 +18,19 @@ class Admin extends React.Component {
             <div className="sectionInner">
                 <div className={style.innerWrapper}>
                     <nav className={style.navbarNav}>
-                        <NavLink to={'/profile/admin/category'}>Категории</NavLink>
-                        <NavLink to={'/profile/admin/product'}>Продукты</NavLink>
+                        <NavLink to={'/profile/admin/categories'}>Категории</NavLink>
+                        <NavLink to={'/profile/admin/products'}>Продукты</NavLink>
                         <NavLink to={'/profile/admin/add_product'}>Добавить продукт</NavLink>
                         <NavLink to={'/profile/admin/add_category'}>Добавить категорию</NavLink>
-                        <NavLink to={'/profile/admin/user'}>Пользователи</NavLink>
+                        <NavLink to={'/profile/admin/users'}>Пользователи</NavLink>
                     </nav>
                     <>
                         <React.Suspense fallback={<Preloader/>}>
-                            <Route path='/profile/admin/category'
+                            <Route path='/profile/admin/categories'
                                    render={() => <AdminCategoryContainer/>}/>
-                            <Route exact path='/profile/admin/product'
+                            <Route exact path='/profile/admin/products'
                                    render={() => <AdminProductContainer/>}/>
-                            <Route path='/profile/admin/product/:id'
+                            <Route path='/profile/admin/products/:id'
                                    render={() => <AdminProductPage/>}/>
                             <Route path={'/profile/admin/add_category'}
                                    render={() => <AddCategory isFetching={this.props.isFetching}
@@ -41,7 +41,7 @@ class Admin extends React.Component {
                                                              categories={this.props.categories}
                                                              addProduct={this.props.addProduct}
                                                              isProductAddedSuccess={this.props.isProductAddedSuccess}/>}/>
-                            <Route path='/profile/admin/user'
+                            <Route path='/profile/admin/users'
                                    render={() => <AdminUserContainer/>}/>
                         </React.Suspense>
                     </>

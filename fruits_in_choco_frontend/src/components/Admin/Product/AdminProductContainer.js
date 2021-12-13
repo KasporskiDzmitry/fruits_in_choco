@@ -1,13 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
 import AdminProduct from "./AdminProduct";
-import {loadProducts} from "../../../redux/thunks/shop_thunks";
 import {makeSelectors} from "sematable";
+import {loadProductsAdmin} from "../../../redux/thunks/admin_thunks";
 
 class AdminProductContainer extends React.Component {
 
     componentDidMount() {
-        this.props.loadProducts();
+        this.props.loadProductsAdmin();
     }
 
     render() {
@@ -20,4 +20,4 @@ const mapStateToProps = (state) => ({
     categories: state.mainPage.categories
 })
 
-export default connect(mapStateToProps, {loadProducts})(AdminProductContainer);
+export default connect(mapStateToProps, {loadProductsAdmin})(AdminProductContainer);

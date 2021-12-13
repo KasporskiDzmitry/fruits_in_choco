@@ -22,12 +22,12 @@ public class CategoryController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/categories/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
         return ResponseEntity.ok(mapper.getCategoryById(id));
     }
 
-    @GetMapping("/category")
+    @GetMapping("/categories")
     public ResponseEntity<?> getCategories(
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE) int page,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
@@ -37,19 +37,19 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/admin/category")
+    @PostMapping("/admin/categories")
     public ResponseEntity<?> saveCategory(@RequestBody CategoryRequest request) {
         return ResponseEntity.ok(categoryService.saveCategory(request));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping("/admin/category/{id}")
+    @PutMapping("/admin/categories/{id}")
     public ResponseEntity<?> updateCategory(@RequestBody Category category, @PathVariable Long id) {
         return ResponseEntity.ok(categoryService.updateCategory(category, id));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @DeleteMapping("/admin/category/{id}")
+    @DeleteMapping("/admin/categories/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategoryById(id);
         return ResponseEntity.ok(200);

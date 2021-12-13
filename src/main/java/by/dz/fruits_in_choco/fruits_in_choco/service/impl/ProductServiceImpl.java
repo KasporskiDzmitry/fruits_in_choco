@@ -83,6 +83,7 @@ public class ProductServiceImpl implements ProductService {
         rating.setRating(request.getRating());
         rating.setMessage(request.getMessage());
         rating.setDate(new Date());
+        rating.setApproved(false);
 
         product.getRatings().add(rating);
         user.getRatings().add(rating);
@@ -90,5 +91,14 @@ public class ProductServiceImpl implements ProductService {
         productRatingRepository.save(rating);
 
         return product;
+    }
+
+    @Override
+    public Product approveReview(ProductRatingRequest newRating, Long productId, Long ratingId) {
+        ProductRating rating = productRatingRepository.findById(ratingId).get();
+        rating.setApproved(newRating.isApproved());
+        productRatingRepository.save(rating);
+
+        return productRepository.findById(productId).get();
     }
 }

@@ -33,12 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/login",
                         "/auth/refreshToken",
                         "/registration",
-                        "/category",
-                        "/category/{id}",
-                        "/product",
-                        "/product/{id}",
-                        "/product/search",
-                        "/categories").permitAll()
+                        "/categories",
+                        "/categories/{id}",
+                        "/products",
+                        "/products/{id}",
+                        "/products/search").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

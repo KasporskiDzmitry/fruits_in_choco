@@ -28,7 +28,8 @@ create table rating
     author varchar(255),
     date datetime(6),
     message varchar(255),
-    rating integer not null, primary key (id)
+    rating integer not null, primary key (id),
+    approved boolean default false
 );
 
 create table user

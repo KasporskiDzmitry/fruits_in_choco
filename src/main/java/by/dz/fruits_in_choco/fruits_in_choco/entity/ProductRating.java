@@ -16,6 +16,9 @@ public class ProductRating {
 
     private String author;
 
+    @Column(name = "author_id")
+    private Long authorId;
+
     private int rating;
 
     private String message;
@@ -30,7 +33,8 @@ public class ProductRating {
     public String toString() {
         return "ProductRating{" +
                 "id=" + id +
-                ", author='" + author + '\'' +
+                ", author=" + author + '\'' +
+                ", authorId=" + authorId + '\'' +
                 ", rating=" + rating +
                 ", message='" + message + '\'' +
                 ", date=" + date +

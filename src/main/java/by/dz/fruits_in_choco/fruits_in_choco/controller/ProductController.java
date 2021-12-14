@@ -83,12 +83,19 @@ public class ProductController {
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/products/{id}/ratings")
     public ResponseEntity<?> rateProduct(@RequestBody ProductRatingRequest request, @PathVariable Long id) {
-        return ResponseEntity.ok(productService.rateProduct(request, id));
+        return ResponseEntity.ok(mapper.rateProduct(request, id));
     }
 
-    @PreAuthorize("hasAuthority('USER')")
-    @PutMapping("/products/{productId}/ratings/{ratingId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PutMapping("/admin/products/{productId}/ratings/{ratingId}")
     public ResponseEntity<?> approveRating(@RequestBody ProductRatingRequest rating, @PathVariable Long productId, @PathVariable Long ratingId) {
         return ResponseEntity.ok(productService.approveReview(rating, productId, ratingId));
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @DeleteMapping("/admin/products/{productId}/ratings/{ratingId}")
+    public ResponseEntity<?> deleteRating(@PathVariable Long productId, @PathVariable Long ratingId) {
+        productService.deleteProductRatingById(productId, ratingId);
+        return ResponseEntity.ok(200);
     }
 }

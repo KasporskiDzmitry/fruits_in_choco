@@ -29,6 +29,6 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ProductRating> ratings;
 }

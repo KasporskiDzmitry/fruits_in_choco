@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {loadProductById} from "../../../redux/thunks/shop_thunks";
-import {loadProductByIdAdmin} from "../../../redux/thunks/admin_thunks";
+import {approveReview, loadProductByIdAdmin, deleteReview} from "../../../redux/thunks/admin_thunks";
 
 class AdminProductPageContainer extends React.Component {
 
@@ -23,6 +23,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {loadProductByIdAdmin}),
+    connect(mapStateToProps, {loadProductByIdAdmin, approveReview, deleteReview}),
     withRouter
 )(AdminProductPageContainer)

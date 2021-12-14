@@ -5,7 +5,7 @@ import {
     SET_PRODUCT,
     SET_USERS,
     TOGGLE_IS_FETCHING,
-    REVIEW_APPROVED_SUCCESS
+    REVIEW_APPROVED_SUCCESS, REVIEW_REJECTED_SUCCESS
 } from "../action_types/admin_action_types";
 
 const initialState = {
@@ -15,7 +15,8 @@ const initialState = {
     isFetching: false,
     isProductAddedSuccess: false,
     isCategoryAddedSuccess: false,
-    isReviewApprovedSuccess: false
+    isReviewApprovedSuccess: false,
+    isReviewRejectedSuccess: false
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -30,6 +31,12 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 product: action.product
+            }
+        }
+        case REVIEW_REJECTED_SUCCESS: {
+            return {
+                ...state,
+                isReviewRejectedSuccess: true
             }
         }
         case SET_REVIEW: {

@@ -4,7 +4,7 @@ import {loadProducts} from "./shop_thunks";
 import {
     addCategorySuccess,
     addProductSuccess,
-    approveReviewSuccess, setProduct,
+    approveReviewSuccess, rejectReviewSuccess, setProduct,
     setUsers,
     toggleIsFetching
 } from "../actions/admin_actions";
@@ -27,11 +27,24 @@ export const addProduct = (product) => async dispatch => {
 export const approveReview = (review, productId) => async dispatch => {
     dispatch(toggleIsFetching());
     try {
-        const response = await RequestService.post(`/admin/products/${productId}/ratings/${review.id}`, review, true);
+        const response = await RequestService.put(`/admin/products/${productId}/ratings/${review.id}`, review, true);
         dispatch(approveReviewSuccess());
+        dispatch(loadProductByIdAdmin(productId));
         dispatch(toggleIsFetching());
     } catch (e) {
         console.log(e);
+    }
+}
+
+export const deleteReview = (productId, ratingId) => async dispatch => {
+    dispatch(toggleIsFetching());
+    try {
+        const response = await RequestService.delete(`/admin/products/${productId}/ratings/${ratingId}`, true);
+        dispatch(rejectReviewSuccess());
+        dispatch(loadProductByIdAdmin(productId));
+        dispatch(toggleIsFetching());
+    } catch (e) {
+        console.log(e)
     }
 }
 

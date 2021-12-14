@@ -80,6 +80,7 @@ public class ProductServiceImpl implements ProductService {
         ProductRating rating = new ProductRating();
 
         rating.setAuthor(request.getAuthor());
+        rating.setAuthorId(request.getUserId());
         rating.setRating(request.getRating());
         rating.setMessage(request.getMessage());
         rating.setDate(new Date());
@@ -97,8 +98,20 @@ public class ProductServiceImpl implements ProductService {
     public Product approveReview(ProductRatingRequest newRating, Long productId, Long ratingId) {
         ProductRating rating = productRatingRepository.findById(ratingId).get();
         rating.setApproved(newRating.isApproved());
-        productRatingRepository.save(rating);
+        rating.setMessage(newRating.getMessage());
 
+        productRatingRepository.save(rating);
         return productRepository.findById(productId).get();
+    }
+
+    @Override
+    public void deleteProductRatingById(Long productId, Long ratingId) {
+        Product product = productRepository.findById(productId).get();
+        product.getRatings().removeIf(rating -> rating.getId().equals(ratingId));
+
+        User user = userRepository.findById(productRatingRepository.findById(ratingId).get().getAuthorId()).get();
+        user.getRatings().removeIf(rating -> rating.getId().equals(ratingId));
+
+        productRatingRepository.deleteById(ratingId);
     }
 }

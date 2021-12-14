@@ -26,6 +26,7 @@ create table rating
 (
     id bigint not null auto_increment,
     author varchar(255),
+    author_id bigint not null,
     date datetime(6),
     message varchar(255),
     rating integer not null, primary key (id),

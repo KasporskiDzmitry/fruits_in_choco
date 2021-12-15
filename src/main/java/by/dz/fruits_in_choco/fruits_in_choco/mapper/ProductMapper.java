@@ -52,14 +52,16 @@ public class ProductMapper {
     public ProductResponse mapToResponseDTO(Product product) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
-            return generalMap(product);
+            ProductResponse response = mapForAdmin(product);
+            System.out.println(response);
+            return response;
         } else {
             return mapForUser(product);
         }
     }
 
     private ProductResponse mapForUser(Product product) {
-        ProductResponse productResponse = generalMap(product);
+        ProductResponse productResponse = mapForAdmin(product);
 
         List<ProductRating> productRatings = Optional.ofNullable(product.getRatings())
                 .orElseGet(Collections::emptyList)
@@ -72,7 +74,7 @@ public class ProductMapper {
         return productResponse;
     }
 
-    private ProductResponse generalMap(Product product) {
+    private ProductResponse mapForAdmin(Product product) {
         modelMapper.typeMap(Product.class, ProductResponse.class).addMappings(mapper -> {
             mapper.map(src -> src.getType().getId(),
                     ProductResponse::setTypeId);

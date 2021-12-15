@@ -1,5 +1,64 @@
 @import "src/App";
 
-.addProductContainer {
-  width: 100%;
+.editProductFormContainer {
+  width: 40%;
 }
+
+.reviewsContainer {
+  width: 60%;
+
+  .reviewItem {
+    width: 80%;
+    margin: 10px;
+    display: flex;
+
+    .itemInfoContainer {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+
+      .heading {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid gray;
+        padding: 5px;
+        margin-bottom: 5px;
+      }
+
+      h2, span {
+        font-size: 14px;
+      }
+
+      h3 {
+        font-size: 12px;
+      }
+    }
+
+    .controlsContainer {
+      display: flex;
+      width: 20%;
+      justify-content: space-between;
+
+      .controls {
+        margin: 0 20px;
+        display: flex;
+        flex-direction: column;
+
+        div {
+          font-size: 18px;
+          cursor: pointer;
+          margin-bottom: 20px;
+        }
+
+        div[title='approve'] {
+          color: green;
+        }
+
+        div[title='reject'] {
+          color: red;
+        }
+      }
+    }
+  }
+}
+

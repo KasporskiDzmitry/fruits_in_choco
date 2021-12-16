@@ -98,7 +98,9 @@ const AdminProductPage = props => {
     }
 
     const remove = (productId, ratingId) => {
-        props.deleteReview(productId, ratingId);
+        if (window.confirm('Удлаить?')) {
+            props.deleteReview(productId, ratingId);
+        }
     }
 
     return <>

@@ -5,17 +5,17 @@ import {faCartPlus, faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 import {addProductToCart, isProductInCart} from "../../utils/localStorageFunctions";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const ProductCard = ({product, addToCart, history}) => {
-    const saveProductToCart = () => {
-        if (!isProductInCart(product.id)) {
-            const cartProduct = {
-                ...product,
-                quantity: 1
-            };
-            addToCart(cartProduct);
-            addProductToCart(cartProduct);
-        }
-    };
+const ProductCard = ({product, saveProductToCart, history}) => {
+    // const saveProductToCart = () => {
+    //     if (!isProductInCart(product.id)) {
+    //         const cartProduct = {
+    //             ...product,
+    //             quantity: 1
+    //         };
+    //         addToCart(cartProduct);
+    //         addProductToCart(cartProduct);
+    //     }
+    // };
 
     const selectProduct = (e) => {
         e.preventDefault();
@@ -33,7 +33,7 @@ const ProductCard = ({product, addToCart, history}) => {
         </Card.Body>
         <Card.Footer className={style.cardFooter}>
             <div className={style.cardPrice}>{product.price}</div>
-            <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)} onClick={saveProductToCart}>
+            <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)} onClick={() => saveProductToCart(product)}>
                 {
                     isProductInCart(product.id) ?
                         <FontAwesomeIcon icon={faCheckCircle} /> :

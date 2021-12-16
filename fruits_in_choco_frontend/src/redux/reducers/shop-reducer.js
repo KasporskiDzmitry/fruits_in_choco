@@ -12,7 +12,7 @@ const initialState = {
     currentProduct: {},
     currentProductReviews: [],
     filteredTypes: [],
-    cart: [],
+    cart: localStorage.products ? JSON.parse(localStorage.products) : [],
     isCartShow: false,
     isFetching: false
 };

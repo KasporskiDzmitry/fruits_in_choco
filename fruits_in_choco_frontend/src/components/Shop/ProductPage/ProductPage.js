@@ -6,8 +6,9 @@ import {Button} from "react-bootstrap";
 import Preloader from "../../common/Preloader/Preloader";
 import ReviewItem from "./Review/ReviewItem";
 import ReviewForm from "./Review/ReviewForm";
+import {isProductInCart} from "../../utils/localStorageFunctions";
 
-const ProductPage = ({product, isAuth, isFetching, addReview, profile, ratings}) => {
+const ProductPage = ({product, saveProductToCart, isFetching, addReview, profile, ratings}) => {
     return <div className={`sectionOuter ${style.productPageWrapper}`}>
         <div className="sectionInner">
             {isFetching ?
@@ -30,8 +31,7 @@ const ProductPage = ({product, isAuth, isFetching, addReview, profile, ratings})
                             </div>
                             <h2>{product.price}</h2>
                             <div className={style.addToCartWrapper}>
-                                <Button className={style.addToCartButton} variant="outline-primary">В
-                                    корзину</Button>
+                                <Button className={style.addToCartButton} disabled={isProductInCart(product.id)} variant="outline-primary" onClick={() => saveProductToCart(product)}>В корзину</Button>
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,13 @@
 import RequestService from "../RequestService";
 import {
+    addToCart,
     setCurrentProduct,
     setCurrentProductReviews,
     setProducts,
     toggleIsFetching
 } from "../actions/shop_actions";
 import {setProduct} from "../actions/admin_actions";
+import {addProductToCart, isProductInCart} from "../../components/utils/localStorageFunctions";
 
 export const loadProducts = () => async dispatch => {
     dispatch(toggleIsFetching(true));
@@ -38,3 +40,10 @@ export const addReview = (review) => async dispatch => {
     // зачем ??
     // dispatch(getProfile());
 };
+
+export const saveProductToCart = (product) => async dispatch => {
+    if (!isProductInCart(product.id)) {
+        dispatch(addToCart(product));
+        addProductToCart({...product, quantity: 1});
+    }
+}

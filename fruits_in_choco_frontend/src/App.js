@@ -74,9 +74,7 @@ const mapStateToProps = state => ({
     initialized: state.appReducer.initialized,
     isPopUpShow: state.appReducer.isPopUpShow,
     isCartShow: state.shopReducer.isCartShow,
-    productsInCart: state.shopReducer.cart.length > 0 ?
-        state.shopReducer.cart :
-        localStorage.products ? JSON.parse(localStorage.products) : []
+    productsInCart: state.shopReducer.cart
 });
 
 export default compose(

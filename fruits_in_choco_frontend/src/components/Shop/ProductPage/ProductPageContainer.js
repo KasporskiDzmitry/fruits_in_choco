@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import ProductPage from "./ProductPage";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {addReview, loadProductById} from "../../../redux/thunks/shop_thunks";
+import {addReview, loadProductById, saveProductToCart} from "../../../redux/thunks/shop_thunks";
 
 class ProductPageContainer extends React.Component {
     componentDidMount() {
@@ -29,6 +29,6 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {loadProductById, addReview}),
+    connect(mapStateToProps, {loadProductById, addReview, saveProductToCart}),
     withRouter
 )(ProductPageContainer)

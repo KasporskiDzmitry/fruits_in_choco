@@ -19,10 +19,10 @@ export const loadProducts = () => async dispatch => {
 export const loadProductById = id => async dispatch => {
     dispatch(toggleIsFetching(true));
     const response = await RequestService.get(`/products/${id}`);
+    dispatch(toggleIsFetching(false));
     dispatch(setCurrentProduct(response.data));
     dispatch(setCurrentProductReviews(response.data.ratings));
     dispatch(setProduct(response.data));
-    dispatch(toggleIsFetching(false));
 };
 
 export const loadProductsByTypes = (types) => async dispatch => {

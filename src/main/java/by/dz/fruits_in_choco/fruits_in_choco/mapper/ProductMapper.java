@@ -52,9 +52,7 @@ public class ProductMapper {
     public ProductResponse mapToResponseDTO(Product product) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
-            ProductResponse response = mapForAdmin(product);
-            System.out.println(response);
-            return response;
+            return mapForAdmin(product);
         } else {
             return mapForUser(product);
         }

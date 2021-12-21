@@ -30,6 +30,7 @@ const ProductCard = ({product, saveProductToCart, history}) => {
         </div>
         <Card.Body>
             <Card.Title className={style.cardTitle}>{product.name}</Card.Title>
+            <Card.Text>{product.typeId}</Card.Text>
         </Card.Body>
         <Card.Footer className={style.cardFooter}>
             <div className={style.cardPrice}>{product.price}</div>

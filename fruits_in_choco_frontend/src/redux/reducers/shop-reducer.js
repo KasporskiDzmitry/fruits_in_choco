@@ -13,7 +13,6 @@ const initialState = {
     currentProductReviews: [],
     filteredTypes: [],
     cart: localStorage.products ? JSON.parse(localStorage.products) : [],
-    isCartShow: false,
     isFetching: false
 };
 
@@ -42,12 +41,6 @@ const shopReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cart: state.cart.filter(i => i.id !== action.id)
-            }
-        }
-        case TOGGLE_IS_CART_SHOW: {
-            return {
-                ...state,
-                isCartShow: !state.isCartShow
             }
         }
         case SET_PRODUCTS: {

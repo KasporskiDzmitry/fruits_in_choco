@@ -6,7 +6,7 @@ import {compose} from "redux";
 import {logout} from "../../redux/thunks/auth_thunks";
 import {selectCategory} from "../../redux/actions/main_actions";
 import {setFilteredTypes, toggleIsCartShow} from "../../redux/actions/shop_actions";
-import {togglePopUp} from "../../redux/actions/app_actions";
+import {toggleCartLayout, togglePopUp, toggleSignInSignUpPopUp} from "../../redux/actions/app_actions";
 
 class HeaderContainer extends React.Component {
 
@@ -25,6 +25,6 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {logout, selectCategory, setFilteredTypes, togglePopUp, toggleIsCartShow}),
+    connect(mapStateToProps, {logout, selectCategory, setFilteredTypes, toggleSignInSignUpPopUp, toggleCartLayout}),
     withRouter
 )(HeaderContainer)

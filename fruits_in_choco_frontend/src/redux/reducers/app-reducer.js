@@ -1,4 +1,4 @@
-import {INITIALIZED_SUCCESS, TOGGLE_POPUP} from "../action_types/app_action_types";
+import {INITIALIZED_SUCCESS, TOGGLE_POPUP, TOGGLE_CART_LAYOUT, TOGGLE_SIGN_IN_SIGN_UP_POPUP} from "../action_types/app_action_types";
 
 const initialState = {
     pathnames: [
@@ -6,7 +6,8 @@ const initialState = {
         {path: '/shop', name: 'Магазин'}
     ],
     initialized: false,
-    isPopUpShow: false
+    isSignInSignUpPopUpShow: false,
+    isCartLayoutShow: false
 };
 
 const appReducer = (state = initialState, action) => {
@@ -17,10 +18,16 @@ const appReducer = (state = initialState, action) => {
                 initialized: true
             }
         }
-        case TOGGLE_POPUP: {
+        case TOGGLE_SIGN_IN_SIGN_UP_POPUP: {
             return {
                 ...state,
-                isPopUpShow: !state.isPopUpShow
+                isSignInSignUpPopUpShow: !state.isSignInSignUpPopUpShow
+            }
+        }
+        case TOGGLE_CART_LAYOUT: {
+            return {
+                ...state,
+                isCartLayoutShow: !state.isCartLayoutShow
             }
         }
         default: {

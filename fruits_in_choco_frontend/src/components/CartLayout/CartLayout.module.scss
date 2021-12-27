@@ -1,8 +1,28 @@
-.cartLayoutContainer {
-  position: fixed;
-  right: 0;
+.container {
   width: 0;
-  transition: .3s ease-in;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 20;
+  transition: .2s ease-in;
+  overflow: hidden;
+}
+
+.active {
+  width: 100%;
+}
+
+.bg {
+  width: 70%;
+}
+
+.cartLayoutContainer {
+  width: 30%;
+  position: absolute;
+  right: 0;
+  transition: .2s ease-in;
   z-index: 10;
   background: white;
   height: 100vh;
@@ -28,10 +48,6 @@
       }
     }
   }
-}
-
-.show {
-  width: 450px;
 }
 
 .itemsList {

@@ -5,16 +5,17 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const CartLayout = (props) => {
-    const layoutClassName = props.isCartShow ? `${style.cartLayoutContainer} ${style.show}` : style.cartLayoutContainer;
-
-    return <div className={layoutClassName}>
-        <div className={style.closeWrapper}>
-            <div className={style.close} onClick={props.toggleIsCartShow}>x</div>
-        </div>
-        <div className={style.itemsList}>
-            {
-                props.products.map(i => <CartItem key={i.id + "cart"} {...i} {...props}/>)
-            }
+    return <div className={props.isCartShow ? `${style.container} ${style.active}` : style.container}>
+        <div className={style.bg} onClick={props.toggleIsCartShow}></div>
+        <div className={style.cartLayoutContainer}>
+            <div className={style.closeWrapper}>
+                <div className={style.close} onClick={props.toggleIsCartShow}>x</div>
+            </div>
+            <div className={style.itemsList}>
+                {
+                    props.products.map(i => <CartItem key={i.id + "cart"} {...i} {...props}/>)
+                }
+            </div>
         </div>
     </div>
 }
@@ -27,7 +28,9 @@ const CartItem = ({id, name, description, price, removeFromCart}) => {
 
     return <div className={style.item}>
         <div className={style.imageWrapper}>
-            <img src="https://i2.wp.com/completelydelicious.com/wp-content/uploads/2020/05/chocolate-oreo-parfait-8-500x500.jpg" alt=""/>
+            <img
+                src="https://i2.wp.com/completelydelicious.com/wp-content/uploads/2020/05/chocolate-oreo-parfait-8-500x500.jpg"
+                alt=""/>
         </div>
         <div>
             <div className={style.info}>
@@ -44,7 +47,7 @@ const CartItem = ({id, name, description, price, removeFromCart}) => {
             </div>
         </div>
         <div onClick={removeItem} className={style.remove}>
-            <FontAwesomeIcon icon={faTrash} />
+            <FontAwesomeIcon icon={faTrash}/>
         </div>
     </div>
 }

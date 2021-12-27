@@ -1,4 +1,9 @@
-import {INITIALIZED_SUCCESS, TOGGLE_POPUP} from "../action_types/app_action_types";
+import {
+    INITIALIZED_SUCCESS,
+    TOGGLE_CART_LAYOUT,
+    TOGGLE_SIGN_IN_SIGN_UP_POPUP
+} from "../action_types/app_action_types";
 
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
-export const togglePopUp = () => ({type: TOGGLE_POPUP});
+export const toggleSignInSignUpPopUp = () => ({type: TOGGLE_SIGN_IN_SIGN_UP_POPUP});
+export const toggleCartLayout = () => ({type: TOGGLE_CART_LAYOUT});

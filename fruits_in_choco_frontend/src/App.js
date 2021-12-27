@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import Preloader from "./components/common/Preloader/Preloader";
 import {init} from "./redux/thunks/app_thunks";
-import {togglePopUp} from "./redux/actions/app_actions";
+import {toggleCartLayout, togglePopUp, toggleSignInSignUpPopUp} from "./redux/actions/app_actions";
 import PopUp from "./components/common/PopUp/PopUp";
 import SignInSignUpPopUp from "./components/SignInSignUpPopUp/SignInSignUpPopUp";
 import style from './App.scss';
@@ -43,11 +43,13 @@ class App extends React.Component {
     render() {
         return (
             <div className={style.appWrapper}>
-                {this.props.isPopUpShow && <PopUp togglePopUp={this.props.togglePopUp}>
-                    <SignInSignUpPopUp login={this.props.login} registration={this.props.registration} togglePopUp={this.props.togglePopUp}/>
-                </PopUp>}
-                <CartLayout isCartShow={this.props.isCartShow} toggleIsCartShow={this.props.toggleIsCartShow}
-                            products={this.props.productsInCart} removeFromCart={this.props.removeFromCart} updateProduct={this.props.updateProductInCart}/>
+                <PopUp isActive={this.props.isSignInSignUpPopUpShow} togglePopUp={this.props.toggleSignInSignUpPopUp}>
+                    <SignInSignUpPopUp login={this.props.login} registration={this.props.registration}
+                                       togglePopUp={this.props.toggleSignInSignUpPopUp}/>
+                </PopUp>
+                <CartLayout isCartShow={this.props.isCartLayoutShow} toggleIsCartShow={this.props.toggleCartLayout}
+                            products={this.props.productsInCart} removeFromCart={this.props.removeFromCart}
+                            updateProduct={this.props.updateProductInCart}/>
                 <ScrollToTopButton/>
                 <HeaderContainer/>
                 <React.Suspense fallback={<Preloader/>}>
@@ -72,11 +74,19 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
     initialized: state.appReducer.initialized,
-    isPopUpShow: state.appReducer.isPopUpShow,
-    isCartShow: state.shopReducer.isCartShow,
+    isSignInSignUpPopUpShow: state.appReducer.isSignInSignUpPopUpShow,
+    isCartLayoutShow: state.appReducer.isCartLayoutShow,
     productsInCart: state.shopReducer.cart
 });
 
 export default compose(
-    connect(mapStateToProps, {init, login, registration, togglePopUp, toggleIsCartShow, removeFromCart, updateProductInCart})(App)
+    connect(mapStateToProps, {
+        init,
+        login,
+        registration,
+        toggleCartLayout,
+        toggleSignInSignUpPopUp,
+        removeFromCart,
+        updateProductInCart
+    })(App)
 );

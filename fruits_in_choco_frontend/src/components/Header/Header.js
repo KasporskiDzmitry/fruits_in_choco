@@ -37,8 +37,8 @@ const Header = (props) => {
                     <NavLink to={'/contacts'}>Контакты</NavLink>
                 </nav>
                 <div className={style.navbarAside}>
-                    <div className={style.cartIcon}>
-                        <FontAwesomeIcon icon={faCartArrowDown} onClick={props.toggleIsCartShow}/>
+                    <div className={style.cartIcon} onClick={props.toggleCartLayout}>
+                        <FontAwesomeIcon icon={faCartArrowDown}/>
                         <span>{props.productsInCart.length}</span>
                     </div>
                     {localStorage.name ?
@@ -53,7 +53,7 @@ const Header = (props) => {
                             </NavLink>
                         </> :
                         <>
-                            <div className={`${style.icon} ${style.signInUP}`} onClick={props.togglePopUp}>Вход и
+                            <div className={`${style.icon} ${style.signInUP}`} onClick={props.toggleSignInSignUpPopUp}>Вход и
                                 регистрация
                             </div>
                         </>

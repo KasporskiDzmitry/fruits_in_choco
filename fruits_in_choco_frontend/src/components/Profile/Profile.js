@@ -1,6 +1,8 @@
 import React from "react";
 import style from "./Profile.module.scss";
 import {Tabs, Tab} from "react-bootstrap";
+import Cart from "../Cart/Cart";
+import CartContainer from "../Cart/CartContainer";
 
 const Profile = ({profile}) => {
     return (
@@ -20,6 +22,9 @@ const Profile = ({profile}) => {
                         <div className={style.orderInfo}>Заказ</div>
                         <div className={style.orderInfo}>Заказ</div>
                         <div className={style.orderInfo}>Заказ</div>
+                    </Tab>
+                    <Tab eventKey="cart" title="Корзина заказов">
+                        <CartContainer />
                     </Tab>
                 </Tabs>
                 СТРАНИЦА ПОЛЬЗОВАТЕЛЯ {profile.firstName}

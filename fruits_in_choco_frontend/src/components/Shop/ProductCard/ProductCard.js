@@ -6,10 +6,10 @@ import {addProductToCart, isProductInCart} from "../../utils/localStorageFunctio
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const ProductCard = ({product, saveProductToCart, history}) => {
-    // const saveProductToCart = () => {
-    //     if (!isProductInCart(product.id)) {
+    // const saveProductToCart = (p) => {
+    //     if (!isProductInCart(p.id)) {
     //         const cartProduct = {
-    //             ...product,
+    //             ...p,
     //             quantity: 1
     //         };
     //         addToCart(cartProduct);

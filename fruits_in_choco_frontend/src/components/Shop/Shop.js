@@ -20,7 +20,7 @@ const Shop = (props) => {
 
                             <div className={style.products}>
                                 {
-                                    props.products.map(product => <ProductCard key={product.id} history={props.history} product={product} addToCart={props.addToCart} />)
+                                    props.products.map(product => <ProductCard key={product.id} history={props.history} product={product} saveProductToCart={props.saveProductToCart} />)
                                 }
                             </div>
                     }

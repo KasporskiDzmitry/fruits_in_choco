@@ -6,14 +6,14 @@ class CartContainer extends React.Component {
     render() {
         return (
             <div>
-                <Cart />
+                <Cart {...this.props}/>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-
+    cart: state.shopReducer.cart
 })
 
 export default connect(mapStateToProps, {})(CartContainer);

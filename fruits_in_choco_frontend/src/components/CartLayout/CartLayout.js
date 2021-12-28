@@ -20,7 +20,7 @@ const CartLayout = (props) => {
     </div>
 }
 
-const CartItem = ({id, name, description, price, removeFromCart}) => {
+const CartItem = ({id, name, description, price, removeFromCart, styles}) => {
     const removeItem = () => {
         removeProductFromCart(id);
         removeFromCart(id);

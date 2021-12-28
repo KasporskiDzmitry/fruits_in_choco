@@ -1,0 +1,98 @@
+.container {
+
+}
+
+.itemsWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 1000px;
+  overflow: auto;
+  width: 100%;
+
+  .item {
+    display: flex;
+    height: 200px;
+    margin-bottom: 20px;
+
+    .imageWrapper {
+      width: 20%;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-right: 40px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .infoWrapper {
+      width: 80%;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        font-size: 20px;
+      }
+
+      h4 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 16px;
+      }
+    }
+
+    .totalPriceWrapper {
+      display: flex;
+      justify-content: space-between;
+
+      .totalPrice {
+        font-weight: bold;
+      }
+
+      .controls {
+        display: flex;
+
+        * {
+          margin-right: 10px;
+        }
+
+        .count {
+          width: 20px;
+          text-align: center;
+        }
+
+        .controlBtn {
+          cursor: pointer;
+          width: 25px;
+          height: 25px;
+          background: burlywood;
+          font-weight: bold;
+          text-align: center;
+          border-radius: 15px;
+          border: 1px solid black;
+
+          &:hover {
+            background: bisque;
+          }
+        }
+      }
+    }
+
+    .remove {
+      font-size: 24px;
+      cursor: pointer;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+}
+
+.controls {
+
+}

@@ -1,11 +1,14 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.AuthenticationResponse;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.Status;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.AuthService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,12 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User doesn't exists");
+        }
+        if (user.getStatus() == Status.NOT_CONFIRMED) {
+            throw new UserNotConfirmedException("Account not confirmed", HttpStatus.NOT_FOUND);
+        }
+        if (user.getStatus() == Status.BANNED) {
+
         }
 
         String token = jwtTokenProvider.createToken(email, user.getRole().name(), tokenValidity);

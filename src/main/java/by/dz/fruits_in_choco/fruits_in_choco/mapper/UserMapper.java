@@ -8,7 +8,10 @@ import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Component
 @RequiredArgsConstructor
@@ -37,7 +40,11 @@ public class UserMapper {
         return convertToResponseDto(userService.updateProfile(convertToEntity(userRequest)));
     }
 
-    public String register(RegistrationRequest registrationRequest) {
-        return registrationService.register(convertToEntity(registrationRequest));
+    public String register(RegistrationRequest registrationRequest, HttpServletRequest request) {
+        return registrationService.register(convertToEntity(registrationRequest), request);
+    }
+
+    public String confirmRegistration(String token) {
+        return registrationService.confirmRegistration(token);
     }
 }

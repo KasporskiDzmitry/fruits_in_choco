@@ -29,6 +29,9 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @Column(name = "activationtoken")
+    private String activationToken;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<ProductRating> ratings;
 }

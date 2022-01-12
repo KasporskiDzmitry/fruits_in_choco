@@ -1,2 +1,2 @@
-insert into user(id, email, password, firstname, lastname, status, role) values (1, 'admin@mail.com', '$2a$10$vZhwozx5gJhrCp3oeZXCN.u5MUOhIB.KBUDZ.my1dHNMFECwZt4GW', 'Dima', 'Kasporsky', 'ACTIVE', 'ADMIN');
-insert into user(id, email, password, firstname, lastname, status, role) values (2, 'user@mail.com', '$2a$12$cKwUR/TutsUpSk7ZuiDy0.7H3sokI8dJE.5zXp3.uK1bnf8u8sjqi', 'Max', 'Danilov', 'ACTIVE', 'USER');
+insert into user(id, email, password, firstname, lastname, status, role, activationtoken) values (3, 'adm1in@mail.com', '$2a$10$vZhwozx5gJhrCp3oeZXCN.u5MUOhIB.KBUDZ.my1dHNMFECwZt4GW', 'Dima', 'Kasporsky', 'ACTIVE', 'ADMIN', '');
+insert into user(id, email, password, firstname, lastname, status, role, activationtoken) values (4, 'use1r@mail.com', '$2a$12$cKwUR/TutsUpSk7ZuiDy0.7H3sokI8dJE.5zXp3.uK1bnf8u8sjqi', 'Max', 'Danilov', 'ACTIVE', 'USER', '');

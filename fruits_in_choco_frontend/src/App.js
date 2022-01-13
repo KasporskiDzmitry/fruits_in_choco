@@ -45,7 +45,7 @@ class App extends React.Component {
             <div className={style.appWrapper}>
                 <PopUp isActive={this.props.isSignInSignUpPopUpShow} togglePopUp={this.props.toggleSignInSignUpPopUp}>
                     <SignInSignUpPopUp login={this.props.login} registration={this.props.registration}
-                                       togglePopUp={this.props.toggleSignInSignUpPopUp}/>
+                                       togglePopUp={this.props.toggleSignInSignUpPopUp} isLoginFetching={this.props.isLoginFetching} isRegisterFetching={this.props.isRegisterFetching}/>
                 </PopUp>
                 <CartLayout isCartShow={this.props.isCartLayoutShow} toggleIsCartShow={this.props.toggleCartLayout}
                             products={this.props.productsInCart} removeFromCart={this.props.removeFromCart}
@@ -76,7 +76,9 @@ const mapStateToProps = state => ({
     initialized: state.appReducer.initialized,
     isSignInSignUpPopUpShow: state.appReducer.isSignInSignUpPopUpShow,
     isCartLayoutShow: state.appReducer.isCartLayoutShow,
-    productsInCart: state.shopReducer.cart
+    productsInCart: state.shopReducer.cart,
+    isLoginFetching: state.authReducer.isFetching,
+    isRegisterFetching: state.registrationReducer.isFetching
 });
 
 export default compose(

@@ -9,27 +9,26 @@ import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
 import by.dz.fruits_in_choco.fruits_in_choco.util.EmailValidator;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service("registrationService")
 public class RegistrationServiceImpl implements RegistrationService {
     private final EmailValidator emailValidator;
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
     private final ApplicationEventPublisher eventPublisher;
+
+    @Value("${jwt.activationAccount}")
+    private Long validity;
 
     @Override
     public String register(User user, HttpServletRequest request) {
@@ -43,12 +42,12 @@ public class RegistrationServiceImpl implements RegistrationService {
         User userDAO = userRepository.findByEmail(user.getEmail());
 
         if (userDAO == null) {
-            String encodedPassword = bCryptPasswordEncoder
+            String encodedPassword = passwordEncoder
                     .encode(user.getPassword());
             user.setPassword(encodedPassword);
             user.setRole(Role.USER);
             user.setStatus(Status.NOT_CONFIRMED);
-            user.setActivationToken(tokenProvider.createActivationAccountToken(UUID.randomUUID().toString(), 10000L));
+            user.setActivationToken(tokenProvider.createActivationAccountToken(UUID.randomUUID().toString(), validity));
 
             String appUrl = request.getContextPath();
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user,
@@ -67,13 +66,11 @@ public class RegistrationServiceImpl implements RegistrationService {
         User user = userRepository.findByActivationToken(token);
 
         if (user != null) {
-
             user.setActivationToken(null);
             user.setStatus(Status.ACTIVE);
-
             userRepository.save(user);
         } else {
-            throw new UserNotConfirmedException("Unknown token", HttpStatus.NOT_FOUND);
+            throw new UserNotConfirmedException("Unknown token");
         }
 
         return "Registration complete!";

@@ -1,5 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.security;
 
+import by.dz.fruits_in_choco.fruits_in_choco.exception.JwtAuthenticationException;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

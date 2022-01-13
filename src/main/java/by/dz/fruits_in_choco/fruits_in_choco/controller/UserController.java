@@ -1,8 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.UserRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.UserMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.UserServiceImpl;
 import org.springframework.http.ResponseEntity;

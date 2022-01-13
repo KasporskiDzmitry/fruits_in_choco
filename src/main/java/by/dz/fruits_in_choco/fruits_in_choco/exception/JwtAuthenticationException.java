@@ -1,4 +1,4 @@
-package by.dz.fruits_in_choco.fruits_in_choco.security;
+package by.dz.fruits_in_choco.fruits_in_choco.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

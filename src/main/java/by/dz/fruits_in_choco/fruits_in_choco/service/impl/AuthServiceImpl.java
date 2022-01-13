@@ -8,9 +8,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.AuthService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -20,17 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final PasswordEncoder passwordEncoder;
     @Value("${jwt.expiration}")
     private Long tokenValidity;
     @Value("${jwt.expirationRefresh}")
     private Long refreshTokenValidity;
 
 
-    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -40,10 +36,7 @@ public class AuthServiceImpl implements AuthService {
             throw new UsernameNotFoundException("User doesn't exists");
         }
         if (user.getStatus() == Status.NOT_CONFIRMED) {
-            throw new UserNotConfirmedException("Account not confirmed", HttpStatus.NOT_FOUND);
-        }
-        if (user.getStatus() == Status.BANNED) {
-
+            throw new UserNotConfirmedException("Account not confirmed");
         }
 
         String token = jwtTokenProvider.createToken(email, user.getRole().name(), tokenValidity);

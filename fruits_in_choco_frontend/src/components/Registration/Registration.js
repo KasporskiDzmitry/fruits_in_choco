@@ -1,16 +1,13 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {Input} from '../common/FormsControls/FormsControls';
-import {required} from "../utils/validators/validators";
-import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
+import {required, validateEmail} from "../utils/validators/validators";
 import style from '../common/FormsControls/FormsControls.module.scss';
-import {compose} from "redux";
 import {registration} from "../../redux/thunks/registration_thunks";
-import {togglePopUp} from "../../redux/actions/app_actions";
 import {Button} from 'react-bootstrap';
 
-const RegistrationForm = ({handleSubmit, error}) => {
+const RegistrationForm = ({handleSubmit, error, isFetching}) => {
+    console.log(isFetching)
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -20,7 +17,7 @@ const RegistrationForm = ({handleSubmit, error}) => {
                 <Field placeholder={'Last Name'} name={'lastName'} component={Input} validate={[required]}/>
             </div>
             <div>
-                <Field placeholder={'Email'} name={'email'} component={Input} validate={[required]}/>
+                <Field placeholder={'Email'} name={'email'} component={Input} validate={[required, validateEmail]}/>
             </div>
             <div>
                 <Field placeholder={'Password'} name={'password'} component={Input} validate={[required]}
@@ -33,7 +30,7 @@ const RegistrationForm = ({handleSubmit, error}) => {
                 </div>
             }
             <div>
-                <Button type={"submit"}>Register</Button>
+                <Button type={"submit"} disabled={isFetching}>Register</Button>
             </div>
         </form>
     )
@@ -54,7 +51,7 @@ const Registration = props => {
 
     return <div>
         <h1>Registration</h1>
-        <RegistrationReduxForm onSubmit={onSubmit}/>
+        <RegistrationReduxForm onSubmit={onSubmit} isFetching={props.isFetching}/>
     </div>
 };
 

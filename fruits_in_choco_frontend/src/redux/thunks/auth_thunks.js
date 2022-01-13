@@ -1,12 +1,14 @@
 import RequestService from "../RequestService";
-import {loginSuccess, logoutSuccess, refreshTokenSuccess} from "../actions/auth_actions";
-import {stopSubmit} from "redux-form";
+import {loginSuccess, logoutSuccess, refreshTokenSuccess, toggleIsFetching} from "../actions/auth_actions";
+import {reset, stopSubmit} from "redux-form";
 import {removeUserInfoFromLS, saveUserInfoToLS} from "../../components/utils/localStorageFunctions";
 import {togglePopUp, toggleSignInSignUpPopUp} from "../actions/app_actions";
 
 export const login = (email, password) => async dispatch => {
+    dispatch(toggleIsFetching());
     try {
         const response = await RequestService.post("/auth/login", {email, password});
+
         saveUserInfoToLS(response.data);
 
         dispatch(loginSuccess(
@@ -16,16 +18,20 @@ export const login = (email, password) => async dispatch => {
             response.data.role,
             response.data.token,
             true));
+        dispatch(reset('login'));
         dispatch(toggleSignInSignUpPopUp());
     } catch (error) {
         dispatch(stopSubmit('login', {_error: error.response.data}));
     }
+    dispatch(toggleIsFetching());
 };
 
 export const logout = () => async dispatch => {
+    dispatch(toggleIsFetching());
     await RequestService.post("/auth/logout", null, true);
     removeUserInfoFromLS();
     dispatch(logoutSuccess());
+    dispatch(toggleIsFetching());
 };
 
 export const refreshToken = () => async dispatch => {

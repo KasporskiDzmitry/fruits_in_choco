@@ -2,8 +2,6 @@ package by.dz.fruits_in_choco.fruits_in_choco.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;

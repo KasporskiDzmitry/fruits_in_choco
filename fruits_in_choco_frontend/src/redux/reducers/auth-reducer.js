@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS, LOGOUT_SUCCESS, REFRESH_TOKEN_SUCCESS} from "../action_types/auth_action_types";
+import {LOGIN_SUCCESS, LOGOUT_SUCCESS, REFRESH_TOKEN_SUCCESS, TOGGLE_IS_FETCHING} from "../action_types/auth_action_types";
 
 const initialState = {
     userId: '',
@@ -6,11 +6,18 @@ const initialState = {
     name: '',
     role: '',
     token: '',
-    isAuth: false
+    isAuth: false,
+    isFetching: false
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
+        case TOGGLE_IS_FETCHING: {
+            return {
+                ...state,
+                isFetching: !state.isFetching
+            }
+        }
         case LOGIN_SUCCESS: {
             return {
                 ...state,

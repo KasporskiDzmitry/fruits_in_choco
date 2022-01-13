@@ -1,21 +1,14 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.CategoryResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductTypeResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductType;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component

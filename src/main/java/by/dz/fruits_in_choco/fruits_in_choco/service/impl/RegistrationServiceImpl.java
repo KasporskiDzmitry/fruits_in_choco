@@ -50,8 +50,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             user.setActivationToken(tokenProvider.createActivationAccountToken(UUID.randomUUID().toString(), validity));
 
             String appUrl = request.getContextPath();
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user,
-                    request.getLocale(), appUrl));
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, appUrl));
 
             userRepository.save(user);
         } else {

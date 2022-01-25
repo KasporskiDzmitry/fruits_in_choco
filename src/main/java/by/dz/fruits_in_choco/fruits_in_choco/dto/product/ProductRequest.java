@@ -1,4 +1,4 @@
-package by.dz.fruits_in_choco.fruits_in_choco.dto;
+package by.dz.fruits_in_choco.fruits_in_choco.dto.product;
 
 import lombok.Data;
 

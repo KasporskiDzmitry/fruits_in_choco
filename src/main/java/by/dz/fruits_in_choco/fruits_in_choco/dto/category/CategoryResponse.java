@@ -1,5 +1,6 @@
-package by.dz.fruits_in_choco.fruits_in_choco.dto;
+package by.dz.fruits_in_choco.fruits_in_choco.dto.category;
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductTypeResponse;
 import lombok.Data;
 
 import java.util.List;

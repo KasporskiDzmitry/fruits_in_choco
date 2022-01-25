@@ -3,6 +3,7 @@ import style from './CartLayout.module.scss'
 import {removeProductFromCart} from "../utils/localStorageFunctions";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Button} from "react-bootstrap";
 
 const CartLayout = (props) => {
     return <div className={props.isCartShow ? `${style.container} ${style.active}` : style.container}>
@@ -15,6 +16,9 @@ const CartLayout = (props) => {
                 {
                     props.products.map(i => <CartItem key={i.id + "cart"} {...i} {...props}/>)
                 }
+            </div>
+            <div>
+                <Button>Оформить заказ</Button>
             </div>
         </div>
     </div>

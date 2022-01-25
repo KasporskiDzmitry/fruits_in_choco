@@ -3,6 +3,7 @@ import style from './Main.module.scss';
 import SliderContainer from "./Slider/SliderContainer";
 import {CardGroup} from "react-bootstrap";
 import CategoryCard from "./CategoryCard";
+import {Button} from "../common/Button/Button";
 
 const Main = (props) => {
     const selectCategory = (e, card) => {
@@ -27,6 +28,7 @@ const Main = (props) => {
                 </div>
             </div>
         </div>
+        <Button title="Click me" />
         <div className={` sectionOuter ${style.aboutSection}`}>
             <div className="sectionInner">
                 <div className={style.heading}>

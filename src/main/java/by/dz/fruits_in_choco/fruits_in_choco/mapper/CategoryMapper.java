@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.CategoryResponse;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductTypeResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;

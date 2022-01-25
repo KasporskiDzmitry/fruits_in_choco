@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.AuthenticationRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.AuthServiceImpl;
 import org.springframework.http.ResponseEntity;

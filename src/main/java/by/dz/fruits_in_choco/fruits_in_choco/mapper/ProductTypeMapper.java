@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductResponse;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductTypeResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductType;
 import lombok.AllArgsConstructor;

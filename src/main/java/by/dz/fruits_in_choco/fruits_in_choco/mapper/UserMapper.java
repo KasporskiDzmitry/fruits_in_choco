@@ -1,8 +1,9 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.RegistrationRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.UserRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.UserResponse;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.order.OrderRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
 import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.UserService;

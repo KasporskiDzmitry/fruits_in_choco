@@ -1,6 +1,6 @@
 import RequestService from "../RequestService";
-import {toggleIsFetching, registerFailure, registerSuccess} from "../actions/registration_actions";
-import {togglePopUp, toggleSignInSignUpPopUp} from "../actions/app_actions";
+import {registerSuccess, toggleIsFetching} from "../actions/registration_actions";
+import {toggleSignInSignUpPopUp} from "../actions/app_actions";
 import {reset, stopSubmit} from "redux-form";
 
 export const registration = user => async dispatch => {

@@ -8,6 +8,24 @@ export const addProductToCart = (product) => {
     }
 }
 
+export const increaseQuantity = (id) => {
+    const products = localStorage.products;
+    localStorage.removeItem('products');
+    const productsArray = Array.from(JSON.parse(products));
+    const product = productsArray.find(i => i.id === id);
+    product.quantity += 1;
+    localStorage.setItem('products', JSON.stringify(productsArray));
+}
+
+export const decreaseQuantity = (id) => {
+    const products = localStorage.products;
+    const productsArray = Array.from(JSON.parse(products));
+    const product = productsArray.find(i => i.id === id);
+    product.quantity -= 1;
+    localStorage.removeItem('products');
+    localStorage.setItem('products', JSON.stringify(productsArray));
+}
+
 export const removeProductFromCart = (id) => {
     const products = localStorage.products;
     localStorage.removeItem('products');

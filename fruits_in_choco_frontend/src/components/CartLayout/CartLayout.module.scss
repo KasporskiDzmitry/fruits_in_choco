@@ -95,34 +95,6 @@
       .totalPrice {
         font-weight: bold;
       }
-
-      .controls {
-        display: flex;
-
-        * {
-          margin-right: 10px;
-        }
-
-        .count {
-          width: 20px;
-          text-align: center;
-        }
-
-        .controlBtn {
-          cursor: pointer;
-          width: 25px;
-          height: 25px;
-          background: burlywood;
-          font-weight: bold;
-          text-align: center;
-          border-radius: 15px;
-          border: 1px solid black;
-
-          &:hover {
-            background: bisque;
-          }
-        }
-      }
     }
 
     .remove {
@@ -133,6 +105,35 @@
       &:hover {
         color: red;
       }
+    }
+  }
+}
+
+.controls {
+  display: flex;
+
+  * {
+    margin-right: 10px;
+  }
+
+  .count {
+    width: 20px;
+    text-align: center;
+  }
+
+  .controlBtn {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    background: burlywood;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid black;
+    user-select: none;
+
+    &:hover {
+      background: bisque;
     }
   }
 }

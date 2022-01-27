@@ -24,7 +24,7 @@ const CartLayout = (props) => {
     </div>
 }
 
-const CartItem = ({id, name, description, price, removeFromCart, styles}) => {
+const CartItem = ({id, name, description, price, removeFromCart, styles, quantity}) => {
     const removeItem = () => {
         removeProductFromCart(id);
         removeFromCart(id);
@@ -45,7 +45,7 @@ const CartItem = ({id, name, description, price, removeFromCart, styles}) => {
                 <div className={style.totalPrice}>{price}</div>
                 <div className={style.controls}>
                     <div className={style.controlBtn}>-</div>
-                    <div className={style.count}>3</div>
+                    <div className={style.count}>{quantity}</div>
                     <div className={style.controlBtn}>+</div>
                 </div>
             </div>

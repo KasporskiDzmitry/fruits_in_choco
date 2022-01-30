@@ -42,7 +42,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className={style.appWrapper}>
+            <>
                 <PopUp isActive={this.props.isSignInSignUpPopUpShow} togglePopUp={this.props.toggleSignInSignUpPopUp}>
                     <SignInSignUpPopUp login={this.props.login} registration={this.props.registration}
                                        togglePopUp={this.props.toggleSignInSignUpPopUp} isLoginFetching={this.props.isLoginFetching} isRegisterFetching={this.props.isRegisterFetching}/>
@@ -67,7 +67,7 @@ class App extends React.Component {
                            render={() => <CartPage/>}/>
                 </React.Suspense>
                 <Footer/>
-            </div>
+            </>
         )
     }
 }

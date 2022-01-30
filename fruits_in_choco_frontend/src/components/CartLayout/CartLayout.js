@@ -4,8 +4,10 @@ import {removeProductFromCart} from "../utils/localStorageFunctions";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Button} from "react-bootstrap";
+import {NavLink} from "react-router-dom";
 
 const CartLayout = (props) => {
+
     return <div className={props.isCartShow ? `${style.container} ${style.active}` : style.container}>
         <div className={style.bg} onClick={props.toggleIsCartShow}></div>
         <div className={style.cartLayoutContainer}>
@@ -18,7 +20,9 @@ const CartLayout = (props) => {
                 }
             </div>
             <div>
-                <Button>Оформить заказ</Button>
+                <NavLink to={"/cart"} onClick={props.toggleIsCartShow}>
+                    <Button>Оформить заказ</Button>
+                </NavLink>
             </div>
         </div>
     </div>

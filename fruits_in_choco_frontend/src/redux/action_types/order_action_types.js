@@ -1,0 +1,2 @@
+export const TOGGLE_IS_FETCHING = 'order/TOGGLE_IS_FETCHING';
+export const ORDER_MADE_SUCCESS = 'order/ORDER_MADE_SUCCESS';

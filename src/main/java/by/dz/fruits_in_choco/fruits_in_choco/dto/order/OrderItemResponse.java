@@ -1,0 +1,11 @@
+package by.dz.fruits_in_choco.fruits_in_choco.dto.order;
+
+import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
+import lombok.Data;
+
+@Data
+public class OrderItemResponse {
+    private Long id;
+    private Integer quantity;
+    private Product product;
+}

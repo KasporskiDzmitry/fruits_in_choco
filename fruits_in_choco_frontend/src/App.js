@@ -23,6 +23,7 @@ const AboutContainer = React.lazy(() => import('./components/About/AboutContaine
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
 const CartPage = React.lazy(() => import('./components/Cart/CartContainer'));
+const OrderPage = React.lazy(() => import('./components/Order/OrderContainer'));
 
 
 class App extends React.Component {
@@ -63,8 +64,10 @@ class App extends React.Component {
                            render={() => <AboutContainer/>}/>
                     <Route path='/profile'
                            render={() => <ProfilePage/>}/>
-                    <Route path='/cart'
+                    <Route exact path='/cart'
                            render={() => <CartPage/>}/>
+                    <Route path='/cart/order'
+                           render={() => <OrderPage/>}/>
                 </React.Suspense>
                 <Footer/>
             </>

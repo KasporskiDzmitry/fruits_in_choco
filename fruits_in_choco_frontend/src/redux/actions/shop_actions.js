@@ -1,5 +1,5 @@
 import {
-    ADD_TO_CART, REMOVE_FROM_CART,
+    ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART,
     SET_CURRENT_PRODUCT,
     SET_CURRENT_PRODUCT_REVIEWS, SET_FILTERED_TYPES,
     SET_PRODUCTS, TOGGLE_IS_FETCHING, UPDATE_PRODUCT_IN_CART
@@ -13,3 +13,4 @@ export const setFilteredTypes = types => ({type: SET_FILTERED_TYPES, types});
 export const addToCart = product => ({type: ADD_TO_CART, product});
 export const removeFromCart = id => ({type: REMOVE_FROM_CART, id});
 export const updateProductInCart = (product) => ({type: UPDATE_PRODUCT_IN_CART, product});
+export const clearCart = () => ({type: CLEAR_CART});

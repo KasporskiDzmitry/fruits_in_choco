@@ -3,6 +3,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.dto.order;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class OrderRequest {
@@ -15,9 +16,9 @@ public class OrderRequest {
 
     private String phone;
 
-    private double price;
+    private Double price;
 
-    private boolean isAgreeToSendingMessages;
+    private Boolean isAgreeToSendingMessages;
 
-    private List<Long> productIds;
+    private Map<Long, Integer> productIds;
 }

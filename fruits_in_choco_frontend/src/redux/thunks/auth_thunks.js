@@ -22,8 +22,9 @@ export const login = (email, password) => async dispatch => {
         dispatch(toggleSignInSignUpPopUp());
     } catch (error) {
         dispatch(stopSubmit('login', {_error: error.response.data}));
+    } finally {
+        dispatch(toggleIsFetching());
     }
-    dispatch(toggleIsFetching());
 };
 
 export const logout = () => async dispatch => {

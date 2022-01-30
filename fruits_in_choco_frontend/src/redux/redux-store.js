@@ -11,6 +11,7 @@ import shopReducer from "./reducers/shop-reducer";
 import profileReducer from "./reducers/profile-reducer";
 import registrationReducer from "./reducers/registration-reducer";
 import { reducer as sematable } from 'sematable';
+import orderReducer from "./reducers/order-reducer";
 
 let reducers = combineReducers({
     sematable,
@@ -21,7 +22,8 @@ let reducers = combineReducers({
     adminReducer: adminReducer,
     shopReducer: shopReducer,
     profileReducer: profileReducer,
-    registrationReducer: registrationReducer
+    registrationReducer: registrationReducer,
+    orderReducer: orderReducer
 });
 
 const composeEnhancers = composeWithDevTools({

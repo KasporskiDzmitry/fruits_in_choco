@@ -4,6 +4,7 @@ import {
     SET_PRODUCTS,
     TOGGLE_IS_FETCHING,
     ADD_TO_CART,
+    CLEAR_CART,
     REMOVE_FROM_CART, TOGGLE_IS_CART_SHOW, UPDATE_PRODUCT_IN_CART
 } from "../action_types/shop_action_types";
 
@@ -22,6 +23,12 @@ const shopReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: action.isFetching
+            }
+        }
+        case CLEAR_CART: {
+            return {
+                ...state,
+                cart: []
             }
         }
         case ADD_TO_CART: {

@@ -13,6 +13,7 @@ export const registration = user => async dispatch => {
         // window.location.href = '/login'; // убрать отсюда
     } catch (error) {
         dispatch(stopSubmit('registration', {_error: error.response.data}));
+    } finally {
+        dispatch(toggleIsFetching(false));
     }
-    dispatch(toggleIsFetching(false));
 };

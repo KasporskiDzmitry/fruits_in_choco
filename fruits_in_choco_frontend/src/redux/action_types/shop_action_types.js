@@ -6,3 +6,4 @@ export const SET_FILTERED_TYPES = 'shop/SET_FILTERED_TYPES';
 export const ADD_TO_CART = 'shop/ADD_TO_CART';
 export const UPDATE_PRODUCT_IN_CART = 'shop/UPDATE_PRODUCT_IN_CART';
 export const REMOVE_FROM_CART = 'shop/REMOVE_FROM_CART';
+export const CLEAR_CART = 'shop/CLEAR_CART';

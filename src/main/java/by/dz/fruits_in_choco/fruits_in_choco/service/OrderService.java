@@ -3,8 +3,9 @@ package by.dz.fruits_in_choco.fruits_in_choco.service;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Order;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
-    Order makeOrder(Order order, List<Long> productIds);
+    Order makeOrder(Order order, Map<Long, Integer> productIds);
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,5 +33,9 @@ public class Order {
     private boolean isAgreeToSendingMessages;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Product> orderItems;
+    private List<OrderItem> orderItems;
+
+    public Order() {
+        this.orderItems = new ArrayList<>();
+    }
 }

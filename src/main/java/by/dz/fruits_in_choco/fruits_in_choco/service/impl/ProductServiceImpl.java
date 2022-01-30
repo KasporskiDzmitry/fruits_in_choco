@@ -31,7 +31,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProducts(int page, int size, String direction, String sortBy) {
         Page<Product> productPage = productRepository.findAll(PageRequest.of(page, size, Sort.Direction.fromString(direction), sortBy));
-        System.out.println(productPage);
         return productPage.getContent();
     }
 

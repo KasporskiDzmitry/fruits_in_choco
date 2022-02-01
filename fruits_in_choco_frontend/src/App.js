@@ -24,6 +24,7 @@ const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContain
 const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
 const CartPage = React.lazy(() => import('./components/Cart/CartContainer'));
 const OrderPage = React.lazy(() => import('./components/Order/OrderContainer'));
+const OrderSuccess = React.lazy(() => import('./components/OrderSuccess/OrderSuccessContainer'));
 
 
 class App extends React.Component {
@@ -66,8 +67,10 @@ class App extends React.Component {
                            render={() => <ProfilePage/>}/>
                     <Route exact path='/cart'
                            render={() => <CartPage/>}/>
-                    <Route path='/cart/order'
+                    <Route exact path='/order'
                            render={() => <OrderPage/>}/>
+                    <Route exact path='/order/success'
+                           render={() => <OrderSuccess/>}/>
                 </React.Suspense>
                 <Footer/>
             </>

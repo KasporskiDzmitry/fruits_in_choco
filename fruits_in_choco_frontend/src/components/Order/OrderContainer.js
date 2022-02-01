@@ -3,6 +3,8 @@ import {Order} from "./Order";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {makeOrder} from "../../redux/thunks/order_thunks";
+import {withRouter} from "react-router-dom";
+import {emptyCartRedirect} from "../hoc/emptyCartRedirect";
 
 class OrderContainer extends React.Component {
     render() {
@@ -15,5 +17,7 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
-    connect(mapStateToProps, {makeOrder})
+    connect(mapStateToProps, {makeOrder}),
+    emptyCartRedirect,
+    withRouter
 )(OrderContainer);

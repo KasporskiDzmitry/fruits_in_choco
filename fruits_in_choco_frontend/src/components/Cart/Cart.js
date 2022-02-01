@@ -88,7 +88,7 @@ const Cart = (props) => {
                             </div>
                         </div>
                         <div className={style.submitWrapper}>
-                            <NavLink to={'/cart/order'}>
+                            <NavLink to={'/order'}>
                                 <Button>Оформить заказ</Button>
                             </NavLink>
                         </div>

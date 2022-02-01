@@ -40,22 +40,12 @@ const OrderReduxForm = reduxForm({form: 'order'})(OrderForm);
 
 export const Order = (props) => {
     const onSubmit = formData => {
-        let productIds = new Map();
-
-        for (let i = 0; i < props.cart.length; i++) {
-            const p = props.cart[i];
-            productIds.set(p.id, p.quantity)
-        }
-
         const order = {
             ...formData,
             price: props.cart.reduce((a, b) => a + b.price * b.quantity, 0),
-            productIds: Object.fromEntries(productIds)
+            productIds: Object.fromEntries(new Map(props.cart.map(p => [p.id, p.quantity])))
         }
-
-        console.log(order)
-
-        props.makeOrder(order);
+        props.makeOrder(order, props.history);
     }
 
     return <>

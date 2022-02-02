@@ -6,7 +6,7 @@ import {clearCart} from "../actions/shop_actions";
 export const makeOrder = (order, history) => async dispatch => {
     dispatch(toggleIsFetching(true));
     try {
-        const response = await RequestService.post("/order", order);
+        const response = await RequestService.post("/orders", order);
         dispatch(orderMadeSuccess(response.data));
         dispatch(reset("order"));
         dispatch(clearCart());

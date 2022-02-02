@@ -1,8 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.order.OrderRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.mapper.OrderMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.UserMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +15,10 @@ import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.DEFAULT_SORT_
 public class UserController {
     UserServiceImpl userService;
     UserMapper userMapper;
-    OrderMapper orderMapper;
 
-    UserController(UserServiceImpl userService, UserMapper userMapper, OrderMapper orderMapper) {
+    UserController(UserServiceImpl userService, UserMapper userMapper) {
         this.userMapper = userMapper;
         this.userService = userService;
-        this.orderMapper = orderMapper;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -53,8 +49,5 @@ public class UserController {
         return ResponseEntity.ok(userMapper.updateProfile(newProfile));
     }
 
-    @PostMapping("/order")
-    public ResponseEntity<?> makeOrder(@RequestBody OrderRequest orderRequest) {
-        return ResponseEntity.ok(orderMapper.makeOrder(orderRequest));
-    }
+
 }

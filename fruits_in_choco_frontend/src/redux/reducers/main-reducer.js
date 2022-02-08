@@ -1,9 +1,7 @@
-import {SELECT_CATEGORY, SET_CATEGORIES, SET_SLIDES} from "../action_types/main_action_types";
+import {SET_SLIDES} from "../action_types/main_action_types";
 
 const initialState = {
-    slides: [],
-    categories: [],
-    selectedCategory: 0,
+    slides: []
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -14,19 +12,6 @@ const mainReducer = (state = initialState, action) => {
                 slides: action.slides
             }
         }
-        case SET_CATEGORIES: {
-            return {
-                ...state,
-                categories: action.categories
-            }
-        }
-        case SELECT_CATEGORY: {
-            return {
-                ...state,
-                selectedCategory: action.category
-            }
-        }
-
         default: {
             return state
         }

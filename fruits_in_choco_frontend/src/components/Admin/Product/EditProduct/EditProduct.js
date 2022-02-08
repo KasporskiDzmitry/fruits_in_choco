@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {Field, reduxForm} from "redux-form";
-import style from './AdminProductPage.module.scss';
-import reviewItemStyle from '../../Shop/ProductPage/ProductPage.module.scss';
+import style from './EditProduct.module.scss';
+import reviewItemStyle from '../../../Shop/ProductPage/ProductPage.module.scss';
 import {Button} from 'react-bootstrap';
-import {required} from "../../utils/validators/validators";
-import {Input, Select, Textarea} from "../../common/FormsControls/FormsControls";
-import Expire from "../../common/Expire/Expire";
-import Preloader from "../../common/Preloader/Preloader";
-import formsControlsStyle from "../../common/FormsControls/FormsControls.module.scss";
+import {required} from "../../../utils/validators/validators";
+import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
+import Expire from "../../../common/Expire/Expire";
+import Preloader from "../../../common/Preloader/Preloader";
+import formsControlsStyle from "../../../common/FormsControls/FormsControls.module.scss";
 import {connect} from "react-redux";
 import Rating from "@material-ui/lab/Rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -83,7 +83,7 @@ EditProductReduxForm = connect(
         initialValues: state.adminReducer.product
     }), {})(EditProductReduxForm)
 
-const AdminProductPage = props => {
+const EditProduct = props => {
     const onSubmit = formData => {
         // props.addProduct({
         //     name: formData.name,
@@ -159,4 +159,4 @@ const AdminProductPage = props => {
     </>
 };
 
-export default AdminProductPage;
+export default EditProduct;

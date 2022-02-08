@@ -1,8 +1,8 @@
 import {initializedSuccess} from "../actions/app_actions";
-import {loadCategories} from "./main_thunks";
 import {refreshTokenSuccess} from "../actions/auth_actions";
 import {logout} from "./auth_thunks";
 import RequestService from "../RequestService";
+import {loadCategories} from "./category_thunks";
 
 export const init = () => async dispatch => {
     if (localStorage.name) {

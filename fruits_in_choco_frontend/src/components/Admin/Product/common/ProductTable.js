@@ -25,6 +25,7 @@ class ProductTable extends Component {
         return (
             <Table
                 {...this.props}
+                selectable
                 columns={columns}
             />
         );

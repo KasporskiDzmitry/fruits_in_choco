@@ -4,9 +4,9 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {logout} from "../../redux/thunks/auth_thunks";
-import {selectCategory} from "../../redux/actions/main_actions";
 import {setFilteredTypes, toggleIsCartShow} from "../../redux/actions/shop_actions";
 import {toggleCartLayout, togglePopUp, toggleSignInSignUpPopUp} from "../../redux/actions/app_actions";
+import {selectCategory} from "../../redux/actions/category_actions";
 
 class HeaderContainer extends React.Component {
 
@@ -20,7 +20,7 @@ class HeaderContainer extends React.Component {
 const mapStateToProps = state => ({
     isAuth: state.authReducer.isAuth,
     login: state.authReducer.login,
-    productTypes: state.mainPage.categories.map(i => i.types).flat().map(i => i.id),
+    productTypes: state.categoryReducer.categories.map(i => i.types).flat().map(i => i.id),
     productsInCart: localStorage.products ? JSON.parse(localStorage.products) : []
 });
 

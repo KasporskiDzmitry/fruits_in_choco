@@ -12,6 +12,7 @@ import profileReducer from "./reducers/profile-reducer";
 import registrationReducer from "./reducers/registration-reducer";
 import { reducer as sematable } from 'sematable';
 import orderReducer from "./reducers/order-reducer";
+import categoryReducer from "./reducers/category-reducer";
 
 let reducers = combineReducers({
     sematable,
@@ -20,6 +21,7 @@ let reducers = combineReducers({
     appReducer: appReducer,
     authReducer: authReducer,
     adminReducer: adminReducer,
+    categoryReducer: categoryReducer,
     shopReducer: shopReducer,
     profileReducer: profileReducer,
     registrationReducer: registrationReducer,

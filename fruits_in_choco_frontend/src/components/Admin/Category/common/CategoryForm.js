@@ -1,11 +1,10 @@
 import React from "react";
-import {Field, FieldArray, reduxForm} from "redux-form";
-import formsControlsStyle from '../../common/FormsControls/FormsControls.module.scss';
-import style from './AddCategory.module.scss';
-import {Button} from 'react-bootstrap';
-import {required} from "../../utils/validators/validators";
-import {Input, Textarea} from "../../common/FormsControls/FormsControls";
-import Expire from "../../common/Expire/Expire";
+import {Button} from "react-bootstrap";
+import {Field, FieldArray} from "redux-form";
+import {Input, Textarea} from "../../../common/FormsControls/FormsControls";
+import {required} from "../../../utils/validators/validators";
+import formsControlsStyle from "../../../common/FormsControls/FormsControls.module.scss";
+import style from './CategoryForm.module.scss';
 
 const renderTypeFields = ({fields, meta: {error}}) => (
     <div>
@@ -28,7 +27,7 @@ const renderTypeFields = ({fields, meta: {error}}) => (
     </div>
 )
 
-const AddCategoryForm = ({handleSubmit, error, isFetching}) => {
+export const CategoryForm = ({handleSubmit, error, isFetching}) => {
     return (
         <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.fieldWrapper}>
@@ -48,28 +47,8 @@ const AddCategoryForm = ({handleSubmit, error, isFetching}) => {
                 {error}
             </div>}
             <div>
-                <Button type="submit" disabled={isFetching}>Add</Button>
+                <Button type="submit" disabled={isFetching}>Submit</Button>
             </div>
         </form>
     )
 };
-
-const AddCategoryReduxForm = reduxForm({form: 'add_category'})(AddCategoryForm);
-
-const AddCategory = props => {
-    const onSubmit = formData => {
-        props.addCategory(formData);
-    };
-
-    return <div className={style.addCategoryContainer}>
-        <h1>Add category</h1>
-        {
-            props.isCategoryAddedSuccess && <div>
-                <Expire delay="3000"><h3>КАТЕГОРИЯ УСПЕШНО ДОБАВЛЕНА</h3></Expire>
-            </div>
-        }
-        <AddCategoryReduxForm onSubmit={onSubmit} isFetching={props.isFetching}/>
-    </div>
-};
-
-export default AddCategory;

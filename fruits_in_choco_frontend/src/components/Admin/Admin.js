@@ -5,12 +5,13 @@ import {connect} from "react-redux";
 import {addCategory, addProduct} from "../../redux/thunks/admin_thunks";
 import style from './Admin.module.scss';
 
-const AdminCategoryContainer = React.lazy(() => import('./Category/AdminCategoryContainer'));
-const AdminProductContainer = React.lazy(() => import('./Product/AdminProductContainer'));
+const AdminCategoryContainer = React.lazy(() => import('./Category/CategoriesContainer'));
+const AdminProductContainer = React.lazy(() => import('./Product/ProductsContainer'));
 const AdminUserContainer = React.lazy(() => import('./User/AdminUserContainer'));
-const AddProduct = React.lazy(() => import('./AddProduct/AddProduct'));
-const AddCategory = React.lazy(() => import('./AddCategory/AddCategory'));
-const AdminProductPage = React.lazy(() => import('./ProductPage/AdminProductPageContainer'))
+const AddProduct = React.lazy(() => import('./Product/AddProduct/AddProduct'));
+const AddCategory = React.lazy(() => import('./Category/AddCategory/AddCategory'));
+const AdminProductPage = React.lazy(() => import('./Product/EditProduct/EditProductContainer'));
+const AdminCategoryPage = React.lazy(() => import('./Category/EditCategory/EditCategoryPageContainer'));
 
 class Admin extends React.Component {
     render() {
@@ -26,18 +27,20 @@ class Admin extends React.Component {
                     </nav>
                     <>
                         <React.Suspense fallback={<Preloader/>}>
-                            <Route path='/profile/admin/categories'
+                            <Route exact path='/profile/admin/categories'
                                    render={() => <AdminCategoryContainer/>}/>
+                            <Route exact path='/profile/admin/categories/:id'
+                                   render={() => <AdminCategoryPage/>}/>
                             <Route exact path='/profile/admin/products'
                                    render={() => <AdminProductContainer/>}/>
-                            <Route path='/profile/admin/products/:id'
+                            <Route exact path='/profile/admin/products/:id'
                                    render={() => <AdminProductPage/>}/>
-                            <Route path={'/profile/admin/add_category'}
-                                   render={() => <AddCategory isFetching={this.props.isFetching}
+                            <Route exact path={'/profile/admin/add_category'}
+                                   render={() => <AddCategory isFetching={this.props.isCategoryFetching}
                                                               addCategory={this.props.addCategory}
                                                               isCategoryAddedSuccess={this.props.isCategoryAddedSuccess}/>}/>
                             <Route path='/profile/admin/add_product'
-                                   render={() => <AddProduct isFetching={this.props.isFetching}
+                                   render={() => <AddProduct isFetching={this.props.isProductFetching}
                                                              categories={this.props.categories}
                                                              addProduct={this.props.addProduct}
                                                              isProductAddedSuccess={this.props.isProductAddedSuccess}/>}/>
@@ -52,9 +55,11 @@ class Admin extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    categories: state.mainPage.categories,
+    categories: state.categoryReducer.categories,
     isProductAddedSuccess: state.adminReducer.isProductAddedSuccess,
     isCategoryAddedSuccess: state.adminReducer.isCategoryAddedSuccess,
+    isProductFetching: state.adminReducer.isProductFetching,
+    isCategoryFetching: state.adminReducer.isCategoryFetching,
     isFetching: state.adminReducer.isFetching
 })
 

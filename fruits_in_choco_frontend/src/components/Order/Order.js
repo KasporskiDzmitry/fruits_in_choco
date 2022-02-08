@@ -22,7 +22,7 @@ const OrderForm = ({handleSubmit, error}) => {
             </div>
             <div>
                 <label htmlFor="agree">Agree to sending messages</label>
-                <Field id="agree" placeholder={'Agree to sending messages'} name={'isAgreeToSendingMessages'} component={Input} type="checkbox" validate={[required]}/>
+                <Field id="agree" placeholder={'Agree to sending messages'} name={'isAgreeToSendingMessages'} component={Input} type="checkbox" validate={[]}/>
             </div>
             {error && <div className={style.formSummaryError}>
                 {error}
@@ -42,6 +42,7 @@ export const Order = (props) => {
     const onSubmit = formData => {
         const order = {
             ...formData,
+            userId: localStorage.userId || null,
             price: props.cart.reduce((a, b) => a + b.price * b.quantity, 0),
             productIds: Object.fromEntries(new Map(props.cart.map(p => [p.id, p.quantity])))
         }

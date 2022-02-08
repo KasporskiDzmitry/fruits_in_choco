@@ -41,13 +41,15 @@ public class CategoryServiceImpl implements CategoryService {
         category.setImageURL(request.getImageURL());
 
         Category savedCategory = categoryRepository.save(category);
-        request.getTypes()
-                .forEach(i -> {
-                    ProductType type = new ProductType();
-                    type.setName(i);
-                    type.setCategory(savedCategory);
-                    typeRepository.save(type);
-                });
+        List<String> types = request.getTypes();
+        if (types != null) {
+            types.forEach(i -> {
+                ProductType type = new ProductType();
+                type.setName(i);
+                type.setCategory(savedCategory);
+                typeRepository.save(type);
+            });
+        }
         return savedCategory;
     }
 

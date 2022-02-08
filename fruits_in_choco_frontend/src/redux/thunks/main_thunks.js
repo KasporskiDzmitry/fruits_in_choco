@@ -1,5 +1,5 @@
 import RequestService from "../RequestService";
-import {setCategories, setSlides} from "../actions/main_actions";
+import {setCategories, setCategory, setSlides} from "../actions/main_actions";
 import {setFilteredTypes} from "../actions/shop_actions";
 
 export const loadSlides = () => dispatch => {
@@ -31,14 +31,4 @@ export const loadSlides = () => dispatch => {
             subtitle: 'text'
         }
     ]))
-};
-
-export const loadCategories = () => async dispatch => {
-    try {
-        const response = await RequestService.get('/categories');
-        dispatch(setCategories(response.data));
-        dispatch(setFilteredTypes(response.data.map(i => i.types).flat().map(i => i.id)));
-    } catch (e) {
-        console.log(e)
-    }
 };

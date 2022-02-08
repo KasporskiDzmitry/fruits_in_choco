@@ -19,16 +19,15 @@ const Main = (props) => {
                 <div className={style.heading}>
                     <h1>Что мы делаем</h1>
                 </div>
-                <div className={style.categoriesContainer}>
-                    <CardGroup>
-                        {
-                            props.categoryCards.map(i => <CategoryCard key={i.id} category={i} selectCategory={selectCategory}/>)
-                        }
-                    </CardGroup>
-                </div>
+                <CardGroup className={style.categoriesContainer}>
+                    {
+                        props.categoryCards.map(i => <CategoryCard key={i.id} category={i}
+                                                                   selectCategory={selectCategory}/>)
+                    }
+                </CardGroup>
             </div>
         </div>
-        <Button title="Click me" />
+        <Button title="Click me"/>
         <div className={` sectionOuter ${style.aboutSection}`}>
             <div className="sectionInner">
                 <div className={style.heading}>

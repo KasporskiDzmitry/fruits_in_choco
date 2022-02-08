@@ -56,7 +56,7 @@ create table user_ratings
 
 create table orders
 (
-    id                           bigint  not null auto_increment,
+    id                           bigint not null auto_increment,
     firstname                    varchar(255),
     lastname                     varchar(255),
     email                        varchar(255),
@@ -81,9 +81,16 @@ create table orders_order_items
     order_items_id bigint not null
 );
 
+create table user_orders
+(
+    user_id  bigint not null,
+    orders_id bigint not null
+);
+
 alter table if exists orders_order_items add constraint UK_9d47gapmi35omtannusv6btu3 unique (order_items_id);
 alter table if exists product_ratings add constraint UK_onx7x3bfabrhsua5vtme36juu unique (ratings_id);
 alter table if exists user_ratings add constraint UK_3vob5h0cwyyfqaj4rtxwwsovv unique (ratings_id);
+alter table if exists user_orders add constraint UK_user_orders_orders_id unique (orders_id);
 alter table if exists product add constraint FKajjopj7ffr42w11bav8gut0cp foreign key (type_id) references product_type (id);
 alter table if exists product_ratings add constraint FKpwv98ikq73aspcs31gvlx1fu3 foreign key (ratings_id) references rating (id);
 alter table if exists product_ratings add constraint FKmpdgsire4ct7cepv7rt250fvs foreign key (product_id) references product (id);
@@ -92,3 +99,5 @@ alter table if exists user_ratings add constraint FKsdo6s1wbs9awfprtvhmd1bo7g fo
 alter table if exists user_ratings add constraint FK85wcc1agckack64s64cu2hqxg foreign key (user_id) references user (id);
 alter table if exists orders_order_items add constraint FK7nw03p9mxq154wvbsonaq0qrw foreign key (order_items_id) references order_item;
 alter table if exists orders_order_items add constraint FK3l8rktw0f4w5t6tift31e2d7c foreign key (order_id) references orders;
+alter table if exists user_orders add constraint FK3yq31b5hsh40vprb3spflxaob foreign key (orders_id) references orders (id);
+alter table if exists user_orders add constraint FKkuspr37yv513ga1okogyxrb7m foreign key (user_id) references user (id);

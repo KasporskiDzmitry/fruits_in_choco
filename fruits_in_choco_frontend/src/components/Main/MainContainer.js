@@ -3,8 +3,8 @@ import Main from "./Main.js";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {selectCategory} from "../../redux/actions/main_actions";
 import {setFilteredTypes} from "../../redux/actions/shop_actions";
+import {selectCategory} from "../../redux/actions/category_actions";
 
 class MainContainer extends React.Component {
 
@@ -14,7 +14,7 @@ class MainContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    categoryCards: state.mainPage.categories,
+    categoryCards: state.categoryReducer.categories,
     products: state.shopReducer.products
 });
 

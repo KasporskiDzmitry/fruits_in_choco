@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Field, reduxForm} from "redux-form";
-import formsControlsStyle from '../../common/FormsControls/FormsControls.module.scss';
+import formsControlsStyle from '../../../common/FormsControls/FormsControls.module.scss';
 import style from './AddProduct.module.scss';
 import {Button} from 'react-bootstrap';
-import {required} from "../../utils/validators/validators";
-import {Input, Select, Textarea} from "../../common/FormsControls/FormsControls";
-import Expire from "../../common/Expire/Expire";
+import {required} from "../../../utils/validators/validators";
+import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
+import Expire from "../../../common/Expire/Expire";
 
 const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
 

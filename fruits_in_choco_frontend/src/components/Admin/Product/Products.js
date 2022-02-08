@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
-import ProductTable from "./ProductTable";
+import ProductTable from "./common/ProductTable";
 
-const AdminProduct = (props) => {
+const Products = (props) => {
     const convertData = (data) => {
         if (data.length > 0) {
             return data.map(i => {
@@ -22,4 +22,4 @@ const AdminProduct = (props) => {
     </div>
 }
 
-export default AdminProduct;
+export default Products;

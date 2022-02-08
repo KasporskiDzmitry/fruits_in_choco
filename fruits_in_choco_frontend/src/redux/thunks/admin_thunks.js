@@ -8,8 +8,8 @@ import {
     setUsers,
     toggleIsFetching
 } from "../actions/admin_actions";
-import {loadCategories} from "./main_thunks";
 import {setProducts} from "../actions/shop_actions";
+import {loadCategories} from "./category_thunks";
 
 export const addProduct = (product) => async dispatch => {
     dispatch(toggleIsFetching());
@@ -49,16 +49,16 @@ export const deleteReview = (productId, ratingId) => async dispatch => {
 }
 
 export const addCategory = (category) => async dispatch => {
-    dispatch(toggleIsFetching());
     try {
+        dispatch(toggleIsFetching());
         const response = await RequestService.post('/admin/categories', category, true);
+        dispatch(toggleIsFetching());
         dispatch(reset('add_category'));
         dispatch(addCategorySuccess());
         dispatch(loadCategories());
     } catch (e) {
         console.log(e);
     }
-    dispatch(toggleIsFetching());
 }
 
 export const loadUsers = () => async dispatch => {

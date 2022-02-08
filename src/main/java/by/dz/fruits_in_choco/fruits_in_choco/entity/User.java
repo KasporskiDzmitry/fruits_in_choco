@@ -34,4 +34,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<ProductRating> ratings;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Order> orders;
 }

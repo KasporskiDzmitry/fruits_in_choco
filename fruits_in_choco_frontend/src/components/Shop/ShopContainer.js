@@ -5,7 +5,7 @@ import Shop from "./Shop.js";
 import {withRouter} from "react-router-dom";
 import {loadProducts, loadProductsByTypes, saveProductToCart} from "../../redux/thunks/shop_thunks";
 import {setFilteredTypes, setProducts} from "../../redux/actions/shop_actions";
-import {selectCategory} from "../../redux/actions/main_actions";
+import {selectCategory} from "../../redux/actions/category_actions";
 
 class ShopContainer extends React.Component {
 
@@ -30,9 +30,9 @@ class ShopContainer extends React.Component {
 
 const mapStateToProps = state => ({
     products: state.shopReducer.products,
-    categories: state.mainPage.categories,
+    categories: state.categoryReducer.categories,
     isFetching: state.shopReducer.isFetching,
-    selectedCategory: state.mainPage.selectedCategory,
+    selectedCategory: state.categoryReducer.selectedCategory,
     filteredTypes: state.shopReducer.filteredTypes,
     cart: state.shopReducer.cart
 });

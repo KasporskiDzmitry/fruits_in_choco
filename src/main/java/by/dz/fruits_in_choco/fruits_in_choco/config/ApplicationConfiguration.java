@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
 
 @Configuration
+@EnableEncryptableProperties
 public class ApplicationConfiguration {
 
   @Value("${spring.mail.host}")

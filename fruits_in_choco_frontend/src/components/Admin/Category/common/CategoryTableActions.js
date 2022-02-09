@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import {NavLink} from "react-router-dom";
+import {connect} from "react-redux";
+import {deleteCategoryById} from "../../../../redux/thunks/admin_thunks";
 
 const propTypes = {
     row: PropTypes.object.isRequired,
@@ -8,8 +10,9 @@ const propTypes = {
 
 class CategoryTableActions extends Component {
     handleDelete(e, id) {
-        e.preventDefault();
-        console.log(id)
+        if (window.confirm('Удлаить?')) {
+            this.props.deleteCategoryById(id);
+        }
     }
 
     render() {
@@ -26,4 +29,5 @@ class CategoryTableActions extends Component {
 }
 
 CategoryTableActions.propTypes = propTypes;
-export default CategoryTableActions;
+
+export default connect(() => ({}), {deleteCategoryById})(CategoryTableActions);

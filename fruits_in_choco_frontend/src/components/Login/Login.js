@@ -5,6 +5,7 @@ import {required} from "../utils/validators/validators";
 import style from '../common/FormsControls/FormsControls.module.scss';
 import {login} from "../../redux/thunks/auth_thunks";
 import {Button} from 'react-bootstrap';
+import {useDispatch} from "react-redux";
 
 const LoginForm = ({handleSubmit, error}) => {
     return (
@@ -30,8 +31,9 @@ const LoginForm = ({handleSubmit, error}) => {
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 
 const Login = props => {
+    const dispatch = useDispatch();
     const onSubmit = formData => {
-        props.login(formData.email, formData.password);
+        dispatch(login(formData.email, formData.password));
     };
 
     return <div>

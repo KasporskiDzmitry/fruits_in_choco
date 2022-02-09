@@ -5,6 +5,7 @@ import {required, validateEmail} from "../utils/validators/validators";
 import style from '../common/FormsControls/FormsControls.module.scss';
 import {registration} from "../../redux/thunks/registration_thunks";
 import {Button} from 'react-bootstrap';
+import {useDispatch} from "react-redux";
 
 const RegistrationForm = ({handleSubmit, error, isFetching}) => {
     console.log(isFetching)
@@ -39,6 +40,7 @@ const RegistrationForm = ({handleSubmit, error, isFetching}) => {
 const RegistrationReduxForm = reduxForm({form: 'registration'})(RegistrationForm);
 
 const Registration = props => {
+    const dispatch = useDispatch();
     const onSubmit = formData => {
         const user = {
             email: formData.email,
@@ -46,7 +48,7 @@ const Registration = props => {
             firstName: formData.firstName,
             lastName: formData.lastName
         };
-        props.registration(user);
+        dispatch(registration(user));
     };
 
     return <div>

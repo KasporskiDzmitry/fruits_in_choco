@@ -8,10 +8,10 @@ const SignInSignUpPopUp = (props) => {
     return <div className={style.container}>
         <Tabs defaultActiveKey="signIn" id="signInSignUp" className="mb-2">
             <Tab eventKey="signIn" title="Вход">
-                <Login login={props.login} togglePopUp={props.togglePopUp} isFetching={props.isLoginFetching}/>
+                <Login />
             </Tab>
             <Tab eventKey="signUp" title="Регистрация">
-                <Registration registration={props.registration} togglePopUp={props.togglePopUp} isFetching={props.isRegisterFetching}/>
+                <Registration isFetching={props.isRegisterFetching}/>
             </Tab>
         </Tabs>
     </div>

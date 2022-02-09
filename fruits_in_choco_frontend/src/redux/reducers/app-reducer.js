@@ -1,4 +1,9 @@
-import {INITIALIZED_SUCCESS, TOGGLE_POPUP, TOGGLE_CART_LAYOUT, TOGGLE_SIGN_IN_SIGN_UP_POPUP} from "../action_types/app_action_types";
+import {
+    INITIALIZED_SUCCESS,
+    TOGGLE_POPUP,
+    TOGGLE_CART_LAYOUT,
+    TOGGLE_SIGN_IN_SIGN_UP_POPUP, ENQUEUE_SNACKBAR, CLOSE_SNACKBAR, REMOVE_SNACKBAR
+} from "../action_types/app_action_types";
 
 const initialState = {
     pathnames: [
@@ -7,7 +12,8 @@ const initialState = {
     ],
     initialized: false,
     isSignInSignUpPopUpShow: false,
-    isCartLayoutShow: false
+    isCartLayoutShow: false,
+    notifications: []
 };
 
 const appReducer = (state = initialState, action) => {
@@ -30,6 +36,36 @@ const appReducer = (state = initialState, action) => {
                 isCartLayoutShow: !state.isCartLayoutShow
             }
         }
+        case ENQUEUE_SNACKBAR:
+            return {
+                ...state,
+                notifications: [
+                    ...state.notifications,
+                    {
+                        key: action.key,
+                        ...action.notification,
+                    },
+                ],
+            };
+
+        case CLOSE_SNACKBAR:
+            return {
+                ...state,
+                notifications: state.notifications.map(notification => (
+                    (action.dismissAll || notification.key === action.key)
+                        ? {...notification, dismissed: true}
+                        : {...notification}
+                )),
+            };
+
+        case REMOVE_SNACKBAR:
+            return {
+                ...state,
+                notifications: state.notifications.filter(
+                    notification => notification.key !== action.key,
+                ),
+            };
+
         default: {
             return state
         }

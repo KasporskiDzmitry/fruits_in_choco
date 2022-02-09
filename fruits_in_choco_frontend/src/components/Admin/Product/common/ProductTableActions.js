@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import {NavLink} from "react-router-dom";
+import {connect} from "react-redux";
+import {deleteProductById} from "../../../../redux/thunks/admin_thunks";
+import {compose} from "redux";
+import {withSnackbar} from "notistack";
 
 const propTypes = {
     row: PropTypes.object.isRequired,
@@ -8,8 +12,9 @@ const propTypes = {
 
 class ProductTableActions extends Component {
     handleDelete(e, id) {
-        e.preventDefault();
-        console.log(id)
+        if (window.confirm('Удлаить?')) {
+            this.props.deleteProductById(id);
+        }
     }
 
     render() {
@@ -26,4 +31,8 @@ class ProductTableActions extends Component {
 }
 
 ProductTableActions.propTypes = propTypes;
-export default ProductTableActions;
+
+export default compose(
+    connect(() => ({}), {deleteProductById}),
+    withSnackbar
+)(ProductTableActions)

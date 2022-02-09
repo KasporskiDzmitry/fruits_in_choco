@@ -5,14 +5,22 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Button} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {toggleCartLayout} from "../../redux/actions/app_actions";
+import {removeFromCart} from "../../redux/actions/shop_actions";
 
 const CartLayout = (props) => {
+    const dispatch = useDispatch();
+
+    const closeCartLayout = () => {
+        dispatch(toggleCartLayout);
+    }
 
     return <div className={props.isCartShow ? `${style.container} ${style.active}` : style.container}>
-        <div className={style.bg} onClick={props.toggleIsCartShow}></div>
+        <div className={style.bg} onClick={closeCartLayout}></div>
         <div className={style.cartLayoutContainer}>
             <div className={style.closeWrapper}>
-                <div className={style.close} onClick={props.toggleIsCartShow}>x</div>
+                <div className={style.close} onClick={closeCartLayout}>x</div>
             </div>
             <div className={style.itemsList}>
                 {
@@ -20,7 +28,7 @@ const CartLayout = (props) => {
                 }
             </div>
             <div>
-                <NavLink to={"/cart"} onClick={props.toggleIsCartShow}>
+                <NavLink to={"/cart"} onClick={closeCartLayout}>
                     <Button>Оформить заказ</Button>
                 </NavLink>
             </div>
@@ -28,10 +36,12 @@ const CartLayout = (props) => {
     </div>
 }
 
-const CartItem = ({id, name, description, price, removeFromCart, styles, quantity}) => {
+const CartItem = ({id, name, description, price, styles, quantity}) => {
+    const dispatch = useDispatch();
+
     const removeItem = () => {
         removeProductFromCart(id);
-        removeFromCart(id);
+        dispatch(removeFromCart(id));
     }
 
     return <div className={style.item}>

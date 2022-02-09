@@ -1,6 +1,6 @@
 import RequestService from "../RequestService";
 import {setFilteredTypes} from "../actions/shop_actions";
-import {setCategories, setCategory} from "../actions/category_actions";
+import {deleteCategory, setCategories, setCategory} from "../actions/category_actions";
 
 export const loadCategories = () => async dispatch => {
     try {

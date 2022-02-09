@@ -1,11 +1,13 @@
 package by.dz.fruits_in_choco.fruits_in_choco.config;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.convention.NamingConventions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
@@ -13,7 +15,7 @@ import java.util.Properties;
 @Configuration
 public class ApplicationConfiguration {
 
-    @Value("${spring.mail.host}")
+  @Value("${spring.mail.host}")
     private String host;
 
     @Value("${spring.mail.username}")

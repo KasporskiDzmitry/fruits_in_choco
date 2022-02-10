@@ -13,7 +13,7 @@ const CartLayout = (props) => {
     const dispatch = useDispatch();
 
     const closeCartLayout = () => {
-        dispatch(toggleCartLayout);
+        dispatch(toggleCartLayout());
     }
 
     return <div className={props.isCartShow ? `${style.container} ${style.active}` : style.container}>

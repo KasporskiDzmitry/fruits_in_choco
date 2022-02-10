@@ -6,6 +6,7 @@ create table product
     price       integer not null,
     imageURL    varchar(400),
     type_id     bigint,
+    status      varchar(45),
     primary key (id)
 );
 
@@ -83,7 +84,7 @@ create table orders_order_items
 
 create table user_orders
 (
-    user_id  bigint not null,
+    user_id   bigint not null,
     orders_id bigint not null
 );
 

@@ -1,14 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductType;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
-import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRatingRepository;
-import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
-import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductTypeRepository;
-import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.*;
+import by.dz.fruits_in_choco.fruits_in_choco.repository.*;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,18 +19,21 @@ public class ProductServiceImpl implements ProductService {
     private final ProductTypeRepository productTypeRepository;
     private final UserRepository userRepository;
     private final ProductRatingRepository productRatingRepository;
+    private final OrderItemRepository orderItemRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository, ProductRatingRepository ratingRepository, ProductTypeRepository productTypeRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository, ProductRatingRepository ratingRepository, ProductTypeRepository productTypeRepository, OrderItemRepository orderItemRepository) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
         this.productRatingRepository = ratingRepository;
         this.productTypeRepository = productTypeRepository;
+        this.orderItemRepository = orderItemRepository;
     }
 
     @Override
     public List<Product> getProducts(int page, int size, String direction, String sortBy) {
-        Page<Product> productPage = productRepository.findAll(PageRequest.of(page, size, Sort.Direction.fromString(direction), sortBy));
-        return productPage.getContent();
+//        Page<Product> productPage = productRepository.findAll(PageRequest.of(page, size, Sort.Direction.fromString(direction), sortBy));
+        List<Product> products = productRepository.findByStatus("ACTIVE");
+        return products;
     }
 
     @Override
@@ -47,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductsFilteredByTypes(List<Long> types) {
         List<Product> products = productRepository.findByType_IdIn(types);
-        return products;
+        return products.stream().filter(i -> i.getStatus().equals("ACTIVE")).collect(Collectors.toList());
     }
 
     @Override
@@ -75,18 +72,24 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProductById(Long id) {
         Product product = productRepository.findById(id).get();
-        List<ProductRating> ratings = product.getRatings();
-        for (ProductRating rating : ratings) {
-            User user = userRepository.findById(rating.getAuthorId()).get();
-            List<ProductRating> userRatingsList = user.getRatings();
-            userRatingsList.remove(rating);
+        OrderItem orderItem = orderItemRepository.findByProduct_Id(id);
 
+        if (orderItem != null) {
+            product.setStatus("DELETED");
+            productRepository.save(product);
+        } else {
+            List<ProductRating> ratings = product.getRatings();
+            for (ProductRating rating : ratings) {
+                User user = userRepository.findById(rating.getAuthorId()).get();
+                List<ProductRating> userRatingsList = user.getRatings();
+                userRatingsList.remove(rating);
+            }
+
+            ProductType productType = productTypeRepository.findById(product.getType().getId()).get();
+            productType.getProducts().remove(product);
+
+            productRepository.deleteById(id);
         }
-
-        ProductType productType = productTypeRepository.findById(product.getType().getId()).get();
-        productType.getProducts().remove(product);
-
-        productRepository.deleteById(id);
     }
 
     @Override

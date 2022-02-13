@@ -8,5 +8,5 @@ public class CategoryRequest {
     private String name;
     private String description;
     private String imageURL;
-    private List<String> types;
+    private List<String> products;
 }

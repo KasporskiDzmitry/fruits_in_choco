@@ -2,10 +2,8 @@ package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductType;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.CategoryRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
-import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductTypeRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,12 +17,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
-    private final ProductTypeRepository typeRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository, ProductTypeRepository typeRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
-        this.typeRepository = typeRepository;
     }
 
     @Override
@@ -41,15 +37,6 @@ public class CategoryServiceImpl implements CategoryService {
         category.setImageURL(request.getImageURL());
 
         Category savedCategory = categoryRepository.save(category);
-        List<String> types = request.getTypes();
-        if (types != null) {
-            types.forEach(i -> {
-                ProductType type = new ProductType();
-                type.setName(i);
-                type.setCategory(savedCategory);
-                typeRepository.save(type);
-            });
-        }
         return savedCategory;
     }
 
@@ -60,7 +47,6 @@ public class CategoryServiceImpl implements CategoryService {
                     category.setName(newCategory.getName());
                     category.setDescription(newCategory.getDescription());
                     category.setImageURL(newCategory.getImageURL());
-                    category.setTypes(newCategory.getTypes());
                     return categoryRepository.save(category);
                 })
                 .orElseGet(() -> {

@@ -17,7 +17,7 @@ const Header = (props) => {
 
     const handleClickOnShopRef = (e) => {
         e.preventDefault();
-        props.setFilteredTypes(props.productTypes);
+        props.setFilteredCategories(props.productCategories);
         props.history.push({pathname: `/shop`, state: {categoryId: 0}})
     };
 

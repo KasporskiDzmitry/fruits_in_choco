@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByType_IdIn(List<Long> types);
+    List<Product> findByCategory_IdIn(List<Long> categories);
     List<Product> findByStatus(String status);
 }

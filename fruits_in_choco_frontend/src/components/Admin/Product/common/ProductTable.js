@@ -8,7 +8,6 @@ const columns = [
     { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
     { key: 'name', header: 'Название', sortable: true, searchable: true },
     { key: 'price', header: 'Цена', sortable: true },
-    { key: 'type', header: 'Тип', sortable: true },
     { key: 'category', header: 'Категория', sortable: true },
     { key: 'reviews', header: 'Отзывы', Component: Reviews },
     { key: 'actions', header: 'Actions', Component: ProductTableActions }

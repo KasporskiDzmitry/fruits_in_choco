@@ -5,7 +5,7 @@ create table product
     name        varchar(255),
     price       integer not null,
     imageURL    varchar(400),
-    type_id     bigint,
+    category_id     bigint,
     status      varchar(45),
     primary key (id)
 );
@@ -14,14 +14,6 @@ create table product_ratings
 (
     product_id bigint not null,
     ratings_id bigint not null
-);
-
-create table product_type
-(
-    id          bigint not null auto_increment,
-    name        varchar(255),
-    category_id bigint,
-    primary key (id)
 );
 
 create table rating
@@ -92,10 +84,9 @@ alter table if exists orders_order_items add constraint UK_9d47gapmi35omtannusv6
 alter table if exists product_ratings add constraint UK_onx7x3bfabrhsua5vtme36juu unique (ratings_id);
 alter table if exists user_ratings add constraint UK_3vob5h0cwyyfqaj4rtxwwsovv unique (ratings_id);
 alter table if exists user_orders add constraint UK_user_orders_orders_id unique (orders_id);
-alter table if exists product add constraint FKajjopj7ffr42w11bav8gut0cp foreign key (type_id) references product_type (id);
+alter table if exists product add constraint FKajjopj7ffr42w11bav8gut0cp foreign key (category_id) references category (id);
 alter table if exists product_ratings add constraint FKpwv98ikq73aspcs31gvlx1fu3 foreign key (ratings_id) references rating (id);
 alter table if exists product_ratings add constraint FKmpdgsire4ct7cepv7rt250fvs foreign key (product_id) references product (id);
-alter table if exists product_type add constraint FKq3dcgs3t1cilv7ujqx6s5iiag foreign key (category_id) references category (id);
 alter table if exists user_ratings add constraint FKsdo6s1wbs9awfprtvhmd1bo7g foreign key (ratings_id) references rating (id);
 alter table if exists user_ratings add constraint FK85wcc1agckack64s64cu2hqxg foreign key (user_id) references user (id);
 alter table if exists orders_order_items add constraint FK7nw03p9mxq154wvbsonaq0qrw foreign key (order_items_id) references order_item;

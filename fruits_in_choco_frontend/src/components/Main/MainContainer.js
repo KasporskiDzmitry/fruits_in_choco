@@ -3,7 +3,7 @@ import Main from "./Main.js";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {setFilteredTypes} from "../../redux/actions/shop_actions";
+import {setFilteredCategories} from "../../redux/actions/shop_actions";
 import {selectCategory} from "../../redux/actions/category_actions";
 
 class MainContainer extends React.Component {
@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {selectCategory, setFilteredTypes}),
+    connect(mapStateToProps, {selectCategory, setFilteredCategories}),
     withRouter
 )(MainContainer)
 

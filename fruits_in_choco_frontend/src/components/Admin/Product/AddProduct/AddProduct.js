@@ -38,16 +38,6 @@ const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
                     }
                 </Field>
             </div>
-            <div className={style.fieldWrapper}>
-                <div className={style.label}>Тип</div>
-                <Field className={style.field} name="type" component={Select} disabled={!categoryId} validate={[required]}>
-                    <option></option>
-                    {
-                        categoryId &&
-                        categories.find(i => i.id === categoryId).types.map(i => <option key={i.id} value={i.id}>{i.name}</option>)
-                    }
-                </Field>
-            </div>
             {error && <div className={formsControlsStyle.formSummaryError}>
                 {error}
             </div>
@@ -66,7 +56,7 @@ const AddProduct = props => {
         props.addProduct({
             name: formData.name,
             description: formData.description,
-            type: props.categories.find(i => i.id === parseInt(formData.category)).types.find(i => i.id === parseInt(formData.type)),
+            category: props.categories.find(i => i.id === parseInt(formData.category)),
             price: parseInt(formData.price),
             status: 'ACTIVE'
         });

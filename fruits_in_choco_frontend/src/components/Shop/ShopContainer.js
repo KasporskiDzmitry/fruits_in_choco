@@ -3,8 +3,8 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import Shop from "./Shop.js";
 import {withRouter} from "react-router-dom";
-import {loadProducts, loadProductsByTypes, saveProductToCart} from "../../redux/thunks/shop_thunks";
-import {setFilteredTypes, setProducts} from "../../redux/actions/shop_actions";
+import {loadProducts, loadProductsByCategories, saveProductToCart} from "../../redux/thunks/shop_thunks";
+import {setFilteredCategories, setFilteredTypes, setProducts} from "../../redux/actions/shop_actions";
 import {selectCategory} from "../../redux/actions/category_actions";
 
 class ShopContainer extends React.Component {
@@ -33,11 +33,11 @@ const mapStateToProps = state => ({
     categories: state.categoryReducer.categories,
     isFetching: state.shopReducer.isFetching,
     selectedCategory: state.categoryReducer.selectedCategory,
-    filteredTypes: state.shopReducer.filteredTypes,
+    filteredCategories: state.shopReducer.filteredCategories,
     cart: state.shopReducer.cart
 });
 
 export default compose(
-    connect(mapStateToProps, {loadProducts, loadProductsByTypes, setProducts, selectCategory, setFilteredTypes, saveProductToCart}),
+    connect(mapStateToProps, {loadProducts, loadProductsByCategories, setProducts, selectCategory, setFilteredCategories, saveProductToCart}),
     withRouter
 )(ShopContainer)

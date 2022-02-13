@@ -53,18 +53,6 @@ const EditProductForm = ({handleSubmit, error, categories, isFetching, product})
                 </Field>
                 <div>in progress...</div>
             </div>
-            <div className={style.fieldWrapper}>
-                <div className={style.label}>Тип</div>
-                <Field className={style.field} name="typeId" disabled={true} component={Select} validate={[required]}>
-                    <option></option>
-                    {
-                        categoryId &&
-                        categories.find(i => i.id === categoryId).types.map(i => <option key={i.id}
-                                                                                         value={i.id}>{i.name}</option>)
-                    }
-                </Field>
-                <div>in progress...</div>
-            </div>
             {error && <div className={formsControlsStyle.formSummaryError}>
                 {error}
             </div>

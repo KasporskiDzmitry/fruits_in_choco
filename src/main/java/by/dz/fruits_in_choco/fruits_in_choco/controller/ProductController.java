@@ -1,7 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductSearchRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.ProductMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.ProductServiceImpl;
@@ -52,8 +52,8 @@ public class ProductController {
     }
 
     @PostMapping("/products/search")
-    public ResponseEntity<?> getProductsFilteredByTypes(@RequestBody ProductRequest request) {
-        return ResponseEntity.ok(mapper.getProductsFilteredByTypes(request.getTypes()));
+    public ResponseEntity<?> getProductsFilteredByCategories(@RequestBody ProductSearchRequest request) {
+        return ResponseEntity.ok(mapper.getProductsFilteredByCategories(request.getCategories()));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

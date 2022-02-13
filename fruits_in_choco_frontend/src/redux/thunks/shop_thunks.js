@@ -25,9 +25,9 @@ export const loadProductById = id => async dispatch => {
     dispatch(setProduct(response.data));
 };
 
-export const loadProductsByTypes = (types) => async dispatch => {
+export const loadProductsByCategories = (categories) => async dispatch => {
     dispatch(toggleIsFetching(true));
-    const response = await RequestService.post('/products/search', {types});
+    const response = await RequestService.post('/products/search', {categories});
     dispatch(toggleIsFetching(false));
     dispatch(setProducts(response.data));
 };

@@ -36,8 +36,8 @@ public class ProductMapper {
         return mapToResponseDTO(service.getProductById(id));
     }
 
-    public List<ProductResponse> getProductsFilteredByTypes(List<Long> types) {
-        List<Product> products = service.getProductsFilteredByTypes(types);
+    public List<ProductResponse> getProductsFilteredByCategories(List<Long> categories) {
+        List<Product> products = service.getProductsFilteredByCategories(categories);
 
         return products.stream()
                 .map(this::mapToResponseDTO)
@@ -47,7 +47,6 @@ public class ProductMapper {
     public ProductResponse rateProduct(ProductRatingRequest request, Long id) {
         return mapToResponseDTO(service.rateProduct(request, id));
     }
-
 
     public ProductResponse mapToResponseDTO(Product product) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -74,9 +73,7 @@ public class ProductMapper {
 
     private ProductResponse mapForAdmin(Product product) {
         modelMapper.typeMap(Product.class, ProductResponse.class).addMappings(mapper -> {
-            mapper.map(src -> src.getType().getId(),
-                    ProductResponse::setTypeId);
-            mapper.map(src -> src.getType().getCategory().getId(),
+            mapper.map(src -> src.getCategory().getId(),
                     ProductResponse::setCategoryId);
         });
         return modelMapper.map(product, ProductResponse.class);

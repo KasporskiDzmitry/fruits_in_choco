@@ -16,7 +16,7 @@ export const Filter = (props) => {
             if (filterParams.length === 0) {
                 props.loadProducts();
             } else {
-                props.loadProductsByTypes(filterParams);
+                props.loadProductsByCategories(filterParams);
             }
         }
     }, [filterParams]);
@@ -24,39 +24,28 @@ export const Filter = (props) => {
 
     // внешний фильтр (ссылка магазин в header)
     useEffect(() => {
-        props.loadProductsByTypes(props.filteredTypes);
-    }, [props.filteredTypes]);
+        props.loadProductsByCategories(props.filteredCategories);
+    }, [props.filteredCategories]);
 
-    const selectType = (typeId) => {
-        if (filterParams.indexOf(typeId) !== -1) {
-            setFilterParams(filterParams.filter(i => i !== typeId));
+    const selectCategory = (id) => {
+        if (filterParams.indexOf(id) !== -1) {
+            setFilterParams(filterParams.filter(i => i !== id));
             return;
         }
-        setFilterParams([...filterParams, typeId]);
+        setFilterParams([...filterParams, id]);
     };
 
     return <div className={style.filterWrapper}>
         {
             props.categories.map(i => (
-                <Accordion key={i.id} defaultActiveKey={categoryId} className={style.acc}>
-                    <Accordion.Item className={style.accordion} eventKey={i.id}>
-                        <Accordion.Header className={style.header}>{i.name}</Accordion.Header>
-                        <Accordion.Body>
-                            {
-                                i.types.map(type => (
-                                    <div key={type.id}>
-                                        <div>
-                                            <input type="checkbox" onChange={(e) => selectType(type.id)}/>
-                                        </div>
-                                        <div>
-                                            {type.name}
-                                        </div>
-                                    </div>
-                                ))
-                            }
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
+                <div key={i.id * new Date()}>
+                    <div>
+                        <input checked={i.id === categoryId || filterParams.includes(i.id)} type="checkbox" onChange={(e) => selectCategory(i.id)}/>
+                    </div>
+                    <div>
+                        {i.name}
+                    </div>
+                </div>
             ))
         }
     </div>

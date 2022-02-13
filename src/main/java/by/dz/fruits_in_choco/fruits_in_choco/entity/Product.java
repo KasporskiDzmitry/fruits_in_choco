@@ -26,8 +26,8 @@ public class Product implements Serializable {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "type_id")
-    private ProductType type;
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @OneToMany(cascade = CascadeType.ALL)
     List<ProductRating> ratings;
@@ -40,7 +40,7 @@ public class Product implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", imageURL=" + imageURL +
-                ", typeId=" + type.getId() +
+                ", categoryId=" + category.getId() +
                 ", ratings=" + ratings +
                 ", status=" + status +
                 '}';

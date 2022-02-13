@@ -16,16 +16,14 @@ import java.util.stream.Collectors;
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final ProductTypeRepository productTypeRepository;
     private final UserRepository userRepository;
     private final ProductRatingRepository productRatingRepository;
     private final OrderItemRepository orderItemRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository, ProductRatingRepository ratingRepository, ProductTypeRepository productTypeRepository, OrderItemRepository orderItemRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository, ProductRatingRepository ratingRepository, OrderItemRepository orderItemRepository) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
         this.productRatingRepository = ratingRepository;
-        this.productTypeRepository = productTypeRepository;
         this.orderItemRepository = orderItemRepository;
     }
 
@@ -42,8 +40,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsFilteredByTypes(List<Long> types) {
-        List<Product> products = productRepository.findByType_IdIn(types);
+    public List<Product> getProductsFilteredByCategories(List<Long> categories) {
+        List<Product> products = productRepository.findByCategory_IdIn(categories);
         return products.stream().filter(i -> i.getStatus().equals("ACTIVE")).collect(Collectors.toList());
     }
 
@@ -59,7 +57,6 @@ public class ProductServiceImpl implements ProductService {
                     product.setName(newProduct.getName());
                     product.setDescription(newProduct.getDescription());
                     product.setPrice(newProduct.getPrice());
-                    product.setType(newProduct.getType());
                     product.setRatings(newProduct.getRatings());
                     return productRepository.save(product);
                 })
@@ -84,9 +81,6 @@ public class ProductServiceImpl implements ProductService {
                 List<ProductRating> userRatingsList = user.getRatings();
                 userRatingsList.remove(rating);
             }
-
-            ProductType productType = productTypeRepository.findById(product.getType().getId()).get();
-            productType.getProducts().remove(product);
 
             productRepository.deleteById(id);
         }

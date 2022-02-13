@@ -11,7 +11,7 @@ public interface ProductService {
 
     Product getProductById(Long id);
 
-    List<Product> getProductsFilteredByTypes(List<Long> types);
+    List<Product> getProductsFilteredByCategories(List<Long> categories);
 
     Product saveProduct(Product product);
 

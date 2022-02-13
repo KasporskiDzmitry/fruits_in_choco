@@ -9,9 +9,9 @@ const Shop = (props) => {
     return <div className={`sectionOuter ${style.shopSection}`}>
         <div className="sectionInner">
             <div className={style.shopInnerWrapper}>
-                <Filter categories={props.categories} loadProductsByTypes={props.loadProductsByTypes}
+                <Filter categories={props.categories} loadProductsByCategories={props.loadProductsByCategories}
                         loadProducts={props.loadProducts} selectedCategory={props.selectedCategory}
-                        setFilteredTypes={props.setFilteredTypes} filteredTypes={props.filteredTypes}/>
+                        setFilteredCategories={props.setFilteredCategories} filteredCategories={props.filteredCategories}/>
                 <div className={style.productsWrapper}>
                     <SortPanel products={props.products} setProducts={props.setProducts}/>
                     {

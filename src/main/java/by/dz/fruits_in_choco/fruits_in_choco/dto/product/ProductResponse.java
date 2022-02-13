@@ -13,7 +13,6 @@ public class ProductResponse {
     private int price;
     private String status;
     private String imageURL;
-    private Long typeId;
     private Long categoryId;
     private List<ProductRating> ratings;
 }

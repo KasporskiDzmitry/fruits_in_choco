@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.category;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductTypeResponse;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +11,5 @@ public class CategoryResponse {
     private String name;
     private String description;
     private String imageURL;
-    private List<ProductTypeResponse> types;
+    private List<Product> products;
 }

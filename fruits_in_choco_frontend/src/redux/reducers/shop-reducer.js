@@ -1,6 +1,6 @@
 import {
     SET_CURRENT_PRODUCT,
-    SET_CURRENT_PRODUCT_REVIEWS, SET_FILTERED_TYPES,
+    SET_CURRENT_PRODUCT_REVIEWS, SET_FILTERED_CATEGORIES,
     SET_PRODUCTS,
     TOGGLE_IS_FETCHING,
     ADD_TO_CART,
@@ -12,7 +12,7 @@ const initialState = {
     products: [],
     currentProduct: {},
     currentProductReviews: [],
-    filteredTypes: [],
+    filteredCategories: [],
     cart: localStorage.products ? JSON.parse(localStorage.products) : [],
     isFetching: false
 };
@@ -68,10 +68,10 @@ const shopReducer = (state = initialState, action) => {
                 currentProductReviews: action.reviews
             }
         }
-        case SET_FILTERED_TYPES: {
+        case SET_FILTERED_CATEGORIES: {
             return {
                 ...state,
-                filteredTypes: action.types
+                filteredCategories: action.categories
             }
         }
         default: {

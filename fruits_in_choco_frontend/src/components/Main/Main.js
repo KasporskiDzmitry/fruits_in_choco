@@ -6,10 +6,9 @@ import CategoryCard from "./CategoryCard";
 import {Button} from "../common/Button/Button";
 
 const Main = (props) => {
-    const selectCategory = (e, card) => {
-        e.preventDefault();
-        props.setFilteredTypes(card.types.map(i => i.id));
-        props.history.push({pathname: `/shop`, state: {categoryId: card.id}})
+    const selectCategory = (id) => {
+        props.setFilteredCategories([id]);
+        props.history.push({pathname: `/shop`, state: {categoryId: id}})
     };
 
     return <div className={style.main}>
@@ -22,7 +21,7 @@ const Main = (props) => {
                 <CardGroup className={style.categoriesContainer}>
                     {
                         props.categoryCards.map(i => <CategoryCard key={i.id} category={i}
-                                                                   selectCategory={selectCategory}/>)
+                                                                   selectCategory={() => selectCategory(i.id)}/>)
                     }
                 </CardGroup>
             </div>

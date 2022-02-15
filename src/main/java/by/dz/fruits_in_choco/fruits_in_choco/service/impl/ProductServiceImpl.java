@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProducts(int page, int size, String direction, String sortBy) {
 //        Page<Product> productPage = productRepository.findAll(PageRequest.of(page, size, Sort.Direction.fromString(direction), sortBy));
-        List<Product> products = productRepository.findByStatus("ACTIVE");
+        List<Product> products = productRepository.findByStatus(ProductStatus.ACTIVE);
         return products;
     }
 
@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductsFilteredByCategories(List<Long> categories) {
         List<Product> products = productRepository.findByCategory_IdIn(categories);
-        return products.stream().filter(i -> i.getStatus().equals("ACTIVE")).collect(Collectors.toList());
+        return products.stream().filter(i -> i.getStatus().equals(ProductStatus.ACTIVE)).collect(Collectors.toList());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
         OrderItem orderItem = orderItemRepository.findByProduct_Id(id);
 
         if (orderItem != null) {
-            product.setStatus("DELETED");
+            product.setStatus(ProductStatus.DELETED);
             productRepository.save(product);
         } else {
             List<ProductRating> ratings = product.getRatings();

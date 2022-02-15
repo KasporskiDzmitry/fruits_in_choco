@@ -22,7 +22,8 @@ public class Product implements Serializable {
 
     private String imageURL;
 
-    private String status;
+    @Enumerated(value = EnumType.STRING)
+    private ProductStatus status;
 
     @ManyToOne
     @JsonBackReference

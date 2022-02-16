@@ -23,6 +23,7 @@ public class Product implements Serializable {
     private String imageURL;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "status", columnDefinition = "ENUM('ACTIVE', 'DELETED', 'NOT_CONFIRMED')", nullable = false)
     private ProductStatus status;
 
     @ManyToOne

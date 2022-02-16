@@ -23,9 +23,11 @@ public class User {
     @Column(name = "lastname")
     private String lastName;
 
+    @Column(name = "status", columnDefinition = "ENUM('ACTIVE', 'BANNED', 'NOT_CONFIRMED')", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
+    @Column(name = "role", columnDefinition = "ENUM('ADMIN', 'USER')", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Role role;
 

@@ -6,7 +6,7 @@ create table product
     price       integer not null,
     imageURL    varchar(400),
     category_id     bigint,
-    status      varchar(45),
+    status      enum('ACTIVE', 'DELETED', 'NOT_CONFIRMED'),
     primary key (id)
 );
 
@@ -35,8 +35,8 @@ create table user
     firstname       varchar(255),
     lastname        varchar(255),
     password        varchar(255),
-    role            varchar(255),
-    status          varchar(255),
+    role            enum('ADMIN', 'USER'),
+    status          enum('ACTIVE', 'BANNED', 'NOT_CONFIRMED'),
     primary key (id),
     activationtoken varchar(500)
 );

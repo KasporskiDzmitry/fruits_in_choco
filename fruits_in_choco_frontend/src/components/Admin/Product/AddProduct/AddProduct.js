@@ -30,6 +30,10 @@ const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
                 <Field className={style.field} placeholder={'Description'} name={'description'} component={Textarea} validate={[required]}/>
             </div>
             <div className={style.fieldWrapper}>
+                <div className={style.label}>URL изображения</div>
+                <Field className={style.field} placeholder={'Image URL'} name={'imageURL'} component={Input} validate={[required]}/>
+            </div>
+            <div className={style.fieldWrapper}>
                 <div className={style.label}>Категория</div>
                 <Field className={style.field} name="category" component={Select} validate={[required]} onChange={selectCategory}>
                     <option></option>

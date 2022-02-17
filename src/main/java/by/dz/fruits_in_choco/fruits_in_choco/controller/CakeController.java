@@ -15,6 +15,11 @@ public class CakeController {
         this.cakeService = cakeService;
     }
 
+    @GetMapping("/constructor")
+    public ResponseEntity<?> getConstructorData() {
+        return ResponseEntity.ok(cakeService.getConstructorData());
+    }
+
     @GetMapping("/cakes")
     public ResponseEntity<?> getAllCakes() {
         return ResponseEntity.ok(cakeService.getAllCakes());

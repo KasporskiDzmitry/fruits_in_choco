@@ -13,6 +13,7 @@ import registrationReducer from "./reducers/registration-reducer";
 import { reducer as sematable } from 'sematable';
 import orderReducer from "./reducers/order-reducer";
 import categoryReducer from "./reducers/category-reducer";
+import cakeConstructorReducer from "./reducers/cakeConstructor-reducer";
 
 let reducers = combineReducers({
     sematable,
@@ -25,7 +26,8 @@ let reducers = combineReducers({
     shopReducer: shopReducer,
     profileReducer: profileReducer,
     registrationReducer: registrationReducer,
-    orderReducer: orderReducer
+    orderReducer: orderReducer,
+    cakeConstructorReducer: cakeConstructorReducer
 });
 
 const composeEnhancers = composeWithDevTools({

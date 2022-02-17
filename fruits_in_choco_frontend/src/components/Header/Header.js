@@ -35,6 +35,7 @@ const Header = (props) => {
                     <NavLink to={'/promotions'}>Акции</NavLink>
                     <NavLink to={'/buyers'}>Покупателям</NavLink>
                     <NavLink to={'/contacts'}>Контакты</NavLink>
+                    <NavLink to={'/cake/constructor'}>Конструктор торта</NavLink>
                 </nav>
                 <div className={style.navbarAside}>
                     <div className={style.cartIcon} onClick={props.toggleCartLayout}>

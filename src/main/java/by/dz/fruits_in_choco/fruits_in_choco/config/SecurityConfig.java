@@ -40,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/products",
                         "/products/{id}",
                         "/products/search",
-                        "/cakes"
+                        "/cakes",
+                        "/constructor"
                         ).permitAll()
                 .anyRequest()
                 .authenticated()

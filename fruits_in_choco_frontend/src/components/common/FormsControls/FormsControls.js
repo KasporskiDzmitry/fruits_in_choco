@@ -28,3 +28,4 @@ export const Select = props => {
     const {input, meta, child, ...restProps} = props;
     return <FormControl {...props}><select {...input} {...restProps} /></FormControl>
 }
+

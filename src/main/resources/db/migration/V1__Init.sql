@@ -82,9 +82,10 @@ create table user_orders
 
 create table biscuit
 (
-    id    bigint not null auto_increment,
-    name  varchar(45),
-    price double not null
+    id     bigint not null auto_increment,
+    name   varchar(45),
+    price  double not null,
+    status enum('ACTIVE', 'DELETED')
 );
 
 create table cake
@@ -101,25 +102,27 @@ create table filling
 (
     id    bigint not null auto_increment,
     name  varchar(45),
-    price double not null
+    price double not null,
+    status enum('ACTIVE', 'DELETED')
 );
 
 create table decoration
 (
     id    bigint not null auto_increment,
     name  varchar(45),
-    price double not null
+    price double not null,
+    status enum('ACTIVE', 'DELETED')
 );
 
 create table cake_decorations
 (
-    cake_id bigint not null,
+    cake_id        bigint not null,
     decorations_id bigint not null
 );
 
 create table cake_fillings
 (
-    cake_id bigint not null,
+    cake_id     bigint not null,
     fillings_id bigint not null
 );
 

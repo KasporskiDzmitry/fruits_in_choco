@@ -1,7 +1,7 @@
 import {SET_CAKE, SET_DATA, TOGGLE_IS_FETCHING} from "../action_types/cakeConstructor_action_types";
 
 const initialState = {
-    data: {},
+    data: {biscuits: [], fillings: [], decorations: []},
     cake: {},
     isFetching: false
 }

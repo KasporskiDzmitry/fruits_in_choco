@@ -16,4 +16,8 @@ public class Biscuit {
     private String name;
 
     private double price;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status", columnDefinition = "ENUM('ACTIVE', 'DELETED')", nullable = false)
+    private CakeIngredientStatus status;
 }

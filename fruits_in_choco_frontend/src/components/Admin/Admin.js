@@ -12,6 +12,7 @@ const AddProduct = React.lazy(() => import('./Product/AddProduct/AddProduct'));
 const AddCategory = React.lazy(() => import('./Category/AddCategory/AddCategory'));
 const AdminProductPage = React.lazy(() => import('./Product/EditProduct/EditProductContainer'));
 const AdminCategoryPage = React.lazy(() => import('./Category/EditCategory/EditCategoryPageContainer'));
+const CakeConstructorData = React.lazy(() => import('./CakeConstructor/CakeConstructorData'));
 
 class Admin extends React.Component {
     render() {
@@ -24,6 +25,7 @@ class Admin extends React.Component {
                         <NavLink to={'/profile/admin/add_product'}>Добавить продукт</NavLink>
                         <NavLink to={'/profile/admin/add_category'}>Добавить категорию</NavLink>
                         <NavLink to={'/profile/admin/users'}>Пользователи</NavLink>
+                        <NavLink to={'/profile/admin/constructor'}>Конструктор</NavLink>
                     </nav>
                     <>
                         <React.Suspense fallback={<Preloader/>}>
@@ -39,13 +41,15 @@ class Admin extends React.Component {
                                    render={() => <AddCategory isFetching={this.props.isCategoryFetching}
                                                               addCategory={this.props.addCategory}
                                                               isCategoryAddedSuccess={this.props.isCategoryAddedSuccess}/>}/>
-                            <Route path='/profile/admin/add_product'
+                            <Route exact path='/profile/admin/add_product'
                                    render={() => <AddProduct isFetching={this.props.isProductFetching}
                                                              categories={this.props.categories}
                                                              addProduct={this.props.addProduct}
                                                              isProductAddedSuccess={this.props.isProductAddedSuccess}/>}/>
-                            <Route path='/profile/admin/users'
+                            <Route exact path='/profile/admin/users'
                                    render={() => <AdminUserContainer/>}/>
+                            <Route exact path='/profile/admin/constructor'
+                                   render={() => <CakeConstructorData />}/>
                         </React.Suspense>
                     </>
                 </div>

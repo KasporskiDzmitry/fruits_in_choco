@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Field, formValueSelector, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/FormsControls";
-import {required} from "../utils/validators/validators";
 import style from "../common/FormsControls/FormsControls.module.scss";
 import {Button} from "react-bootstrap";
 import {connect, useDispatch, useSelector} from "react-redux";
@@ -14,9 +13,8 @@ const CakeConstructorForm = (props) => {
     const dispatch = useDispatch();
     const {handleSubmit, error, data} = props;
 
-    const biscuitsList = data.biscuits ? data.biscuits : [];
-    const fillingsGroup = data.fillings ? data.fillings.map(i => ({label: i.name, value: i.id.toString()})) : []
-    const decorationsGroup = data.decorations ? data.decorations.map(i => ({label: i.name, value: i.id.toString()})) : []
+    const fillingsGroup = data.fillings.map(i => ({label: i.name, value: i.id.toString()}));
+    const decorationsGroup = data.decorations.map(i => ({label: i.name, value: i.id.toString()}));
 
     useEffect(() => {
         const cake = {
@@ -43,7 +41,7 @@ const CakeConstructorForm = (props) => {
             <div>
                 <div>Бисквит</div>
                 {
-                    biscuitsList.map((i, idx) => <div key={i.id}>
+                    data.biscuits.map((i, idx) => <div key={i.id}>
                         <label>{i.name}</label>
                         <Field name={'biscuit'} type={"radio"} value={i.name} component={Input}/>
                     </div>)
@@ -92,7 +90,15 @@ const CakeConstructor = (props) => {
     }, [])
 
     const onSubmit = (formData) => {
-        console.log(formData)
+        const cake = {
+            weight: formData.weight,
+            biscuit: formData.biscuit,
+            fillings: formData.fillings,
+            decorations: formData.decorations
+        }
+
+        console.log(cake)
+        // dispatch(saveCake())
     }
 
     return <div>

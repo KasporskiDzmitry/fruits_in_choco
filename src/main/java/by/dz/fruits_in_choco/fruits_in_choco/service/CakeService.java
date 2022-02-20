@@ -19,4 +19,22 @@ public interface CakeService {
     List<Decoration> getAllDecorations();
 
     CakeConstructorDTO getConstructorData();
+
+    Cake saveCake(Cake cake);
+
+    void deleteCake(Long id);
+
+    Cake updateCake(Cake cake, Long id);
+
+    Biscuit updateBiscuit(Biscuit biscuit, Long id);
+
+    Filling updateFilling(Filling filling, Long id);
+
+    Decoration updateDecoration(Decoration decoration, Long id);
+
+    void deleteBiscuit(Long id);
+
+    void deleteFilling(Long id);
+
+    void deleteDecoration(Long id);
 }

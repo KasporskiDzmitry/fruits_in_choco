@@ -2,10 +2,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.entity.cake;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -17,4 +14,8 @@ public class Decoration {
     private String name;
 
     private double price;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status", columnDefinition = "ENUM('ACTIVE', 'DELETED')", nullable = false)
+    private CakeIngredientStatus status;
 }

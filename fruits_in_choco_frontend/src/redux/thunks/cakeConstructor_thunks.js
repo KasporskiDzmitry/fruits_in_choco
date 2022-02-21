@@ -35,3 +35,13 @@ export const deleteConstructorData = (name, id) => async dispatch => {
         console.log(e)
     }
 }
+
+export const updateConstructorData = (type, item) => async dispatch => {
+    try {
+        const response = await RequestService.put(`/${type}/${item.id}`, item, true);
+        dispatch(enqueueSnackbar(`Updated successfully`, "success"));
+    } catch (e) {
+        dispatch(enqueueSnackbar(`Error while updating`, "error"));
+        console.log(e);
+    }
+}

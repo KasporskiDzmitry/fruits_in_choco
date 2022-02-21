@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import sematable, {Table} from 'sematable';
 import {getActionsByTableName} from "./ConstructorTableActions";
+import TableCell, {createCell} from "./TableCell";
 
 const columns = [
     { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
-    { key: 'name', header: 'Название', sortable: true, searchable: true },
-    { key: 'price', header: 'Цена', sortable: true, searchable: true },
+    { key: 'name', header: 'Название', sortable: true, searchable: true, Component:  createCell("decorations", "name") },
+    { key: 'price', header: 'Цена', sortable: true, searchable: true, Component:  createCell("decorations", "price") },
     { key: 'actions', header: 'Actions', Component: getActionsByTableName("decorations") }
 ];
 

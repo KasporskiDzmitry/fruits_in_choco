@@ -2,28 +2,30 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 import {useDispatch} from "react-redux";
 import {updateConstructorData} from "../../../redux/thunks/cakeConstructor_thunks";
+import usePrevious from "../../hooks/usePrevious";
 
 
 export const createCell = (objectType, columnName) => {
-
     const TableCell = props => {
         const row = props.row;
         const [value, setValue] = useState(props.children);
+        const prevValue = usePrevious(value);
         const dispatch = useDispatch();
 
-        const onBlur = (newValue) => {
-            if (props.children.toString() !== newValue.toString()) {
+        const onBlur = () => {
+            if (value !== prevValue) {
                 dispatch(updateConstructorData(objectType, {
                     ...row,
-                    [columnName]: newValue
+                    [columnName]: value
                 }))
             }
         }
 
         return (
             <div>
-                <input type="text" onChange={(e) => setValue(e.target.value)} value={value}
-                       onBlur={(e) => onBlur(e.target.value)}/>
+                <input type={typeof props.children == "number" ? "number" : "text"}
+                       onChange={(e) => setValue(e.target.value)} value={value}
+                       onBlur={onBlur}/>
             </div>
         );
     }

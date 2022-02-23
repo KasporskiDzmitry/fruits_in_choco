@@ -48,6 +48,24 @@ public class CakeController {
         return ResponseEntity.ok(cakeService.updateCake(cake, id));
     }
 
+    @PostMapping("/biscuits")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> createBiscuit(@RequestBody Biscuit biscuit) {
+        return ResponseEntity.ok(cakeService.createBiscuit(biscuit));
+    }
+
+    @PostMapping("/fillings")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> createFilling(@RequestBody Filling filling) {
+        return ResponseEntity.ok(cakeService.createFilling(filling));
+    }
+
+    @PostMapping("/decorations")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> createDecoration(@RequestBody Decoration decoration) {
+        return ResponseEntity.ok(cakeService.createDecoration(decoration));
+    }
+
     @PutMapping("/biscuits/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> updateBiscuit(@RequestBody Biscuit biscuit, @PathVariable Long id) {

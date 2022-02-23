@@ -39,9 +39,21 @@ export const deleteConstructorData = (name, id) => async dispatch => {
 export const updateConstructorData = (type, item) => async dispatch => {
     try {
         const response = await RequestService.put(`/${type}/${item.id}`, item, true);
+        dispatch(loadData());
         dispatch(enqueueSnackbar(`Updated successfully`, "success"));
     } catch (e) {
         dispatch(enqueueSnackbar(`Error while updating`, "error"));
+        console.log(e);
+    }
+}
+
+export const createConstructorData = (objectType, item) => async dispatch => {
+    try {
+        const response = await RequestService.post(`/${objectType}`, item, true);
+        dispatch(loadData());
+        dispatch(enqueueSnackbar(`Created successfully`, "success"));
+    } catch (e) {
+        dispatch(enqueueSnackbar(`Error while creating`, "error"));
         console.log(e);
     }
 }

@@ -26,6 +26,12 @@ public interface CakeService {
 
     Cake updateCake(Cake cake, Long id);
 
+    Biscuit createBiscuit(Biscuit biscuit);
+
+    Filling createFilling(Filling filling);
+
+    Decoration createDecoration(Decoration decoration);
+
     Biscuit updateBiscuit(Biscuit biscuit, Long id);
 
     Filling updateFilling(Filling filling, Long id);

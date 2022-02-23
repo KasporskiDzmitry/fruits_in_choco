@@ -98,6 +98,21 @@ public class CakeServiceImpl implements CakeService {
     }
 
     @Override
+    public Biscuit createBiscuit(Biscuit biscuit) {
+        return biscuitRepository.save(biscuit);
+    }
+
+    @Override
+    public Filling createFilling(Filling filling) {
+        return fillingRepository.save(filling);
+    }
+
+    @Override
+    public Decoration createDecoration(Decoration decoration) {
+        return decorationRepository.save(decoration);
+    }
+
+    @Override
     public Biscuit updateBiscuit(Biscuit newBiscuit, Long id) {
         return biscuitRepository.findById(id)
                 .map(biscuit -> {

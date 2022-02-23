@@ -1,4 +1,4 @@
-import {SET_CAKE, SET_DATA, TOGGLE_IS_FETCHING} from "../action_types/cakeConstructor_action_types";
+import {ADD_ROW, SET_CAKE, SET_DATA, TOGGLE_IS_FETCHING} from "../action_types/cakeConstructor_action_types";
 
 const initialState = {
     data: {biscuits: [], fillings: [], decorations: []},
@@ -24,6 +24,12 @@ const cakeConstructorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: !state.isFetching
+            }
+        }
+        case ADD_ROW: {
+            return {
+                ...state,
+                data: {...state.data, [action.objectType]: [...state.data[action.objectType], {}]}
             }
         }
         default: {

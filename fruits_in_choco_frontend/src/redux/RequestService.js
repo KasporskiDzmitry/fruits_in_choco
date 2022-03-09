@@ -34,9 +34,10 @@ const createRequest = (method, url, body, isAuthRequired, contentType) => {
 };
 
 const setHeader = (isAuthRequired, contentType) => {
-    if (isAuthRequired) {
-        const state = store.getState();
-        axios.defaults.headers.common["Authorization"] = state.authReducer.token;
+    const state = store.getState();
+    const token = state.authReducer.token;
+    if ((token && token.length > 0) || isAuthRequired) {
+        axios.defaults.headers.common["Authorization"] = token;
     } else {
         delete axios.defaults.headers.common['Authorization']
     }

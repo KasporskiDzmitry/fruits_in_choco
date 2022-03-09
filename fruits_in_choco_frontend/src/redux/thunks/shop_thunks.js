@@ -2,34 +2,45 @@ import RequestService from "../RequestService";
 import {
     addToCart,
     setCurrentProduct,
-    setCurrentProductReviews,
-    setProducts,
-    toggleIsFetching
+    setCurrentProductReviews, setIsProductFetching, setIsProductsFetching,
+    setProducts
 } from "../actions/shop_actions";
 import {setProduct} from "../actions/admin_actions";
 import {addProductToCart, isProductInCart} from "../../components/utils/localStorageFunctions";
 
 export const loadProducts = () => async dispatch => {
-    dispatch(toggleIsFetching(true));
-    const response = await RequestService.get('/products');
-    dispatch(toggleIsFetching(false));
-    dispatch(setProducts(response.data));
+    try {
+        dispatch(setIsProductsFetching(true));
+        const response = await RequestService.get('/products');
+        dispatch(setProducts(response.data));
+    } catch (e) {
+        console.log(e)
+    } finally {
+        dispatch(setIsProductsFetching(false));
+    }
 };
 
 export const loadProductById = id => async dispatch => {
-    dispatch(toggleIsFetching(true));
-    const response = await RequestService.get(`/products/${id}`);
-    dispatch(toggleIsFetching(false));
-    dispatch(setCurrentProduct(response.data));
-    dispatch(setCurrentProductReviews(response.data.ratings));
-    dispatch(setProduct(response.data));
+    try {
+        dispatch(setIsProductFetching(true));
+        const response = await RequestService.get(`/products/${id}`);
+        dispatch(setCurrentProduct(response.data));
+        dispatch(setCurrentProductReviews(response.data.ratings));
+    } catch (e) {
+        console.log(e)
+    } finally {
+        dispatch(setIsProductFetching(false));
+    }
 };
 
 export const loadProductsByCategories = (categories) => async dispatch => {
-    dispatch(toggleIsFetching(true));
-    const response = await RequestService.post('/products/search', {categories});
-    dispatch(toggleIsFetching(false));
-    dispatch(setProducts(response.data));
+    try {
+        const response = await RequestService.post('/products/search', {categories});
+        dispatch(setProducts(response.data));
+    } catch (e) {
+        console.log(e)
+    } finally {
+    }
 };
 
 export const addReview = (review) => async dispatch => {

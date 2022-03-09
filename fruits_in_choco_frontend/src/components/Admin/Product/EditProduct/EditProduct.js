@@ -58,7 +58,7 @@ const EditProductForm = ({handleSubmit, error, categories, isFetching, product})
             </div>
             }
             <div>
-                <Button type="submit" disabled={isFetching}>Add</Button>
+                <Button type="submit">Save</Button>
             </div>
         </form>
     )
@@ -92,59 +92,54 @@ const EditProduct = props => {
     }
 
     return <>
-        {
-            props.isFetching ?
-                <Preloader/> :
-                <>
-                    <div className={style.editProductFormContainer}>
-                        <h1>{props.product?.name}</h1>
-                        {
-                            props.isProductAddedSuccess && <div>
-                                <Expire delay="3000"><h3>ПРОДУКТ УСПЕШНО ИЗМЕНЕН</h3></Expire>
-                            </div>
-                        }
-                        <EditProductReduxForm onSubmit={onSubmit} isFetching={props.isFetching}
-                                              categories={props.categories} product={props.product}/>
-                        <div>
+        <div className={style.editProductFormContainer}>
+            <h1>{props.product?.name}</h1>
+            {
+                props.isProductAddedSuccess && <div>
+                    <Expire delay="3000"><h3>ПРОДУКТ УСПЕШНО ИЗМЕНЕН</h3></Expire>
+                </div>
+            }
+            <EditProductReduxForm onSubmit={onSubmit}
+                                  categories={props.categories} product={props.product}/>
+            <div>
 
+            </div>
+        </div>
+        <div className={style.reviewsContainer}>
+            {
+                props.product.ratings &&
+                props.product.ratings.length > 0 ?
+                    props.product.ratings.map(i => <div className={style.reviewItem}>
+                        <div className={style.itemInfoContainer}>
+                            <div className={style.heading}>
+                                <h2>{i.author}</h2>
+                                <Rating name="reviewRating" value={i.rating} readOnly/>
+                            </div>
+                            <h3>{i.date.toLocaleString()}</h3>
+                            <p>{i.message}</p>
                         </div>
-                    </div>
-                    <div className={style.reviewsContainer}>
-                        {
-                            props.product.ratings &&
-                            props.product.ratings.length > 0 ?
-                                props.product.ratings.map(i => <div className={style.reviewItem}>
-                                    <div className={style.itemInfoContainer}>
-                                        <div className={style.heading}>
-                                            <h2>{i.author}</h2>
-                                            <Rating name="reviewRating" value={i.rating} readOnly/>
-                                        </div>
-                                        <h3>{i.date.toLocaleString()}</h3>
-                                        <p>{i.message}</p>
+                        <div className={style.controlsContainer}>
+                            {
+                                !i.approved &&
+                                <div className={style.controls}>
+                                    <div title={'approve'} onClick={() => approve(i, props.product.id)}>
+                                        <FontAwesomeIcon icon={faCheck}/>
                                     </div>
-                                    <div className={style.controlsContainer}>
-                                        {
-                                            !i.approved &&
-                                            <div className={style.controls}>
-                                                <div title={'approve'} onClick={() => approve(i, props.product.id)} >
-                                                    <FontAwesomeIcon icon={faCheck} />
-                                                </div>
-                                                <div title={'reject'} onClick={() => remove(props.product.id, i.id)}>
-                                                    <FontAwesomeIcon icon={faTimesCircle} />
-                                                </div>
-                                            </div>
-                                        }
-                                        <div className={style.delete} onClick={() => remove(props.product.id, i.id)}>
-                                            <FontAwesomeIcon icon={faTimesCircle} />
-                                        </div>
+                                    <div title={'reject'} onClick={() => remove(props.product.id, i.id)}>
+                                        <FontAwesomeIcon icon={faTimesCircle}/>
                                     </div>
-                                </div>) :
-                                <div>No reviews</div>
-                        }
-                    </div>
-                </>
-        }
+                                </div>
+                            }
+                            <div className={style.delete} onClick={() => remove(props.product.id, i.id)}>
+                                <FontAwesomeIcon icon={faTimesCircle}/>
+                            </div>
+                        </div>
+                    </div>) :
+                    <div>No reviews</div>
+            }
+        </div>
     </>
+
 };
 
 export default EditProduct;

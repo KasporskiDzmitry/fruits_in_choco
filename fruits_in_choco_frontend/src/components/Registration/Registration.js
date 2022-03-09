@@ -8,7 +8,6 @@ import {Button} from 'react-bootstrap';
 import {useDispatch} from "react-redux";
 
 const RegistrationForm = ({handleSubmit, error, isFetching}) => {
-    console.log(isFetching)
     return (
         <form onSubmit={handleSubmit}>
             <div>

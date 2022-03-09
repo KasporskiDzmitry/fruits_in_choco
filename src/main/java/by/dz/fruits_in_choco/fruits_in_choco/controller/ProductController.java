@@ -3,6 +3,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.controller;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductSearchRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.ProductMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.ProductServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -30,25 +31,14 @@ public class ProductController {
         return ResponseEntity.ok(mapper.getProducts(page, size, direction, sortBy));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/admin/products")
-    public ResponseEntity<?> getProductsAdmin(
-            @RequestParam(required = false, defaultValue = DEFAULT_PAGE) int page,
-            @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
-            @RequestParam(required = false, defaultValue = DEFAULT_SORT_BY_FIELD) String sortBy,
-            @RequestParam(required = false, defaultValue = DEFAULT_SORT_DIRECTION) String direction) {
-        return ResponseEntity.ok(mapper.getProducts(page, size, direction, sortBy));
-    }
-
     @GetMapping("/products/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
-        return ResponseEntity.ok(mapper.getProductById(id));
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/admin/products/{id}")
-    public ResponseEntity<?> getProductByIdAdmin(@PathVariable Long id) {
-        return ResponseEntity.ok(mapper.getProductById(id));
+        try {
+            System.out.println("controller");
+            return ResponseEntity.ok(mapper.getProductById(id));
+        } catch (ProductDeletedException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @PostMapping("/products/search")

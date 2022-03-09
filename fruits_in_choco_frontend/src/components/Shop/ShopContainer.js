@@ -31,10 +31,10 @@ class ShopContainer extends React.Component {
 const mapStateToProps = state => ({
     products: state.shopReducer.products,
     categories: state.categoryReducer.categories,
-    isFetching: state.shopReducer.isFetching,
     selectedCategory: state.categoryReducer.selectedCategory,
     filteredCategories: state.shopReducer.filteredCategories,
-    cart: state.shopReducer.cart
+    cart: state.shopReducer.cart,
+    isProductsFetching: state.shopReducer.isProductsFetching
 });
 
 export default compose(

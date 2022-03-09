@@ -4,6 +4,8 @@ import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductStatus;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,19 +28,23 @@ public class ProductMapper {
 
     public List<ProductResponse> getProducts(int page, int size, String direction, String sortBy) {
         List<Product> products = service.getProducts(page, size, direction, sortBy);
-
         return products.stream()
                 .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
     }
 
     public ProductResponse getProductById(Long id) {
-        return mapToResponseDTO(service.getProductById(id));
+        Product product = service.getProductById(id);
+        if (!isAdmin()) {
+            if (product.getStatus().equals(ProductStatus.DELETED)) {
+                throw new ProductDeletedException("Product was deleted");
+            }
+        }
+        return mapToResponseDTO(product);
     }
 
     public List<ProductResponse> getProductsFilteredByCategories(List<Long> categories) {
         List<Product> products = service.getProductsFilteredByCategories(categories);
-
         return products.stream()
                 .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
@@ -48,9 +54,13 @@ public class ProductMapper {
         return mapToResponseDTO(service.rateProduct(request, id));
     }
 
-    public ProductResponse mapToResponseDTO(Product product) {
+    private boolean isAdmin() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+        return auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
+    }
+
+    public ProductResponse mapToResponseDTO(Product product) {
+        if (isAdmin()) {
             return mapForAdmin(product);
         } else {
             return mapForUser(product);

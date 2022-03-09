@@ -38,12 +38,10 @@ class Admin extends React.Component {
                             <Route exact path='/profile/admin/products/:id'
                                    render={() => <AdminProductPage/>}/>
                             <Route exact path={'/profile/admin/add_category'}
-                                   render={() => <AddCategory isFetching={this.props.isCategoryFetching}
-                                                              addCategory={this.props.addCategory}
+                                   render={() => <AddCategory addCategory={this.props.addCategory}
                                                               isCategoryAddedSuccess={this.props.isCategoryAddedSuccess}/>}/>
                             <Route exact path='/profile/admin/add_product'
-                                   render={() => <AddProduct isFetching={this.props.isProductFetching}
-                                                             categories={this.props.categories}
+                                   render={() => <AddProduct categories={this.props.categories}
                                                              addProduct={this.props.addProduct}
                                                              isProductAddedSuccess={this.props.isProductAddedSuccess}/>}/>
                             <Route exact path='/profile/admin/users'
@@ -64,7 +62,6 @@ const mapStateToProps = (state) => ({
     isCategoryAddedSuccess: state.adminReducer.isCategoryAddedSuccess,
     isProductFetching: state.adminReducer.isProductFetching,
     isCategoryFetching: state.adminReducer.isCategoryFetching,
-    isFetching: state.adminReducer.isFetching
 })
 
 export default connect(mapStateToProps, {addProduct, addCategory})(Admin);

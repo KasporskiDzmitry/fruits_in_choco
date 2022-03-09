@@ -6,7 +6,7 @@ import {required} from "../../../utils/validators/validators";
 import formsControlsStyle from "../../../common/FormsControls/FormsControls.module.scss";
 import style from './CategoryForm.module.scss';
 
-export const CategoryForm = ({handleSubmit, error, isFetching}) => {
+export const CategoryForm = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.fieldWrapper}>
@@ -22,7 +22,7 @@ export const CategoryForm = ({handleSubmit, error, isFetching}) => {
                 <Field className={style.field} placeholder={'Description'} name={'description'} component={Textarea} validate={[required]}/>
             </div>
             <div>
-                <Button type="submit" disabled={isFetching}>Submit</Button>
+                <Button type="submit">Submit</Button>
             </div>
         </form>
     )

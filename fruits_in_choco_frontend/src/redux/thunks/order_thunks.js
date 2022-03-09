@@ -14,6 +14,7 @@ export const makeOrder = (order, history) => async dispatch => {
         history.push("/cart/success");
     } catch (error) {
         dispatch(stopSubmit('order', {_error: error.response.data}))
+    } finally {
+        dispatch(toggleIsFetching(false));
     }
-    dispatch(toggleIsFetching(false));
 }

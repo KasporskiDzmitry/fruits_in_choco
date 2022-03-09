@@ -2,10 +2,9 @@ import {
     SET_CURRENT_PRODUCT,
     SET_CURRENT_PRODUCT_REVIEWS, SET_FILTERED_CATEGORIES,
     SET_PRODUCTS,
-    TOGGLE_IS_FETCHING,
     ADD_TO_CART,
     CLEAR_CART,
-    REMOVE_FROM_CART, TOGGLE_IS_CART_SHOW, UPDATE_PRODUCT_IN_CART
+    REMOVE_FROM_CART, UPDATE_PRODUCT_IN_CART, SET_IS_PRODUCTS_FETCHING, SET_IS_PRODUCT_FETCHING
 } from "../action_types/shop_action_types";
 
 const initialState = {
@@ -14,17 +13,13 @@ const initialState = {
     currentProductReviews: [],
     filteredCategories: [],
     cart: localStorage.products ? JSON.parse(localStorage.products) : [],
-    isFetching: false
+    isFetching: false,
+    isProductsFetching: false,
+    isProductFetching: false,
 };
 
 const shopReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TOGGLE_IS_FETCHING: {
-            return {
-                ...state,
-                isFetching: action.isFetching
-            }
-        }
         case CLEAR_CART: {
             return {
                 ...state,
@@ -50,10 +45,22 @@ const shopReducer = (state = initialState, action) => {
                 cart: state.cart.filter(i => i.id !== action.id)
             }
         }
+        case SET_IS_PRODUCTS_FETCHING: {
+            return {
+                ...state,
+                isProductsFetching: action.isFetching
+            }
+        }
         case SET_PRODUCTS: {
             return {
                 ...state,
                 products: action.products
+            }
+        }
+        case SET_IS_PRODUCT_FETCHING: {
+            return {
+                ...state,
+                isProductFetching: action.isFetching
             }
         }
         case SET_CURRENT_PRODUCT: {

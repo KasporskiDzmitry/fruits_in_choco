@@ -4,7 +4,6 @@ import {loadProducts} from "./shop_thunks";
 import {
     setProduct,
     setUsers,
-    toggleIsFetching
 } from "../actions/admin_actions";
 import {setProducts} from "../actions/shop_actions";
 import {loadCategories} from "./category_thunks";
@@ -14,7 +13,6 @@ import {enqueueSnackbar} from "../actions/app_actions";
 /// Products ///
 
 export const addProduct = (product) => async dispatch => {
-    dispatch(toggleIsFetching());
     try {
         const response = await RequestService.post('/admin/products', product, true);
         dispatch(reset('add_product'));
@@ -24,7 +22,6 @@ export const addProduct = (product) => async dispatch => {
         dispatch(enqueueSnackbar("Error while creating product", "error"));
         console.log(e)
     }
-    dispatch(toggleIsFetching());
 };
 
 export const deleteProductById = id => async dispatch => {
@@ -39,22 +36,18 @@ export const deleteProductById = id => async dispatch => {
 }
 
 export const loadProductByIdAdmin = (id) => async dispatch => {
-    dispatch(toggleIsFetching());
     try {
-        const response = await RequestService.get(`/admin/products/${id}`, true);
+        const response = await RequestService.get(`/products/${id}`, true);
         dispatch(setProduct(response.data));
-        dispatch(toggleIsFetching());
     } catch (e) {
-        dispatch(toggleIsFetching());
         console.log(e)
     }
 }
 
 export const loadProductsAdmin = () => async dispatch => {
     try {
-        const response = await RequestService.get('/admin/products', true);
+        const response = await RequestService.get('/products', true);
         dispatch(setProducts(response.data));
-        dispatch(toggleIsFetching());
     } catch (e) {
         console.log(e)
     }
@@ -63,12 +56,10 @@ export const loadProductsAdmin = () => async dispatch => {
 /// Reviews ///
 
 export const approveReview = (review, productId) => async dispatch => {
-    dispatch(toggleIsFetching());
     try {
         const response = await RequestService.put(`/admin/products/${productId}/ratings/${review.id}`, review, true);
         dispatch(enqueueSnackbar("Review approved successfully", "success"));
         dispatch(loadProductByIdAdmin(productId));
-        dispatch(toggleIsFetching());
     } catch (e) {
         dispatch(enqueueSnackbar("Error while approving review", "error"));
         console.log(e);
@@ -76,12 +67,10 @@ export const approveReview = (review, productId) => async dispatch => {
 }
 
 export const deleteReview = (productId, ratingId) => async dispatch => {
-    dispatch(toggleIsFetching());
     try {
         const response = await RequestService.delete(`/admin/products/${productId}/ratings/${ratingId}`, true);
         dispatch(enqueueSnackbar("Review removed successfully", "success"));
         dispatch(loadProductByIdAdmin(productId));
-        dispatch(toggleIsFetching());
     } catch (e) {
         dispatch(enqueueSnackbar("Error while removing review", "error"));
         console.log(e)
@@ -92,9 +81,7 @@ export const deleteReview = (productId, ratingId) => async dispatch => {
 
 export const addCategory = (category) => async dispatch => {
     try {
-        dispatch(toggleIsFetching());
         const response = await RequestService.post('/admin/categories', category, true);
-        dispatch(toggleIsFetching());
         dispatch(reset('add_category'));
         dispatch(enqueueSnackbar("Category created successfully", "success"));
         dispatch(loadCategories());
@@ -118,9 +105,7 @@ export const deleteCategoryById = id => async dispatch => {
 /// Users ///
 
 export const loadUsers = () => async dispatch => {
-    // dispatch(toggleIsFetching(true));
     const response = await RequestService.get('/admin/users', true);
-    // dispatch(toggleIsFetching(false));
     dispatch(setUsers(response.data));
 }
 

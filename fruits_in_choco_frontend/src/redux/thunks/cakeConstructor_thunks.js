@@ -5,10 +5,8 @@ import {enqueueSnackbar} from "../actions/app_actions";
 
 export const loadData = () => async dispatch => {
     try {
-        dispatch(toggleIsFetching());
         const response = await RequestService.get('/constructor');
         dispatch(setData(response.data));
-        dispatch(toggleIsFetching());
     } catch (e) {
         console.log(e);
     }
@@ -16,10 +14,8 @@ export const loadData = () => async dispatch => {
 
 export const saveCake = (cake) => async dispatch => {
     try {
-        // dispatch(toggleIsFetching()); ??
         const response = await RequestService.post('/cakes', cake);
         dispatch(reset("cakeConstructor"))
-        // dispatch(toggleIsFetching()); ??
     } catch (e) {
         console.log(e);
     }

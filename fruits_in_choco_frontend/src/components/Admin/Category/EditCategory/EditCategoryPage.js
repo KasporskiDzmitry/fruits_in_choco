@@ -16,28 +16,23 @@ EditCategoryReduxForm = connect(
             types = state.categoryReducer.category.types.map(i => i.name);
         }
         return ({
-        initialValues: {...state.categoryReducer.category, types: types}
-    })}, {})(EditCategoryReduxForm)
+            initialValues: {...state.categoryReducer.category, types: types}
+        })
+    }, {})(EditCategoryReduxForm)
 
 export const EditCategoryPage = (props) => {
 
     const onSubmit = (formData) => {
     }
 
-    return <>
+    return <div className={style.editProductFormContainer}>
+        <h1>{props.category?.name}</h1>
         {
-            props.isFetching ?
-                <Preloader /> :
-                <div className={style.editProductFormContainer}>
-                    <h1>{props.category?.name}</h1>
-                    {
-                        props.isCategoryAddedSuccess && <div>
-                            <Expire delay="3000"><h3>КАТЕГОРИЯ УСПЕШНО ИЗМЕНЕНА</h3></Expire>
-                        </div>
-                    }
-                    <EditCategoryReduxForm onSubmit={onSubmit} isFetching={props.isFetching}
-                                          category={props.category}/>
-                </div>
+            props.isCategoryAddedSuccess && <div>
+                <Expire delay="3000"><h3>КАТЕГОРИЯ УСПЕШНО ИЗМЕНЕНА</h3></Expire>
+            </div>
         }
-    </>
+        <EditCategoryReduxForm onSubmit={onSubmit} isFetching={props.isFetching}
+                               category={props.category}/>
+    </div>
 };

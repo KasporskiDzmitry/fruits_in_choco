@@ -15,7 +15,7 @@ const Shop = (props) => {
                 <div className={style.productsWrapper}>
                     <SortPanel products={props.products} setProducts={props.setProducts}/>
                     {
-                        props.isFetching ?
+                        props.isProductsFetching ?
                             <Preloader/> :
 
                             <div className={style.products}>

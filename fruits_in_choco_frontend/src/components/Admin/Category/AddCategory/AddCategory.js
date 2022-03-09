@@ -18,7 +18,7 @@ const AddCategory = props => {
                 <Expire delay="3000"><h3>КАТЕГОРИЯ УСПЕШНО ДОБАВЛЕНА</h3></Expire>
             </div>
         }
-        <AddCategoryReduxForm onSubmit={onSubmit} isFetching={props.isFetching}/>
+        <AddCategoryReduxForm onSubmit={onSubmit}/>
     </div>
 };
 

@@ -1,7 +1,9 @@
 package by.dz.fruits_in_choco.fruits_in_choco.config;
 
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtConfigurer;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,7 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SecurityConfig(JwtConfigurer jwtConfigurer) {
         this.jwtConfigurer = jwtConfigurer;
     }
-
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .cors()

@@ -5,14 +5,13 @@ import {
     SET_PRODUCT,
     SET_USERS,
     TOGGLE_IS_FETCHING,
-    REVIEW_APPROVED_SUCCESS, REVIEW_REJECTED_SUCCESS
+    REVIEW_APPROVED_SUCCESS, REVIEW_REJECTED_SUCCESS, SET_IS_PRODUCT_FETCHING
 } from "../action_types/admin_action_types";
 
 const initialState = {
     users: [],
     product: {},
     review: {},
-    isFetching: false,
     isProductAddedSuccess: false,
     isCategoryAddedSuccess: false,
     isReviewApprovedSuccess: false,
@@ -49,12 +48,6 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isReviewApprovedSuccess: true
-            }
-        }
-        case TOGGLE_IS_FETCHING: {
-            return {
-                ...state,
-                isFetching: !state.isFetching
             }
         }
         case PRODUCT_ADDED_SUCCESS: {

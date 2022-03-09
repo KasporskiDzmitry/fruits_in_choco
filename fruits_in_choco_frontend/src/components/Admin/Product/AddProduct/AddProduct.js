@@ -47,7 +47,7 @@ const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
             </div>
             }
             <div>
-                <Button type="submit" disabled={isFetching}>Add</Button>
+                <Button type="submit">Add</Button>
             </div>
         </form>
     )
@@ -73,7 +73,7 @@ const AddProduct = props => {
                 <Expire delay="3000"><h3>ПРОДУКТ УСПЕШНО ДОБАВЛЕН</h3></Expire>
             </div>
         }
-        <AddProductReduxForm onSubmit={onSubmit} isFetching={props.isFetching} categories={props.categories}/>
+        <AddProductReduxForm onSubmit={onSubmit} categories={props.categories}/>
     </div>
 };
 

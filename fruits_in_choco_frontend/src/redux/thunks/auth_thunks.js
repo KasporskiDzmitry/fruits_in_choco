@@ -28,11 +28,9 @@ export const login = (email, password) => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
-    dispatch(toggleIsFetching());
     await RequestService.post("/auth/logout", null, true);
     removeUserInfoFromLS();
     dispatch(logoutSuccess());
-    dispatch(toggleIsFetching());
 };
 
 export const refreshToken = () => async dispatch => {

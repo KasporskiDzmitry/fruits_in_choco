@@ -9,6 +9,9 @@ import ReviewForm from "./Review/ReviewForm";
 import {isProductInCart} from "../../utils/localStorageFunctions";
 
 const ProductPage = ({product, saveProductToCart, isFetching, addReview, profile, ratings}) => {
+
+    const isInCart = isProductInCart(product.id);
+
     return <div className={`sectionOuter ${style.productPageWrapper}`}>
         <div className="sectionInner">
             {isFetching ?
@@ -31,7 +34,7 @@ const ProductPage = ({product, saveProductToCart, isFetching, addReview, profile
                             </div>
                             <h2>{product.price}</h2>
                             <div className={style.addToCartWrapper}>
-                                <Button className={style.addToCartButton} disabled={isProductInCart(product.id)} variant="outline-primary" onClick={() => saveProductToCart(product)}>В корзину</Button>
+                                <Button className={style.addToCartButton} disabled={isInCart} variant="outline-primary" onClick={() => saveProductToCart(product)}>{isInCart ? "Товар уже в корзине" : "В корзину"}</Button>
                             </div>
                         </div>
                     </div>

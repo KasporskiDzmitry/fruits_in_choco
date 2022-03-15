@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {Field, formValueSelector, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/FormsControls";
 import style from "../common/FormsControls/FormsControls.module.scss";
+import constructorStyle from "./CakeConstructor.module.scss";
 import {Button} from "react-bootstrap";
 import {connect, useDispatch, useSelector} from "react-redux";
 import CheckboxGroup from "../common/CheckboxGroup/CheckboxGroup";
@@ -101,9 +102,13 @@ const CakeConstructor = (props) => {
         // dispatch(saveCake())
     }
 
-    return <div>
-        <CakeConstructorReduxForm onSubmit={onSubmit} data={data}/>
-        <CakeViewer cake={cake}/>
+    return <div className={`sectionOuter ${constructorStyle.constructorSection}`}>
+        <div className={'sectionInner'}>
+            <div className={constructorStyle.formWrapper}>
+                <CakeConstructorReduxForm onSubmit={onSubmit} data={data}/>
+            </div>
+            <CakeViewer cake={cake}/>
+        </div>
     </div>
 };
 

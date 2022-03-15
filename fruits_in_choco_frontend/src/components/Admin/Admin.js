@@ -6,6 +6,7 @@ import {addCategory, addProduct} from "../../redux/thunks/admin_thunks";
 import style from './Admin.module.scss';
 
 const AdminCategoryContainer = React.lazy(() => import('./Category/CategoriesContainer'));
+const OrdersContainer = React.lazy(() => import('./Order/OrdersContainer'));
 const AdminProductContainer = React.lazy(() => import('./Product/ProductsContainer'));
 const AdminUserContainer = React.lazy(() => import('./User/AdminUserContainer'));
 const AddProduct = React.lazy(() => import('./Product/AddProduct/AddProduct'));
@@ -20,6 +21,7 @@ class Admin extends React.Component {
             <div className="sectionInner">
                 <div className={style.innerWrapper}>
                     <nav className={style.navbarNav}>
+                        <NavLink to={'/profile/admin/orders'}>Заказы</NavLink>
                         <NavLink to={'/profile/admin/categories'}>Категории</NavLink>
                         <NavLink to={'/profile/admin/products'}>Продукты</NavLink>
                         <NavLink to={'/profile/admin/add_product'}>Добавить продукт</NavLink>
@@ -29,6 +31,8 @@ class Admin extends React.Component {
                     </nav>
                     <>
                         <React.Suspense fallback={<Preloader/>}>
+                            <Route exact path='/profile/admin/orders'
+                                   render={() => <OrdersContainer/>}/>
                             <Route exact path='/profile/admin/categories'
                                    render={() => <AdminCategoryContainer/>}/>
                             <Route exact path='/profile/admin/categories/:id'

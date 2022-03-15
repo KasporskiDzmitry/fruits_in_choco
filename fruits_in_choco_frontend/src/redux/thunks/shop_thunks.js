@@ -54,7 +54,7 @@ export const addReview = (review) => async dispatch => {
 
 export const saveProductToCart = (product) => async dispatch => {
     if (!isProductInCart(product.id)) {
-        dispatch(addToCart({...product, quantity: 1}));
         addProductToCart({...product, quantity: 1});
+        dispatch(addToCart({...product, quantity: 1}));
     }
 }

@@ -7,6 +7,7 @@ import style from './Admin.module.scss';
 
 const AdminCategoryContainer = React.lazy(() => import('./Category/CategoriesContainer'));
 const OrdersContainer = React.lazy(() => import('./Order/OrdersContainer'));
+const Order = React.lazy(() => import('./Order/OrderInfoContainer'));
 const AdminProductContainer = React.lazy(() => import('./Product/ProductsContainer'));
 const AdminUserContainer = React.lazy(() => import('./User/AdminUserContainer'));
 const AddProduct = React.lazy(() => import('./Product/AddProduct/AddProduct'));
@@ -33,6 +34,8 @@ class Admin extends React.Component {
                         <React.Suspense fallback={<Preloader/>}>
                             <Route exact path='/profile/admin/orders'
                                    render={() => <OrdersContainer/>}/>
+                            <Route exact path='/profile/admin/orders/:id'
+                                   render={() => <Order/>}/>
                             <Route exact path='/profile/admin/categories'
                                    render={() => <AdminCategoryContainer/>}/>
                             <Route exact path='/profile/admin/categories/:id'

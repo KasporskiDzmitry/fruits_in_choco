@@ -3,7 +3,7 @@ import OrderTable from "./OrderTable";
 
 const Orders = (props) => {
     return <div>
-        <OrderTable data={props.orders || []}/>
+        <OrderTable data={props.orders}/>
     </div>
 }
 

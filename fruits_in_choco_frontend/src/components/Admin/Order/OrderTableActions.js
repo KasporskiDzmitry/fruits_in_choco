@@ -11,7 +11,7 @@ class OrderTableActions extends Component {
         const row = this.props.row;
         return (
             <div>
-                <NavLink to={`/#`}>Info</NavLink>
+                <NavLink to={`/profile/admin/orders/${row.id}`}>Info</NavLink>
             </div>
         );
     }

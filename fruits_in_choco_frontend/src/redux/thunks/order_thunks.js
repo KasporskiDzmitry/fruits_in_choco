@@ -1,4 +1,4 @@
-import {orderMadeSuccess, toggleIsFetching} from "../actions/order_actions";
+import {orderMadeSuccess, setOrderInfo, setOrders, toggleIsFetching} from "../actions/order_actions";
 import RequestService from "../RequestService";
 import {reset, stopSubmit} from "redux-form";
 import {clearCart} from "../actions/shop_actions";
@@ -16,5 +16,23 @@ export const makeOrder = (order, history) => async dispatch => {
         dispatch(stopSubmit('order', {_error: error.response.data}))
     } finally {
         dispatch(toggleIsFetching(false));
+    }
+}
+
+export const loadAllOrders = () => async dispatch => {
+    try {
+        const response = await RequestService.get("/orders", true);
+        dispatch(setOrders(response.data));
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const loadOrderById = (id) => async dispatch => {
+    try {
+        const response = await RequestService.get(`/orders/${id}`, true);
+        dispatch(setOrderInfo(response.data));
+    } catch (e) {
+        console.log(e)
     }
 }

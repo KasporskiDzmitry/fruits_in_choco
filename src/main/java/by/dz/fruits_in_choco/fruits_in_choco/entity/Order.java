@@ -31,6 +31,10 @@ public class Order {
 
     private Date date;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status", columnDefinition = "ENUM('NOT_CONFIRMED', 'CONFIRMED')", nullable = false)
+    private OrderStatus status;
+
     @Column(columnDefinition = "TINYINT")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isAgreeToSendingMessages;

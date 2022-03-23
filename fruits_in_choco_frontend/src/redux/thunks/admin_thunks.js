@@ -2,6 +2,7 @@ import RequestService from "../RequestService";
 import {reset} from "redux-form";
 import {loadProducts} from "./shop_thunks";
 import {
+    addNotification,
     setProduct,
     setUsers,
 } from "../actions/admin_actions";
@@ -60,6 +61,7 @@ export const approveReview = (review, productId) => async dispatch => {
         const response = await RequestService.put(`/admin/products/${productId}/ratings/${review.id}`, review, true);
         dispatch(enqueueSnackbar("Review approved successfully", "success"));
         dispatch(loadProductByIdAdmin(productId));
+        dispatch(loadProductsAdmin());
     } catch (e) {
         dispatch(enqueueSnackbar("Error while approving review", "error"));
         console.log(e);
@@ -108,6 +110,5 @@ export const loadUsers = () => async dispatch => {
     const response = await RequestService.get('/admin/users', true);
     dispatch(setUsers(response.data));
 }
-
 
 

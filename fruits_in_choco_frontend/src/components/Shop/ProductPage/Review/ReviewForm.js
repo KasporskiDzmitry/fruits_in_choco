@@ -1,11 +1,29 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
 import style from '../ProductPage.module.scss'
 import Rating from "@material-ui/lab/Rating";
+import SockJS from "sockjs-client";
+import {API_BASE_URL} from "../../../utils/constants/url";
+import {over} from "stompjs";
+
+let stompClient = null;
 
 const ReviewForm = (props) => {
     const [rating, setRating] = useState(0);
     const [message, setMessage] = useState('');
+
+    const initStompClient = () => {
+        let Sock = new SockJS(`${API_BASE_URL}/ws`);
+        console.log('open new connection')
+        stompClient = over(Sock);
+        stompClient.connect({}, () => {
+        }, (err) => console.log(err));
+    }
+
+    useEffect(() => {
+        initStompClient();
+    }, [])
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,6 +34,7 @@ const ReviewForm = (props) => {
             rating: rating,
             productId: props.productId
         });
+        stompClient.send("/app/notification", {}, JSON.stringify({date: new Date(), type: 'REVIEW'}));
 
         setMessage('');
         setRating(0);

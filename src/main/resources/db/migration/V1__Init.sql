@@ -57,7 +57,8 @@ create table orders
     date                         datetime(6),
     price                        double not null,
     is_agree_to_sending_messages boolean default false,
-    primary key (id)
+    status                       enum('NOT_CONFIRMED', 'CONFIRMED')
+        primary key (id)
 );
 
 create table order_item
@@ -100,17 +101,17 @@ create table cake
 
 create table filling
 (
-    id    bigint not null auto_increment,
-    name  varchar(45),
-    price double not null,
+    id     bigint not null auto_increment,
+    name   varchar(45),
+    price  double not null,
     status enum('ACTIVE', 'DELETED')
 );
 
 create table decoration
 (
-    id    bigint not null auto_increment,
-    name  varchar(45),
-    price double not null,
+    id     bigint not null auto_increment,
+    name   varchar(45),
+    price  double not null,
     status enum('ACTIVE', 'DELETED')
 );
 
@@ -124,6 +125,13 @@ create table cake_fillings
 (
     cake_id     bigint not null,
     fillings_id bigint not null
+);
+
+create table notifications
+(
+    id   bigint not null,
+    date datetime(6),
+    type enum('ORDER', 'REVIEW')
 );
 
 alter table if exists orders_order_items add constraint UK_9d47gapmi35omtannusv6btu3 unique (order_items_id);

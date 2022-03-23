@@ -1,8 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Order;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.OrderItem;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.*;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderItemRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
@@ -41,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
         order.setDate(new Date());
         order.getOrderItems().addAll(orderItemList);
         orderRepository.save(order);
+
         return order;
     }
 

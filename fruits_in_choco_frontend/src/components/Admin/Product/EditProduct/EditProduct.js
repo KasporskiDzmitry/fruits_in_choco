@@ -81,13 +81,13 @@ const EditProduct = props => {
         // });
     };
 
-    const approve = (review, productId) => {
-        props.approveReview({...review, approved: true}, productId);
+    const approve = (review, product) => {
+        props.approveReview({...review, approved: true}, product.id);
     }
 
-    const remove = (productId, ratingId) => {
+    const remove = (product, ratingId) => {
         if (window.confirm('Удлаить?')) {
-            props.deleteReview(productId, ratingId);
+            props.deleteReview(product.id, ratingId);
         }
     }
 
@@ -122,15 +122,15 @@ const EditProduct = props => {
                             {
                                 !i.approved &&
                                 <div className={style.controls}>
-                                    <div title={'approve'} onClick={() => approve(i, props.product.id)}>
+                                    <div title={'approve'} onClick={() => approve(i, props.product)}>
                                         <FontAwesomeIcon icon={faCheck}/>
                                     </div>
-                                    <div title={'reject'} onClick={() => remove(props.product.id, i.id)}>
+                                    <div title={'reject'} onClick={() => remove(props.product, i.id)}>
                                         <FontAwesomeIcon icon={faTimesCircle}/>
                                     </div>
                                 </div>
                             }
-                            <div className={style.delete} onClick={() => remove(props.product.id, i.id)}>
+                            <div className={style.delete} onClick={() => remove(props.product, i.id)}>
                                 <FontAwesomeIcon icon={faTimesCircle}/>
                             </div>
                         </div>

@@ -6,7 +6,7 @@ import {loadAllOrders} from "../../../redux/thunks/order_thunks";
 class OrdersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.loadAllOrders();
+        // this.props.loadAllOrders();
     }
 
     render() {

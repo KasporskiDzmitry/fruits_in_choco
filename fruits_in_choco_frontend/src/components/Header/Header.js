@@ -1,19 +1,34 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect} from 'react';
 import style from './Header.module.scss';
-import {NavLink} from "react-router-dom";
-import {useLocation} from 'react-router-dom';
+import {NavLink, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {
-    faCartArrowDown,
-    faSignOutAlt,
-    faUser
-} from "@fortawesome/free-solid-svg-icons";
+import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
+import SockJS from "sockjs-client";
+import {API_BASE_URL} from "../utils/constants/url";
+import {over} from "stompjs";
+import {addNotification} from "../../redux/actions/admin_actions";
+import {useDispatch} from "react-redux";
+
+export let stompClient = null;
 
 const Header = (props) => {
     const location = useLocation().pathname;
+    const dispatch = useDispatch()
 
     // const productsInCart = !localStorage.products ? props.productsInCart : JSON.parse(localStorage.products).length;
 
+    useEffect(() => {
+        if (localStorage.role === 'ADMIN') {
+            let Sock = new SockJS(`${API_BASE_URL}/ws`);
+            stompClient = over(Sock);
+            stompClient.connect({}, onConnected, err => console.log(err))
+        }
+    }, []);
+
+
+    const onConnected = () => {
+        stompClient.subscribe('/topic/test', (notification) => dispatch(addNotification(notification)));
+    }
 
     const handleClickOnShopRef = (e) => {
         e.preventDefault();
@@ -46,6 +61,7 @@ const Header = (props) => {
                         <>
                             <NavLink className={style.icon} to={'/profile'}>
                                 <FontAwesomeIcon icon={faUser}/>
+                                {localStorage.role === 'ADMIN' && props.notifications.length > 0 && <span>!</span>}
                             </NavLink>
                             {/*продумать логаут (куда делать редирект)*/}
                             <NavLink className={style.icon} to={location.includes('/profile') ? '/' : '#'}

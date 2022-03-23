@@ -3,19 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Footer from './components/Footer/Footer';
-import {connect, useDispatch, useSelector} from 'react-redux';
-import {compose} from 'redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Preloader from "./components/common/Preloader/Preloader";
 import {init} from "./redux/thunks/app_thunks";
-import {toggleCartLayout, togglePopUp, toggleSignInSignUpPopUp} from "./redux/actions/app_actions";
 import PopUp from "./components/common/PopUp/PopUp";
 import SignInSignUpPopUp from "./components/SignInSignUpPopUp/SignInSignUpPopUp";
-import style from './App.scss';
 import ScrollToTopButton from "./components/common/ScrollToTopButton/ScrollToTopButton";
 import CartLayout from "./components/CartLayout/CartLayout";
-import {removeFromCart, toggleIsCartShow, updateProductInCart} from "./redux/actions/shop_actions";
-import {registration} from "./redux/thunks/registration_thunks";
-import {login} from "./redux/thunks/auth_thunks";
 import useNotifier from "./components/hooks/useNotifier";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
@@ -27,7 +21,6 @@ const CartPage = React.lazy(() => import('./components/Cart/CartContainer'));
 const OrderPage = React.lazy(() => import('./components/Order/OrderContainer'));
 const OrderSuccess = React.lazy(() => import('./components/OrderSuccess/OrderSuccessContainer'));
 const CakeConstructor = React.lazy(() => import('./components/CakeConstructor/CakeConstructor'));
-
 
 const App = (props) => {
     // catchAllUnhandledErrors = (e) => {
@@ -56,6 +49,7 @@ const App = (props) => {
     useEffect(() => {
         dispatch(init());
     }, [])
+
 
     return <>
         <PopUp isActive={isSignInSignUpPopUpShow}>

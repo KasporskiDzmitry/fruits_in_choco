@@ -3,13 +3,16 @@ import {loginSuccess, logoutSuccess, refreshTokenSuccess, toggleIsFetching} from
 import {reset, stopSubmit} from "redux-form";
 import {removeUserInfoFromLS, saveUserInfoToLS} from "../../components/utils/localStorageFunctions";
 import {toggleSignInSignUpPopUp} from "../actions/app_actions";
+import {stompClient} from "../../components/Header/Header";
+
+
 
 export const login = (email, password) => async dispatch => {
     dispatch(toggleIsFetching());
     try {
         const response = await RequestService.post("/auth/login", {email, password});
-
         saveUserInfoToLS(response.data);
+        // connectWebSocket();
 
         dispatch(loginSuccess(
             response.data.id,
@@ -24,6 +27,9 @@ export const login = (email, password) => async dispatch => {
         dispatch(stopSubmit('login', {_error: error.response.data}));
     } finally {
         dispatch(toggleIsFetching());
+
+        // IS IT SAFE???
+        window.location.reload(false)
     }
 };
 
@@ -31,6 +37,11 @@ export const logout = () => async dispatch => {
     await RequestService.post("/auth/logout", null, true);
     removeUserInfoFromLS();
     dispatch(logoutSuccess());
+
+    if (stompClient !== null) {
+        stompClient.disconnect();
+        console.log("Websocket has been disconnected");
+    }
 };
 
 export const refreshToken = () => async dispatch => {

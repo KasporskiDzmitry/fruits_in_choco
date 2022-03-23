@@ -2,8 +2,9 @@ import React from 'react';
 import {NavLink, Route} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
 import {connect} from "react-redux";
-import {addCategory, addProduct} from "../../redux/thunks/admin_thunks";
+import {addCategory, addProduct, loadProductsAdmin} from "../../redux/thunks/admin_thunks";
 import style from './Admin.module.scss';
+import {loadAllOrders} from "../../redux/thunks/order_thunks";
 
 const AdminCategoryContainer = React.lazy(() => import('./Category/CategoriesContainer'));
 const OrdersContainer = React.lazy(() => import('./Order/OrdersContainer'));
@@ -17,14 +18,20 @@ const AdminCategoryPage = React.lazy(() => import('./Category/EditCategory/EditC
 const CakeConstructorData = React.lazy(() => import('./CakeConstructor/CakeConstructorData'));
 
 class Admin extends React.Component {
+
+    componentDidMount() {
+        this.props.loadProductsAdmin();
+        this.props.loadAllOrders();
+    }
+
     render() {
         return <div className={`sectionOuter`}>
             <div className="sectionInner">
                 <div className={style.innerWrapper}>
                     <nav className={style.navbarNav}>
-                        <NavLink to={'/profile/admin/orders'}>Заказы</NavLink>
+                        <NavLink to={'/profile/admin/orders'}>Заказы {this.props.newOrders > 0 && <span className={style.newOrders}>+{this.props.newOrders}</span>}</NavLink>
                         <NavLink to={'/profile/admin/categories'}>Категории</NavLink>
-                        <NavLink to={'/profile/admin/products'}>Продукты</NavLink>
+                        <NavLink to={'/profile/admin/products'}>Продукты {this.props.newReviews > 0 && <span className={style.newOrders}>+{this.props.newReviews}</span>}</NavLink>
                         <NavLink to={'/profile/admin/add_product'}>Добавить продукт</NavLink>
                         <NavLink to={'/profile/admin/add_category'}>Добавить категорию</NavLink>
                         <NavLink to={'/profile/admin/users'}>Пользователи</NavLink>
@@ -69,7 +76,9 @@ const mapStateToProps = (state) => ({
     isCategoryAddedSuccess: state.adminReducer.isCategoryAddedSuccess,
     isProductFetching: state.adminReducer.isProductFetching,
     isCategoryFetching: state.adminReducer.isCategoryFetching,
+    newReviews: state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length,
+    newOrders: state.orderReducer.orders.length > 0 && state.orderReducer.orders.filter(i => i.status === 'NOT_CONFIRMED').length
 })
 
-export default connect(mapStateToProps, {addProduct, addCategory})(Admin);
+export default connect(mapStateToProps, {addProduct, addCategory, loadProductsAdmin, loadAllOrders})(Admin);
 

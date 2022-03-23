@@ -4,9 +4,6 @@ import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.*;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.*;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -104,7 +101,6 @@ public class ProductServiceImpl implements ProductService {
         user.getRatings().add(rating);
 
         productRatingRepository.save(rating);
-
         return product;
     }
 

@@ -7,7 +7,7 @@ import {loadProductsAdmin} from "../../../redux/thunks/admin_thunks";
 class ProductsContainer extends React.Component {
 
     componentDidMount() {
-        this.props.loadProductsAdmin();
+        // this.props.loadProductsAdmin();
     }
 
     render() {

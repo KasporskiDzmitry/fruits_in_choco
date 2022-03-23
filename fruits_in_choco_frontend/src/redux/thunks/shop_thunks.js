@@ -2,10 +2,11 @@ import RequestService from "../RequestService";
 import {
     addToCart,
     setCurrentProduct,
-    setCurrentProductReviews, setIsProductFetching, setIsProductsFetching,
+    setCurrentProductReviews,
+    setIsProductFetching,
+    setIsProductsFetching,
     setProducts
 } from "../actions/shop_actions";
-import {setProduct} from "../actions/admin_actions";
 import {addProductToCart, isProductInCart} from "../../components/utils/localStorageFunctions";
 
 export const loadProducts = () => async dispatch => {
@@ -47,6 +48,8 @@ export const addReview = (review) => async dispatch => {
     const response = await RequestService.post(`/products/${review.productId}/ratings`, review, true);
     dispatch(setCurrentProduct(response.data));
     dispatch(setCurrentProductReviews(response.data.ratings));
+
+
 
     // зачем ??
     // dispatch(getProfile());

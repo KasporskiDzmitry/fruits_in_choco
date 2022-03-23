@@ -8,6 +8,7 @@ const columns = [
     { key: 'name', header: 'Название', sortable: true, searchable: true },
     { key: 'price', header: 'Цена', sortable: true, searchable: true },
     { key: 'date', header: 'Дата', sortable: true, searchable: true },
+    { key: 'status', header: 'Статус', sortable: true, searchable: true },
     { key: 'actions', header: 'Actions', Component: OrderTableActions }
 ];
 

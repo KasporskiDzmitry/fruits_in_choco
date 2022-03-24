@@ -1,8 +1,8 @@
-import React, { Component} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import sematable, { Table } from 'sematable';
+import sematable, {Table} from 'sematable';
 import {getActionsByTableName} from "./ConstructorTableActions";
-import TableCell, {createCell} from "./TableCell";
+import {createCell} from "./TableCell";
 
 const columns = [
     { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },

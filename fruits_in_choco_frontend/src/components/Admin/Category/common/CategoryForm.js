@@ -1,9 +1,8 @@
 import React from "react";
 import {Button} from "react-bootstrap";
-import {Field, FieldArray} from "redux-form";
+import {Field} from "redux-form";
 import {Input, Textarea} from "../../../common/FormsControls/FormsControls";
 import {required} from "../../../utils/validators/validators";
-import formsControlsStyle from "../../../common/FormsControls/FormsControls.module.scss";
 import style from './CategoryForm.module.scss';
 
 export const CategoryForm = ({handleSubmit, error}) => {

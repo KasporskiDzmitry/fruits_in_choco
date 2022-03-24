@@ -24,11 +24,8 @@ export const getActionsByTableName = (name) => {
         );
     };
 
-    const propTypes = {
+    Actions.propTypes = {
         row: PropTypes.object.isRequired,
     };
-
-
-    Actions.propTypes = propTypes;
     return Actions;
 }

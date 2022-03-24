@@ -1,6 +1,6 @@
-import React, { Component} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import sematable, {makeSelectors, Table} from 'sematable';
+import sematable, {Table} from 'sematable';
 import OrderTableActions from "./OrderTableActions";
 
 const columns = [

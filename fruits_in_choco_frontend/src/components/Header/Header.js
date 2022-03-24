@@ -15,8 +15,6 @@ const Header = (props) => {
     const location = useLocation().pathname;
     const dispatch = useDispatch()
 
-    // const productsInCart = !localStorage.products ? props.productsInCart : JSON.parse(localStorage.products).length;
-
     useEffect(() => {
         if (localStorage.role === 'ADMIN') {
             let Sock = new SockJS(`${API_BASE_URL}/ws`);

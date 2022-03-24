@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Field, reduxForm} from "redux-form";
 import formsControlsStyle from '../../../common/FormsControls/FormsControls.module.scss';
 import style from './AddProduct.module.scss';

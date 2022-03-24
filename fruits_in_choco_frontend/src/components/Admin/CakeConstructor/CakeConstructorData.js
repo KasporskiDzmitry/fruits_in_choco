@@ -5,7 +5,6 @@ import FillingsTable from "./FillingsTable";
 import DecorationsTable from "./DecorationsTable";
 import {useDispatch, useSelector} from "react-redux";
 import {createConstructorData, loadData} from "../../../redux/thunks/cakeConstructor_thunks";
-import {addRow} from "../../../redux/actions/cakeConstructor_actions";
 
 const CakeConstructorData = (props) => {
     const data = useSelector(state => state.cakeConstructorReducer.data);

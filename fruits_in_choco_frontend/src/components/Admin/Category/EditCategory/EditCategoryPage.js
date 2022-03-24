@@ -1,8 +1,7 @@
 import React from "react";
 import style from './EditCategoryPage.module.scss';
-import {Field, FieldArray, reduxForm} from "redux-form";
+import {reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import Preloader from "../../../common/Preloader/Preloader";
 import Expire from "../../../common/Expire/Expire";
 import {CategoryForm} from "../common/CategoryForm";
 

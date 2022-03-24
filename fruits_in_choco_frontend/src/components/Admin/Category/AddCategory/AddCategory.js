@@ -1,5 +1,5 @@
 import React from "react";
-import {Field, FieldArray, reduxForm} from "redux-form";
+import {reduxForm} from "redux-form";
 import Expire from "../../../common/Expire/Expire";
 import {CategoryForm} from "../common/CategoryForm";
 import style from './AddCategory.module.scss';

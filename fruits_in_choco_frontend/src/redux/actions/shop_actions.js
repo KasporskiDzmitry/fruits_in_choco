@@ -1,8 +1,8 @@
 import {
-    ADD_TO_CART, APPROVE_REVIEW, CLEAR_CART, REMOVE_FROM_CART,
+    ADD_TO_CART, APPROVE_REVIEW, CLEAR_CART, DELETE_REVIEW, REMOVE_FROM_CART,
     SET_CURRENT_PRODUCT,
     SET_CURRENT_PRODUCT_REVIEWS, SET_FILTERED_CATEGORIES, SET_IS_PRODUCT_FETCHING, SET_IS_PRODUCTS_FETCHING,
-    SET_PRODUCTS, UPDATE_PRODUCT_IN_CART
+    SET_PRODUCTS, UPDATE_PRODUCT, UPDATE_PRODUCT_IN_CART
 } from "../action_types/shop_action_types";
 
 export const setProducts = products => ({type: SET_PRODUCTS, products});
@@ -15,3 +15,4 @@ export const updateProductInCart = (product) => ({type: UPDATE_PRODUCT_IN_CART, 
 export const clearCart = () => ({type: CLEAR_CART});
 export const setIsProductsFetching = (isFetching) => ({type: SET_IS_PRODUCTS_FETCHING, isFetching})
 export const setIsProductFetching = (isFetching) => ({type: SET_IS_PRODUCT_FETCHING, isFetching})
+export const updateProduct = product => ({type: UPDATE_PRODUCT, product})

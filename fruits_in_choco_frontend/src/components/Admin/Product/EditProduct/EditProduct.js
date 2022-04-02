@@ -87,7 +87,7 @@ const EditProduct = props => {
 
     const remove = (product, ratingId) => {
         if (window.confirm('Удлаить?')) {
-            props.deleteReview(product.id, ratingId);
+            props.deleteReview(product, ratingId);
         }
     }
 

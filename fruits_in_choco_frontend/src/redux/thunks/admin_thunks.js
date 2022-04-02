@@ -6,7 +6,7 @@ import {
     setProduct,
     setUsers,
 } from "../actions/admin_actions";
-import {setProducts} from "../actions/shop_actions";
+import {setProducts, updateProduct} from "../actions/shop_actions";
 import {loadCategories} from "./category_thunks";
 import {deleteCategory} from "../actions/category_actions";
 import {enqueueSnackbar} from "../actions/app_actions";
@@ -40,6 +40,7 @@ export const loadProductByIdAdmin = (id) => async dispatch => {
     try {
         const response = await RequestService.get(`/products/${id}`, true);
         dispatch(setProduct(response.data));
+        dispatch(updateProduct(response.data));
     } catch (e) {
         console.log(e)
     }
@@ -68,11 +69,11 @@ export const approveReview = (review, productId) => async dispatch => {
     }
 }
 
-export const deleteReview = (productId, ratingId) => async dispatch => {
+export const deleteReview = (product, ratingId) => async dispatch => {
     try {
-        const response = await RequestService.delete(`/admin/products/${productId}/ratings/${ratingId}`, true);
+        const response = await RequestService.delete(`/admin/products/${product.id}/ratings/${ratingId}`, true);
         dispatch(enqueueSnackbar("Review removed successfully", "success"));
-        dispatch(loadProductByIdAdmin(productId));
+        dispatch(loadProductByIdAdmin(product.id));
     } catch (e) {
         dispatch(enqueueSnackbar("Error while removing review", "error"));
         console.log(e)

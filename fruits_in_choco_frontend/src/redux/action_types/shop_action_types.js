@@ -8,3 +8,5 @@ export const REMOVE_FROM_CART = 'shop/REMOVE_FROM_CART';
 export const CLEAR_CART = 'shop/CLEAR_CART';
 export const SET_IS_PRODUCTS_FETCHING = 'shop/SET_IS_PRODUCTS_FETCHING';
 export const SET_IS_PRODUCT_FETCHING = 'shop/SET_IS_PRODUCT_FETCHING';
+export const UPDATE_PRODUCT = 'shop/UPDATE_PRODUCT';
+

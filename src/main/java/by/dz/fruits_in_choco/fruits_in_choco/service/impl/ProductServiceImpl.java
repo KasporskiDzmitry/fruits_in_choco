@@ -1,9 +1,11 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
+import by.dz.fruits_in_choco.fruits_in_choco.controller.NotificationController;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.*;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.*;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,12 +18,14 @@ public class ProductServiceImpl implements ProductService {
     private final UserRepository userRepository;
     private final ProductRatingRepository productRatingRepository;
     private final OrderItemRepository orderItemRepository;
+    private SimpMessagingTemplate simpMessagingTemplate;
 
-    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository, ProductRatingRepository ratingRepository, OrderItemRepository orderItemRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository, ProductRatingRepository ratingRepository, OrderItemRepository orderItemRepository, SimpMessagingTemplate simpMessagingTemplate) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
         this.productRatingRepository = ratingRepository;
         this.orderItemRepository = orderItemRepository;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     @Override
@@ -101,6 +105,9 @@ public class ProductServiceImpl implements ProductService {
         user.getRatings().add(rating);
 
         productRatingRepository.save(rating);
+
+        simpMessagingTemplate.convertAndSend("/notification", new Notification());
+
         return product;
     }
 

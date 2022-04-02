@@ -1,10 +1,16 @@
 import {
     SET_CURRENT_PRODUCT,
-    SET_CURRENT_PRODUCT_REVIEWS, SET_FILTERED_CATEGORIES,
+    SET_CURRENT_PRODUCT_REVIEWS,
+    SET_FILTERED_CATEGORIES,
     SET_PRODUCTS,
     ADD_TO_CART,
     CLEAR_CART,
-    REMOVE_FROM_CART, UPDATE_PRODUCT_IN_CART, SET_IS_PRODUCTS_FETCHING, SET_IS_PRODUCT_FETCHING
+    REMOVE_FROM_CART,
+    UPDATE_PRODUCT_IN_CART,
+    SET_IS_PRODUCTS_FETCHING,
+    SET_IS_PRODUCT_FETCHING,
+    DELETE_REVIEW,
+    UPDATE_PRODUCT
 } from "../action_types/shop_action_types";
 
 const initialState = {
@@ -37,6 +43,13 @@ const shopReducer = (state = initialState, action) => {
                 ...state,
                 cart: [...state.cart.slice(0, state.cart.findIndex(i => i.id === action.product.id)),
                     action.product, ...state.cart.slice(state.cart.findIndex(i => i.id === action.product.id) + 1)]
+            }
+        }
+        case UPDATE_PRODUCT: {
+            return {
+                ...state,
+                products: [...state.products.slice(0, state.products.findIndex(i => i.id === action.product.id)),
+                action.product, ...state.products.slice(state.products.findIndex(i => i.id === action.product.id) + 1)]
             }
         }
         case REMOVE_FROM_CART: {

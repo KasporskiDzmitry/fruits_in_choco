@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {addCategory, addProduct, loadProductsAdmin} from "../../redux/thunks/admin_thunks";
 import style from './Admin.module.scss';
 import {loadAllOrders} from "../../redux/thunks/order_thunks";
+import {notificationRead} from "../../redux/actions/admin_actions";
 
 const AdminCategoryContainer = React.lazy(() => import('./Category/CategoriesContainer'));
 const OrdersContainer = React.lazy(() => import('./Order/OrdersContainer'));
@@ -22,6 +23,10 @@ class Admin extends React.Component {
     componentDidMount() {
         this.props.loadProductsAdmin();
         this.props.loadAllOrders();
+
+        if (this.props.isNotificationReceived) {
+            this.props.notificationRead();
+        }
     }
 
     render() {
@@ -77,8 +82,9 @@ const mapStateToProps = (state) => ({
     isProductFetching: state.adminReducer.isProductFetching,
     isCategoryFetching: state.adminReducer.isCategoryFetching,
     newReviews: state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length,
-    newOrders: state.orderReducer.orders.length > 0 && state.orderReducer.orders.filter(i => i.status === 'NOT_CONFIRMED').length
+    newOrders: state.orderReducer.orders.length > 0 && state.orderReducer.orders.filter(i => i.status === 'NOT_CONFIRMED').length,
+    isNotificationReceived: state.adminReducer.isNotificationReceived
 })
 
-export default connect(mapStateToProps, {addProduct, addCategory, loadProductsAdmin, loadAllOrders})(Admin);
+export default connect(mapStateToProps, {addProduct, addCategory, loadProductsAdmin, loadAllOrders, notificationRead})(Admin);
 

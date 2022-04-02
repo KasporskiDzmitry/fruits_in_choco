@@ -6,7 +6,7 @@ import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg
 import SockJS from "sockjs-client";
 import {API_BASE_URL} from "../utils/constants/url";
 import {over} from "stompjs";
-import {addNotification} from "../../redux/actions/admin_actions";
+import {notificationReceived} from "../../redux/actions/admin_actions";
 import {useDispatch} from "react-redux";
 
 export let stompClient = null;
@@ -25,7 +25,7 @@ const Header = (props) => {
 
 
     const onConnected = () => {
-        stompClient.subscribe('/topic/test', (notification) => dispatch(addNotification(notification)));
+        stompClient.subscribe('/topic/notification', () => dispatch(notificationReceived()));
     }
 
     const handleClickOnShopRef = (e) => {
@@ -59,7 +59,7 @@ const Header = (props) => {
                         <>
                             <NavLink className={style.icon} to={'/profile'}>
                                 <FontAwesomeIcon icon={faUser}/>
-                                {localStorage.role === 'ADMIN' && props.notifications.length > 0 && <span>!</span>}
+                                {localStorage.role === 'ADMIN' && (props.newOrders > 0 || props.newReviews > 0 || props.isNotificationReceived) && <span>!</span>}
                             </NavLink>
                             {/*продумать логаут (куда делать редирект)*/}
                             <NavLink className={style.icon} to={location.includes('/profile') ? '/' : '#'}

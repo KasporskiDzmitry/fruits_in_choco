@@ -4,19 +4,17 @@ import {
     CATEGORY_ADDED_SUCCESS,
     SET_PRODUCT,
     SET_USERS,
-    TOGGLE_IS_FETCHING,
     REVIEW_APPROVED_SUCCESS,
     REVIEW_REJECTED_SUCCESS,
-    SET_IS_PRODUCT_FETCHING,
     ADD_NOTIFICATION,
-    REMOVE_NOTIFICATION,
+    REMOVE_NOTIFICATION, NOTIFICATION_RECEIVED, NOTIFICATION_READ,
 } from "../action_types/admin_action_types";
 
 const initialState = {
     users: [],
     product: {},
     review: {},
-    notifications: [],
+    isNotificationReceived: false,
     isProductAddedSuccess: false,
     isCategoryAddedSuccess: false,
     isReviewApprovedSuccess: false,
@@ -25,16 +23,16 @@ const initialState = {
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_NOTIFICATION: {
+        case NOTIFICATION_RECEIVED: {
             return {
                 ...state,
-                notifications: [...state.notifications, action.notification]
+                isNotificationReceived: true
             }
         }
-        case REMOVE_NOTIFICATION: {
+        case NOTIFICATION_READ: {
             return {
                 ...state,
-                notifications: state.notifications.filter(i => i.id !== action.id)
+                isNotificationReceived: false
             }
         }
         case SET_USERS: {

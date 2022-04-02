@@ -12,8 +12,6 @@ export const login = (email, password) => async dispatch => {
     try {
         const response = await RequestService.post("/auth/login", {email, password});
         saveUserInfoToLS(response.data);
-        // connectWebSocket();
-
         dispatch(loginSuccess(
             response.data.id,
             response.data.email,
@@ -41,14 +39,5 @@ export const logout = () => async dispatch => {
     if (stompClient !== null) {
         stompClient.disconnect();
         console.log("Websocket has been disconnected");
-    }
-};
-
-export const refreshToken = () => async dispatch => {
-    try {
-        const response = await RequestService.post("/auth/refreshToken");
-        refreshTokenSuccess(response.data);
-    } catch (e) {
-        dispatch(logout());
     }
 };

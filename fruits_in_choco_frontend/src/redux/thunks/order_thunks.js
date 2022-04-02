@@ -2,7 +2,6 @@ import {orderMadeSuccess, setOrderInfo, setOrders, toggleIsFetching} from "../ac
 import RequestService from "../RequestService";
 import {reset, stopSubmit} from "redux-form";
 import {clearCart} from "../actions/shop_actions";
-import {addNotification} from "../actions/admin_actions";
 
 export const makeOrder = (order, history) => async dispatch => {
     dispatch(toggleIsFetching(true));

@@ -9,8 +9,6 @@ import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -18,6 +16,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static by.dz.fruits_in_choco.fruits_in_choco.security.AuthenticatedUserAuthorityAdminChecker.isAuthenticatedAndAdmin;
 
 @Component
 @RequiredArgsConstructor
@@ -35,7 +35,7 @@ public class ProductMapper {
 
     public ProductResponse getProductById(Long id) {
         Product product = service.getProductById(id);
-        if (!isAdmin()) {
+        if (!isAuthenticatedAndAdmin()) {
             if (product.getStatus().equals(ProductStatus.DELETED)) {
                 throw new ProductDeletedException("Product was deleted");
             }
@@ -54,13 +54,8 @@ public class ProductMapper {
         return mapToResponseDTO(service.rateProduct(request, id));
     }
 
-    private boolean isAdmin() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
-    }
-
     public ProductResponse mapToResponseDTO(Product product) {
-        if (isAdmin()) {
+        if (isAuthenticatedAndAdmin()) {
             return mapForAdmin(product);
         } else {
             return mapForUser(product);

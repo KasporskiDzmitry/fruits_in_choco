@@ -34,7 +34,6 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         try {
-            System.out.println("controller");
             return ResponseEntity.ok(mapper.getProductById(id));
         } catch (ProductDeletedException e) {
             return ResponseEntity.status(404).body(e.getMessage());

@@ -21,7 +21,9 @@ const mapStateToProps = state => ({
     login: state.authReducer.login,
     productCategories: state.categoryReducer.categories.map(i => i.id),
     productsInCart: localStorage.products ? JSON.parse(localStorage.products) : [],
-    notifications: state.adminReducer.notifications
+    newReviews: state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length,
+    newOrders: state.orderReducer.orders.length > 0 && state.orderReducer.orders.filter(i => i.status === 'NOT_CONFIRMED').length,
+    isNotificationReceived: state.adminReducer.isNotificationReceived
 });
 
 export default compose(

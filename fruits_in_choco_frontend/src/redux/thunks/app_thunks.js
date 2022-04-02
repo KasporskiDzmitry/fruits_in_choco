@@ -2,8 +2,8 @@ import {initializedSuccess} from "../actions/app_actions";
 import {refreshTokenSuccess} from "../actions/auth_actions";
 import RequestService from "../RequestService";
 import {loadCategories} from "./category_thunks";
-
-// export let stompClient = null;
+import {loadProductsAdmin} from "./admin_thunks";
+import {loadAllOrders} from "./order_thunks";
 
 export const init = () => async dispatch => {
     if (localStorage.name) {
@@ -19,24 +19,12 @@ export const init = () => async dispatch => {
         }
     }
 
-    // connectWebSocket();
+    if (localStorage.role === 'ADMIN') {
+        dispatch(loadProductsAdmin());
+        dispatch(loadAllOrders());
+    }
 
     await Promise.all([dispatch(loadCategories())]);
     dispatch(initializedSuccess());
 };
 
-export const connectWebSocket = () => {
-    // const dispatch = useDispatch();
-    // const onMessageReceived = (notification) => {
-    //     dispatch(addNotification(notification))
-    // }
-    // const onConnected = () => {
-    //     stompClient.subscribe('/topic/test', onMessageReceived);
-    // }
-    //
-    // if (localStorage.role === 'ADMIN') {
-    //     let Sock = new SockJS(`${API_BASE_URL}/ws`);
-    //     stompClient = over(Sock);
-    //     stompClient.connect({}, onConnected, (err) => console.log(err));
-    // }
-}

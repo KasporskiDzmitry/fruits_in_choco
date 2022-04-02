@@ -2,7 +2,6 @@ import RequestService from "../RequestService";
 import {reset} from "redux-form";
 import {loadProducts} from "./shop_thunks";
 import {
-    addNotification,
     setProduct,
     setUsers,
 } from "../actions/admin_actions";

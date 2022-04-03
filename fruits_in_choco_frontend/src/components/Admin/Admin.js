@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {addCategory, addProduct, loadProductsAdmin} from "../../redux/thunks/admin_thunks";
 import style from './Admin.module.scss';
 import {loadAllOrders} from "../../redux/thunks/order_thunks";
-import {notificationRead} from "../../redux/actions/admin_actions";
+import {notificationWatched} from "../../redux/actions/admin_actions";
 
 const AdminCategoryContainer = React.lazy(() => import('./Category/CategoriesContainer'));
 const OrdersContainer = React.lazy(() => import('./Order/OrdersContainer'));
@@ -25,7 +25,7 @@ class Admin extends React.Component {
         this.props.loadAllOrders();
 
         if (this.props.isNotificationReceived) {
-            this.props.notificationRead();
+            this.props.notificationWatched();
         }
     }
 
@@ -86,5 +86,5 @@ const mapStateToProps = (state) => ({
     isNotificationReceived: state.adminReducer.isNotificationReceived
 })
 
-export default connect(mapStateToProps, {addProduct, addCategory, loadProductsAdmin, loadAllOrders, notificationRead})(Admin);
+export default connect(mapStateToProps, {addProduct, addCategory, loadProductsAdmin, loadAllOrders, notificationWatched})(Admin);
 

@@ -3,7 +3,7 @@ import {Field, reduxForm} from "redux-form";
 import formsControlsStyle from '../../../common/FormsControls/FormsControls.module.scss';
 import style from './AddProduct.module.scss';
 import {Button} from 'react-bootstrap';
-import {required} from "../../../utils/validators/validators";
+import {number, required} from "../../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
 import Expire from "../../../common/Expire/Expire";
 
@@ -23,7 +23,7 @@ const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
             </div>
             <div className={style.fieldWrapper}>
                 <div className={style.label}>Цена</div>
-                <Field className={style.field} placeholder={'Price'} name={'price'} component={Input} validate={[required]}/>
+                <Field className={style.field} placeholder={'Price'} name={'price'} component={Input} validate={[required, number]}/>
             </div>
             <div className={style.fieldWrapper}>
                 <div className={style.label}>Описание</div>

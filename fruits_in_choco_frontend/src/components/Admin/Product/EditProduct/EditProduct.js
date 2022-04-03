@@ -1,17 +1,15 @@
 import React, {useState} from "react";
 import {Field, reduxForm} from "redux-form";
 import style from './EditProduct.module.scss';
-import reviewItemStyle from '../../../Shop/ProductPage/ProductPage.module.scss';
 import {Button} from 'react-bootstrap';
-import {required} from "../../../utils/validators/validators";
+import {number, required} from "../../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
 import Expire from "../../../common/Expire/Expire";
-import Preloader from "../../../common/Preloader/Preloader";
 import formsControlsStyle from "../../../common/FormsControls/FormsControls.module.scss";
 import {connect} from "react-redux";
 import Rating from "@material-ui/lab/Rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faCheckCircle, faClosedCaptioning, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 
 const EditProductForm = ({handleSubmit, error, categories, isFetching, product}) => {
     const [categoryId, setCategoryId] = useState(product.categoryId);
@@ -30,7 +28,7 @@ const EditProductForm = ({handleSubmit, error, categories, isFetching, product})
             <div className={style.fieldWrapper}>
                 <div className={style.label}>Цена</div>
                 <Field className={style.field} placeholder={'Price'} name={'price'} component={Input}
-                       validate={[required]}/>
+                       validate={[required, number]}/>
             </div>
             <div className={style.fieldWrapper}>
                 <div className={style.label}>Описание</div>

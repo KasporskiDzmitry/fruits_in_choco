@@ -1,13 +1,13 @@
 import {
-    SET_REVIEW,
-    PRODUCT_ADDED_SUCCESS,
     CATEGORY_ADDED_SUCCESS,
-    SET_PRODUCT,
-    SET_USERS,
+    NOTIFICATION_RECEIVED,
+    NOTIFICATION_WATCHED,
+    PRODUCT_ADDED_SUCCESS,
     REVIEW_APPROVED_SUCCESS,
     REVIEW_REJECTED_SUCCESS,
-    ADD_NOTIFICATION,
-    REMOVE_NOTIFICATION, NOTIFICATION_RECEIVED, NOTIFICATION_READ,
+    SET_PRODUCT,
+    SET_REVIEW,
+    SET_USERS,
 } from "../action_types/admin_action_types";
 
 const initialState = {
@@ -29,7 +29,7 @@ const adminReducer = (state = initialState, action) => {
                 isNotificationReceived: true
             }
         }
-        case NOTIFICATION_READ: {
+        case NOTIFICATION_WATCHED: {
             return {
                 ...state,
                 isNotificationReceived: false

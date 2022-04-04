@@ -3,7 +3,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
-import lombok.RequiredArgsConstructor;
+import by.dz.fruits_in_choco.fruits_in_choco.service.impl.CategoryServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +11,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 public class CategoryMapper {
 
     private final CategoryService service;
     private final ModelMapper modelMapper;
+
+    public CategoryMapper(CategoryServiceImpl service, ModelMapper modelMapper) {
+        this.service = service;
+        this.modelMapper = modelMapper;
+    }
 
     public List<CategoryResponse> getCategories(int page, int size, String sortBy, String direction) {
         List<Category> categoryList = service.getCategories(page, size, sortBy, direction);
@@ -29,7 +33,6 @@ public class CategoryMapper {
     }
 
     public CategoryResponse mapToResponseDTO(Category category) {
-        CategoryResponse categoryResponse = modelMapper.map(category, CategoryResponse.class);
-        return categoryResponse;
+        return modelMapper.map(category, CategoryResponse.class);
     }
 }

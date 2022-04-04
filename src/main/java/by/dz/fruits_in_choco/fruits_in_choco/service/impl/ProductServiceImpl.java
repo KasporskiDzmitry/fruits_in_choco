@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
     private final UserRepository userRepository;
     private final ProductRatingRepository productRatingRepository;
     private final OrderItemRepository orderItemRepository;
-    private SimpMessagingTemplate simpMessagingTemplate;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository, ProductRatingRepository ratingRepository, OrderItemRepository orderItemRepository, SimpMessagingTemplate simpMessagingTemplate) {
         this.productRepository = productRepository;

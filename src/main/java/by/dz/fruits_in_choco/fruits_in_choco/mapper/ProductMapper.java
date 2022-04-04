@@ -7,7 +7,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductStatus;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
-import lombok.RequiredArgsConstructor;
+import by.dz.fruits_in_choco.fruits_in_choco.service.impl.ProductServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +20,15 @@ import java.util.stream.Collectors;
 import static by.dz.fruits_in_choco.fruits_in_choco.security.AuthenticatedUserAuthorityAdminChecker.isAuthenticatedAndAdmin;
 
 @Component
-@RequiredArgsConstructor
 public class ProductMapper {
 
     private final ProductService service;
     private final ModelMapper modelMapper;
+
+    public ProductMapper(ProductServiceImpl service, ModelMapper modelMapper) {
+        this.service = service;
+        this.modelMapper = modelMapper;
+    }
 
     public List<ProductResponse> getProducts(int page, int size, String direction, String sortBy) {
         List<Product> products = service.getProducts(page, size, direction, sortBy);

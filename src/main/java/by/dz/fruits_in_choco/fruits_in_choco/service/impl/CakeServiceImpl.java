@@ -6,6 +6,8 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductStatus;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.*;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.*;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CakeService;
+import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
+import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -18,8 +20,8 @@ public class CakeServiceImpl implements CakeService {
     private final BiscuitRepository biscuitRepository;
     private final FillingRepository fillingRepository;
     private final DecorationRepository decorationRepository;
-    private final ProductServiceImpl productService;
-    private final CategoryServiceImpl categoryService;
+    private final ProductService productService;
+    private final CategoryService categoryService;
 
     public CakeServiceImpl(CakeRepository cakeRepository, BiscuitRepository biscuitRepository, FillingRepository fillingRepository, DecorationRepository decorationRepository, ProductServiceImpl productService, CategoryServiceImpl categoryService) {
         this.cakeRepository = cakeRepository;

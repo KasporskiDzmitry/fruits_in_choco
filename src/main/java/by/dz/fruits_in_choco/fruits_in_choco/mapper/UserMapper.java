@@ -1,24 +1,28 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.RegistrationRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.order.OrderRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
 import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.UserService;
-import lombok.RequiredArgsConstructor;
+import by.dz.fruits_in_choco.fruits_in_choco.service.impl.UserServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Component
-@RequiredArgsConstructor
 public class UserMapper {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final RegistrationService registrationService;
+
+    public UserMapper(ModelMapper modelMapper, UserServiceImpl userService, RegistrationService registrationService) {
+        this.modelMapper = modelMapper;
+        this.userService = userService;
+        this.registrationService = registrationService;
+    }
 
     private User convertToEntity(UserRequest userRequest) {
         return modelMapper.map(userRequest, User.class);

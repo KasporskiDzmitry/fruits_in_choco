@@ -1,16 +1,19 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
-import by.dz.fruits_in_choco.fruits_in_choco.controller.NotificationController;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.*;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.*;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static by.dz.fruits_in_choco.fruits_in_choco.security.AuthenticatedUserAuthorityAdminChecker.isAuthenticatedAndAdmin;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -28,22 +31,56 @@ public class ProductServiceImpl implements ProductService {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
+    private boolean isProductActive(Product p) {
+        return p.getStatus().equals(ProductStatus.ACTIVE);
+    }
+
+    private Product filterUnapprovedRatings(Product product) {
+        product.setRatings(Optional.ofNullable(product.getRatings())
+                .orElseGet(Collections::emptyList)
+                .stream()
+                .filter(Objects::nonNull)
+                .filter(ProductRating::isApproved)
+                .collect(Collectors.toList())
+        );
+
+        return product;
+    }
+
     @Override
     public List<Product> getProducts(int page, int size, String direction, String sortBy) {
-//        Page<Product> productPage = productRepository.findAll(PageRequest.of(page, size, Sort.Direction.fromString(direction), sortBy));
-        List<Product> products = productRepository.findByStatus(ProductStatus.ACTIVE);
-        return products;
+        if (isAuthenticatedAndAdmin()) {
+            return productRepository.findAll(PageRequest.of(page, size, Sort.Direction.fromString(direction), sortBy)).getContent();
+        } else {
+            List<Product> products = productRepository.findByStatus(ProductStatus.ACTIVE);
+            return products.stream().map(this::filterUnapprovedRatings).collect(Collectors.toList());
+        }
     }
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.findById(id).get();
+        Product product = productRepository.findById(id).orElse(null);
+
+        if (product == null) {
+            throw new NoSuchElementException("Продукт не найден");
+        }
+
+        if (!isAuthenticatedAndAdmin()) {
+
+            product = filterUnapprovedRatings(product);
+
+            if (!isProductActive(product)) {
+                throw new ProductDeletedException("Product deleted or not confirmed");
+            }
+        }
+
+        return product;
     }
 
     @Override
     public List<Product> getProductsFilteredByCategories(List<Long> categories) {
         List<Product> products = productRepository.findByCategory_IdIn(categories);
-        return products.stream().filter(i -> i.getStatus().equals(ProductStatus.ACTIVE)).collect(Collectors.toList());
+        return products.stream().filter(this::isProductActive).map(this::filterUnapprovedRatings).collect(Collectors.toList());
     }
 
     @Override
@@ -114,6 +151,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product approveReview(ProductRatingRequest newRating, Long productId, Long ratingId) {
         ProductRating rating = productRatingRepository.findById(ratingId).get();
+
         rating.setApproved(newRating.isApproved());
         rating.setMessage(newRating.getMessage());
 

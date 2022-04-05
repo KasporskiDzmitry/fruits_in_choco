@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
+
 import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 
 @RestController
@@ -35,7 +37,7 @@ public class ProductController {
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(mapper.getProductById(id));
-        } catch (ProductDeletedException e) {
+        } catch (NoSuchElementException | ProductDeletedException e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
     }

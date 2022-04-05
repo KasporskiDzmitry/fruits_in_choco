@@ -3,21 +3,13 @@ package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductStatus;
-import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.ProductServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static by.dz.fruits_in_choco.fruits_in_choco.security.AuthenticatedUserAuthorityAdminChecker.isAuthenticatedAndAdmin;
 
 @Component
 public class ProductMapper {
@@ -38,13 +30,7 @@ public class ProductMapper {
     }
 
     public ProductResponse getProductById(Long id) {
-        Product product = service.getProductById(id);
-        if (!isAuthenticatedAndAdmin()) {
-            if (product.getStatus().equals(ProductStatus.DELETED)) {
-                throw new ProductDeletedException("Product was deleted");
-            }
-        }
-        return mapToResponseDTO(product);
+        return mapToResponseDTO(service.getProductById(id));
     }
 
     public List<ProductResponse> getProductsFilteredByCategories(List<Long> categories) {
@@ -59,32 +45,11 @@ public class ProductMapper {
     }
 
     public ProductResponse mapToResponseDTO(Product product) {
-        if (isAuthenticatedAndAdmin()) {
-            return mapForAdmin(product);
-        } else {
-            return mapForUser(product);
-        }
-    }
-
-    private ProductResponse mapForUser(Product product) {
-        ProductResponse productResponse = mapForAdmin(product);
-
-        List<ProductRating> productRatings = Optional.ofNullable(product.getRatings())
-                .orElseGet(Collections::emptyList)
-                .stream()
-                .filter(Objects::nonNull)
-                .filter(ProductRating::isApproved)
-                .collect(Collectors.toList());
-
-        productResponse.setRatings(productRatings);
-        return productResponse;
-    }
-
-    private ProductResponse mapForAdmin(Product product) {
         modelMapper.typeMap(Product.class, ProductResponse.class).addMappings(mapper -> {
             mapper.map(src -> src.getCategory().getId(),
                     ProductResponse::setCategoryId);
         });
+
         return modelMapper.map(product, ProductResponse.class);
     }
 }

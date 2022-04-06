@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Filling {
-
+@Table(name = "ingredient")
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,4 +19,8 @@ public class Filling {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status", columnDefinition = "ENUM('ACTIVE', 'DELETED')", nullable = false)
     private CakeIngredientStatus status;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "type", columnDefinition = "ENUM('FILLING', 'BISCUIT', 'DECORATION'", nullable = false)
+    private CakeIngredientType type;
 }

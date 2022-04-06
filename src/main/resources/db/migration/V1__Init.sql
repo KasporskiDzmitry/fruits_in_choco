@@ -81,52 +81,20 @@ create table user_orders
     orders_id bigint not null
 );
 
-create table biscuit
+create table ingredient
 (
     id     bigint not null auto_increment,
     name   varchar(45),
     price  double not null,
-    status enum('ACTIVE', 'DELETED')
+    status enum('ACTIVE', 'DELETED'),
+    type   enum('FILLING', 'DECORATION', 'BISCUIT')
 );
 
-create table cake
-(
-    id         bigint null auto_increment,
-    name       varchar(45),
-    price      double not null,
-    weight     double not null,
-    status     enum('CONFIRMED', 'NOT_CONFIRMED'),
-    biscuit_id bigint not null
-);
-
-create table filling
-(
-    id     bigint not null auto_increment,
-    name   varchar(45),
-    price  double not null,
-    status enum('ACTIVE', 'DELETED')
-);
-
-create table decoration
-(
-    id     bigint not null auto_increment,
-    name   varchar(45),
-    price  double not null,
-    status enum('ACTIVE', 'DELETED')
-);
-
-create table cake_decorations
+create table cake_ingredients
 (
     cake_id        bigint not null,
-    decorations_id bigint not null
+    ingredients_id bigint not null
 );
-
-create table cake_fillings
-(
-    cake_id     bigint not null,
-    fillings_id bigint not null
-);
-
 create table notifications
 (
     id   bigint not null,
@@ -147,8 +115,5 @@ alter table if exists orders_order_items add constraint FK7nw03p9mxq154wvbsonaq0
 alter table if exists orders_order_items add constraint FK3l8rktw0f4w5t6tift31e2d7c foreign key (order_id) references orders;
 alter table if exists user_orders add constraint FK3yq31b5hsh40vprb3spflxaob foreign key (orders_id) references orders (id);
 alter table if exists user_orders add constraint FKkuspr37yv513ga1okogyxrb7m foreign key (user_id) references user (id);
-alter table if exists cake add constraint FK_cake_biscuit_id foreign key (biscuit_id) references biscuit (id);
-alter table if exists cake_decorations add constraint FK_cake_decorations_cake_id foreign key (cake_id) references cake (id);
-alter table if exists cake_decorations add constraint FK_cake_decorations_decorations_id foreign key (decorations_id) references decoration (id);
-alter table if exists cake_fillings add constraint FK_cake_fillings_cake_id foreign key (cake_id) references cake (id);
-alter table if exists cake_fillings add constraint FK_cake_fillings_fillings_id foreign key (fillings_id) references filling (id);
+alter table if exists cake_ingredients add constraint FK_cake_decorations_cake_id foreign key (cake_ingr_id_fk) references cake (id);
+alter table if exists cake_ingredients add constraint FK_cake_decorations_decorations_id foreign key (ingredients_id_fk) references ingredients (id);

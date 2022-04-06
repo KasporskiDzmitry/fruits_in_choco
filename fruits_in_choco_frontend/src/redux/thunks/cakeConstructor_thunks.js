@@ -21,20 +21,20 @@ export const saveCake = (cake) => async dispatch => {
     }
 }
 
-export const deleteConstructorData = (name, id) => async dispatch => {
+export const deleteConstructorData = (id) => async dispatch => {
     try {
-        const response = await RequestService.delete(`/${name}/${id}`, true);
+        const response = await RequestService.delete(`/ingredient/${id}`, true);
         dispatch(loadData());
-        dispatch(enqueueSnackbar(`${name} removed successfully`, "success"));
+        dispatch(enqueueSnackbar(`Ingredient removed successfully`, "success"));
     } catch (e) {
-        dispatch(enqueueSnackbar(`Error while removing ${name}`, "error"));
+        dispatch(enqueueSnackbar(`Error while removing ingredient`, "error"));
         console.log(e)
     }
 }
 
-export const updateConstructorData = (type, item) => async dispatch => {
+export const updateConstructorData = (item) => async dispatch => {
     try {
-        const response = await RequestService.put(`/${type}/${item.id}`, item, true);
+        const response = await RequestService.put(`/ingredient/${item.id}`, item, true);
         dispatch(loadData());
         dispatch(enqueueSnackbar(`Updated successfully`, "success"));
     } catch (e) {

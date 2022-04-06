@@ -10,7 +10,7 @@ export const getActionsByTableName = (name) => {
 
         const handleDelete = (id) => {
             if (window.confirm("Удалить?")) {
-                dispatch(deleteConstructorData(name, id))
+                dispatch(deleteConstructorData(id))
             }
         }
 

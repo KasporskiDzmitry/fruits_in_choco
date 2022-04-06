@@ -5,7 +5,7 @@ import {updateConstructorData} from "../../../redux/thunks/cakeConstructor_thunk
 import usePrevious from "../../hooks/usePrevious";
 
 
-export const createCell = (objectType, columnName) => {
+export const createCell = (columnName) => {
     const TableCell = props => {
         const row = props.row;
         const [value, setValue] = useState(props.children);
@@ -14,7 +14,7 @@ export const createCell = (objectType, columnName) => {
 
         const onBlur = () => {
             if (value !== prevValue) {
-                dispatch(updateConstructorData(objectType, {
+                dispatch(updateConstructorData( {
                     ...row,
                     [columnName]: value
                 }))

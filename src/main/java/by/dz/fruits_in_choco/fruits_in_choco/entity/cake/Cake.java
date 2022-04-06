@@ -25,12 +25,5 @@ public class Cake {
     private CakeStatus status;
 
     @OneToMany
-    private List<Filling> fillings;
-
-    @OneToMany
-    private List<Decoration> decorations;
-
-    @OneToOne
-    @JoinColumn(name = "biscuit_id", referencedColumnName = "id")
-    private Biscuit biscuit;
+    private List<Ingredient> ingredients;
 }

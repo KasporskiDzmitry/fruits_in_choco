@@ -22,13 +22,13 @@ const CakeConstructorData = (props) => {
     return <div>
         <Tabs activeKey={key} onSelect={(k) => setKey(k)} id="cakeConstructorTable" className="mb-2">
             <Tab eventKey="biscuits" title="Бисквиты">
-                <BiscuitsTable data={data.biscuits}/>
+                <BiscuitsTable data={data.filter(i => i.type === "BISCUIT" && i.status !== 'DELETED')}/>
             </Tab>
             <Tab eventKey="fillings" title="Начинки">
-                <FillingsTable data={data.fillings}/>
+                <FillingsTable data={data.filter(i => i.type === "FILLING" && i.status !== 'DELETED')}/>
             </Tab>
             <Tab eventKey="decorations" title="Украшения">
-                <DecorationsTable data={data.decorations}/>
+                <DecorationsTable data={data.filter(i => i.type === "DECORATION" && i.status !== 'DELETED')}/>
             </Tab>
         </Tabs>
         <div>

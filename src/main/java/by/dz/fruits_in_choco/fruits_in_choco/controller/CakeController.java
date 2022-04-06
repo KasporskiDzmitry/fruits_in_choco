@@ -1,11 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.cake.CakeDTO;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Biscuit;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Cake;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Decoration;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Filling;
-import by.dz.fruits_in_choco.fruits_in_choco.service.CakeService;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Ingredient;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.CakeServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,60 +44,22 @@ public class CakeController {
         return ResponseEntity.ok(cakeService.updateCake(cake, id));
     }
 
-    @PostMapping("/biscuits")
+    @PostMapping("/ingredient")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> createBiscuit(@RequestBody Biscuit biscuit) {
-        return ResponseEntity.ok(cakeService.createBiscuit(biscuit));
+    public ResponseEntity<?> createIngredient(@RequestBody Ingredient ingredient) {
+        return ResponseEntity.ok(cakeService.createIngredient(ingredient));
     }
 
-    @PostMapping("/fillings")
+    @PutMapping("/ingredient/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> createFilling(@RequestBody Filling filling) {
-        return ResponseEntity.ok(cakeService.createFilling(filling));
+    public ResponseEntity<?> updateIngredient(@RequestBody Ingredient ingredient, @PathVariable Long id) {
+        return ResponseEntity.ok(cakeService.updateIngredient(ingredient, id));
     }
 
-    @PostMapping("/decorations")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> createDecoration(@RequestBody Decoration decoration) {
-        return ResponseEntity.ok(cakeService.createDecoration(decoration));
-    }
-
-    @PutMapping("/biscuits/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updateBiscuit(@RequestBody Biscuit biscuit, @PathVariable Long id) {
-        return ResponseEntity.ok(cakeService.updateBiscuit(biscuit, id));
-    }
-
-    @PutMapping("/fillings/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updateFilling(@RequestBody Filling filling, @PathVariable Long id) {
-        return ResponseEntity.ok(cakeService.updateFilling(filling, id));
-    }
-
-    @PutMapping("/decorations/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updateDecoration(@RequestBody Decoration decoration, @PathVariable Long id) {
-        return ResponseEntity.ok(cakeService.updateDecoration(decoration, id));
-    }
-
-    @DeleteMapping("/biscuits/{id}")
+    @DeleteMapping("/ingredient/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> deleteBiscuit(@PathVariable Long id) {
-        cakeService.deleteBiscuit(id);
-        return ResponseEntity.ok(200);
-    }
-
-    @DeleteMapping("/fillings/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> deleteFilling(@PathVariable Long id) {
-        cakeService.deleteFilling(id);
-        return ResponseEntity.ok(200);
-    }
-
-    @DeleteMapping("/decorations/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> deleteDecoration(@PathVariable Long id) {
-        cakeService.deleteDecoration(id);
+        cakeService.deleteIngredient(id);
         return ResponseEntity.ok(200);
     }
 }

@@ -1,10 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.cake.CakeConstructorDTO;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Biscuit;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Cake;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Decoration;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Filling;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.cake.Ingredient;
 
 import java.util.List;
 
@@ -12,13 +9,7 @@ public interface CakeService {
 
     List<Cake> getAllCakes();
 
-    List<Biscuit> getAllBiscuits();
-
-    List<Filling> getAllFillings();
-
-    List<Decoration> getAllDecorations();
-
-    CakeConstructorDTO getConstructorData();
+    List<Ingredient> getConstructorData();
 
     Cake saveCake(Cake cake);
 
@@ -26,21 +17,9 @@ public interface CakeService {
 
     Cake updateCake(Cake cake, Long id);
 
-    Biscuit createBiscuit(Biscuit biscuit);
+    Ingredient updateIngredient(Ingredient newIngredient, Long id);
 
-    Filling createFilling(Filling filling);
+    void deleteIngredient(Long id);
 
-    Decoration createDecoration(Decoration decoration);
-
-    Biscuit updateBiscuit(Biscuit biscuit, Long id);
-
-    Filling updateFilling(Filling filling, Long id);
-
-    Decoration updateDecoration(Decoration decoration, Long id);
-
-    void deleteBiscuit(Long id);
-
-    void deleteFilling(Long id);
-
-    void deleteDecoration(Long id);
+    Ingredient createIngredient(Ingredient ingredient);
 }

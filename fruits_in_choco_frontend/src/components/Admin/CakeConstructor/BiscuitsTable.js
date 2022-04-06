@@ -6,8 +6,8 @@ import {createCell} from "./TableCell";
 
 const columns = [
     { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
-    { key: 'name', header: 'Название', sortable: true, searchable: true, Component:  createCell("biscuits", "name") },
-    { key: 'price', header: 'Цена', sortable: true, searchable: true, Component:  createCell("biscuits", "price")},
+    { key: 'name', header: 'Название', sortable: true, searchable: true, Component:  createCell("name") },
+    { key: 'price', header: 'Цена', sortable: true, searchable: true, Component:  createCell("price")},
     { key: 'actions', header: 'Actions', Component: getActionsByTableName("biscuits") }
 ];
 

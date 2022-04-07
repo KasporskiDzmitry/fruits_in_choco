@@ -27,7 +27,7 @@ let reducers = combineReducers({
     profileReducer: profileReducer,
     registrationReducer: registrationReducer,
     orderReducer: orderReducer,
-    cakeConstructorReducer: cakeConstructorReducer
+    cakeConstructorReducer: cakeConstructorReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

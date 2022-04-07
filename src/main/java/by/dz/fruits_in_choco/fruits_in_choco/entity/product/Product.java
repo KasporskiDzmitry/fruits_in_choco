@@ -1,5 +1,6 @@
-package by.dz.fruits_in_choco.fruits_in_choco.entity;
+package by.dz.fruits_in_choco.fruits_in_choco.entity.product;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package by.dz.fruits_in_choco.fruits_in_choco.entity;
+package by.dz.fruits_in_choco.fruits_in_choco.entity.notification;
 
 import lombok.Data;
 

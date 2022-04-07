@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.event;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import org.springframework.context.ApplicationEvent;
 
 public class OnRegistrationCompleteEvent extends ApplicationEvent {

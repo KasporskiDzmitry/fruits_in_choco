@@ -1,5 +1,6 @@
-package by.dz.fruits_in_choco.fruits_in_choco.entity;
+package by.dz.fruits_in_choco.fruits_in_choco.entity.order;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import lombok.Data;
 
 import javax.persistence.*;

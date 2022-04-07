@@ -1,5 +1,8 @@
-package by.dz.fruits_in_choco.fruits_in_choco.entity;
+package by.dz.fruits_in_choco.fruits_in_choco.entity.user;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -39,4 +42,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Order> orders;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Product> products;
 }

@@ -1,4 +1,4 @@
-package by.dz.fruits_in_choco.fruits_in_choco.entity;
+package by.dz.fruits_in_choco.fruits_in_choco.entity.order;
 
 import lombok.Data;
 import org.hibernate.annotations.Type;

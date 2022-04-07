@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.order;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import lombok.Data;
 
 @Data

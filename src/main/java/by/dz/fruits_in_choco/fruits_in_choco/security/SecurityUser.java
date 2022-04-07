@@ -1,7 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.security;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Status;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Status;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

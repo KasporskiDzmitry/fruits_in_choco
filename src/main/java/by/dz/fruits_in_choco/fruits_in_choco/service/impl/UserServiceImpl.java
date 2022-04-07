@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRatingRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;

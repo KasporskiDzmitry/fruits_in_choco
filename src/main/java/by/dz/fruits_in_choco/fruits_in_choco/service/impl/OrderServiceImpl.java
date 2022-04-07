@@ -1,6 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.*;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.order.OrderItem;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderItemRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;

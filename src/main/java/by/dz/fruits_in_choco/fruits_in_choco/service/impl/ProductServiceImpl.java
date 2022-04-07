@@ -1,7 +1,12 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.*;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.notification.Notification;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.order.OrderItem;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductStatus;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.*;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
@@ -145,7 +150,7 @@ public class ProductServiceImpl implements ProductService {
 
         simpMessagingTemplate.convertAndSend("/notification", new Notification());
 
-        return product;
+        return filterUnapprovedRatings(product);
     }
 
     @Override

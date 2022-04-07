@@ -1,4 +1,4 @@
-package by.dz.fruits_in_choco.fruits_in_choco.entity;
+package by.dz.fruits_in_choco.fruits_in_choco.entity.user;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

@@ -2,7 +2,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.order.OrderRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.order.OrderResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Order;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
 import by.dz.fruits_in_choco.fruits_in_choco.service.OrderService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.OrderServiceImpl;
 import org.modelmapper.ModelMapper;

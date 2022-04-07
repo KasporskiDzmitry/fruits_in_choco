@@ -2,7 +2,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.service;
 
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 
 import java.util.List;
 

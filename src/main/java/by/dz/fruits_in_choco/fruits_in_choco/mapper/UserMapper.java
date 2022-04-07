@@ -3,7 +3,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.RegistrationRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.UserService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.UserServiceImpl;
@@ -32,16 +32,19 @@ public class UserMapper {
         return modelMapper.map(registrationRequest, User.class);
     }
 
-    private UserResponse convertToResponseDto(User user) {
+    private UserResponse mapToResponseDto(User user) {
+        modelMapper.typeMap(User.class, UserResponse.class).addMappings(mapper -> {
+            mapper.map(User::getProducts, UserResponse::setCart);
+        });
         return modelMapper.map(user, UserResponse.class);
     }
 
     public UserResponse getProfile(String email) {
-        return convertToResponseDto(userService.getUserByEmail(email));
+        return mapToResponseDto(userService.getUserByEmail(email));
     }
 
     public UserResponse updateProfile(UserRequest userRequest) {
-        return convertToResponseDto(userService.updateProfile(convertToEntity(userRequest)));
+        return mapToResponseDto(userService.updateProfile(convertToEntity(userRequest)));
     }
 
     public String register(RegistrationRequest registrationRequest, HttpServletRequest request) {

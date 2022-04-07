@@ -1,7 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.CategoryRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;

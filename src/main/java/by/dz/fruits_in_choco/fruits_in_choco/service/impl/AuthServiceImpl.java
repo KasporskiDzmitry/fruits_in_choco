@@ -1,8 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Status;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Status;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;

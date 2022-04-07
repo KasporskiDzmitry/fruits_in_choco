@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.listener;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.User;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.event.OnRegistrationCompleteEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.mail.SimpleMailMessage;

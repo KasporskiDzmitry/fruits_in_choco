@@ -1,7 +1,9 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.user;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Role;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Role;
 import lombok.Data;
 
 import java.util.List;
@@ -15,4 +17,6 @@ public class UserResponse {
     private Role role;
     private String status;
     private List<ProductRating> ratings;
+    private List<Order> orders;
+    private List<Product> cart;
 }

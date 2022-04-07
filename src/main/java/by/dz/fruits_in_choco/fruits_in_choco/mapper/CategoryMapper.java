@@ -1,7 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.CategoryServiceImpl;
 import org.modelmapper.ModelMapper;

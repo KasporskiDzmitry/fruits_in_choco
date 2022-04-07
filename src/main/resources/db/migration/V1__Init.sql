@@ -95,11 +95,18 @@ create table cake_ingredients
     cake_id        bigint not null,
     ingredients_id bigint not null
 );
+
 create table notifications
 (
     id   bigint not null,
     date datetime(6),
     type enum('ORDER', 'REVIEW')
+);
+
+create table user_products
+(
+    user_id    bigint not null,
+    product_id bigint not null
 );
 
 alter table if exists orders_order_items add constraint UK_9d47gapmi35omtannusv6btu3 unique (order_items_id);
@@ -113,6 +120,10 @@ alter table if exists user_ratings add constraint FKsdo6s1wbs9awfprtvhmd1bo7g fo
 alter table if exists user_ratings add constraint FK85wcc1agckack64s64cu2hqxg foreign key (user_id) references user (id);
 alter table if exists orders_order_items add constraint FK7nw03p9mxq154wvbsonaq0qrw foreign key (order_items_id) references order_item;
 alter table if exists orders_order_items add constraint FK3l8rktw0f4w5t6tift31e2d7c foreign key (order_id) references orders;
+
+alter table if exists user_products add constraint FK_user_id foreign key (user_id) references user;
+alter table if exists user_products add constraint FK_product_id foreign key (product_id) references product;
+
 alter table if exists user_orders add constraint FK3yq31b5hsh40vprb3spflxaob foreign key (orders_id) references orders (id);
 alter table if exists user_orders add constraint FKkuspr37yv513ga1okogyxrb7m foreign key (user_id) references user (id);
 alter table if exists cake_ingredients add constraint FK_cake_decorations_cake_id foreign key (cake_ingr_id_fk) references cake (id);

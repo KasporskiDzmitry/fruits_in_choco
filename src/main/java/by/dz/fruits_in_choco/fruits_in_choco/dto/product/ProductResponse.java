@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.product;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.ProductRating;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
 import lombok.Data;
 
 import java.util.List;

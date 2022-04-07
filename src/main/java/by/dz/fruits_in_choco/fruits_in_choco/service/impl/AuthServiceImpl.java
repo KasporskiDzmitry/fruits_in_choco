@@ -42,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
         String token = jwtTokenProvider.createToken(email, user.getRole().name(), tokenValidity);
         String refreshToken = jwtTokenProvider.createToken(email, user.getRole().name(), refreshTokenValidity);
 
-        Cookie cookie = new Cookie("refreshToken",refreshToken);
+        Cookie cookie = new Cookie("refreshToken", refreshToken);
         cookie.setMaxAge(Math.toIntExact(refreshTokenValidity));
         cookie.setSecure(true);
         cookie.setHttpOnly(true);

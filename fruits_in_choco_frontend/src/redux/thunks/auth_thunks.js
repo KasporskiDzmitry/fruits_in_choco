@@ -3,9 +3,7 @@ import {loginSuccess, logoutSuccess, refreshTokenSuccess, toggleIsFetching} from
 import {reset, stopSubmit} from "redux-form";
 import {removeUserInfoFromLS, saveUserInfoToLS} from "../../components/utils/localStorageFunctions";
 import {toggleSignInSignUpPopUp} from "../actions/app_actions";
-import {stompClient} from "../../components/Header/Header";
-
-
+import {stompClient} from "../../components/utils/stomp";
 
 export const login = (email, password) => async dispatch => {
     dispatch(toggleIsFetching());

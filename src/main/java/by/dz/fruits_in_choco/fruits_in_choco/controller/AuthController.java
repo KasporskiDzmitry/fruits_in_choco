@@ -49,6 +49,8 @@ public class AuthController {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
 
+        // TODO: remove cookie correct, without creating new one
+
         Cookie cookie = new Cookie("refreshToken", null);
         cookie.setMaxAge(0);
         cookie.setSecure(true);

@@ -3,13 +3,10 @@ import style from './Header.module.scss';
 import {NavLink, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
-import SockJS from "sockjs-client";
-import {API_BASE_URL} from "../utils/constants/url";
-import {over} from "stompjs";
-import {notificationReceived} from "../../redux/actions/admin_actions";
 import {useDispatch} from "react-redux";
+import {connectStomp, stompClient} from "../utils/stomp";
+import {notificationReceived} from "../../redux/actions/admin_actions";
 
-export let stompClient = null;
 
 const Header = (props) => {
     const location = useLocation().pathname;
@@ -17,16 +14,14 @@ const Header = (props) => {
 
     useEffect(() => {
         if (localStorage.role === 'ADMIN') {
-            let Sock = new SockJS(`${API_BASE_URL}/ws`);
-            stompClient = over(Sock);
-            stompClient.connect({}, onConnected, err => console.log(err))
+            connectStomp(onConnected);
         }
     }, []);
-
 
     const onConnected = () => {
         stompClient.subscribe('/topic/notification', () => dispatch(notificationReceived()));
     }
+
 
     const handleClickOnShopRef = (e) => {
         e.preventDefault();

@@ -1,4 +1,10 @@
-import {LOGIN_SUCCESS, LOGOUT_SUCCESS, REFRESH_TOKEN_SUCCESS, TOGGLE_IS_FETCHING} from "../action_types/auth_action_types";
+import {
+    CLEAR_TOKEN,
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS,
+    REFRESH_TOKEN_SUCCESS,
+    TOGGLE_IS_FETCHING
+} from "../action_types/auth_action_types";
 
 const initialState = {
     userId: '',
@@ -37,6 +43,12 @@ const authReducer = (state = initialState, action) => {
                 login: null,
                 isAuth: false,
                 token: null
+            }
+        }
+        case CLEAR_TOKEN: {
+            return {
+                ...state,
+                token: ""
             }
         }
         default: {

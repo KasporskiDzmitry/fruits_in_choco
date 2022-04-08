@@ -1,7 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.Notification;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.notification.Notification;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.OrderItem;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
@@ -148,7 +148,11 @@ public class ProductServiceImpl implements ProductService {
 
         productRatingRepository.save(rating);
 
-        simpMessagingTemplate.convertAndSend("/notification", new Notification());
+        Notification notification = new Notification();
+        notification.setDate(new Date());
+        notification.setType("REVIEW");
+
+        simpMessagingTemplate.convertAndSend("/notification", notification);
 
         return filterUnapprovedRatings(product);
     }

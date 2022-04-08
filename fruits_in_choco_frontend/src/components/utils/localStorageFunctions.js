@@ -35,9 +35,7 @@ export const removeProductFromCart = (id) => {
 export const isProductInCart = (id) => {
     const products = localStorage.products;
     if (products) {
-        if (Array.from(JSON.parse(products)).find(i => i.id === id)) {
-            return true;
-        }
+        return !!Array.from(JSON.parse(products)).find(i => i.id === id);
     } else {
         return false;
     }
@@ -54,4 +52,6 @@ export const removeUserInfoFromLS = () => {
     localStorage.removeItem('name');
     localStorage.removeItem('email');
     localStorage.removeItem('role');
+    localStorage.removeItem('products');
 }
+

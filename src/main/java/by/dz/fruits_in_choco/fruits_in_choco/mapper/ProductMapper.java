@@ -1,9 +1,13 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductResponse;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
+import by.dz.fruits_in_choco.fruits_in_choco.service.impl.CategoryServiceImpl;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.ProductServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -16,10 +20,12 @@ public class ProductMapper {
 
     private final ProductService service;
     private final ModelMapper modelMapper;
+    private final CategoryService categoryService;
 
-    public ProductMapper(ProductServiceImpl service, ModelMapper modelMapper) {
+    public ProductMapper(ProductServiceImpl service, ModelMapper modelMapper, CategoryServiceImpl categoryService) {
         this.service = service;
         this.modelMapper = modelMapper;
+        this.categoryService = categoryService;
     }
 
     public List<ProductResponse> getProducts(int page, int size, String direction, String sortBy) {
@@ -51,5 +57,12 @@ public class ProductMapper {
         });
 
         return modelMapper.map(product, ProductResponse.class);
+    }
+
+    public Product mapToEntity(ProductRequest request) {
+        modelMapper.typeMap(ProductRequest.class, Product.class).addMappings(mapper -> {
+            mapper.map(src -> categoryService.getCategoryById(request.getCategoryId()), Product::setCategory);
+        });
+        return modelMapper.map(request, Product.class);
     }
 }

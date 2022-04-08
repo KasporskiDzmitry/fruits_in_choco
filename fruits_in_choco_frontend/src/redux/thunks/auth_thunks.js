@@ -4,11 +4,17 @@ import {reset, stopSubmit} from "redux-form";
 import {removeUserInfoFromLS, saveUserInfoToLS} from "../../components/utils/localStorageFunctions";
 import {toggleSignInSignUpPopUp} from "../actions/app_actions";
 import {stompClient} from "../../components/utils/stomp";
+import {saveProductToCart, synchronizeCarts} from "./shop_thunks";
 
 export const login = (email, password) => async dispatch => {
+    let cart = [];
+
     dispatch(toggleIsFetching());
     try {
         const response = await RequestService.post("/auth/login", {email, password});
+
+        cart = response.data.cart;
+
         saveUserInfoToLS(response.data);
         dispatch(loginSuccess(
             response.data.id,
@@ -23,6 +29,7 @@ export const login = (email, password) => async dispatch => {
         dispatch(stopSubmit('login', {_error: error.response.data}));
     } finally {
         dispatch(toggleIsFetching());
+        dispatch(synchronizeCarts(cart));
 
         // IS IT SAFE???
         window.location.reload(false)
@@ -30,12 +37,21 @@ export const login = (email, password) => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
-    await RequestService.post("/auth/logout", null, true);
-    removeUserInfoFromLS();
-    dispatch(logoutSuccess());
+    try {
+        const response = await RequestService.post("/auth/logout", null, true);
+        removeUserInfoFromLS();
+        dispatch(logoutSuccess());
 
-    if (stompClient !== null) {
-        stompClient.disconnect();
-        console.log("Websocket has been disconnected");
+        if (stompClient !== null) {
+            stompClient.disconnect();
+            console.log("Websocket has been disconnected");
+        }
+    } catch (e) {
+        console.log(e)
+    } finally {
+        // IS IT SAFE???
+        window.location.reload(false)
     }
+
+
 };

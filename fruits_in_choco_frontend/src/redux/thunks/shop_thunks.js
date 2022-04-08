@@ -1,13 +1,13 @@
 import RequestService from "../RequestService";
 import {
-    addToCart,
+    addToCart, removeFromCart,
     setCurrentProduct,
     setCurrentProductReviews,
     setIsProductFetching,
     setIsProductsFetching,
     setProducts
 } from "../actions/shop_actions";
-import {addProductToCart, isProductInCart} from "../../components/utils/localStorageFunctions";
+import {addProductToCart, isProductInCart, removeProductFromCart} from "../../components/utils/localStorageFunctions";
 
 export const loadProducts = () => async dispatch => {
     try {
@@ -59,5 +59,46 @@ export const saveProductToCart = (product) => async dispatch => {
     if (!isProductInCart(product.id)) {
         addProductToCart({...product, quantity: 1});
         dispatch(addToCart({...product, quantity: 1}));
+
+        if (localStorage.name) {
+            try {
+                const response = await RequestService.post('/profile/cart', product, true);
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    }
+}
+
+export const deleteFromCart = (id) => async dispatch => {
+    removeProductFromCart(id);
+    dispatch(removeFromCart(id));
+
+    if (localStorage.name) {
+        try {
+            const response = await RequestService.delete(`/profile/cart/${id}`,true)
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+export const synchronizeCarts = (cart) => async dispatch => {
+    let productsInLS = localStorage.products;
+    let products = [];
+    if (productsInLS) {
+        products = Array.from(JSON.parse(productsInLS));
+
+        for (let i = 0; i < products.length; i++) {
+            if (!cart.find(p => p.id === products[i].id)) {
+                const response = await RequestService.post('/profile/cart', products[i], true)
+            }
+        }
+    }
+
+    for (let i = 0; i < cart.length; i++) {
+        if (!isProductInCart(cart[i].id)) {
+            addProductToCart(cart[i]);
+        }
     }
 }

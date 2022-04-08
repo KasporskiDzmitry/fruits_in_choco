@@ -8,6 +8,7 @@ import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {toggleCartLayout} from "../../redux/actions/app_actions";
 import {removeFromCart} from "../../redux/actions/shop_actions";
+import {deleteFromCart} from "../../redux/thunks/shop_thunks";
 
 const CartLayout = (props) => {
     const dispatch = useDispatch();
@@ -40,8 +41,7 @@ const CartItem = ({id, name, description, price, styles, quantity}) => {
     const dispatch = useDispatch();
 
     const removeItem = () => {
-        removeProductFromCart(id);
-        dispatch(removeFromCart(id));
+        dispatch(deleteFromCart(id));
     }
 
     return <div className={style.item}>

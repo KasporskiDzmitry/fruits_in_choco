@@ -1,5 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRatingRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
@@ -54,6 +56,21 @@ public class UserServiceImpl implements UserService {
                     newProfile.setId(newProfile.getId());
                     return userRepository.save(newProfile);
                 });
+    }
+
+    @Override
+    public Product addToCart(Product product, String email) {
+        User user = userRepository.findByEmail(email);
+        user.getProducts().add(product);
+        userRepository.save(user);
+        return product;
+    }
+
+    @Override
+    public void deleteFromCart(Long id, String email) {
+        User user = userRepository.findByEmail(email);
+        user.getProducts().removeIf(p -> p.getId() == id);
+        userRepository.save(user);
     }
 
 }

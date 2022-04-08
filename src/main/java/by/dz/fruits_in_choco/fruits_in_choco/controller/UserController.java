@@ -1,6 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.UserMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -49,5 +51,17 @@ public class UserController {
         return ResponseEntity.ok(userMapper.updateProfile(newProfile));
     }
 
+    @PreAuthorize("hasAuthority('USER')")
+    @PostMapping("/profile/cart")
+    public ResponseEntity<?> addToCart(@RequestBody ProductRequest product, Authentication authentication) {
+        return ResponseEntity.ok(userMapper.addToCart(product, authentication.getName()));
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @DeleteMapping("/profile/cart/{id}")
+    public ResponseEntity<?> deleteFromCart(@PathVariable Long id, Authentication authentication) {
+        userService.deleteFromCart(id, authentication.getName());
+        return ResponseEntity.ok(200);
+    }
 
 }

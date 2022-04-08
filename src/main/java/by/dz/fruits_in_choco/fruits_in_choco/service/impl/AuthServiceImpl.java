@@ -55,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
         authenticationResponse.setRole(user.getRole().name());
         authenticationResponse.setName(user.getFirstName() + " " + user.getLastName());
         authenticationResponse.setId(user.getId());
+        authenticationResponse.setCart(user.getProducts());
 
         return authenticationResponse;
     }

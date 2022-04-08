@@ -96,13 +96,6 @@ create table cake_ingredients
     ingredients_id bigint not null
 );
 
-create table notifications
-(
-    id   bigint not null,
-    date datetime(6),
-    type enum('ORDER', 'REVIEW')
-);
-
 create table user_products
 (
     user_id    bigint not null,

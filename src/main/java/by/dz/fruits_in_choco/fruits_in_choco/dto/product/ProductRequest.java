@@ -15,4 +15,5 @@ public class ProductRequest {
     private String name;
     private List<ProductRating> ratings;
     private ProductStatus status;
+    private int quantity;
 }

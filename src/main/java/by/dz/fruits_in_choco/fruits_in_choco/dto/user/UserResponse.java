@@ -1,5 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.user;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.cart.Cart;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
@@ -18,5 +19,5 @@ public class UserResponse {
     private String status;
     private List<ProductRating> ratings;
     private List<Order> orders;
-    private List<Product> cart;
+    private Cart cart;
 }

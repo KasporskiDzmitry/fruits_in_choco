@@ -56,13 +56,14 @@ export const addReview = (review) => async dispatch => {
 };
 
 export const saveProductToCart = (product) => async dispatch => {
+    const productDTO = {...product, quantity: 1}
     if (!isProductInCart(product.id)) {
-        addProductToCart({...product, quantity: 1});
-        dispatch(addToCart({...product, quantity: 1}));
+        addProductToCart(productDTO);
+        dispatch(addToCart(productDTO));
 
         if (localStorage.name) {
             try {
-                const response = await RequestService.post('/profile/cart', product, true);
+                const response = await RequestService.post('/profile/cart', productDTO, true);
             } catch (e) {
                 console.log(e)
             }
@@ -71,9 +72,6 @@ export const saveProductToCart = (product) => async dispatch => {
 }
 
 export const deleteFromCart = (id) => async dispatch => {
-    removeProductFromCart(id);
-    dispatch(removeFromCart(id));
-
     if (localStorage.name) {
         try {
             const response = await RequestService.delete(`/profile/cart/${id}`,true)
@@ -81,24 +79,30 @@ export const deleteFromCart = (id) => async dispatch => {
             console.log(e);
         }
     }
+
+    removeProductFromCart(id);
+    dispatch(removeFromCart(id));
 }
 
 export const synchronizeCarts = (cart) => async dispatch => {
+    const cartFromDB = cart.cartItems.map(i => ({...i.product, quantity: i.quantity}));
+
+
     let productsInLS = localStorage.products;
     let products = [];
     if (productsInLS) {
         products = Array.from(JSON.parse(productsInLS));
 
         for (let i = 0; i < products.length; i++) {
-            if (!cart.find(p => p.id === products[i].id)) {
+            if (!cartFromDB.find(p => p.id === products[i].id)) {
                 const response = await RequestService.post('/profile/cart', products[i], true)
             }
         }
     }
 
-    for (let i = 0; i < cart.length; i++) {
-        if (!isProductInCart(cart[i].id)) {
-            addProductToCart(cart[i]);
+    for (let i = 0; i < cartFromDB.length; i++) {
+        if (!isProductInCart(cartFromDB[i].id)) {
+            addProductToCart(cartFromDB[i]);
         }
     }
 }

@@ -12,6 +12,6 @@ public interface UserService {
     User getUserByEmail(String email);
     User updateProfile(User newProfile);
 
-    Product addToCart(Product product, String email);
+    Product addToCart(Product product, int quantity, String email);
     void deleteFromCart(Long id, String email);
 }

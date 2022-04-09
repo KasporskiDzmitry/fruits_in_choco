@@ -1,10 +1,12 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.cart.Cart;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Role;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Status;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.event.OnRegistrationCompleteEvent;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException;
+import by.dz.fruits_in_choco.fruits_in_choco.repository.CartRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -26,6 +29,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
     private final ApplicationEventPublisher eventPublisher;
+    private final CartRepository cartRepository;
 
     @Value("${jwt.activationAccount}")
     private Long validity;
@@ -48,6 +52,13 @@ public class RegistrationServiceImpl implements RegistrationService {
             user.setRole(Role.USER);
             user.setStatus(Status.NOT_CONFIRMED);
             user.setActivationToken(tokenProvider.createActivationAccountToken(UUID.randomUUID().toString(), validity));
+
+            Cart cart = new Cart();
+            cart.setQuantity(0);
+            cart.setPrice(0);
+            cart.setCartItems(new ArrayList<>());
+            user.setCart(cartRepository.save(cart));
+
 
             String appUrl = request.getContextPath();
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, appUrl));

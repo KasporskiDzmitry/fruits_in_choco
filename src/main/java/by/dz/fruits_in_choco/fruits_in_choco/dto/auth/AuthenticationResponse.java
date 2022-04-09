@@ -1,9 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.auth;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.cart.Cart;
 import lombok.Data;
 
-import java.util.List;
 
 @Data
 public class AuthenticationResponse {
@@ -13,5 +12,5 @@ public class AuthenticationResponse {
     private String refreshToken;
     private String role;
     private String name;
-    private List<Product> cart;
+    private Cart cart;
 }

@@ -1,8 +1,10 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity.user;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.cart.Cart;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -43,6 +45,25 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Product> products;
+    @OneToOne
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private Cart cart;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", status=" + status +
+                ", role=" + role +
+                ", activationToken='" + activationToken + '\'' +
+                ", ratings=" + ratings +
+                ", orders=" + orders +
+                ", cartId=" + cart.getId() +
+                '}';
+    }
 }

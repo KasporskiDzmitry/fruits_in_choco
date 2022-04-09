@@ -37,9 +37,9 @@ public class UserMapper {
     }
 
     private UserResponse mapToResponseDto(User user) {
-        modelMapper.typeMap(User.class, UserResponse.class).addMappings(mapper -> {
-            mapper.map(User::getProducts, UserResponse::setCart);
-        });
+//        modelMapper.typeMap(User.class, UserResponse.class).addMappings(mapper -> {
+//            mapper.map(User::getProducts, UserResponse::setCart);
+//        });
         return modelMapper.map(user, UserResponse.class);
     }
 
@@ -52,7 +52,7 @@ public class UserMapper {
     }
 
     public Product addToCart(ProductRequest request, String email) {
-        return userService.addToCart(productMapper.mapToEntity(request), email);
+        return userService.addToCart(productMapper.mapToEntity(request), request.getQuantity(), email);
     }
 
     public String register(RegistrationRequest registrationRequest, HttpServletRequest request) {

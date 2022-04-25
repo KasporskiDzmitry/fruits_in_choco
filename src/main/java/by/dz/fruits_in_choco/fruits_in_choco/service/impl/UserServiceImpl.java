@@ -88,7 +88,6 @@ public class UserServiceImpl implements UserService {
         CartItem cartItem = cartItemRepository.findById(cart.getCartItems().stream().filter(i -> i.getProduct().getId().equals(id)).collect(Collectors.toList()).get(0).getId()).get();
 
         cart.getCartItems().remove(cartItem);
-        cartRepository.save(cart);
 
         cartItemRepository.delete(cartItem);
 

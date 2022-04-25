@@ -1,9 +1,16 @@
-import {orderMadeSuccess, setOrderInfo, setOrders, toggleIsFetching} from "../actions/order_actions";
+import {
+    orderMadeSuccess,
+    setOrderInfo,
+    setOrders,
+    toggleIsFetching,
+    updateOrderInState
+} from "../actions/order_actions";
 import RequestService from "../RequestService";
 import {reset, stopSubmit} from "redux-form";
 import {clearCart} from "../actions/shop_actions";
 
 export const makeOrder = (order, history) => async dispatch => {
+    console.log(order)
     dispatch(toggleIsFetching(true));
     try {
         const response = await RequestService.post("/orders", order);
@@ -32,6 +39,16 @@ export const loadOrderById = (id) => async dispatch => {
     try {
         const response = await RequestService.get(`/orders/${id}`, true);
         dispatch(setOrderInfo(response.data));
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const updateOrder = (order) => async dispatch => {
+    try {
+        const response = await RequestService.put(`/orders/${order.id}`, order, true);
+        dispatch(setOrderInfo(response.data));
+        dispatch(updateOrderInState(order));
     } catch (e) {
         console.log(e)
     }

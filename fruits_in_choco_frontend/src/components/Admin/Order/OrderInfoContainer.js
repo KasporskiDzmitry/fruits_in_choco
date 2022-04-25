@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {loadOrderById} from "../../../redux/thunks/order_thunks";
+import {loadOrderById, updateOrder} from "../../../redux/thunks/order_thunks";
 import {OrderInfo} from "./OrderInfo";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
@@ -20,6 +20,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps, {loadOrderById}),
+    connect(mapStateToProps, {loadOrderById, updateOrder}),
     withRouter
 )(OrderInfoContainer)

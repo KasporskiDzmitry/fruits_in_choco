@@ -58,7 +58,7 @@ create table orders
     date                         datetime(6),
     price                        double not null,
     is_agree_to_sending_messages boolean default false,
-    status                       enum('NOT_CONFIRMED', 'CONFIRMED')
+    status                       enum('NOT_CONFIRMED', 'CONFIRMED', 'DECLINED')
         primary key (id)
 );
 

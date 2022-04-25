@@ -1,6 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.order.OrderRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.OrderMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.OrderService;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +40,11 @@ public class OrderController {
     @PostMapping("/orders")
     public ResponseEntity<?> makeOrder(@RequestBody OrderRequest orderRequest) {
         return ResponseEntity.ok(orderMapper.makeOrder(orderRequest));
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PutMapping("/orders/{id}")
+    public ResponseEntity<?> updateOrder(@RequestBody Order order) {
+        return ResponseEntity.ok(orderService.updateOrder(order));
     }
 }

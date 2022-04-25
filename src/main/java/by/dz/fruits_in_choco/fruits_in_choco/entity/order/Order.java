@@ -32,7 +32,7 @@ public class Order {
     private Date date;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "status", columnDefinition = "ENUM('NOT_CONFIRMED', 'CONFIRMED')", nullable = false)
+    @Column(name = "status", columnDefinition = "ENUM('NOT_CONFIRMED', 'CONFIRMED', 'DECLINED')", nullable = false)
     private OrderStatus status;
 
     @Column(columnDefinition = "TINYINT")
@@ -43,6 +43,7 @@ public class Order {
     private List<OrderItem> orderItems;
 
     public Order() {
+        this.status = OrderStatus.NOT_CONFIRMED;
         this.orderItems = new ArrayList<>();
     }
 }

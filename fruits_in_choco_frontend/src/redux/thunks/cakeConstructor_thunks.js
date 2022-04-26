@@ -2,6 +2,7 @@ import {setData, toggleIsFetching} from "../actions/cakeConstructor_actions";
 import RequestService from "../RequestService";
 import {reset, stopSubmit} from "redux-form";
 import {enqueueSnackbar} from "../actions/app_actions";
+import {saveProductToCart} from "./shop_thunks";
 
 export const loadData = () => async dispatch => {
     try {
@@ -14,7 +15,9 @@ export const loadData = () => async dispatch => {
 
 export const saveCake = (cake) => async dispatch => {
     try {
+        console.log(cake)
         const response = await RequestService.post('/cakes', cake);
+        dispatch(saveProductToCart(cake));
         dispatch(reset("cakeConstructor"))
     } catch (e) {
         console.log(e);

@@ -24,6 +24,6 @@ public class Cake {
     @Column(name = "status", columnDefinition = "ENUM('CONFIRMED', 'NOT_CONFIRMED')", nullable = false)
     private CakeStatus status;
 
-    @OneToMany
+    @ManyToMany
     private List<Ingredient> ingredients;
 }

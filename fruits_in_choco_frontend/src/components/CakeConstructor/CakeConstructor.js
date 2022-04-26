@@ -7,7 +7,7 @@ import {Button} from "react-bootstrap";
 import {connect, useDispatch, useSelector} from "react-redux";
 import CheckboxGroup from "../common/CheckboxGroup/CheckboxGroup";
 import CakeViewer from "./CakeViewer";
-import {loadData} from "../../redux/thunks/cakeConstructor_thunks";
+import {loadData, saveCake} from "../../redux/thunks/cakeConstructor_thunks";
 import {setCake} from "../../redux/actions/cakeConstructor_actions";
 
 const CakeConstructorForm = (props) => {
@@ -42,7 +42,7 @@ const CakeConstructorForm = (props) => {
             <div>
                 <div>Бисквит</div>
                 {
-                    data.filter(i => i.type === 'BISCUITS').map((i, idx) => <div key={i.id}>
+                    data.filter(i => i.type === 'BISCUIT').map((i, idx) => <div key={i.id}>
                         <label>{i.name}</label>
                         <Field name={'biscuit'} type={"radio"} value={i.name} component={Input}/>
                     </div>)
@@ -92,14 +92,12 @@ const CakeConstructor = (props) => {
 
     const onSubmit = (formData) => {
         const cake = {
-            weight: formData.weight,
-            biscuit: formData.biscuit,
-            fillings: formData.fillings,
-            decorations: formData.decorations
+            weight: parseInt(formData.weight),
+            ingredients: data.filter(i => i.name === formData.biscuit || formData.fillings.includes(i.id.toString()) || formData.decorations.includes(i.id.toString())), //:TODO refactor
+            price: 100,
+            name: "Торт " + formData.biscuit
         }
-
-        console.log(cake)
-        // dispatch(saveCake())
+        dispatch(saveCake(cake))
     }
 
     return <div className={`sectionOuter ${constructorStyle.constructorSection}`}>

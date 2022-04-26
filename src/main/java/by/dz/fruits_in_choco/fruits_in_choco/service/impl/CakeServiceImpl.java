@@ -42,14 +42,14 @@ public class CakeServiceImpl implements CakeService {
 
     @Override
     public Cake saveCake(Cake cake) {
-        cake.setStatus(CakeStatus.NOT_CONFIRMED);
-
         Product cakeProduct = new Product();
         cakeProduct.setStatus(ProductStatus.NOT_CONFIRMED);
         cakeProduct.setPrice((int) cake.getPrice()); // need to change price type to double
         cakeProduct.setCategory(categoryService.getCategoryByName("Торты")); // change to constant
 
         productService.saveProduct(cakeProduct);
+
+        cake.setStatus(CakeStatus.NOT_CONFIRMED);
         return cakeRepository.save(cake);
     }
 

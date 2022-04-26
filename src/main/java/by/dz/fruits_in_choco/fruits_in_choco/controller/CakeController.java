@@ -27,7 +27,7 @@ public class CakeController {
     }
 
     @PostMapping("/cakes")
-    public ResponseEntity<?> saveCake(Cake cake) {
+    public ResponseEntity<?> saveCake(@RequestBody Cake cake) {
         return ResponseEntity.ok(cakeService.saveCake(cake));
     }
 

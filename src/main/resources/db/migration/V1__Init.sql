@@ -95,7 +95,7 @@ create table cake_ingredients
 (
     cake_id        bigint not null,
     ingredients_id bigint not null,
-    primary key (id)
+    primary key (cake_id, ingredients_id)
 );
 
 create table cart

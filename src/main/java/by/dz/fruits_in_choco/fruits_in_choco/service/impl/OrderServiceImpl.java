@@ -61,9 +61,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order updateOrder(Order newOrder) {
-        Order order = orderRepository.findById(newOrder.getId()).get();
-        order.setStatus(newOrder.getStatus());
-        return orderRepository.save(order);
+    public Order updateOrder(Order newOrder, Long id) {
+        return orderRepository.findById(id)
+                .map(order -> {
+                    order.setOrderItems(newOrder.getOrderItems());
+                    order.setFirstname(newOrder.getFirstname());
+                    order.setEmail(newOrder.getEmail());
+                    order.setStatus(newOrder.getStatus());
+                    order.setDate(newOrder.getDate());
+                    order.setAgreeToSendingMessages(newOrder.isAgreeToSendingMessages());
+                    order.setPhone(newOrder.getPhone());
+                    order.setLastname(newOrder.getLastname());
+                    order.setPrice(newOrder.getPrice());
+                    order.setUserId(newOrder.getUserId());
+                    return orderRepository.save(order);
+                })
+                .orElseGet(() -> {
+                    newOrder.setId(id);
+                    return orderRepository.save(newOrder);
+                });
     }
 }

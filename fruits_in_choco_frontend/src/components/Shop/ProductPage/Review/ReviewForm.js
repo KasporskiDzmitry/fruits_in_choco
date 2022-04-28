@@ -18,8 +18,6 @@ const ReviewForm = (props) => {
             productId: props.productId
         });
 
-        props.stompClient.send("/app/notification", {}, JSON.stringify({date: new Date(), type: 'REVIEW'}));
-
         setMessage('');
         setRating(0);
     };

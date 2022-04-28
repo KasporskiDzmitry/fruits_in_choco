@@ -19,7 +19,7 @@ const Header = (props) => {
     }, []);
 
     const onConnected = () => {
-        stompClient.subscribe('/topic/notification', () => dispatch(notificationReceived()));
+        stompClient.subscribe('/user/admin/notification', () => dispatch(notificationReceived()));
     }
 
 

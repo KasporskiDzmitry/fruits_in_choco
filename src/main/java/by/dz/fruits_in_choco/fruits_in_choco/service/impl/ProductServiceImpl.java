@@ -152,7 +152,7 @@ public class ProductServiceImpl implements ProductService {
         notification.setDate(new Date());
         notification.setType("REVIEW");
 
-        simpMessagingTemplate.convertAndSend("/notification", notification);
+        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", notification);
 
         return filterUnapprovedRatings(product);
     }

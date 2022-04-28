@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import style from './ProductPage.module.scss';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
@@ -7,22 +7,8 @@ import Preloader from "../../common/Preloader/Preloader";
 import ReviewItem from "./Review/ReviewItem";
 import ReviewForm from "./Review/ReviewForm";
 import {isProductInCart} from "../../utils/localStorageFunctions";
-import SockJS from "sockjs-client";
-import {API_BASE_URL} from "../../utils/constants/url";
-import {over} from "stompjs";
-
-let stompClient = null;
 
 const ProductPage = ({product, saveProductToCart, isFetching, addReview, profile, ratings}) => {
-
-    useEffect(() => {
-        let Sock = new SockJS(`${API_BASE_URL}/ws`);
-        stompClient = over(Sock);
-        stompClient.connect({}, () => {}, (err) => console.log(err));
-
-        return () => stompClient && stompClient.disconnect();
-    }, [])
-
     const isInCart = isProductInCart(product.id);
 
     return <div className={`sectionOuter ${style.productPageWrapper}`}>
@@ -47,7 +33,8 @@ const ProductPage = ({product, saveProductToCart, isFetching, addReview, profile
                             </div>
                             <h2>{product.price}</h2>
                             <div className={style.addToCartWrapper}>
-                                <Button className={style.addToCartButton} disabled={isInCart} variant="outline-primary" onClick={() => saveProductToCart(product)}>{isInCart ? "Товар уже в корзине" : "В корзину"}</Button>
+                                <Button className={style.addToCartButton} disabled={isInCart} variant="outline-primary"
+                                        onClick={() => saveProductToCart(product)}>{isInCart ? "Товар уже в корзине" : "В корзину"}</Button>
                             </div>
                         </div>
                     </div>
@@ -57,7 +44,7 @@ const ProductPage = ({product, saveProductToCart, isFetching, addReview, profile
                         </div>
                         {
                             localStorage.name ?
-                                <ReviewForm handleSubmit={addReview} productId={product.id} stompClient={stompClient}/> :
+                                <ReviewForm handleSubmit={addReview} productId={product.id}/> :
                                 <div>
                                     Войдите или зарегистрируйтесь, чтобы оставить отзыв о товаре
                                 </div>

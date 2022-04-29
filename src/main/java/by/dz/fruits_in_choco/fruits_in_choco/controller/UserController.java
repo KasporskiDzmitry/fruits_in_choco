@@ -63,5 +63,4 @@ public class UserController {
         userService.deleteFromCart(id, authentication.getName());
         return ResponseEntity.ok(200);
     }
-
 }

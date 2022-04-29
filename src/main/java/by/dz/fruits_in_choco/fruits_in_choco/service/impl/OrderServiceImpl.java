@@ -3,9 +3,11 @@ package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.OrderItem;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderItemRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
+import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.OrderService;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +21,19 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository, ProductRepository productRepository, OrderItemRepository orderItemRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, ProductRepository productRepository, OrderItemRepository orderItemRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.orderItemRepository = orderItemRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public Order makeOrder(Order order, Map<Long, Integer> productIds) {
         List<OrderItem> orderItemList = new ArrayList<>();
+        User user = userRepository.findById(order.getUserId()).get();
 
         for (Map.Entry<Long, Integer> entry: productIds.entrySet()) {
             Product product = productRepository.findById(entry.getKey()).get();
@@ -40,6 +45,9 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setDate(new Date());
         order.getOrderItems().addAll(orderItemList);
+
+        user.getOrders().add(order);
+
         orderRepository.save(order);
 
         return order;

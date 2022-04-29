@@ -3,6 +3,8 @@ import style from "./Profile.module.scss";
 import {Tabs, Tab} from "react-bootstrap";
 import Cart from "../Cart/Cart";
 import CartContainer from "../Cart/CartContainer";
+import {PersonalInfo} from "./PersonalInfo";
+import {OrdersHistory} from "./OrdersHistory";
 
 const Profile = ({profile}) => {
     return (
@@ -13,15 +15,10 @@ const Profile = ({profile}) => {
                 </div>
                 <Tabs defaultActiveKey="userInfo" id="uncontrolled-tab-example" className="mb-3">
                     <Tab eventKey="userInfo" title="Личная информация">
-                        <div>Имя: {profile.firstName}</div>
-                        <div>Фамилия: {profile.lastName}</div>
-                        <div>email: {profile.email}</div>
+                        <PersonalInfo profile={profile} />
                     </Tab>
                     <Tab eventKey="orders" title="История заказов">
-                        <div className={style.orderInfo}>Заказ</div>
-                        <div className={style.orderInfo}>Заказ</div>
-                        <div className={style.orderInfo}>Заказ</div>
-                        <div className={style.orderInfo}>Заказ</div>
+                        <OrdersHistory orders={profile.orders}/>
                     </Tab>
                     <Tab eventKey="cart" title="Корзина заказов">
                         <CartContainer />

@@ -1,10 +1,10 @@
 import RequestService from "../RequestService";
-import {loginSuccess, logoutSuccess, refreshTokenSuccess, toggleIsFetching} from "../actions/auth_actions";
+import {loginSuccess, logoutSuccess, toggleIsFetching} from "../actions/auth_actions";
 import {reset, stopSubmit} from "redux-form";
 import {removeUserInfoFromLS, saveUserInfoToLS} from "../../components/utils/localStorageFunctions";
 import {toggleSignInSignUpPopUp} from "../actions/app_actions";
+import {synchronizeCarts} from "./shop_thunks";
 import {stompClient} from "../../components/utils/stomp";
-import {saveProductToCart, synchronizeCarts} from "./shop_thunks";
 
 export const login = (email, password) => async dispatch => {
     let cart = [];
@@ -26,8 +26,10 @@ export const login = (email, password) => async dispatch => {
         dispatch(reset('login'));
         dispatch(toggleSignInSignUpPopUp());
         dispatch(synchronizeCarts(cart));
-        window.location.reload(false)
+
+        window.location.reload(true)
     } catch (error) {
+        console.log(error)
         dispatch(stopSubmit('login', {_error: error.response.data}));
     } finally {
         dispatch(toggleIsFetching());

@@ -1,27 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import style from './Header.module.scss';
 import {NavLink, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
-import {useDispatch} from "react-redux";
-import {connectStomp, stompClient} from "../utils/stomp";
-import {notificationReceived} from "../../redux/actions/admin_actions";
 
 
 const Header = (props) => {
     const location = useLocation().pathname;
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        if (localStorage.role === 'ADMIN') {
-            connectStomp(onConnected);
-        }
-    }, []);
-
-    const onConnected = () => {
-        stompClient.subscribe('/user/admin/notification', () => dispatch(notificationReceived()));
-    }
-
 
     const handleClickOnShopRef = (e) => {
         e.preventDefault();

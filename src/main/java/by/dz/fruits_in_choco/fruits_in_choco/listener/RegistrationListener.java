@@ -3,24 +3,26 @@ package by.dz.fruits_in_choco.fruits_in_choco.listener;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.event.OnRegistrationCompleteEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.EventListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
+public class RegistrationListener {
     private final JavaMailSender mailSender;
 
     public RegistrationListener(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
+//
+//    @Override
+//    public void onApplicationEvent(OnRegistrationCompleteEvent event) {
+//        this.confirmRegistration(event);
+//    }
 
-    @Override
-    public void onApplicationEvent(OnRegistrationCompleteEvent event) {
-        this.confirmRegistration(event);
-    }
-
-    private void confirmRegistration(OnRegistrationCompleteEvent event) {
+    @EventListener
+    public void handleRegistrationNewUser(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
         String recipientAddress = user.getEmail();
         String subject = "Registration Confirmation";

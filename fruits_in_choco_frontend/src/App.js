@@ -11,6 +11,8 @@ import SignInSignUpPopUp from "./components/SignInSignUpPopUp/SignInSignUpPopUp"
 import ScrollToTopButton from "./components/common/ScrollToTopButton/ScrollToTopButton";
 import CartLayout from "./components/CartLayout/CartLayout";
 import useNotifier from "./components/hooks/useNotifier";
+import {connectStomp, stompClient} from "./components/utils/stomp";
+import {notificationReceived} from "./redux/actions/admin_actions";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
@@ -48,6 +50,12 @@ const App = (props) => {
 
     useEffect(() => {
         dispatch(init());
+
+        if (localStorage.role === 'ADMIN') {
+            connectStomp(() => {
+                stompClient.subscribe('/user/admin/notification', () => dispatch(notificationReceived()));
+            });
+        }
     }, [])
 
 

@@ -101,6 +101,8 @@ public class ProductServiceImpl implements ProductService {
                     product.setDescription(newProduct.getDescription());
                     product.setPrice(newProduct.getPrice());
                     product.setRatings(newProduct.getRatings());
+                    product.setStatus(newProduct.getStatus());
+                    product.setImageURL(newProduct.getImageURL());
                     return productRepository.save(product);
                 })
                 .orElseGet(() -> {

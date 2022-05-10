@@ -3,7 +3,12 @@ import EditProduct from "./EditProduct";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {approveReview, loadProductByIdAdmin, deleteReview} from "../../../../redux/thunks/admin_thunks";
+import {
+    approveReview,
+    loadProductByIdAdmin,
+    deleteReview,
+    updateProductThunk
+} from "../../../../redux/thunks/admin_thunks";
 
 class EditProductContainer extends React.Component {
 
@@ -23,6 +28,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {loadProductByIdAdmin, approveReview, deleteReview}),
+    connect(mapStateToProps, {loadProductByIdAdmin, approveReview, deleteReview, updateProductThunk}),
     withRouter
 )(EditProductContainer)

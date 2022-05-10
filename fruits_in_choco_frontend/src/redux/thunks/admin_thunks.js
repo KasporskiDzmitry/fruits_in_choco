@@ -54,6 +54,16 @@ export const loadProductsAdmin = () => async dispatch => {
     }
 }
 
+export const updateProductThunk = (product) => async dispatch => {
+    try {
+        const response = await RequestService.put(`/admin/products/${product.id}`, product, true);
+        dispatch(enqueueSnackbar("Product updated successfully", "success"));
+        dispatch(updateProduct(response.data));
+    } catch (e) {
+        console.log(e)
+    }
+}
+
 /// Reviews ///
 
 export const approveReview = (review, productId) => async dispatch => {

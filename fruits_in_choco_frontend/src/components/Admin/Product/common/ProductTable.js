@@ -10,6 +10,7 @@ const columns = [
     { key: 'price', header: 'Цена', sortable: true },
     { key: 'category', header: 'Категория', sortable: true },
     { key: 'reviews', header: 'Отзывы', Component: Reviews },
+    { key: 'status', header: 'Статус', sortable: true},
     { key: 'actions', header: 'Actions', Component: ProductTableActions }
 ];
 

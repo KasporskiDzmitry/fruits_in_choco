@@ -13,6 +13,7 @@ import {faCheck, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 
 const EditProductForm = ({handleSubmit, error, categories, isFetching, product}) => {
     const [categoryId, setCategoryId] = useState(product.categoryId);
+    console.log(categories)
 
     const selectCategory = (e) => {
         setCategoryId(parseInt(e.currentTarget.value))
@@ -42,14 +43,23 @@ const EditProductForm = ({handleSubmit, error, categories, isFetching, product})
             </div>
             <div className={style.fieldWrapper}>
                 <div className={style.label}>Категория</div>
-                <Field className={style.field} disabled={true} name="categoryId" component={Select}
+                <Field className={style.field} name="categoryId" component={Select}
                        validate={[required]} onChange={selectCategory}>
                     <option></option>
                     {
                         categories.map(i => <option key={i.id} value={i.id}>{i.name}</option>)
                     }
                 </Field>
-                <div>in progress...</div>
+            </div>
+            <div className={style.fieldWrapper}>
+                <div className={style.label}>Статус</div>
+                <Field className={style.field} placeholder={'Status'} name={'status'} component={Select}
+                       validate={[required]}>
+                    <option></option>
+                    <option>ACTIVE</option>
+                    <option>NOT_CONFIRMED</option>
+                    <option>DELETED</option>
+                </Field>
             </div>
             {error && <div className={formsControlsStyle.formSummaryError}>
                 {error}
@@ -71,12 +81,8 @@ EditProductReduxForm = connect(
 
 const EditProduct = props => {
     const onSubmit = formData => {
-        // props.addProduct({
-        //     name: formData.name,
-        //     description: formData.description,
-        //     type: props.categories.find(i => i.id === parseInt(formData.category)).types.find(i => i.id === parseInt(formData.type)),
-        //     price: parseInt(formData.price)
-        // });
+        let product = {...formData, category: props.categories.find(i => i.id === formData.categoryId)};
+        props.updateProductThunk(product);
     };
 
     const approve = (review, product) => {

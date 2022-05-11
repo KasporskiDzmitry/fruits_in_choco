@@ -23,10 +23,10 @@ class RequestService {
     };
 }
 
-const createRequest = (method, url, body, isAuthRequired, contentType) => {
+const createRequest = (method, path, body, isAuthRequired, contentType) => {
     return axios({
         method: method,
-        url: API_BASE_URL + url,
+        url: API_BASE_URL + path,
         data: body,
         headers: setHeader(isAuthRequired, contentType),
         withCredentials: true

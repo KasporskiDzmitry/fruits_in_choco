@@ -14,6 +14,7 @@ import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.DEFAULT_SORT_DIRECTION;
 
 @RestController
+@RequestMapping("/api/v1")
 public class UserController {
     UserServiceImpl userService;
     UserMapper userMapper;

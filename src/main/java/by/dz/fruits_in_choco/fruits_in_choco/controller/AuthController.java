@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthServiceImpl authService;
@@ -55,7 +55,7 @@ public class AuthController {
         cookie.setMaxAge(0);
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
-        cookie.setPath("/auth/refreshToken");
+        cookie.setPath("/api/v1/auth/refreshToken");
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }

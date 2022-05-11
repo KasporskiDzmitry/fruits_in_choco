@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 
 @RestController
+@RequestMapping("/api/v1")
 public class ProductController {
     private final ProductServiceImpl productService;
     private final ProductMapper mapper;

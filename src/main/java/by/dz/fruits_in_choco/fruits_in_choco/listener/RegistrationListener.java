@@ -32,7 +32,7 @@ public class RegistrationListener {
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        email.setText("\r\n" + "http://localhost:8080" + confirmationUrl);
+        email.setText("\r\n" + "http://localhost:8080/api/v1" + confirmationUrl);
         mailSender.send(email);
     }
 }

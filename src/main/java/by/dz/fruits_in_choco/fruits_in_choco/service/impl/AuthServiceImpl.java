@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
         cookie.setMaxAge(Math.toIntExact(refreshTokenValidity));
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
-        cookie.setPath("/auth/refreshToken");
+        cookie.setPath("/api/v1/auth/refreshToken");
         response.addCookie(cookie);
 
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
@@ -68,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
         cookie.setMaxAge(Math.toIntExact(refreshTokenValidity));
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
-        cookie.setPath("/auth/refreshToken");
+        cookie.setPath("/api/v1/auth/refreshToken");
         response.addCookie(cookie);
 
         return jwtTokenProvider.createToken(user.getEmail(), user.getRole().name(), tokenValidity);

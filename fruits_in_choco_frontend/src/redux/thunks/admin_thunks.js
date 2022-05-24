@@ -9,6 +9,7 @@ import {setProducts, updateProduct} from "../actions/shop_actions";
 import {loadCategories} from "./category_thunks";
 import {deleteCategory} from "../actions/category_actions";
 import {enqueueSnackbar} from "../actions/app_actions";
+import {loadSlides} from "./main_thunks";
 
 /// Products ///
 
@@ -119,6 +120,40 @@ export const deleteCategoryById = id => async dispatch => {
 export const loadUsers = () => async dispatch => {
     const response = await RequestService.get('/admin/users', true);
     dispatch(setUsers(response.data));
+}
+
+/// Slider ///
+
+export const saveSlide = (slide) => async dispatch => {
+    try {
+        const response = await RequestService.post('/slide', slide, true);
+        dispatch(loadSlides());
+        dispatch(reset("add_slide"));
+        dispatch(enqueueSnackbar("Slide saved successfully", "success"));
+    } catch (e) {
+        dispatch(enqueueSnackbar("Error while saving slide", "error"));
+        console.log(e)
+    }
+}
+
+export const updateSlide = (slide) => async dispatch => {
+    try {
+        const response = await RequestService.put(`/slide/${slide.id}`, slide, true);
+        dispatch(loadSlides());
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const deleteSlide = (slide) => async dispatch => {
+    try {
+        const response = await RequestService.delete(`/slide/${slide.id}`, true);
+        dispatch(enqueueSnackbar("Slide removed successfully", "success"));
+        dispatch(loadSlides());
+    } catch (e) {
+        dispatch(enqueueSnackbar("Error while removing slide", "error"));
+        console.log(e)
+    }
 }
 
 

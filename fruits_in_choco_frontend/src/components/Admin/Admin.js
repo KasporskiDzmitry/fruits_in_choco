@@ -17,6 +17,7 @@ const AddCategory = React.lazy(() => import('./Category/AddCategory/AddCategory'
 const AdminProductPage = React.lazy(() => import('./Product/EditProduct/EditProductContainer'));
 const AdminCategoryPage = React.lazy(() => import('./Category/EditCategory/EditCategoryPageContainer'));
 const CakeConstructorData = React.lazy(() => import('./CakeConstructor/CakeConstructorData'));
+const AdminSlider = React.lazy(() => import('./Slider/SliderContainer'));
 
 class Admin extends React.Component {
 
@@ -41,6 +42,7 @@ class Admin extends React.Component {
                         <NavLink to={'/profile/admin/add_category'}>Добавить категорию</NavLink>
                         <NavLink to={'/profile/admin/users'}>Пользователи</NavLink>
                         <NavLink to={'/profile/admin/constructor'}>Конструктор</NavLink>
+                        <NavLink to={'/profile/admin/slider'}>Сдайдер</NavLink>
                     </nav>
                     <>
                         <React.Suspense fallback={<Preloader/>}>
@@ -67,6 +69,8 @@ class Admin extends React.Component {
                                    render={() => <AdminUserContainer/>}/>
                             <Route exact path='/profile/admin/constructor'
                                    render={() => <CakeConstructorData />}/>
+                            <Route exact path='/profile/admin/slider'
+                                   render={() => <AdminSlider />}/>
                         </React.Suspense>
                     </>
                 </div>

@@ -35,7 +35,8 @@ public class SliderController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> saveSlide(@PathVariable Long id) {
+    public ResponseEntity<?> deleteSlide(@PathVariable Long id) {
+        sliderService.deleteSlide(id);
         return ResponseEntity.ok(200);
     }
 }

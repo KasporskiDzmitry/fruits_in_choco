@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/products/search",
                         "/api/v1/cakes",
                         "/api/v1/constructor",
+                        "/api/v1/slide",
                         "/ws",
                         "/ws/**",
                         "/app/notification"

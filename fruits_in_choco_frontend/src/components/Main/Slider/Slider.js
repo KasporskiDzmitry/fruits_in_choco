@@ -9,7 +9,7 @@ const Slider = (props) => {
             return <Carousel.Item key={slide.id}>
                 <img
                     className={style.sliderImage}
-                    src={slide.url}
+                    src={slide.imageURL}
                     alt="First slide"
                 />
                 <Carousel.Caption className={style.slideInfo}>
@@ -18,7 +18,7 @@ const Slider = (props) => {
                             <h1>{slide.title}</h1>
                         </div>
                         <div className={style.slideInfo__subtitle}>
-                            <h2>{slide.subtitle}</h2>
+                            <h2>{slide.text}</h2>
                         </div>
                         <div className={style.slideInfo__primaryBtnWrapper}>
                             <Button variant="primary" className={style.btn}>Подробнее</Button>

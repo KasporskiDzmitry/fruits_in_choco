@@ -37,7 +37,7 @@ public class CakeServiceImpl implements CakeService {
 
     @Override
     public List<Ingredient> getConstructorData() {
-        return ingredientRepository.findAll();
+        return ingredientRepository.findByStatus(CakeIngredientStatus.ACTIVE);
     }
 
     @Override

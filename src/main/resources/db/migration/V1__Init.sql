@@ -39,7 +39,7 @@ create table user
     status          enum('ACTIVE', 'BANNED', 'NOT_CONFIRMED'),
     activationtoken varchar(500),
     cart_id         bigint,
-    primary key (id),
+    primary key (id)
 );
 
 create table user_ratings
@@ -119,6 +119,16 @@ create table cart_cart_items
     cart_id       bigint not null,
     cart_items_id bigint not null
 );
+
+create table slide
+(
+    id       bigint not null auto_increment,
+    title    varchar(45),
+    text     varchar(100),
+    href     varchar(400),
+    imageURL varchar(400),
+    primary key (id)
+)
 
 alter table if exists orders_order_items add constraint UK_9d47gapmi35omtannusv6btu3 unique (order_items_id);
 alter table if exists product_ratings add constraint UK_onx7x3bfabrhsua5vtme36juu unique (ratings_id);

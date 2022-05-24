@@ -7,7 +7,6 @@ class SliderContainer extends React.Component {
 
     componentDidMount() {
         this.props.loadSlides();
-
     }
 
     render() {

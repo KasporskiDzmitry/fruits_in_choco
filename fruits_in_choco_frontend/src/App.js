@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Footer from './components/Footer/Footer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -13,6 +13,7 @@ import CartLayout from "./components/CartLayout/CartLayout";
 import useNotifier from "./components/hooks/useNotifier";
 import {connectStomp, stompClient} from "./components/utils/stomp";
 import {notificationReceived} from "./redux/actions/admin_actions";
+import {NotFound} from "./components/NotFound/NotFound";
 
 const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
@@ -67,24 +68,27 @@ const App = (props) => {
         <ScrollToTopButton/>
         <HeaderContainer/>
         <React.Suspense fallback={<Preloader/>}>
-            <Route exact path='/'
-                   render={() => <MainContainer/>}/>
-            <Route path='/shop'
-                   render={() => <ShopContainer/>}/>
-            <Route path='/products/:id'
-                   render={() => <ProductPage/>}/>
-            <Route path='/about'
-                   render={() => <AboutContainer/>}/>
-            <Route path='/profile'
-                   render={() => <ProfilePage/>}/>
-            <Route exact path='/cart'
-                   render={() => <CartPage/>}/>
-            <Route exact path='/order'
-                   render={() => <OrderPage/>}/>
-            <Route exact path='/order/success'
-                   render={() => <OrderSuccess/>}/>
-            <Route exact path={'/cake/constructor'}
-                   render={() => <CakeConstructor/>}/>
+            <Switch>
+                <Route exact path='/'
+                       render={() => <MainContainer/>}/>
+                <Route path='/shop'
+                       render={() => <ShopContainer/>}/>
+                <Route path='/products/:id'
+                       render={() => <ProductPage/>}/>
+                <Route path='/about'
+                       render={() => <AboutContainer/>}/>
+                <Route path='/profile'
+                       render={() => <ProfilePage/>}/>
+                <Route exact path='/cart'
+                       render={() => <CartPage/>}/>
+                <Route exact path='/order'
+                       render={() => <OrderPage/>}/>
+                <Route exact path='/order/success'
+                       render={() => <OrderSuccess/>}/>
+                <Route exact path={'/cake/constructor'}
+                       render={() => <CakeConstructor/>}/>
+                <Route path='*' component={NotFound}/>
+            </Switch>
         </React.Suspense>
         <Footer/>
     </>

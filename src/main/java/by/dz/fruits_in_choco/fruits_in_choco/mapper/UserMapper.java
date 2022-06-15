@@ -47,6 +47,10 @@ public class UserMapper {
         return mapToResponseDto(userService.getUserByEmail(email));
     }
 
+    public UserResponse getUserById(Long id) {
+        return mapToResponseDto(userService.getUserById(id));
+    }
+
     public UserResponse updateProfile(UserRequest userRequest) {
         return mapToResponseDto(userService.updateProfile(convertToEntity(userRequest)));
     }

@@ -2,7 +2,7 @@ import RequestService from "../RequestService";
 import {reset} from "redux-form";
 import {loadProducts} from "./shop_thunks";
 import {
-    setProduct,
+    setProduct, setUser,
     setUsers,
 } from "../actions/admin_actions";
 import {setProducts, updateProduct} from "../actions/shop_actions";
@@ -120,6 +120,15 @@ export const deleteCategoryById = id => async dispatch => {
 export const loadUsers = () => async dispatch => {
     const response = await RequestService.get('/admin/users', true);
     dispatch(setUsers(response.data));
+}
+
+export const loadUserById = id => async dispatch =>{
+    try {
+        const response = await RequestService.get(`/admin/users/${id}`, true);
+        dispatch(setUser(response.data));
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 /// Slider ///

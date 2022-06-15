@@ -1,4 +1,5 @@
 export const SET_USERS = 'admin/SET_USERS';
+export const SET_USER = 'admin/SET_USER';
 export const PRODUCT_ADDED_SUCCESS = 'admin/PRODUCT_ADDED_SUCCESS';
 export const CATEGORY_ADDED_SUCCESS = 'admin/CATEGORY_ADDED_SUCCESS';
 export const REVIEW_APPROVED_SUCCESS = 'admin/REVIEW_APPROVED_SUCCESS';

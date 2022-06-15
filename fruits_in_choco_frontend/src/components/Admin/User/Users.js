@@ -1,10 +1,10 @@
 import React from "react";
-import UserTable from "./UserTable";
+import UserTable from "./UsersTable";
 
-const AdminUser = (props) => {
+const Users = (props) => {
     return <div>
         <UserTable data={props.users} />
     </div>
 }
 
-export default AdminUser;
+export default Users;

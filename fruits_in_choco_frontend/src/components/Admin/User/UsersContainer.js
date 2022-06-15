@@ -1,16 +1,16 @@
 import React from "react";
-import AdminUser from "./AdminUser";
+import Users from "./Users";
 import {connect} from "react-redux";
 import {loadUsers} from "../../../redux/thunks/admin_thunks";
 
-class AdminUserContainer extends React.Component {
+class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.loadUsers();
     }
 
     render() {
-        return <AdminUser {...this.props}/>
+        return <Users {...this.props}/>
     }
 }
 
@@ -18,4 +18,4 @@ const mapStateToProps = (state) => ({
     users: state.adminReducer.users,
 })
 
-export default connect(mapStateToProps, {loadUsers})(AdminUserContainer);
+export default connect(mapStateToProps, {loadUsers})(UsersContainer);

@@ -7,10 +7,12 @@ import {
     REVIEW_REJECTED_SUCCESS,
     SET_PRODUCT,
     SET_REVIEW,
-    SET_USERS
+    SET_USERS,
+    SET_USER
 } from "../action_types/admin_action_types";
 
 export const setUsers = (users) => ({type: SET_USERS, users});
+export const setUser = (user) => ({type: SET_USER, user});
 export const addProductSuccess = () => ({type: PRODUCT_ADDED_SUCCESS});
 export const addCategorySuccess = () => ({type: CATEGORY_ADDED_SUCCESS})
 export const setProduct = product => ({type: SET_PRODUCT, product});

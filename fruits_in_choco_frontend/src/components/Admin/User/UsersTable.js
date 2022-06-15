@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import sematable, { Table } from 'sematable';
+import UsersTableActions from "./UsersTableActions";
 
 const columns = [
     { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
@@ -9,6 +10,7 @@ const columns = [
     { key: 'email', header: 'Email', sortable: true },
     { key: 'role', header: 'Роль', sortable: true },
     { key: 'status', header: 'Статус', sortable: true },
+    { key: 'actions', header: 'Actions', Component: UsersTableActions }
 ];
 
 const propTypes = {
@@ -17,7 +19,7 @@ const propTypes = {
     primaryKey: PropTypes.string.isRequired,
 };
 
-class UserTable extends Component {
+class UsersTable extends Component {
     render() {
         return (
             <Table
@@ -29,5 +31,5 @@ class UserTable extends Component {
     }
 }
 
-UserTable.propTypes = propTypes;
-export default sematable('userTable', UserTable, columns);
+UsersTable.propTypes = propTypes;
+export default sematable('userTable', UsersTable, columns);

@@ -11,7 +11,8 @@ const AdminCategoryContainer = React.lazy(() => import('./Category/CategoriesCon
 const OrdersContainer = React.lazy(() => import('./Order/OrdersContainer'));
 const Order = React.lazy(() => import('./Order/OrderInfoContainer'));
 const AdminProductContainer = React.lazy(() => import('./Product/ProductsContainer'));
-const AdminUserContainer = React.lazy(() => import('./User/AdminUserContainer'));
+const AdminUserContainer = React.lazy(() => import('./User/UsersContainer'));
+const AdminUserPage = React.lazy(() => import('./User/UserInfo'))
 const AddProduct = React.lazy(() => import('./Product/AddProduct/AddProduct'));
 const AddCategory = React.lazy(() => import('./Category/AddCategory/AddCategory'));
 const AdminProductPage = React.lazy(() => import('./Product/EditProduct/EditProductContainer'));
@@ -67,6 +68,8 @@ class Admin extends React.Component {
                                                              isProductAddedSuccess={this.props.isProductAddedSuccess}/>}/>
                             <Route exact path='/profile/admin/users'
                                    render={() => <AdminUserContainer/>}/>
+                            <Route exact path='/profile/admin/users/:id'
+                                   render={() => <AdminUserPage/>}/>
                             <Route exact path='/profile/admin/constructor'
                                    render={() => <CakeConstructorData />}/>
                             <Route exact path='/profile/admin/slider'

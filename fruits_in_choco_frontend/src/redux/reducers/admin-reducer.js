@@ -8,10 +8,12 @@ import {
     SET_PRODUCT,
     SET_REVIEW,
     SET_USERS,
+    SET_USER
 } from "../action_types/admin_action_types";
 
 const initialState = {
     users: [],
+    user: {},
     product: {},
     review: {},
     isNotificationReceived: false,
@@ -39,6 +41,12 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: action.users
+            }
+        }
+        case SET_USER: {
+            return {
+                ...state,
+                user: action.user
             }
         }
         case SET_PRODUCT: {

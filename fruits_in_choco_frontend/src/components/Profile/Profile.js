@@ -5,6 +5,7 @@ import Cart from "../Cart/Cart";
 import CartContainer from "../Cart/CartContainer";
 import {PersonalInfo} from "./PersonalInfo";
 import {OrdersHistory} from "./OrdersHistory";
+import ReviewsInfo from "./ReviewsInfo";
 
 const Profile = ({profile}) => {
     return (
@@ -22,6 +23,9 @@ const Profile = ({profile}) => {
                     </Tab>
                     <Tab eventKey="cart" title="Корзина заказов">
                         <CartContainer />
+                    </Tab>
+                    <Tab eventKey="reviews" title="Отзывы">
+                        <ReviewsInfo reviews={profile.ratings}/>
                     </Tab>
                 </Tabs>
                 СТРАНИЦА ПОЛЬЗОВАТЕЛЯ {profile.firstName}

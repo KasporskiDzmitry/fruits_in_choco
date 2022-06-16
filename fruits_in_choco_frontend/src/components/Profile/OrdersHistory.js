@@ -3,7 +3,7 @@ import React from 'react';
 export const OrdersHistory = ({orders}) => {
     return <div>
         {
-            orders.reverse().map(o => <div>
+            orders && orders.reverse().map(o => <div>
                 <div>{o.date}</div>
                 {
                     o.orderItems.map(i => <div>

@@ -1,5 +1,9 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
@@ -9,6 +13,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "rating")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProductRating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +30,10 @@ public class ProductRating {
 
     private Date date;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
     @Column(columnDefinition = "TINYINT")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean approved;
@@ -38,6 +47,7 @@ public class ProductRating {
                 ", rating=" + rating +
                 ", message='" + message + '\'' +
                 ", date=" + date +
+                ", productId=" + product.getId() +
                 ", approved=" + approved +
                 '}';
     }

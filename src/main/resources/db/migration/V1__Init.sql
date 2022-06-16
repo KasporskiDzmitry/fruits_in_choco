@@ -18,14 +18,15 @@ create table product_ratings
 
 create table rating
 (
-    id        bigint  not null auto_increment,
-    author    varchar(255),
-    author_id bigint  not null,
-    date      datetime(6),
-    message   varchar(255),
-    rating    integer not null,
-    primary key (id),
-    approved  boolean default false
+    id         bigint  not null auto_increment,
+    author     varchar(255),
+    author_id  bigint  not null,
+    date       datetime(6),
+    message    varchar(255),
+    product_id bigint  not null,
+    rating     integer not null,
+    approved   boolean default false,
+    primary key (id)
 );
 
 create table user

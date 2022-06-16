@@ -3,12 +3,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {loadUserById} from "../../../redux/thunks/admin_thunks";
 import {useHistory} from "react-router-dom";
 import Preloader from "../../common/Preloader/Preloader";
+import {Tab, Tabs} from "react-bootstrap";
+import {PersonalInfo} from "../../Profile/PersonalInfo";
+import {OrdersHistory} from "../../Profile/OrdersHistory";
+import CartContainer from "../../Cart/CartContainer";
+import Profile from "../../Profile/Profile";
 
 const UserInfo = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.adminReducer.user);
-
 
     useEffect(() => {
         dispatch(loadUserById(history.location.pathname.split('/').pop()));
@@ -17,16 +21,7 @@ const UserInfo = (props) => {
     return <div>
         {
             user ?
-                <div>
-                    <div>{user.email}</div>
-                    <div>{user.firstName}</div>
-                    <div>{user.lastName}</div>
-                    <div>{user.role}</div>
-                    <div>{user.status}</div>
-                    <div>{user.cart?.price}</div>
-                    {/*<div>{user.orders}</div>*/}
-                    {/*<div>{user.ratings}</div>*/}
-                </div>
+                <Profile profile={user}/>
                 :
                 <Preloader/>
         }

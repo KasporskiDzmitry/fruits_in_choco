@@ -1,9 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
@@ -52,10 +51,8 @@ public class ProductMapper {
 
     public ProductResponse mapToResponseDTO(Product product) {
         modelMapper.typeMap(Product.class, ProductResponse.class).addMappings(mapper -> {
-            mapper.map(src -> src.getCategory().getId(),
-                    ProductResponse::setCategoryId);
+            mapper.map(src -> src.getCategory().getId(), ProductResponse::setCategoryId);
         });
-
         return modelMapper.map(product, ProductResponse.class);
     }
 

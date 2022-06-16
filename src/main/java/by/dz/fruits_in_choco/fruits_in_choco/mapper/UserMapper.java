@@ -6,6 +6,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
+import by.dz.fruits_in_choco.fruits_in_choco.service.ProfileService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.UserService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.UserServiceImpl;
@@ -18,12 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 public class UserMapper {
     private final ModelMapper modelMapper;
     private final UserService userService;
+    private final ProfileService profileService;
     private final RegistrationService registrationService;
     private final ProductMapper productMapper;
 
-    public UserMapper(ModelMapper modelMapper, UserServiceImpl userService, RegistrationService registrationService, ProductMapper productMapper) {
+    public UserMapper(ModelMapper modelMapper, UserServiceImpl userService, ProfileService profileService, RegistrationService registrationService, ProductMapper productMapper) {
         this.modelMapper = modelMapper;
         this.userService = userService;
+        this.profileService = profileService;
         this.registrationService = registrationService;
         this.productMapper = productMapper;
     }
@@ -52,11 +55,11 @@ public class UserMapper {
     }
 
     public UserResponse updateProfile(UserRequest userRequest) {
-        return mapToResponseDto(userService.updateProfile(convertToEntity(userRequest)));
+        return mapToResponseDto(profileService.updateProfile(convertToEntity(userRequest)));
     }
 
     public Product addToCart(ProductRequest request, String email) {
-        return userService.addToCart(productMapper.mapToEntity(request), request.getQuantity(), email);
+        return profileService.addToCart(productMapper.mapToEntity(request), request.getQuantity(), email);
     }
 
     public String register(RegistrationRequest registrationRequest, HttpServletRequest request) {

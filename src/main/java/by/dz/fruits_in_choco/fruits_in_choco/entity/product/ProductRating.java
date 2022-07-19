@@ -34,7 +34,7 @@ public class ProductRating {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(columnDefinition = "TINYINT")
+    @Column(columnDefinition = "BIT")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean approved;
 

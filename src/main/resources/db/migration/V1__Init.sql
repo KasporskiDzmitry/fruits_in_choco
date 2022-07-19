@@ -10,6 +10,16 @@ create table product
     primary key (id)
 );
 
+create table `cake`
+(
+    `id`     bigint(20) NOT NULL AUTO_INCREMENT,
+    `name`   varchar(255) NOT NULL,
+    `price`  double       NOT NULL,
+    `weight` double       NOT NULL,
+    `status` enum('CONFIRMED','NOT_CONFIRMED') DEFAULT NULL,
+    primary key (`id`)
+)
+
 create table product_ratings
 (
     product_id bigint not null,
@@ -59,8 +69,9 @@ create table orders
     date                         datetime(6),
     price                        double not null,
     is_agree_to_sending_messages boolean default false,
-    status                       enum('NOT_CONFIRMED', 'CONFIRMED', 'DECLINED')
-        primary key (id)
+    status                       enum('NOT_CONFIRMED', 'CONFIRMED', 'DECLINED'),
+    user_id                      bigint,
+    primary key (id)
 );
 
 create table order_item
@@ -89,7 +100,8 @@ create table ingredient
     name   varchar(45),
     price  double not null,
     status enum('ACTIVE', 'DELETED'),
-    type   enum('FILLING', 'DECORATION', 'BISCUIT')
+    type   enum('FILLING', 'DECORATION', 'BISCUIT'),
+    primary key (id)
 );
 
 create table cake_ingredients
@@ -150,3 +162,4 @@ alter table if exists user_orders add constraint FK3yq31b5hsh40vprb3spflxaob for
 alter table if exists user_orders add constraint FKkuspr37yv513ga1okogyxrb7m foreign key (user_id) references user (id);
 alter table if exists cake_ingredients add constraint FK_cake_decorations_cake_id foreign key (cake_ingr_id_fk) references cake (id);
 alter table if exists cake_ingredients add constraint FK_cake_decorations_decorations_id foreign key (ingredients_id_fk) references ingredients (id);
+alter table if exists orders add constraint FK_user_id_orders foreign key (user_id_o_fk) references user (id);

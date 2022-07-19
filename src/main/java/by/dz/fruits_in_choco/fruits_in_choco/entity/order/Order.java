@@ -35,7 +35,7 @@ public class Order {
     @Column(name = "status", columnDefinition = "ENUM('NOT_CONFIRMED', 'CONFIRMED', 'DECLINED')", nullable = false)
     private OrderStatus status;
 
-    @Column(columnDefinition = "TINYINT")
+    @Column(columnDefinition = "BIT")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isAgreeToSendingMessages;
 

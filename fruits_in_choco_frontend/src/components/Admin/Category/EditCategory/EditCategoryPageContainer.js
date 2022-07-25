@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {EditCategoryPage} from "./EditCategoryPage";
 import {withRouter} from "react-router-dom";
 import {loadCategoryById} from "../../../../redux/thunks/category_thunks";
+import {updateCategoryThunk} from "../../../../redux/thunks/admin_thunks";
 
 class EditCategoryPageContainer extends React.Component {
 
@@ -22,6 +23,6 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
-    connect(mapStateToProps, {loadCategoryById}),
+    connect(mapStateToProps, {loadCategoryById, updateCategoryThunk}),
     withRouter
 )(EditCategoryPageContainer);

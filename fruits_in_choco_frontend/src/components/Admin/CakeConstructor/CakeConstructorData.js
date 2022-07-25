@@ -5,6 +5,13 @@ import FillingsTable from "./FillingsTable";
 import DecorationsTable from "./DecorationsTable";
 import {useDispatch, useSelector} from "react-redux";
 import {createConstructorData, loadData} from "../../../redux/thunks/cakeConstructor_thunks";
+import {
+    INGREDIENT_STATUS_ACTIVE,
+    INGREDIENT_STATUS_DELETED,
+    INGREDIENT_TYPE_BISCUIT,
+    INGREDIENT_TYPE_DECORATION,
+    INGREDIENT_TYPE_FILLING
+} from "../../utils/constants";
 
 const CakeConstructorData = (props) => {
     const data = useSelector(state => state.cakeConstructorReducer.data);
@@ -16,19 +23,19 @@ const CakeConstructorData = (props) => {
     }, [])
 
     const onClickHandler = () => {
-        dispatch(createConstructorData(key, {price: 0.0, status: 'ACTIVE'}));
+        dispatch(createConstructorData(key, {price: 0.0, status: INGREDIENT_STATUS_ACTIVE}));
     }
 
     return <div>
         <Tabs activeKey={key} onSelect={(k) => setKey(k)} id="cakeConstructorTable" className="mb-2">
             <Tab eventKey="biscuits" title="Бисквиты">
-                <BiscuitsTable data={data.filter(i => i.type === "BISCUIT" && i.status !== 'DELETED')}/>
+                <BiscuitsTable data={data.filter(i => i.type === INGREDIENT_TYPE_BISCUIT && i.status !== INGREDIENT_STATUS_DELETED)}/>
             </Tab>
             <Tab eventKey="fillings" title="Начинки">
-                <FillingsTable data={data.filter(i => i.type === "FILLING" && i.status !== 'DELETED')}/>
+                <FillingsTable data={data.filter(i => i.type === INGREDIENT_TYPE_FILLING && i.status !== INGREDIENT_STATUS_DELETED)}/>
             </Tab>
             <Tab eventKey="decorations" title="Украшения">
-                <DecorationsTable data={data.filter(i => i.type === "DECORATION" && i.status !== 'DELETED')}/>
+                <DecorationsTable data={data.filter(i => i.type === INGREDIENT_TYPE_DECORATION && i.status !== INGREDIENT_STATUS_DELETED)}/>
             </Tab>
         </Tabs>
         <div>

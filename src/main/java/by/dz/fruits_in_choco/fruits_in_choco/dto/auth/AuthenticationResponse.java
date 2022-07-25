@@ -1,10 +1,11 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.auth;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.cart.Cart;
+import lombok.Builder;
 import lombok.Data;
 
-
 @Data
+@Builder
 public class AuthenticationResponse {
     private Long id;
     private String email;

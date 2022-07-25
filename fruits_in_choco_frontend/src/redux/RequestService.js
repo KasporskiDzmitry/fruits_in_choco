@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {API_BASE_URL} from "../components/utils/constants/url";
+import {API_BASE_URL} from "../components/utils/constants";
 import store from "./redux-store";
 import {clearToken, refreshTokenSuccess} from "./actions/auth_actions";
 import {removeUserInfoFromLS} from "../components/utils/localStorageFunctions";

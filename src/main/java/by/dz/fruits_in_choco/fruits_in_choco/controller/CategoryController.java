@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 
-
 @RestController
 @RequestMapping("/api/v1")
 public class CategoryController {

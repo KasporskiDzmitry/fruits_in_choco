@@ -36,8 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setDescription(request.getDescription());
         category.setImageURL(request.getImageURL());
 
-        Category savedCategory = categoryRepository.save(category);
-        return savedCategory;
+        return categoryRepository.save(category);
     }
 
     @Override

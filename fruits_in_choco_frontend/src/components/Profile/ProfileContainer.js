@@ -6,6 +6,7 @@ import {withRouter} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
 import {getProfile} from "../../redux/thunks/profile_thunks";
 import Admin from "../Admin/Admin";
+import {USER_ROLE_ADMIN} from "../utils/constants";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -22,7 +23,7 @@ class ProfileContainer extends React.Component {
         if (!this.props.profile) {
             return <Preloader/>
         } else {
-            if (localStorage.role === 'ADMIN') {
+            if (localStorage.role === USER_ROLE_ADMIN) {
                 return <Admin {...this.props} />;
             } else {
                 return <Profile profile={this.props.profile} />

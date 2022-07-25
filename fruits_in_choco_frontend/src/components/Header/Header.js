@@ -3,6 +3,7 @@ import style from './Header.module.scss';
 import {NavLink, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
+import {USER_ROLE_ADMIN} from "../utils/constants";
 
 
 const Header = (props) => {
@@ -39,7 +40,7 @@ const Header = (props) => {
                         <>
                             <NavLink className={style.icon} to={'/profile'}>
                                 <FontAwesomeIcon icon={faUser}/>
-                                {localStorage.role === 'ADMIN' && (props.newOrders > 0 || props.newReviews > 0 || props.isNotificationReceived) && <span>!</span>}
+                                {localStorage.role === USER_ROLE_ADMIN && (props.newOrders > 0 || props.newReviews > 0 || props.isNotificationReceived) && <span>!</span>}
                             </NavLink>
                             {/*продумать логаут (куда делать редирект)*/}
                             <NavLink className={style.icon} to={location.includes('/profile') ? '/' : '#'}

@@ -9,5 +9,4 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-//    void deleteByProduct_Id(Long id);
 }

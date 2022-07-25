@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.CATEGORY_CAKES;
+
 @Service("cakeService")
 public class CakeServiceImpl implements CakeService {
     private final CakeRepository cakeRepository;
@@ -45,7 +47,7 @@ public class CakeServiceImpl implements CakeService {
         Product cakeProduct = new Product();
         cakeProduct.setStatus(ProductStatus.NOT_CONFIRMED);
         cakeProduct.setPrice((int) cake.getPrice()); // need to change price type to double
-        cakeProduct.setCategory(categoryService.getCategoryByName("Торты")); // change to constant
+        cakeProduct.setCategory(categoryService.getCategoryByName(CATEGORY_CAKES));
 
         productService.saveProduct(cakeProduct);
 

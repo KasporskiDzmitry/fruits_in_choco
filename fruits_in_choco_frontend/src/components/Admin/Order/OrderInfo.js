@@ -1,17 +1,10 @@
 import React from "react";
 import Preloader from "../../common/Preloader/Preloader";
-import {useDispatch} from "react-redux";
+import {ORDER_STATUS_CONFIRMED, ORDER_STATUS_DECLINED, ORDER_STATUS_NOT_CONFIRMED} from "../../utils/constants";
 
 export const OrderInfo = ({order, updateOrder}) => {
-    const dispatch = useDispatch();
-
-    const acceptOrder = () => {
-        order.status = 'CONFIRMED';
-        updateOrder(order);
-    }
-
-    const declineOrder = () => {
-        order.status = 'DECLINED';
+    const changeOrderStatus = (isConfirmed) => {
+        order.status = isConfirmed ? ORDER_STATUS_CONFIRMED : ORDER_STATUS_DECLINED;
         updateOrder(order);
     }
 
@@ -19,10 +12,10 @@ export const OrderInfo = ({order, updateOrder}) => {
         <Preloader /> :
         <div>
             {
-                order.status === 'NOT_CONFIRMED' &&
+                order.status === ORDER_STATUS_NOT_CONFIRMED &&
                     <div>
-                        <div onClick={acceptOrder}>Принять</div>
-                        <div onClick={declineOrder}>Отклонить</div>
+                        <div onClick={() => changeOrderStatus(true)}>Принять</div>
+                        <div onClick={() => changeOrderStatus(false)}>Отклонить</div>
                     </div>
             }
             <div>{order.id}</div>

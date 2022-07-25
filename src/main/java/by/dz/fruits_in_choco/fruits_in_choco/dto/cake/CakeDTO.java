@@ -7,7 +7,6 @@ import java.util.List;
 
 @Data
 public class CakeDTO {
-
     private double weight;
     private List<Ingredient> ingredients;
 }

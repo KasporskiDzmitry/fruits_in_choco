@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static by.dz.fruits_in_choco.fruits_in_choco.security.AuthenticatedUserAuthorityAdminChecker.isAuthenticatedAndAdmin;
+import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.NOTIFICATION;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -71,7 +72,6 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (!isAuthenticatedAndAdmin()) {
-
             product = filterUnapprovedRatings(product);
 
             if (!isProductActive(product)) {
@@ -90,6 +90,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product newProduct) {
+        System.out.println(newProduct);
         return productRepository.save(newProduct);
     }
 
@@ -151,9 +152,10 @@ public class ProductServiceImpl implements ProductService {
 
         productRatingRepository.save(rating);
 
-        Notification notification = new Notification();
-        notification.setDate(new Date());
-        notification.setType("REVIEW");
+        Notification notification = Notification.builder()
+                .date(new Date())
+                .type(NOTIFICATION)
+                .build();
 
         simpMessagingTemplate.convertAndSendToUser("admin", "/notification", notification);
 

@@ -1,4 +1,4 @@
-import {emailRegexp} from "../constants/url";
+import {EMAIL_REGEXP} from "../constants";
 
 export const required = value => {
     if (value) return undefined;
@@ -6,7 +6,7 @@ export const required = value => {
 }
 
 export const validateEmail = email => {
-    if(String(email).toLowerCase().match(emailRegexp)) return undefined;
+    if(String(email).toLowerCase().match(EMAIL_REGEXP)) return undefined;
     return "Email is invalid";
 }
 

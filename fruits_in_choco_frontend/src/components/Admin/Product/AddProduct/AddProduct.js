@@ -62,7 +62,8 @@ const AddProduct = props => {
             description: formData.description,
             category: props.categories.find(i => i.id === parseInt(formData.category)),
             price: parseInt(formData.price),
-            status: 'ACTIVE'
+            status: 'ACTIVE',
+            imageURL: formData.imageURL
         });
     };
 

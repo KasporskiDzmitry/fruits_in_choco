@@ -7,6 +7,7 @@ import {logout} from "../../redux/thunks/auth_thunks";
 import {setFilteredCategories} from "../../redux/actions/shop_actions";
 import {toggleCartLayout, toggleSignInSignUpPopUp} from "../../redux/actions/app_actions";
 import {selectCategory} from "../../redux/actions/category_actions";
+import {ORDER_STATUS_NOT_CONFIRMED} from "../utils/constants";
 
 class HeaderContainer extends React.Component {
     render() {
@@ -22,7 +23,7 @@ const mapStateToProps = state => ({
     productCategories: state.categoryReducer.categories.map(i => i.id),
     productsInCart: localStorage.products ? JSON.parse(localStorage.products) : [],
     newReviews: state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length,
-    newOrders: state.orderReducer.orders.length > 0 && state.orderReducer.orders.filter(i => i.status === 'NOT_CONFIRMED').length,
+    newOrders: state.orderReducer.orders.length > 0 && state.orderReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length,
     isNotificationReceived: state.adminReducer.isNotificationReceived
 });
 

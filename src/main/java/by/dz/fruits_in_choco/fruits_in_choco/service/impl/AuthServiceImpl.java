@@ -7,6 +7,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.AuthService;
+import by.dz.fruits_in_choco.fruits_in_choco.util.CookieCreator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -42,35 +43,23 @@ public class AuthServiceImpl implements AuthService {
         String token = jwtTokenProvider.createToken(email, user.getRole().name(), tokenValidity);
         String refreshToken = jwtTokenProvider.createToken(email, user.getRole().name(), refreshTokenValidity);
 
-        Cookie cookie = new Cookie("refreshToken", refreshToken);
-        cookie.setMaxAge(Math.toIntExact(refreshTokenValidity));
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/api/v1/auth/refreshToken");
-        response.addCookie(cookie);
+        response.addCookie(CookieCreator.createRefreshTokenCookie(refreshToken, Math.toIntExact(refreshTokenValidity)));
 
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-        authenticationResponse.setEmail(email);
-        authenticationResponse.setToken(token);
-        authenticationResponse.setRole(user.getRole().name());
-        authenticationResponse.setName(user.getFirstName() + " " + user.getLastName());
-        authenticationResponse.setId(user.getId());
-        authenticationResponse.setCart(user.getCart());
-
-        return authenticationResponse;
+        return AuthenticationResponse.builder().email(email)
+                .token(token)
+                .role(user.getRole().name())
+                .name(user.getFirstName() + " " + user.getLastName())
+                .id(user.getId())
+                .cart(user.getCart())
+                .build();
     }
 
     @Override
     public String refreshToken(String refreshToken, HttpServletResponse response) {
         User user = userRepository.findByEmail(jwtTokenProvider.getUsername(refreshToken));
-
-        Cookie cookie = new Cookie("refreshToken", jwtTokenProvider.createToken(user.getEmail(), user.getRole().name(), refreshTokenValidity));
-        cookie.setMaxAge(Math.toIntExact(refreshTokenValidity));
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/api/v1/auth/refreshToken");
-        response.addCookie(cookie);
-
+        response.addCookie(CookieCreator.createRefreshTokenCookie(
+                jwtTokenProvider.createToken(user.getEmail(), user.getRole().name(), refreshTokenValidity),
+                Math.toIntExact(refreshTokenValidity)));
         return jwtTokenProvider.createToken(user.getEmail(), user.getRole().name(), tokenValidity);
     }
 }

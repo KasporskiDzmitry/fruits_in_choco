@@ -22,6 +22,7 @@ EditCategoryReduxForm = connect(
 export const EditCategoryPage = (props) => {
 
     const onSubmit = (formData) => {
+        props.updateCategoryThunk(formData);
     }
 
     return <div className={style.editProductFormContainer}>

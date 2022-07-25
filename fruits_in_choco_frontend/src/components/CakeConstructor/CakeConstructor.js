@@ -9,19 +9,20 @@ import CheckboxGroup from "../common/CheckboxGroup/CheckboxGroup";
 import CakeViewer from "./CakeViewer";
 import {loadData, saveCake} from "../../redux/thunks/cakeConstructor_thunks";
 import {setCake} from "../../redux/actions/cakeConstructor_actions";
+import {INGREDIENT_TYPE_BISCUIT, INGREDIENT_TYPE_DECORATION, INGREDIENT_TYPE_FILLING} from "../utils/constants";
 
 const CakeConstructorForm = (props) => {
     const dispatch = useDispatch();
     const {handleSubmit, error, data} = props;
 
-    const fillingsGroup = data.filter(i => i.type === 'FILLING').map(i => ({label: i.name, value: i.id.toString()}));
-    const decorationsGroup = data.filter(i => i.type === 'DECORATION').map(i => ({label: i.name, value: i.id.toString()}));
+    const fillingsGroup = data.filter(i => i.type === INGREDIENT_TYPE_FILLING).map(i => ({label: i.name, value: i.id.toString()}));
+    const decorationsGroup = data.filter(i => i.type === INGREDIENT_TYPE_DECORATION).map(i => ({label: i.name, value: i.id.toString()}));
 
     useEffect(() => {
         const cake = {
             biscuit: props.biscuitSelector,
-            fillings: props.fillingsSelector && data.filter(i => i.type === 'FILLING').filter(i => props.fillingsSelector.includes(i.id.toString())),
-            decorations: props.decorationsSelector && data.filter(i => i.type === 'DECORATION').filter(i => props.decorationsSelector.includes(i.id.toString())),
+            fillings: props.fillingsSelector && data.filter(i => i.type === INGREDIENT_TYPE_FILLING).filter(i => props.fillingsSelector.includes(i.id.toString())),
+            decorations: props.decorationsSelector && data.filter(i => i.type === INGREDIENT_TYPE_DECORATION).filter(i => props.decorationsSelector.includes(i.id.toString())),
         }
         dispatch(setCake(cake));
     }, [props.biscuitSelector, props.fillingsSelector, props.decorationsSelector])
@@ -42,7 +43,7 @@ const CakeConstructorForm = (props) => {
             <div>
                 <div>Бисквит</div>
                 {
-                    data.filter(i => i.type === 'BISCUIT').map((i, idx) => <div key={i.id}>
+                    data.filter(i => i.type === INGREDIENT_TYPE_BISCUIT).map((i, idx) => <div key={i.id}>
                         <label>{i.name}</label>
                         <Field name={'biscuit'} type={"radio"} value={i.name} component={Input}/>
                     </div>)

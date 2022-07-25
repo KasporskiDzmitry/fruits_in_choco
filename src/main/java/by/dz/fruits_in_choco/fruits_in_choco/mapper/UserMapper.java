@@ -40,9 +40,6 @@ public class UserMapper {
     }
 
     private UserResponse mapToResponseDto(User user) {
-//        modelMapper.typeMap(User.class, UserResponse.class).addMappings(mapper -> {
-//            mapper.map(User::getProducts, UserResponse::setCart);
-//        });
         return modelMapper.map(user, UserResponse.class);
     }
 

@@ -10,6 +10,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.OrderService;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -61,13 +62,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Cacheable("orders")
     public Order getOrderById(Long id) {
         return orderRepository.findById(id).get();
     }
 
     @Override
-    @CacheEvict(value = "orders")
     public void deleteOrderById(Long id) {
         orderRepository.deleteById(id);
     }

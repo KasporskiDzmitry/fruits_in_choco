@@ -1,5 +1,5 @@
 import SockJS from "sockjs-client";
-import {API_BASE_URL} from "./constants/url";
+import {API_BASE_URL} from "./constants";
 import {over} from "stompjs";
 
 export let stompClient = null;

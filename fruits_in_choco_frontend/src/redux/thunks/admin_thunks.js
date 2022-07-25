@@ -7,7 +7,7 @@ import {
 } from "../actions/admin_actions";
 import {setProducts, updateProduct} from "../actions/shop_actions";
 import {loadCategories} from "./category_thunks";
-import {deleteCategory} from "../actions/category_actions";
+import {deleteCategory, updateCategory} from "../actions/category_actions";
 import {enqueueSnackbar} from "../actions/app_actions";
 import {loadSlides} from "./main_thunks";
 
@@ -111,6 +111,17 @@ export const deleteCategoryById = id => async dispatch => {
         dispatch(enqueueSnackbar("Category removed successfully", "success"));
     } catch (e) {
         dispatch(enqueueSnackbar("Error while removing category", "error"));
+        console.log(e)
+    }
+}
+
+
+export const updateCategoryThunk = (category) => async dispatch => {
+    try {
+        const response = await RequestService.put(`/admin/categories/${category.id}`, category, true);
+        dispatch(enqueueSnackbar("Category updated successfully", "success"));
+        dispatch(updateCategory(response.data));
+    } catch (e) {
         console.log(e)
     }
 }

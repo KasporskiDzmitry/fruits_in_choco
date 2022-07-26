@@ -1,18 +1,25 @@
 import React from 'react';
 import style from './Main.module.scss';
-import SliderContainer from "./Slider/SliderContainer";
+import Slider from "./Slider/Slider";
 import {CardGroup} from "react-bootstrap";
 import CategoryCard from "./CategoryCard";
 import {Button} from "../common/Button/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {setFilteredCategories} from "../../redux/actions/shop_actions";
 
-const Main = (props) => {
+const Main = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const categoryCards = useSelector(state => state.categoryReducer.categories);
+
     const selectCategory = (id) => {
-        props.setFilteredCategories([id]);
-        props.history.push({pathname: `/shop`, state: {categoryId: id}})
+        dispatch(setFilteredCategories([id]));
+        history.push({pathname: `/shop`, state: {categoryId: id}})
     };
 
     return <div className={style.main}>
-        <SliderContainer/>
+        <Slider/>
         <div className={`sectionOuter ${style.ourProductsSection}`}>
             <div className="sectionInner">
                 <div className={style.heading}>
@@ -20,8 +27,7 @@ const Main = (props) => {
                 </div>
                 <CardGroup className={style.categoriesContainer}>
                     {
-                        props.categoryCards.map(i => <CategoryCard key={i.id} category={i}
-                                                                   selectCategory={() => selectCategory(i.id)}/>)
+                        categoryCards.map(i => <CategoryCard key={i.id} category={i} selectCategory={() => selectCategory(i.id)}/>)
                     }
                 </CardGroup>
             </div>

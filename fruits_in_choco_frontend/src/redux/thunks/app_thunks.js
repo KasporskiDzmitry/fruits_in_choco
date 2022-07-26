@@ -2,8 +2,7 @@ import {initializedSuccess} from "../actions/app_actions";
 import {refreshTokenSuccess} from "../actions/auth_actions";
 import RequestService from "../RequestService";
 import {loadCategories} from "./category_thunks";
-import {loadProductsAdmin} from "./admin_thunks";
-import {loadAllOrders} from "./order_thunks";
+import {loadAllOrders, loadProductsAdmin} from "./admin_thunks";
 
 export const init = () => async dispatch => {
     if (localStorage.name) {

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Field, reduxForm} from "redux-form";
 import style from './EditProduct.module.scss';
 import {Button} from 'react-bootstrap';
@@ -6,14 +6,20 @@ import {number, required} from "../../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
 import Expire from "../../../common/Expire/Expire";
 import formsControlsStyle from "../../../common/FormsControls/FormsControls.module.scss";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import Rating from "@material-ui/lab/Rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+import {
+    approveReview,
+    deleteReview,
+    loadProductByIdAdmin,
+    updateProductThunk
+} from "../../../../redux/thunks/admin_thunks";
+import {useHistory} from "react-router-dom";
 
 const EditProductForm = ({handleSubmit, error, categories, isFetching, product}) => {
     const [categoryId, setCategoryId] = useState(product.categoryId);
-    console.log(categories)
 
     const selectCategory = (e) => {
         setCategoryId(parseInt(e.currentTarget.value))
@@ -79,32 +85,33 @@ EditProductReduxForm = connect(
         initialValues: state.adminReducer.product
     }), {})(EditProductReduxForm)
 
-const EditProduct = props => {
+const EditProduct = (props) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    useEffect(() => {
+        dispatch(loadProductByIdAdmin(history.location.pathname.split('/').pop()));
+    }, [])
+
     const onSubmit = formData => {
         let product = {...formData, category: props.categories.find(i => i.id === formData.categoryId)};
-        props.updateProductThunk(product);
+        dispatch(updateProductThunk(product));
     };
 
     const approve = (review, product) => {
-        props.approveReview({...review, approved: true}, product.id);
+        dispatch(approveReview({...review, approved: true}, product.id));
     }
 
     const remove = (product, ratingId) => {
         if (window.confirm('Удлаить?')) {
-            props.deleteReview(product, ratingId);
+            dispatch(deleteReview(product, ratingId));
         }
     }
 
     return <>
         <div className={style.editProductFormContainer}>
             <h1>{props.product?.name}</h1>
-            {
-                props.isProductAddedSuccess && <div>
-                    <Expire delay="3000"><h3>ПРОДУКТ УСПЕШНО ИЗМЕНЕН</h3></Expire>
-                </div>
-            }
-            <EditProductReduxForm onSubmit={onSubmit}
-                                  categories={props.categories} product={props.product}/>
+            <EditProductReduxForm onSubmit={onSubmit} categories={props.categories} product={props.product}/>
             <div>
 
             </div>

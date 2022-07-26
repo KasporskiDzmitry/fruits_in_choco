@@ -69,11 +69,6 @@ const AddProduct = props => {
 
     return <div className={style.addProductContainer}>
         <h1>Add product</h1>
-        {
-            props.isProductAddedSuccess && <div>
-                <Expire delay="3000"><h3>ПРОДУКТ УСПЕШНО ДОБАВЛЕН</h3></Expire>
-            </div>
-        }
         <AddProductReduxForm onSubmit={onSubmit} categories={props.categories}/>
     </div>
 };

@@ -2,22 +2,21 @@ import React from 'react';
 import {NavLink, Route} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
 import {connect} from "react-redux";
-import {addCategory, addProduct, loadProductsAdmin} from "../../redux/thunks/admin_thunks";
+import {addCategory, addProduct, loadAllOrders, loadProductsAdmin} from "../../redux/thunks/admin_thunks";
 import style from './Admin.module.scss';
-import {loadAllOrders} from "../../redux/thunks/order_thunks";
 import {notificationWatched} from "../../redux/actions/admin_actions";
 import {ORDER_STATUS_NOT_CONFIRMED} from "../utils/constants";
 
-const AdminCategoryContainer = React.lazy(() => import('./Category/CategoriesContainer'));
-const OrdersContainer = React.lazy(() => import('./Order/OrdersContainer'));
-const Order = React.lazy(() => import('./Order/OrderInfoContainer'));
-const AdminProductContainer = React.lazy(() => import('./Product/ProductsContainer'));
+const AdminCategories = React.lazy(() => import('./Category/Categories'));
+const Orders = React.lazy(() => import('./Order/Orders'));
+const Order = React.lazy(() => import('./Order/OrderInfo'));
+const AdminProducts = React.lazy(() => import('./Product/Products'));
 const AdminUserContainer = React.lazy(() => import('./User/UsersContainer'));
 const AdminUserPage = React.lazy(() => import('./User/UserInfo'))
 const AddProduct = React.lazy(() => import('./Product/AddProduct/AddProduct'));
 const AddCategory = React.lazy(() => import('./Category/AddCategory/AddCategory'));
-const AdminProductPage = React.lazy(() => import('./Product/EditProduct/EditProductContainer'));
-const AdminCategoryPage = React.lazy(() => import('./Category/EditCategory/EditCategoryPageContainer'));
+const AdminProductPage = React.lazy(() => import('./Product/EditProduct/EditProduct'));
+const AdminCategoryPage = React.lazy(() => import('./Category/EditCategory/EditCategoryPage'));
 const CakeConstructorData = React.lazy(() => import('./CakeConstructor/CakeConstructorData'));
 const AdminSlider = React.lazy(() => import('./Slider/SliderContainer'));
 
@@ -49,17 +48,17 @@ class Admin extends React.Component {
                     <>
                         <React.Suspense fallback={<Preloader/>}>
                             <Route exact path='/profile/admin/orders'
-                                   render={() => <OrdersContainer/>}/>
+                                   render={() => <Orders  orders={this.props.orders}/>}/>
                             <Route exact path='/profile/admin/orders/:id'
-                                   render={() => <Order/>}/>
+                                   render={() => <Order order={this.props.order}/>}/>
                             <Route exact path='/profile/admin/categories'
-                                   render={() => <AdminCategoryContainer/>}/>
+                                   render={() => <AdminCategories categories={this.props.categories}/>}/>
                             <Route exact path='/profile/admin/categories/:id'
-                                   render={() => <AdminCategoryPage/>}/>
+                                   render={() => <AdminCategoryPage category={this.props.category}/>}/>
                             <Route exact path='/profile/admin/products'
-                                   render={() => <AdminProductContainer/>}/>
+                                   render={() => <AdminProducts products={this.props.products} categories={this.props.categories}/>}/>
                             <Route exact path='/profile/admin/products/:id'
-                                   render={() => <AdminProductPage/>}/>
+                                   render={() => <AdminProductPage product={this.props.product} categories={this.props.categories}/>}/>
                             <Route exact path={'/profile/admin/add_category'}
                                    render={() => <AddCategory addCategory={this.props.addCategory}
                                                               isCategoryAddedSuccess={this.props.isCategoryAddedSuccess}/>}/>
@@ -72,7 +71,7 @@ class Admin extends React.Component {
                             <Route exact path='/profile/admin/users/:id'
                                    render={() => <AdminUserPage/>}/>
                             <Route exact path='/profile/admin/constructor'
-                                   render={() => <CakeConstructorData />}/>
+                                   render={() => <CakeConstructorData data={this.props.constructorData}/>}/>
                             <Route exact path='/profile/admin/slider'
                                    render={() => <AdminSlider />}/>
                         </React.Suspense>
@@ -84,13 +83,19 @@ class Admin extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+    constructorData: state.cakeConstructorReducer.data,
+    orders: state.adminReducer.orders,
+    order: state.adminReducer.order,
     categories: state.categoryReducer.categories,
+    category: state.adminReducer.category,
+    product: state.adminReducer.product,
+    products: state.shopReducer.products,
     isProductAddedSuccess: state.adminReducer.isProductAddedSuccess,
     isCategoryAddedSuccess: state.adminReducer.isCategoryAddedSuccess,
     isProductFetching: state.adminReducer.isProductFetching,
     isCategoryFetching: state.adminReducer.isCategoryFetching,
     newReviews: state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length,
-    newOrders: state.orderReducer.orders.length > 0 && state.orderReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length,
+    newOrders: state.adminReducer.orders.length > 0 && state.adminReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length,
     isNotificationReceived: state.adminReducer.isNotificationReceived
 })
 

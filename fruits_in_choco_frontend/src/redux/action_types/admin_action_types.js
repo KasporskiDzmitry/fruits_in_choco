@@ -1,11 +1,11 @@
 export const SET_USERS = 'admin/SET_USERS';
 export const SET_USER = 'admin/SET_USER';
-export const PRODUCT_ADDED_SUCCESS = 'admin/PRODUCT_ADDED_SUCCESS';
-export const CATEGORY_ADDED_SUCCESS = 'admin/CATEGORY_ADDED_SUCCESS';
-export const REVIEW_APPROVED_SUCCESS = 'admin/REVIEW_APPROVED_SUCCESS';
 export const SET_REVIEW = 'admin/SET_REVIEW';
 export const SET_PRODUCT = 'admin/SET_PRODUCT';
-export const REVIEW_REJECTED_SUCCESS = 'admin/REVIEW_REJECTED_SUCCESS';
 export const NOTIFICATION_RECEIVED = 'admin/NOTIFICATION_RECEIVED';
 export const NOTIFICATION_WATCHED = 'admin/NOTIFICATION_WATCHED';
-export const REMOVE_NOTIFICATION = 'admin/REMOVE_NOTIFICATION';
+export const SET_CATEGORY = 'admin/SET_CATEGORY';
+export const SET_ORDERS = 'admin/SET_ORDERS';
+export const SET_ORDER = 'admin/SET_ORDER';
+export const UPDATE_ORDER = 'admin/UPDATE_ORDER';
+

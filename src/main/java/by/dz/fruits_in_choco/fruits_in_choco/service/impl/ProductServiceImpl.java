@@ -145,7 +145,7 @@ public class ProductServiceImpl implements ProductService {
         rating.setMessage(request.getMessage());
         rating.setDate(new Date());
         rating.setApproved(false);
-//        rating.setProduct(request.getProduct());
+        rating.setProduct(product);
 
         product.getRatings().add(rating);
         user.getRatings().add(rating);

@@ -1,3 +1,5 @@
+USE fruits_in_choco;
+
 create table product
 (
     id          bigint  not null auto_increment,
@@ -10,15 +12,15 @@ create table product
     primary key (id)
 );
 
-create table `cake`
+create table cake
 (
-    `id`     bigint(20) NOT NULL AUTO_INCREMENT,
-    `name`   varchar(255) NOT NULL,
-    `price`  double       NOT NULL,
-    `weight` double       NOT NULL,
-    `status` enum('CONFIRMED','NOT_CONFIRMED') DEFAULT NULL,
+    id     bigint(20) NOT NULL AUTO_INCREMENT,
+    name   varchar(255) NOT NULL,
+    price  double       NOT NULL,
+    weight double       NOT NULL,
+    status enum('CONFIRMED','NOT_CONFIRMED') DEFAULT NULL,
     primary key (`id`)
-)
+);
 
 create table product_ratings
 (
@@ -141,25 +143,34 @@ create table slide
     href     varchar(400),
     imageURL varchar(400),
     primary key (id)
-)
+);
 
-alter table if exists orders_order_items add constraint UK_9d47gapmi35omtannusv6btu3 unique (order_items_id);
-alter table if exists product_ratings add constraint UK_onx7x3bfabrhsua5vtme36juu unique (ratings_id);
-alter table if exists user_ratings add constraint UK_3vob5h0cwyyfqaj4rtxwwsovv unique (ratings_id);
-alter table if exists user_orders add constraint UK_user_orders_orders_id unique (orders_id);
+create table category
+(
+    id       bigint not null auto_increment,
+    name    varchar(45),
+    description     varchar(100),
+    imageURL varchar(400),
+    primary key (id)
+);
+
+alter table orders_order_items add constraint UK_9d47gapmi35omtannusv6btu3 unique (order_items_id);
+alter table product_ratings add constraint UK_onx7x3bfabrhsua5vtme36juu unique (ratings_id);
+alter table user_ratings add constraint UK_3vob5h0cwyyfqaj4rtxwwsovv unique (ratings_id);
+alter table user_orders add constraint UK_user_orders_orders_id unique (orders_id);
 alter table if exists product add constraint FKajjopj7ffr42w11bav8gut0cp foreign key (category_id) references category (id);
 alter table if exists product_ratings add constraint FKpwv98ikq73aspcs31gvlx1fu3 foreign key (ratings_id) references rating (id);
 alter table if exists product_ratings add constraint FKmpdgsire4ct7cepv7rt250fvs foreign key (product_id) references product (id);
 alter table if exists user_ratings add constraint FKsdo6s1wbs9awfprtvhmd1bo7g foreign key (ratings_id) references rating (id);
 alter table if exists user_ratings add constraint FK85wcc1agckack64s64cu2hqxg foreign key (user_id) references user (id);
-alter table if exists orders_order_items add constraint FK7nw03p9mxq154wvbsonaq0qrw foreign key (order_items_id) references order_item;
-alter table if exists orders_order_items add constraint FK3l8rktw0f4w5t6tift31e2d7c foreign key (order_id) references orders;
-alter table if exists user add constraint FK_cart_id_user_table foreign key (cart_id) references cart;
-alter table if exists cart_item add constraint FK_product_id_cart_item_table foreign key (product_id) references product;
-alter table if exists cart_cart_items add constraint FK_cart_id_cart_cart_items foreign key (cart_id) references cart;
-alter table if exists cart_cart_items add constraint FK_cart_items_id_cart_cart_items foreign key (cart_items_id) references cart_item;
+alter table if exists orders_order_items add constraint FK7nw03p9mxq154wvbsonaq0qrw foreign key (order_items_id) references order_item (id);
+alter table if exists orders_order_items add constraint FK3l8rktw0f4w5t6tift31e2d7c foreign key (order_id) references orders (id);
+alter table if exists user add constraint FK_cart_id_user_table foreign key (cart_id) references cart (id);
+alter table if exists cart_item add constraint FK_product_id_cart_item_table foreign key (product_id) references product (id);
+alter table if exists cart_cart_items add constraint FK_cart_id_cart_cart_items foreign key (cart_id) references cart (id);
+alter table if exists cart_cart_items add constraint FK_cart_items_id_cart_cart_items foreign key (cart_items_id) references cart_item (id);
 alter table if exists user_orders add constraint FK3yq31b5hsh40vprb3spflxaob foreign key (orders_id) references orders (id);
 alter table if exists user_orders add constraint FKkuspr37yv513ga1okogyxrb7m foreign key (user_id) references user (id);
-alter table if exists cake_ingredients add constraint FK_cake_decorations_cake_id foreign key (cake_ingr_id_fk) references cake (id);
-alter table if exists cake_ingredients add constraint FK_cake_decorations_decorations_id foreign key (ingredients_id_fk) references ingredients (id);
-alter table if exists orders add constraint FK_user_id_orders foreign key (user_id_o_fk) references user (id);
+alter table if exists cake_ingredients add constraint FK_cake_decorations_cake_id foreign key (cake_id) references cake (id);
+alter table if exists cake_ingredients add constraint FK_cake_decorations_decorations_id foreign key (ingredients_id) references ingredient (id);
+alter table if exists orders add constraint FK_user_id_orders foreign key (user_id) references user (id);

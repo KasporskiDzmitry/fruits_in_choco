@@ -1,11 +1,20 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Carousel} from "react-bootstrap";
 import {Button} from 'react-bootstrap';
 import style from "./Slider.module.scss";
+import {useDispatch, useSelector} from "react-redux";
+import {loadSlides} from "../../../redux/thunks/main_thunks";
 
 const Slider = (props) => {
+    const slides = useSelector(state => state.mainPage.slides);
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(loadSlides());
+    }, [])
+
     return <Carousel fade interval={8000} controls={false}>
-        {props.slides.map(slide => {
+        {slides.map(slide => {
             return <Carousel.Item key={slide.id}>
                 <img
                     className={style.sliderImage}

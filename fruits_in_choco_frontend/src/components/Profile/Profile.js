@@ -1,8 +1,7 @@
 import React from "react";
 import style from "./Profile.module.scss";
-import {Tabs, Tab} from "react-bootstrap";
+import {Tab, Tabs} from "react-bootstrap";
 import Cart from "../Cart/Cart";
-import CartContainer from "../Cart/CartContainer";
 import {PersonalInfo} from "./PersonalInfo";
 import {OrdersHistory} from "./OrdersHistory";
 import ReviewsInfo from "./ReviewsInfo";
@@ -22,7 +21,7 @@ const Profile = ({profile}) => {
                         <OrdersHistory orders={profile.orders}/>
                     </Tab>
                     <Tab eventKey="cart" title="Корзина заказов">
-                        <CartContainer />
+                        <Cart />
                     </Tab>
                     <Tab eventKey="reviews" title="Отзывы">
                         <ReviewsInfo reviews={profile.ratings}/>

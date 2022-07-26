@@ -3,7 +3,7 @@ import {Tab, Tabs} from "react-bootstrap";
 import BiscuitsTable from "./BiscuitsTable";
 import FillingsTable from "./FillingsTable";
 import DecorationsTable from "./DecorationsTable";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {createConstructorData, loadData} from "../../../redux/thunks/cakeConstructor_thunks";
 import {
     INGREDIENT_STATUS_ACTIVE,
@@ -13,8 +13,7 @@ import {
     INGREDIENT_TYPE_FILLING
 } from "../../utils/constants";
 
-const CakeConstructorData = (props) => {
-    const data = useSelector(state => state.cakeConstructorReducer.data);
+const CakeConstructorData = ({data}) => {
     const dispatch = useDispatch();
     const [key, setKey] = useState('biscuits');
 

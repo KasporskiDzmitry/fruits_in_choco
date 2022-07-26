@@ -5,24 +5,29 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Button} from "react-bootstrap";
 import {decreaseQuantity, increaseQuantity, removeProductFromCart} from "../utils/localStorageFunctions";
 import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {removeFromCart, updateProductInCart} from "../../redux/actions/shop_actions";
 
-const Cart = (props) => {
-    const totalSum = props.cart.reduce((a, b) => a + b.price * b.quantity, 0);
+const Cart = () => {
+    const dispatch = useDispatch();
+    const cart = useSelector(state => state.shopReducer.cart);
+
+    const totalSum = cart.reduce((a, b) => a + b.price * b.quantity, 0);
 
     const removeItem = (product) => {
         removeProductFromCart(product.id);
-        props.removeFromCart(product.id);
+        dispatch(removeFromCart(product.id));
     }
 
     const incrProduct = (product) => {
         increaseQuantity(product.id);
-        props.updateProductInCart({...product, quantity: product.quantity + 1});
+        dispatch(updateProductInCart({...product, quantity: product.quantity + 1}));
     }
 
     const decrProduct = (product) => {
         if (product.quantity > 1) {
             decreaseQuantity(product.id);
-            props.updateProductInCart({...product, quantity: product.quantity - 1});
+            dispatch(updateProductInCart({...product, quantity: product.quantity - 1}));
         }
     }
 
@@ -32,7 +37,7 @@ const Cart = (props) => {
                 <h1>Корзина</h1>
             </div>
             {
-                props.cart.length > 0 ?
+                cart.length > 0 ?
                     <div className={style.tableWrapper}>
                         <table>
                             <thead>
@@ -45,7 +50,7 @@ const Cart = (props) => {
                             </thead>
                             <tbody>
                             {
-                                props.cart.map(i => <tr key={i.id}>
+                                cart.map(i => <tr key={i.id}>
                                     <td className={style.cellImage}>
                                         <div>
                                             <img

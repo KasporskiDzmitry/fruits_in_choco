@@ -1,18 +1,30 @@
 import React from 'react';
 import style from './Header.module.scss';
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useHistory, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
-import {USER_ROLE_ADMIN} from "../utils/constants";
+import {ORDER_STATUS_NOT_CONFIRMED, USER_ROLE_ADMIN} from "../utils/constants";
+import {useDispatch, useSelector} from "react-redux";
+import {setFilteredCategories} from "../../redux/actions/shop_actions";
+import {toggleCartLayout, toggleSignInSignUpPopUp} from "../../redux/actions/app_actions";
+import {logout} from "../../redux/thunks/auth_thunks";
 
 
-const Header = (props) => {
+const Header = () => {
     const location = useLocation().pathname;
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const productCategories = useSelector(state => state.categoryReducer.categories.map(i => i.id));
+    const productsInCart = localStorage.products ? JSON.parse(localStorage.products) : [];
+    const newReviews = useSelector(state => state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length);
+    const newOrders = useSelector(state => state.adminReducer.orders.length > 0 && state.adminReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length);
+    const isNotificationReceived = useSelector(state => state.adminReducer.isNotificationReceived);
 
     const handleClickOnShopRef = (e) => {
         e.preventDefault();
-        props.setFilteredCategories(props.productCategories);
-        props.history.push({pathname: `/shop`, state: {categoryId: 0}})
+        dispatch(setFilteredCategories(productCategories));
+        history.push({pathname: `/shop`, state: {categoryId: 0}})
     };
 
     return <header className={`sectionOuter ${style.sectionHeader}`}>
@@ -32,25 +44,24 @@ const Header = (props) => {
                     <NavLink to={'/cake/constructor'}>Конструктор торта</NavLink>
                 </nav>
                 <div className={style.navbarAside}>
-                    <div className={style.cartIcon} onClick={props.toggleCartLayout}>
+                    <div className={style.cartIcon} onClick={() => dispatch(toggleCartLayout())}>
                         <FontAwesomeIcon icon={faCartArrowDown}/>
-                        <span>{props.productsInCart.length}</span>
+                        <span>{productsInCart.length}</span>
                     </div>
                     {localStorage.name ?
                         <>
                             <NavLink className={style.icon} to={'/profile'}>
                                 <FontAwesomeIcon icon={faUser}/>
-                                {localStorage.role === USER_ROLE_ADMIN && (props.newOrders > 0 || props.newReviews > 0 || props.isNotificationReceived) && <span>!</span>}
+                                {localStorage.role === USER_ROLE_ADMIN && (newOrders > 0 || newReviews > 0 || isNotificationReceived) && <span>!</span>}
                             </NavLink>
-                            {/*продумать логаут (куда делать редирект)*/}
                             <NavLink className={style.icon} to={location.includes('/profile') ? '/' : '#'}
-                                     onClick={props.logout}>
+                                     onClick={() => dispatch(logout())}>
                                 <FontAwesomeIcon icon={faSignOutAlt}/>
                             </NavLink>
                         </> :
                         <>
-                            <div className={`${style.icon} ${style.signInUP}`} onClick={props.toggleSignInSignUpPopUp}>Вход и
-                                регистрация
+                            <div className={`${style.icon} ${style.signInUP}`} onClick={() => dispatch(toggleSignInSignUpPopUp())}>
+                                Вход и регистрация
                             </div>
                         </>
                     }

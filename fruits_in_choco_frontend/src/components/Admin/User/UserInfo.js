@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {loadUserById} from "../../../redux/thunks/admin_thunks";
 import {useHistory} from "react-router-dom";
 import Preloader from "../../common/Preloader/Preloader";
-import {Tab, Tabs} from "react-bootstrap";
-import {PersonalInfo} from "../../Profile/PersonalInfo";
-import {OrdersHistory} from "../../Profile/OrdersHistory";
-import CartContainer from "../../Cart/CartContainer";
 import Profile from "../../Profile/Profile";
 
 const UserInfo = (props) => {

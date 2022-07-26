@@ -1,11 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import {ORDER_STATUS_CONFIRMED, ORDER_STATUS_DECLINED, ORDER_STATUS_NOT_CONFIRMED} from "../../utils/constants";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {loadOrderById, updateOrder} from "../../../redux/thunks/admin_thunks";
 
-export const OrderInfo = ({order, updateOrder}) => {
+const OrderInfo = ({order}) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    useEffect(() => {
+        dispatch(loadOrderById(history.location.pathname.split('/').pop()));
+    }, [])
+
+
     const changeOrderStatus = (isConfirmed) => {
         order.status = isConfirmed ? ORDER_STATUS_CONFIRMED : ORDER_STATUS_DECLINED;
-        updateOrder(order);
+        dispatch(updateOrder(order));
     }
 
     return !order.id ?
@@ -23,3 +34,5 @@ export const OrderInfo = ({order, updateOrder}) => {
             <div>{order.date}</div>
         </div>
 }
+
+export default OrderInfo;

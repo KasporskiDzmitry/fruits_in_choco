@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Switch} from 'react-router-dom';
-import HeaderContainer from './components/Header/HeaderContainer';
+import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import {useDispatch, useSelector} from 'react-redux';
 import Preloader from "./components/common/Preloader/Preloader";
@@ -15,12 +15,12 @@ import {connectStomp, stompClient} from "./components/utils/stomp";
 import {notificationReceived} from "./redux/actions/admin_actions";
 import {NotFound} from "./components/NotFound/NotFound";
 
-const MainContainer = React.lazy(() => import('./components/Main/MainContainer'));
+const Main = React.lazy(() => import('./components/Main/Main'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
-const AboutContainer = React.lazy(() => import('./components/About/AboutContainer'));
+const About = React.lazy(() => import('./components/About/About'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
-const CartPage = React.lazy(() => import('./components/Cart/CartContainer'));
+const CartPage = React.lazy(() => import('./components/Cart/Cart'));
 const OrderPage = React.lazy(() => import('./components/Order/OrderContainer'));
 const OrderSuccess = React.lazy(() => import('./components/OrderSuccess/OrderSuccessContainer'));
 const CakeConstructor = React.lazy(() => import('./components/CakeConstructor/CakeConstructor'));
@@ -66,17 +66,17 @@ const App = (props) => {
         </PopUp>
         <CartLayout isCartShow={isCartLayoutShow} products={productsInCart}/>
         <ScrollToTopButton/>
-        <HeaderContainer/>
+        <Header/>
         <React.Suspense fallback={<Preloader/>}>
             <Switch>
                 <Route exact path='/'
-                       render={() => <MainContainer/>}/>
+                       render={() => <Main/>}/>
                 <Route path='/shop'
                        render={() => <ShopContainer/>}/>
                 <Route path='/products/:id'
                        render={() => <ProductPage/>}/>
                 <Route path='/about'
-                       render={() => <AboutContainer/>}/>
+                       render={() => <About/>}/>
                 <Route path='/profile'
                        render={() => <ProfilePage/>}/>
                 <Route exact path='/cart'
@@ -93,26 +93,5 @@ const App = (props) => {
         <Footer/>
     </>
 }
-
-// const mapStateToProps = state => ({
-//     initialized: state.appReducer.initialized,
-//     isSignInSignUpPopUpShow: state.appReducer.isSignInSignUpPopUpShow,
-//     isCartLayoutShow: state.appReducer.isCartLayoutShow,
-//     productsInCart: state.shopReducer.cart,
-//     isLoginFetching: state.authReducer.isFetching,
-//     isRegisterFetching: state.registrationReducer.isFetching
-// });
-//
-// export default compose(
-//     connect(mapStateToProps, {
-//         init,
-//         login,
-//         registration,
-//         toggleCartLayout,
-//         toggleSignInSignUpPopUp,
-//         removeFromCart,
-//         updateProductInCart
-//     })
-// )(App)
 
 export default App;

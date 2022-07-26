@@ -2,7 +2,6 @@ package by.dz.fruits_in_choco.fruits_in_choco.entity.user;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.cart.Cart;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -28,11 +27,11 @@ public class User {
     @Column(name = "lastname")
     private String lastName;
 
-    @Column(name = "status", columnDefinition = "ENUM('ACTIVE', 'BANNED', 'NOT_CONFIRMED')", nullable = false)
+    @Column(name = "status", columnDefinition = "ENUM('ACTIVE', 'BANNED', 'NOT_CONFIRMED')")
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-    @Column(name = "role", columnDefinition = "ENUM('ADMIN', 'USER')", nullable = false)
+    @Column(name = "role", columnDefinition = "ENUM('ADMIN', 'USER')")
     @Enumerated(value = EnumType.STRING)
     private Role role;
 

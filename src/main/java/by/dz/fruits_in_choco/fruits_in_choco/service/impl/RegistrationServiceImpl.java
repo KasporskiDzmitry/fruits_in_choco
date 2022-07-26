@@ -36,8 +36,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public String register(User user, HttpServletRequest request) {
-        boolean isValidEmail = emailValidator.
-                test(user.getEmail());
+        boolean isValidEmail = emailValidator.test(user.getEmail());
 
         if (!isValidEmail) {
             throw new IllegalStateException("email not valid");
@@ -46,24 +45,19 @@ public class RegistrationServiceImpl implements RegistrationService {
         User userDAO = userRepository.findByEmail(user.getEmail());
 
         if (userDAO == null) {
-            String encodedPassword = passwordEncoder
-                    .encode(user.getPassword());
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
             user.setRole(Role.USER);
             user.setStatus(Status.NOT_CONFIRMED);
             user.setActivationToken(tokenProvider.createActivationAccountToken(UUID.randomUUID().toString(), validity));
+            user.setCart(cartRepository.save(new Cart()));
 
-            Cart cart = new Cart();
-            cart.setQuantity(0);
-            cart.setPrice(0);
-            cart.setCartItems(new ArrayList<>());
-            user.setCart(cartRepository.save(cart));
+            System.out.println(user.getRole().getClass().getName());
 
+            userRepository.save(user);
 
             String appUrl = request.getContextPath();
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, appUrl));
-
-            userRepository.save(user);
         } else {
             throw new IllegalStateException("email already taken");
         }

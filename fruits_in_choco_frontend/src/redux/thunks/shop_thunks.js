@@ -48,11 +48,6 @@ export const addReview = (review) => async dispatch => {
     const response = await RequestService.post(`/products/${review.productId}/ratings`, review, true);
     dispatch(setCurrentProduct(response.data));
     dispatch(setCurrentProductReviews(response.data.ratings));
-
-
-
-    // зачем ??
-    // dispatch(getProfile());
 };
 
 export const saveProductToCart = (product) => async dispatch => {

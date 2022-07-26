@@ -1,14 +1,12 @@
 import {
     SET_CATEGORIES,
     SELECT_CATEGORY,
-    SET_CATEGORY,
     DELETE_CATEGORY,
     UPDATE_CATEGORY
 } from "../action_types/category_action_types";
 
 const initialState = {
     categories: [],
-    category: {},
     selectedCategory: 0
 };
 
@@ -32,18 +30,11 @@ const categoryReducer = (state = initialState, action) => {
                 selectedCategory: action.category
             }
         }
-        case SET_CATEGORY: {
-            return {
-                ...state,
-                category: action.category
-            }
-        }
         case UPDATE_CATEGORY: {
             return {
                 ...state,
                 categories: [...state.categories.slice(0, state.categories.findIndex(i => i.id === action.category.id)),
-                    action.category, ...state.categories.slice(state.categories.findIndex(i => i.id === action.category.id) + 1)],
-                category: action.category
+                    action.category, ...state.categories.slice(state.categories.findIndex(i => i.id === action.category.id) + 1)]
             }
         }
         default: {

@@ -9,7 +9,6 @@ import {
     UPDATE_PRODUCT_IN_CART,
     SET_IS_PRODUCTS_FETCHING,
     SET_IS_PRODUCT_FETCHING,
-    DELETE_REVIEW,
     UPDATE_PRODUCT
 } from "../action_types/shop_action_types";
 

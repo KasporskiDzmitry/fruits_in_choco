@@ -31,7 +31,6 @@ public class ProductController {
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
             @RequestParam(required = false, defaultValue = DEFAULT_SORT_BY_FIELD) String sortBy,
             @RequestParam(required = false, defaultValue = DEFAULT_SORT_DIRECTION) String direction) {
-        System.out.println("HELLO");
         return ResponseEntity.ok(mapper.getProducts(page, size, direction, sortBy));
     }
 

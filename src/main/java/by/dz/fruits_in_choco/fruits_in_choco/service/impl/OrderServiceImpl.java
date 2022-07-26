@@ -34,11 +34,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order makeOrder(Order order, Map<Long, Integer> productIds) {
+    public Order makeOrder(Order order, Map<Long, Integer> products) {
         List<OrderItem> orderItemList = new ArrayList<>();
         User user = userRepository.findById(order.getUserId()).get();
 
-        for (Map.Entry<Long, Integer> entry: productIds.entrySet()) {
+        for (Map.Entry<Long, Integer> entry: products.entrySet()) {
             Product product = productRepository.findById(entry.getKey()).get();
             OrderItem item = new OrderItem();
             item.setProduct(product);
@@ -50,6 +50,9 @@ public class OrderServiceImpl implements OrderService {
         order.getOrderItems().addAll(orderItemList);
 
         user.getOrders().add(order);
+        user.getCart().setCartItems(null);
+        user.getCart().setQuantity(0);
+        user.getCart().setPrice(0);
 
         orderRepository.save(order);
 

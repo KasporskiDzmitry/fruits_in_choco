@@ -16,4 +16,5 @@ public class ProductRequest {
     private List<ProductRating> ratings;
     private ProductStatus status;
     private int quantity;
+    private double price;
 }

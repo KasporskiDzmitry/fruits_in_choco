@@ -2,14 +2,45 @@ import RequestService from "../RequestService";
 import {reset} from "redux-form";
 import {loadProducts} from "./shop_thunks";
 import {
+    setCategory, setOrder, setOrders,
     setProduct, setUser,
-    setUsers,
+    setUsers, updateOrderInState,
 } from "../actions/admin_actions";
 import {setProducts, updateProduct} from "../actions/shop_actions";
 import {loadCategories} from "./category_thunks";
 import {deleteCategory, updateCategory} from "../actions/category_actions";
 import {enqueueSnackbar} from "../actions/app_actions";
 import {loadSlides} from "./main_thunks";
+
+/// Orders ///
+
+export const loadAllOrders = () => async dispatch => {
+    try {
+        const response = await RequestService.get("/orders", true);
+        dispatch(setOrders(response.data));
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const loadOrderById = (id) => async dispatch => {
+    try {
+        const response = await RequestService.get(`/orders/${id}`, true);
+        dispatch(setOrder(response.data));
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const updateOrder = (order) => async dispatch => {
+    try {
+        const response = await RequestService.put(`/orders/${order.id}`, order, true);
+        dispatch(setOrder(response.data));
+        dispatch(updateOrderInState(order));
+    } catch (e) {
+        console.log(e)
+    }
+}
 
 /// Products ///
 
@@ -91,6 +122,15 @@ export const deleteReview = (product, ratingId) => async dispatch => {
 }
 
 /// Categories ///
+
+export const loadCategoryByIdAdmin = (id) => async dispatch => {
+    try {
+        const response = await RequestService.get(`/categories/${id}`);
+        dispatch(setCategory(response.data));
+    } catch (e) {
+        console.log(e);
+    }
+}
 
 export const addCategory = (category) => async dispatch => {
     try {

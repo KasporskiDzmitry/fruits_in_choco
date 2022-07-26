@@ -1,30 +1,45 @@
 import {
-    CATEGORY_ADDED_SUCCESS,
     NOTIFICATION_RECEIVED,
     NOTIFICATION_WATCHED,
-    PRODUCT_ADDED_SUCCESS,
-    REVIEW_APPROVED_SUCCESS,
-    REVIEW_REJECTED_SUCCESS,
     SET_PRODUCT,
     SET_REVIEW,
     SET_USERS,
-    SET_USER
+    SET_USER,
+    SET_CATEGORY, SET_ORDERS, UPDATE_ORDER, SET_ORDER
 } from "../action_types/admin_action_types";
 
 const initialState = {
     users: [],
     user: {},
     product: {},
+    order: {},
+    orders: [],
     review: {},
-    isNotificationReceived: false,
-    isProductAddedSuccess: false,
-    isCategoryAddedSuccess: false,
-    isReviewApprovedSuccess: false,
-    isReviewRejectedSuccess: false
+    category: {},
+    isNotificationReceived: false
 };
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_ORDERS: {
+            return {
+                ...state,
+                orders: action.orders
+            }
+        }
+        case UPDATE_ORDER: {
+            return {
+                ...state,
+                orders: [...state.orders.slice(0, state.orders.findIndex(i => i.id === action.order.id)),
+                    action.order, ...state.orders.slice(state.orders.findIndex(i => i.id === action.order.id) + 1)]
+            }
+        }
+        case SET_ORDER: {
+            return {
+                ...state,
+                order: action.order
+            }
+        }
         case NOTIFICATION_RECEIVED: {
             return {
                 ...state,
@@ -55,34 +70,16 @@ const adminReducer = (state = initialState, action) => {
                 product: action.product
             }
         }
-        case REVIEW_REJECTED_SUCCESS: {
+        case SET_CATEGORY: {
             return {
                 ...state,
-                isReviewRejectedSuccess: true
+                category: action.category
             }
         }
         case SET_REVIEW: {
             return {
                 ...state,
                 review: action.review
-            }
-        }
-        case REVIEW_APPROVED_SUCCESS: {
-            return {
-                ...state,
-                isReviewApprovedSuccess: true
-            }
-        }
-        case PRODUCT_ADDED_SUCCESS: {
-            return {
-                ...state,
-                isProductAddedSuccess: true
-            }
-        }
-        case CATEGORY_ADDED_SUCCESS: {
-            return {
-                ...state,
-                isCategoryAddedSuccess: true
             }
         }
         default: {

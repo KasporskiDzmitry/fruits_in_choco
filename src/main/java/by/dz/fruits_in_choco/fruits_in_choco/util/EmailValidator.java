@@ -10,11 +10,11 @@ import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.EMAIL_REGEX;
 
 @Service
 public class EmailValidator implements Predicate<String> {
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
     public boolean test(String s) {
+        System.out.println(s);
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(s);
         return matcher.find();
     }

@@ -6,7 +6,7 @@ public class Constants {
     public static final String DEFAULT_SORT_BY_FIELD = "id";
     public static final String DEFAULT_SORT_DIRECTION = "ASC";
 
-    public static final String EMAIL_REGEX  = "\"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$\"";
+    public static final String EMAIL_REGEX  = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
 
     public static final String CATEGORY_CAKES = "Торты";
 

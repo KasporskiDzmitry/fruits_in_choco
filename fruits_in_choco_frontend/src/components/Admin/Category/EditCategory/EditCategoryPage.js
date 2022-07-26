@@ -1,38 +1,42 @@
-import React from "react";
+import React, {useEffect} from "react";
 import style from './EditCategoryPage.module.scss';
 import {reduxForm} from "redux-form";
-import {connect} from "react-redux";
-import Expire from "../../../common/Expire/Expire";
+import {connect, useDispatch} from "react-redux";
 import {CategoryForm} from "../common/CategoryForm";
+import {useHistory} from "react-router-dom";
+import {loadCategoryByIdAdmin, updateCategoryThunk} from "../../../../redux/thunks/admin_thunks";
 
 let EditCategoryReduxForm = reduxForm({form: 'edit_category', enableReinitialize: true})(CategoryForm);
 
 EditCategoryReduxForm = connect(
     state => {
-        const category = state.categoryReducer.category;
+        const category = state.adminReducer.category;
         let types = [];
         if (category.types) {
-            types = state.categoryReducer.category.types.map(i => i.name);
+            types = category.types.map(i => i.name);
         }
         return ({
-            initialValues: {...state.categoryReducer.category, types: types}
+            initialValues: {...category, types: types}
         })
     }, {})(EditCategoryReduxForm)
 
-export const EditCategoryPage = (props) => {
+const EditCategoryPage = (props) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    useEffect(() => {
+        dispatch(loadCategoryByIdAdmin(history.location.pathname.split('/').pop()));
+    }, []);
+
 
     const onSubmit = (formData) => {
-        props.updateCategoryThunk(formData);
+        dispatch(updateCategoryThunk(formData));
     }
 
     return <div className={style.editProductFormContainer}>
         <h1>{props.category?.name}</h1>
-        {
-            props.isCategoryAddedSuccess && <div>
-                <Expire delay="3000"><h3>КАТЕГОРИЯ УСПЕШНО ИЗМЕНЕНА</h3></Expire>
-            </div>
-        }
-        <EditCategoryReduxForm onSubmit={onSubmit} isFetching={props.isFetching}
-                               category={props.category}/>
+        <EditCategoryReduxForm onSubmit={onSubmit}/>
     </div>
 };
+
+export default EditCategoryPage;

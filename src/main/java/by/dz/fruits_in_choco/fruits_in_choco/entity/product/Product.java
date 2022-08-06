@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "product")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Product.class)
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class Product implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", imageURL=" + imageURL +
-                ", categoryId=" + category.getId() +
+                ", category=" + category +
                 ", ratings=" + ratings +
                 ", status=" + status +
                 '}';

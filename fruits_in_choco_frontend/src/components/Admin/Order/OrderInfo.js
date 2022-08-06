@@ -3,7 +3,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import {ORDER_STATUS_CONFIRMED, ORDER_STATUS_DECLINED, ORDER_STATUS_NOT_CONFIRMED} from "../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {loadOrderById, updateOrder} from "../../../redux/thunks/admin_thunks";
+import {loadOrderById, updateOrderThunk} from "../../../redux/thunks/admin_thunks";
 
 const OrderInfo = ({order}) => {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const OrderInfo = ({order}) => {
 
     const changeOrderStatus = (isConfirmed) => {
         order.status = isConfirmed ? ORDER_STATUS_CONFIRMED : ORDER_STATUS_DECLINED;
-        dispatch(updateOrder(order));
+        dispatch(updateOrderThunk(order));
     }
 
     return !order.id ?

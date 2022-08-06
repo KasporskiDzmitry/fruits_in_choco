@@ -4,7 +4,7 @@ import {loadProducts} from "./shop_thunks";
 import {
     setCategory, setOrder, setOrders,
     setProduct, setUser,
-    setUsers, updateOrderInState,
+    setUsers, updateOrder,
 } from "../actions/admin_actions";
 import {setProducts, updateProduct} from "../actions/shop_actions";
 import {loadCategories} from "./category_thunks";
@@ -32,11 +32,10 @@ export const loadOrderById = (id) => async dispatch => {
     }
 }
 
-export const updateOrder = (order) => async dispatch => {
+export const updateOrderThunk = (order) => async dispatch => {
     try {
         const response = await RequestService.put(`/orders/${order.id}`, order, true);
-        dispatch(setOrder(response.data));
-        dispatch(updateOrderInState(order));
+        dispatch(updateOrder(response.data));
     } catch (e) {
         console.log(e)
     }

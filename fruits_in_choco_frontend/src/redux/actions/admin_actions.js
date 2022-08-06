@@ -20,5 +20,5 @@ export const notificationWatched = () => ({type: NOTIFICATION_WATCHED});
 export const setCategory = (category) => ({type: SET_CATEGORY, category});
 export const setOrders = orders => ({type: SET_ORDERS, orders});
 export const setOrder = order => ({type: SET_ORDER, order});
-export const updateOrderInState = order => ({type: UPDATE_ORDER, order})
+export const updateOrder = order => ({type: UPDATE_ORDER, order})
 

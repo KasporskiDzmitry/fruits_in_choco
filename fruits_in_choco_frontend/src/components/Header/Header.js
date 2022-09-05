@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './Header.module.scss';
+import appStyle from '../../App.module.scss';
 import {NavLink, useHistory, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
@@ -27,8 +28,8 @@ const Header = () => {
         history.push({pathname: `/shop`, state: {categoryId: 0}})
     };
 
-    return <header className={`sectionOuter ${style.sectionHeader}`}>
-        <div className={`sectionInner ${style.sectionInner}`}>
+    return <header className={`${appStyle.sectionOuter} ${style.sectionHeader}`}>
+        <div className={`${appStyle.sectionInner} ${style.sectionInner}`}>
             <div className={style.toggleNavBtn}>
                 <i className="fa fa-bars">Кнопка меню для телефона</i>
             </div>

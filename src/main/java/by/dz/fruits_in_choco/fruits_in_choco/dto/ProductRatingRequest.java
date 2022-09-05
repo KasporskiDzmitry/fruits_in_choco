@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 public class ProductRatingRequest {
-    private Long userId;
+    private Short userId;
     private Product product;
     private String author;
-    private int rating;
+    private Short rating;
     private String message;
     private boolean approved;
 }

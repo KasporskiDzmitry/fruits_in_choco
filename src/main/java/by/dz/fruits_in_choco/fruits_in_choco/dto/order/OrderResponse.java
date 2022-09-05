@@ -7,8 +7,8 @@ import java.util.List;
 
 @Data
 public class OrderResponse {
-    private Long id;
-    private Long userId;
+    private Short id;
+    private Short userId;
     private Double price;
     private Date date;
     private String firstName;

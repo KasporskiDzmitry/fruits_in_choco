@@ -44,10 +44,10 @@ public class ProfileServiceImpl implements ProfileService {
         Cart cart = user.getCart();
 
         cart.setPrice(cart.getPrice() + product.getPrice());
-        cart.setQuantity(cart.getQuantity() + quantity);
+        cart.setQuantity((short) (cart.getQuantity() + quantity));
 
         CartItem item = new CartItem();
-        item.setQuantity(quantity);
+        item.setQuantity((short) quantity);
         item.setProduct(product);
         cartItemRepository.save(item);
         cart.getCartItems().add(item);
@@ -57,7 +57,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void deleteFromCart(Long id, String email) {
+    public void deleteFromCart(Short id, String email) {
         User user = userRepository.findByEmail(email);
         Cart cart = user.getCart();
         CartItem cartItem = cartItemRepository.findById(cart.getCartItems().stream().filter(i -> i.getProduct().getId().equals(id)).collect(Collectors.toList()).get(0).getId()).get();
@@ -66,8 +66,8 @@ public class ProfileServiceImpl implements ProfileService {
 
         cartItemRepository.delete(cartItem);
 
-        cart.setPrice(cart.getCartItems().stream().map(i -> i.getProduct().getPrice()).mapToDouble(Integer::intValue).sum());
-        cart.setQuantity(cart.getCartItems().stream().map(CartItem::getQuantity).mapToInt(Integer::intValue).sum());
+        cart.setPrice((float) cart.getCartItems().stream().map(i -> i.getProduct().getPrice()).mapToDouble(Float::floatValue).sum());
+        cart.setQuantity((short) cart.getCartItems().stream().map(CartItem::getQuantity).mapToInt(Short::shortValue).sum());
 
         cartRepository.save(cart);
     }

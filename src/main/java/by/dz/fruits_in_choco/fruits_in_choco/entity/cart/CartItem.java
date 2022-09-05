@@ -12,9 +12,9 @@ public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Short id;
 
-    private int quantity;
+    private Short quantity;
 
     @OneToOne
     private Product product;

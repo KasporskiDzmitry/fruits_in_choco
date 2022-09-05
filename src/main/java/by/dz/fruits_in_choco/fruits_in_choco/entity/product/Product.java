@@ -3,7 +3,6 @@ package by.dz.fruits_in_choco.fruits_in_choco.entity.product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
@@ -18,13 +17,13 @@ import java.util.List;
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Short id;
 
     private String name;
 
     private String description;
 
-    private int price;
+    private float price;
 
     private String imageURL;
 

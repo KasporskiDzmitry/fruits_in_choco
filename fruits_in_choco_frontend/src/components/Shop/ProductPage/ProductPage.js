@@ -7,12 +7,13 @@ import Preloader from "../../common/Preloader/Preloader";
 import ReviewItem from "./Review/ReviewItem";
 import ReviewForm from "./Review/ReviewForm";
 import {isProductInCart} from "../../utils/localStorageFunctions";
+import appStyle from '../../../App.module.scss';
 
 const ProductPage = ({product, saveProductToCart, isFetching, addReview, profile, ratings}) => {
     const isInCart = isProductInCart(product.id);
 
-    return <div className={`sectionOuter ${style.productPageWrapper}`}>
-        <div className="sectionInner">
+    return <div className={`${appStyle.sectionOuter} ${style.productPageWrapper}`}>
+        <div className={`${appStyle.sectionInner}`}>
             {isFetching ?
                 <Preloader/> :
                 <>

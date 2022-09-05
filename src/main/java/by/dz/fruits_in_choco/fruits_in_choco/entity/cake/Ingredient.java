@@ -10,11 +10,11 @@ import javax.persistence.*;
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Short id;
 
     private String name;
 
-    private double price;
+    private float price;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status", columnDefinition = "ENUM('ACTIVE', 'DELETED')", nullable = false)

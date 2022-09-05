@@ -7,12 +7,12 @@ import java.util.List;
 
 @Data
 public class ProductResponse {
-    private Long id;
+    private Short id;
     private String name;
     private String description;
     private int price;
     private String status;
     private String imageURL;
-    private Long categoryId;
+    private Short categoryId;
     private List<ProductRating> ratings;
 }

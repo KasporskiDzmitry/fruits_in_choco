@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface ProductService {
     List<Product> getProducts(int page, int size, String direction, String sortBy);
-    Product getProductById(Long id);
-    List<Product> getProductsFilteredByCategories(List<Long> categories);
+    Product getProductById(Short id);
+    List<Product> getProductsFilteredByCategories(List<Short> categories);
     Product saveProduct(Product product);
-    Product updateProduct(Product product, Long id);
-    void deleteProductById(Long id);
-    Product rateProduct(ProductRatingRequest request, Long id);
-    Product approveReview(ProductRatingRequest rating, Long productId, Long ratingId);
-    void deleteProductRatingById(Long productId, Long ratingId);
+    Product updateProduct(Product product, Short id);
+    void deleteProductById(Short id);
+    Product rateProduct(ProductRatingRequest request, Short id);
+    Product approveReview(ProductRatingRequest rating, Short productId, Short ratingId);
+    void deleteProductRatingById(Short productId, Short ratingId);
 }

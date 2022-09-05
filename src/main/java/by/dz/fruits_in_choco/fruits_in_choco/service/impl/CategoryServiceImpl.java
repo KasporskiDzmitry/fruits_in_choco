@@ -40,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category updateCategory(Category newCategory, Long id) {
+    public Category updateCategory(Category newCategory, Short id) {
         return categoryRepository.findById(id)
                 .map(category -> {
                     category.setName(newCategory.getName());
@@ -55,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategoryById(Long id) {
+    public void deleteCategoryById(Short id) {
         categoryRepository.deleteById(id);
     }
 
@@ -65,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategoryById(Long id) {
+    public Category getCategoryById(Short id) {
         return categoryRepository.findById(id).get();
     }
 }

@@ -7,6 +7,6 @@ import java.util.List;
 public interface SliderService {
     List<Slide> getSlides();
     Slide saveSlide(Slide slide);
-    Slide updateSlide(Slide slide, Long id);
-    void deleteSlide(Long id);
+    Slide updateSlide(Slide slide, Short id);
+    void deleteSlide(Short id);
 }

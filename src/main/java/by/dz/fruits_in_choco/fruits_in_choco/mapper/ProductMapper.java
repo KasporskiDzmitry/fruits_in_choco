@@ -34,18 +34,18 @@ public class ProductMapper {
                 .collect(Collectors.toList());
     }
 
-    public ProductResponse getProductById(Long id) {
+    public ProductResponse getProductById(Short id) {
         return mapToResponseDTO(service.getProductById(id));
     }
 
-    public List<ProductResponse> getProductsFilteredByCategories(List<Long> categories) {
+    public List<ProductResponse> getProductsFilteredByCategories(List<Short> categories) {
         List<Product> products = service.getProductsFilteredByCategories(categories);
         return products.stream()
                 .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
     }
 
-    public ProductResponse rateProduct(ProductRatingRequest request, Long id) {
+    public ProductResponse rateProduct(ProductRatingRequest request, Short id) {
         return mapToResponseDTO(service.rateProduct(request, id));
     }
 

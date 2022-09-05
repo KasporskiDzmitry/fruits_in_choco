@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
-    OrderItem findByProduct_Id(Long id);
+public interface OrderItemRepository extends JpaRepository<OrderItem, Short> {
+    OrderItem findByProduct_Id(Short id);
 }

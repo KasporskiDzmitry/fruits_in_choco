@@ -5,11 +5,12 @@ import Cart from "../Cart/Cart";
 import {PersonalInfo} from "./PersonalInfo";
 import {OrdersHistory} from "./OrdersHistory";
 import ReviewsInfo from "./ReviewsInfo";
+import appStyle from '../../App.module.scss';
 
 const Profile = ({profile}) => {
     return (
-        <div className={`sectionOuter ${style.shopSection}`}>
-            <div className="sectionInner">
+        <div className={`${appStyle.sectionOuter} ${style.shopSection}`}>
+            <div className={`${appStyle.sectionInner}`}>
                 <div className={style.heading}>
                     <h1>Личный кабинет</h1>
                 </div>

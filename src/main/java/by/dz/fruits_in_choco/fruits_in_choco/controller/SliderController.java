@@ -29,13 +29,13 @@ public class SliderController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updateSlide(@RequestBody Slide slide, @PathVariable Long id) {
+    public ResponseEntity<?> updateSlide(@RequestBody Slide slide, @PathVariable Short id) {
         return ResponseEntity.ok(sliderService.updateSlide(slide, id));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> deleteSlide(@PathVariable Long id) {
+    public ResponseEntity<?> deleteSlide(@PathVariable Short id) {
         sliderService.deleteSlide(id);
         return ResponseEntity.ok(200);
     }

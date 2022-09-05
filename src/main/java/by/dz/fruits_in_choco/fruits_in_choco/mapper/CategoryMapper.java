@@ -28,7 +28,7 @@ public class CategoryMapper {
                 .collect(Collectors.toList());
     }
 
-    public CategoryResponse getCategoryById(Long id) {
+    public CategoryResponse getCategoryById(Short id) {
         return mapToResponseDTO(service.getCategoryById(id));
     }
 

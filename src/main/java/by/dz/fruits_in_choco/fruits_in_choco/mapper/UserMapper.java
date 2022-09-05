@@ -47,7 +47,7 @@ public class UserMapper {
         return mapToResponseDto(userService.getUserByEmail(email));
     }
 
-    public UserResponse getUserById(Long id) {
+    public UserResponse getUserById(Short id) {
         return mapToResponseDto(userService.getUserById(id));
     }
 

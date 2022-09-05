@@ -64,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Short id) {
         Product product = productRepository.findById(id).orElse(null);
 
         if (product == null) {
@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsFilteredByCategories(List<Long> categories) {
+    public List<Product> getProductsFilteredByCategories(List<Short> categories) {
         List<Product> products = productRepository.findByCategory_IdIn(categories);
         return products.stream().filter(this::isProductActive).map(this::filterUnapprovedRatings).collect(Collectors.toList());
     }
@@ -95,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Product newProduct, Long id) {
+    public Product updateProduct(Product newProduct, Short id) {
         return productRepository.findById(id)
                 .map(product -> {
                     product.setName(newProduct.getName());
@@ -113,7 +113,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProductById(Long id) {
+    public void deleteProductById(Short id) {
         Product product = productRepository.findById(id).get();
         OrderItem orderItem = orderItemRepository.findByProduct_Id(id);
 
@@ -133,7 +133,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product rateProduct(ProductRatingRequest request, Long id) {
+    public Product rateProduct(ProductRatingRequest request, Short id) {
         Product product = productRepository.findById(id).get();
         User user = userRepository.findById(request.getUserId()).get();
 
@@ -163,7 +163,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product approveReview(ProductRatingRequest newRating, Long productId, Long ratingId) {
+    public Product approveReview(ProductRatingRequest newRating, Short productId, Short ratingId) {
         ProductRating rating = productRatingRepository.findById(ratingId).get();
 
         rating.setApproved(newRating.isApproved());
@@ -174,7 +174,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProductRatingById(Long productId, Long ratingId) {
+    public void deleteProductRatingById(Short productId, Short ratingId) {
         Product product = productRepository.findById(productId).get();
         product.getRatings().removeIf(rating -> rating.getId().equals(ratingId));
 

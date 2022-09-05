@@ -15,14 +15,14 @@ import java.util.Date;
 public class ProductRating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Short id;
 
     private String author;
 
     @Column(name = "author_id")
-    private Long authorId;
+    private Short authorId;
 
-    private int rating;
+    private Short rating;
 
     private String message;
 

@@ -6,6 +6,7 @@ import {addCategory, addProduct, loadAllOrders, loadProductsAdmin} from "../../r
 import style from './Admin.module.scss';
 import {notificationWatched} from "../../redux/actions/admin_actions";
 import {ORDER_STATUS_NOT_CONFIRMED} from "../utils/constants";
+import appStyle from '../../App.module.scss';
 
 const AdminCategories = React.lazy(() => import('./Category/Categories'));
 const Orders = React.lazy(() => import('./Order/Orders'));
@@ -18,7 +19,8 @@ const AddCategory = React.lazy(() => import('./Category/AddCategory/AddCategory'
 const AdminProductPage = React.lazy(() => import('./Product/EditProduct/EditProduct'));
 const AdminCategoryPage = React.lazy(() => import('./Category/EditCategory/EditCategoryPage'));
 const CakeConstructorData = React.lazy(() => import('./CakeConstructor/CakeConstructorData'));
-const AdminSlider = React.lazy(() => import('./Slider/SliderContainer'));
+const AdminSlider = React.lazy(() => import('./Slider/Slider'));
+
 
 class Admin extends React.Component {
 
@@ -32,8 +34,8 @@ class Admin extends React.Component {
     }
 
     render() {
-        return <div className={`sectionOuter`}>
-            <div className="sectionInner">
+        return <div className={`${appStyle.sectionOuter}`}>
+            <div className={`${appStyle.sectionInner}`}>
                 <div className={style.innerWrapper}>
                     <nav className={style.navbarNav}>
                         <NavLink to={'/profile/admin/orders'}>Заказы {this.props.newOrders > 0 && <span className={style.newOrders}>+{this.props.newOrders}</span>}</NavLink>
@@ -73,7 +75,7 @@ class Admin extends React.Component {
                             <Route exact path='/profile/admin/constructor'
                                    render={() => <CakeConstructorData data={this.props.constructorData}/>}/>
                             <Route exact path='/profile/admin/slider'
-                                   render={() => <AdminSlider />}/>
+                                   render={() => <AdminSlider sides={this.props.slides}/>}/>
                         </React.Suspense>
                     </>
                 </div>
@@ -83,6 +85,7 @@ class Admin extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+    slides: state.mainPage.slides,
     constructorData: state.cakeConstructorReducer.data,
     orders: state.adminReducer.orders,
     order: state.adminReducer.order,

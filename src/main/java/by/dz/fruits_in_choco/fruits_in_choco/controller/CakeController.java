@@ -34,14 +34,14 @@ public class CakeController {
 
     @DeleteMapping("/cakes/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> deleteCake(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCake(@PathVariable Short id) {
         cakeService.deleteCake(id);
         return ResponseEntity.ok(200);
     }
 
     @PutMapping("/cakes/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updateCake(@RequestBody Cake cake, @PathVariable Long id) {
+    public ResponseEntity<?> updateCake(@RequestBody Cake cake, @PathVariable Short id) {
         return ResponseEntity.ok(cakeService.updateCake(cake, id));
     }
 
@@ -53,13 +53,13 @@ public class CakeController {
 
     @PutMapping("/ingredient/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updateIngredient(@RequestBody Ingredient ingredient, @PathVariable Long id) {
+    public ResponseEntity<?> updateIngredient(@RequestBody Ingredient ingredient, @PathVariable Short id) {
         return ResponseEntity.ok(cakeService.updateIngredient(ingredient, id));
     }
 
     @DeleteMapping("/ingredient/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> deleteBiscuit(@PathVariable Long id) {
+    public ResponseEntity<?> deleteBiscuit(@PathVariable Short id) {
         cakeService.deleteIngredient(id);
         return ResponseEntity.ok(200);
     }

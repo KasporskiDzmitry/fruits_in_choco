@@ -7,6 +7,7 @@ import {Button} from "../common/Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {setFilteredCategories} from "../../redux/actions/shop_actions";
+import appStyle from '../../App.module.scss';
 
 const Main = () => {
     const dispatch = useDispatch();
@@ -20,8 +21,8 @@ const Main = () => {
 
     return <div className={style.main}>
         <Slider/>
-        <div className={`sectionOuter ${style.ourProductsSection}`}>
-            <div className="sectionInner">
+        <div className={`${appStyle.sectionOuter} ${style.ourProductsSection}`}>
+            <div className={`${appStyle.sectionInner}`}>
                 <div className={style.heading}>
                     <h1>Что мы делаем</h1>
                 </div>
@@ -33,8 +34,8 @@ const Main = () => {
             </div>
         </div>
         <Button title="Click me"/>
-        <div className={` sectionOuter ${style.aboutSection}`}>
-            <div className="sectionInner">
+        <div className={`${appStyle.sectionOuter} ${style.aboutSection}`}>
+            <div className={`${appStyle.sectionInner}`}>
                 <div className={style.heading}>
                     <h1>Кто мы</h1>
                 </div>

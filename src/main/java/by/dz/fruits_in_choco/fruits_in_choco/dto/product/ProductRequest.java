@@ -8,13 +8,13 @@ import java.util.List;
 
 @Data
 public class ProductRequest {
-    private Long categoryId;
+    private Short categoryId;
     private String description;
-    private Long id;
+    private Short id;
     private String imageURL;
     private String name;
     private List<ProductRating> ratings;
     private ProductStatus status;
-    private int quantity;
-    private double price;
+    private Short quantity;
+    private float price;
 }

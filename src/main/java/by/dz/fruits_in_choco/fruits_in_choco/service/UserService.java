@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface UserService {
     List<User> getUsers(int page, int size, String direction, String sortBy);
-    User getUserById(Long id);
+    User getUserById(Short id);
     User getUserByEmail(String email);
 }

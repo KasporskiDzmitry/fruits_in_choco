@@ -4,10 +4,11 @@ import Filter from "./Filter/Filter";
 import SortPanel from "./SortPanel/SortPanel";
 import Preloader from "../common/Preloader/Preloader";
 import ProductCard from "./ProductCard/ProductCard";
+import appStyle from '../../App.module.scss';
 
 const Shop = (props) => {
-    return <div className={`sectionOuter ${style.shopSection}`}>
-        <div className="sectionInner">
+    return <div className={`${appStyle.sectionOuter} ${style.shopSection}`}>
+        <div className={`${appStyle.sectionInner}`}>
             <div className={style.shopInnerWrapper}>
                 <Filter categories={props.categories} loadProductsByCategories={props.loadProductsByCategories}
                         loadProducts={props.loadProducts} selectedCategory={props.selectedCategory}

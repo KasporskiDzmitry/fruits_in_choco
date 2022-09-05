@@ -1,8 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity.order;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,9 +11,9 @@ import javax.persistence.*;
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Short id;
 
-    private int quantity;
+    private Short quantity;
 
     @OneToOne
     @JoinColumn(name = "product_id")

@@ -10,6 +10,8 @@ import CakeViewer from "./CakeViewer";
 import {loadData, saveCake} from "../../redux/thunks/cakeConstructor_thunks";
 import {setCake} from "../../redux/actions/cakeConstructor_actions";
 import {INGREDIENT_TYPE_BISCUIT, INGREDIENT_TYPE_DECORATION, INGREDIENT_TYPE_FILLING} from "../utils/constants";
+import appStyle from '../../App.module.scss';
+
 
 const CakeConstructorForm = (props) => {
     const dispatch = useDispatch();
@@ -101,8 +103,8 @@ const CakeConstructor = (props) => {
         dispatch(saveCake(cake))
     }
 
-    return <div className={`sectionOuter ${constructorStyle.constructorSection}`}>
-        <div className={'sectionInner'}>
+    return <div className={`${appStyle.sectionOuter} ${constructorStyle.constructorSection}`}>
+        <div className={`${appStyle.sectionInner}`}>
             <div className={constructorStyle.formWrapper}>
                 <CakeConstructorReduxForm onSubmit={onSubmit} data={data}/>
             </div>

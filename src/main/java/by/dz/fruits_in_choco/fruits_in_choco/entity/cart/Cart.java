@@ -14,11 +14,11 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Short id;
 
-    private int quantity;
+    private Short quantity;
 
-    private double price;
+    private float price;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<CartItem> cartItems;

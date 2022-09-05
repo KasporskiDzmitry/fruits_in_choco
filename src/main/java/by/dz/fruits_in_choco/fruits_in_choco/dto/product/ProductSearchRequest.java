@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class ProductSearchRequest {
-    private List<Long> categories;
+    private List<Short> categories;
 }

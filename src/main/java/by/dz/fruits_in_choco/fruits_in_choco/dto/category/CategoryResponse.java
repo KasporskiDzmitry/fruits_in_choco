@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class CategoryResponse {
-    private Long id;
+    private Short id;
     private String name;
     private String description;
     private String imageURL;

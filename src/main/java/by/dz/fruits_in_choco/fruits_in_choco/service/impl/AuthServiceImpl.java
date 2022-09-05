@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
                 .token(token)
                 .role(user.getRole().name())
                 .name(user.getFirstName() + " " + user.getLastName())
-                .id(user.getId())
+                .id(Long.valueOf(user.getId()))
                 .cart(user.getCart())
                 .build();
     }

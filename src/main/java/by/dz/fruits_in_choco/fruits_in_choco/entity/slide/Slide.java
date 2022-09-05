@@ -11,7 +11,7 @@ public class Slide {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Short id;
 
     private String title;
 

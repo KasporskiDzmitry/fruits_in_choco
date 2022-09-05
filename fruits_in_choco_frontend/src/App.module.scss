@@ -1,10 +1,3 @@
-$trBgColor: darkseagreen;
-$btnBgColor: #3498DB;
-$btnHoverBgColor: darken($btnBgColor, 15%);
-$btnColor: white;
-$boxShadow: 0 4px 8px rgba(34, 60, 80, 0.2);
-$userInfoBgColor: #f1f1f1;
-
 @mixin flexCenter() {
   display: flex;
   flex-direction: column;
@@ -55,7 +48,6 @@ input[type=number] {
 }
 
 .form {
-
   button {
     margin-bottom: 10px;
   }

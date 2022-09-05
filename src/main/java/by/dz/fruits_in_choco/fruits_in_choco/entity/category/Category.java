@@ -2,7 +2,6 @@ package by.dz.fruits_in_choco.fruits_in_choco.entity.category;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Short id;
 
     private String name;
 

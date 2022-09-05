@@ -1,10 +1,13 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import style from "../Product/AddProduct/AddProduct.module.scss";
 import {Field, reduxForm} from "redux-form";
 import {Input, Select, Textarea} from "../../common/FormsControls/FormsControls";
 import {number, required} from "../../utils/validators/validators";
 import formsControlsStyle from "../../common/FormsControls/FormsControls.module.scss";
 import {Button} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import {loadSlides} from "../../../redux/thunks/main_thunks";
+import {deleteSlide, saveSlide} from "../../../redux/thunks/admin_thunks";
 
 const AddSlideForm = ({handleSubmit, error, isFetching}) => {
     return (
@@ -40,15 +43,20 @@ const AddSlideReduxForm = reduxForm({form: 'add_slide'})(AddSlideForm);
 
 
 export const Slider = (props) => {
+    const dispatch = useDispatch();
     const [isEditMode, setEditMode] = useState(false);
 
+    useEffect(() => {
+        dispatch(loadSlides())
+    }, [])
+
     const onSubmit = formData => {
-        props.saveSlide(formData)
+        dispatch(saveSlide(formData));
     };
 
-    const deleteSlide = (slide) => {
+    const removeSlide = (slide) => {
         if (window.confirm('Удалить?')) {
-            props.deleteSlide(slide);
+            dispatch(deleteSlide(slide))
         }
     }
 
@@ -64,7 +72,7 @@ export const Slider = (props) => {
                     <div>{i.text}</div>
                     <div>{i.imageURL}</div>
                     <div>{i.href}</div>
-                    <div onClick={() => deleteSlide(i)}>Удалить</div>
+                    <div onClick={() => removeSlide(i)}>Удалить</div>
                 </div>)
             }
         </div>

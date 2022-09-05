@@ -12,13 +12,13 @@ public class Cake {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Short id;
 
     private String name;
 
-    private double price;
+    private float price;
 
-    private double weight;
+    private float weight;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", columnDefinition = "ENUM('CONFIRMED', 'NOT_CONFIRMED')", nullable = false)

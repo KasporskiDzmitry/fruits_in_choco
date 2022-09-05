@@ -45,7 +45,7 @@ public class ProfileController {
 
     @PreAuthorize("hasAuthority('USER')")
     @DeleteMapping("/profile/cart/{id}")
-    public ResponseEntity<?> deleteFromCart(@PathVariable Long id, Authentication authentication) {
+    public ResponseEntity<?> deleteFromCart(@PathVariable Short id, Authentication authentication) {
         profileService.deleteFromCart(id, authentication.getName());
         return ResponseEntity.ok(200);
     }

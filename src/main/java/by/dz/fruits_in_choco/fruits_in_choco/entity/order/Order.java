@@ -14,10 +14,10 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private short id;
 
     @Column(name = "user_id")
-    private Long userId;
+    private Short userId;
 
     private String firstname;
 
@@ -27,7 +27,7 @@ public class Order {
 
     private String phone;
 
-    private double price;
+    private float price;
 
     private Date date;
 

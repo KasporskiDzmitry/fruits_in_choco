@@ -26,7 +26,7 @@ public class SliderServiceImpl implements SliderService {
     }
 
     @Override
-    public Slide updateSlide(Slide newSlide, Long id) {
+    public Slide updateSlide(Slide newSlide, Short id) {
         return sliderRepository.findById(id)
                 .map(slide -> {
                     slide.setTitle(newSlide.getTitle());
@@ -42,7 +42,7 @@ public class SliderServiceImpl implements SliderService {
     }
 
     @Override
-    public void deleteSlide(Long id) {
+    public void deleteSlide(Short id) {
         sliderRepository.deleteById(id);
     }
 }

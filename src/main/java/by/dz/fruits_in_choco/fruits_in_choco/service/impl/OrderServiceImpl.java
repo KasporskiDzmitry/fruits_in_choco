@@ -34,11 +34,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order makeOrder(Order order, Map<Long, Integer> products) {
+    public Order makeOrder(Order order, Map<Short, Short> products) {
         List<OrderItem> orderItemList = new ArrayList<>();
         User user = userRepository.findById(order.getUserId()).get();
 
-        for (Map.Entry<Long, Integer> entry: products.entrySet()) {
+        for (Map.Entry<Short, Short> entry: products.entrySet()) {
             Product product = productRepository.findById(entry.getKey()).get();
             OrderItem item = new OrderItem();
             item.setProduct(product);
@@ -51,8 +51,8 @@ public class OrderServiceImpl implements OrderService {
 
         user.getOrders().add(order);
         user.getCart().setCartItems(null);
-        user.getCart().setQuantity(0);
-        user.getCart().setPrice(0);
+        user.getCart().setQuantity((short) 0);
+        user.getCart().setPrice((float) 0);
 
         orderRepository.save(order);
 
@@ -65,17 +65,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrderById(Long id) {
+    public Order getOrderById(Short id) {
         return orderRepository.findById(id).get();
     }
 
     @Override
-    public void deleteOrderById(Long id) {
+    public void deleteOrderById(Short id) {
         orderRepository.deleteById(id);
     }
 
     @Override
-    public Order updateOrder(Order newOrder, Long id) {
+    public Order updateOrder(Order newOrder, Short id) {
         return orderRepository.findById(id)
                 .map(order -> {
                     order.setOrderItems(newOrder.getOrderItems());

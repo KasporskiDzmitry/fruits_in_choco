@@ -35,7 +35,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<?> getProductById(@PathVariable Long id) {
+    public ResponseEntity<?> getProductById(@PathVariable Short id) {
         try {
             return ResponseEntity.ok(mapper.getProductById(id));
         } catch (NoSuchElementException | ProductDeletedException e) {
@@ -56,32 +56,32 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/admin/products/{id}")
-    public ResponseEntity<?> updateProduct(@RequestBody Product product, @PathVariable Long id) {
+    public ResponseEntity<?> updateProduct(@RequestBody Product product, @PathVariable Short id) {
         return ResponseEntity.ok(productService.updateProduct(product, id));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/admin/products/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<?> deleteProduct(@PathVariable Short id) {
         productService.deleteProductById(id);
         return ResponseEntity.ok(200);
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/products/{id}/ratings")
-    public ResponseEntity<?> rateProduct(@RequestBody ProductRatingRequest request, @PathVariable Long id) {
+    public ResponseEntity<?> rateProduct(@RequestBody ProductRatingRequest request, @PathVariable Short id) {
         return ResponseEntity.ok(mapper.rateProduct(request, id));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/admin/products/{productId}/ratings/{ratingId}")
-    public ResponseEntity<?> approveRating(@RequestBody ProductRatingRequest rating, @PathVariable Long productId, @PathVariable Long ratingId) {
+    public ResponseEntity<?> approveRating(@RequestBody ProductRatingRequest rating, @PathVariable Short productId, @PathVariable Short ratingId) {
         return ResponseEntity.ok(productService.approveReview(rating, productId, ratingId));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/admin/products/{productId}/ratings/{ratingId}")
-    public ResponseEntity<?> deleteRating(@PathVariable Long productId, @PathVariable Long ratingId) {
+    public ResponseEntity<?> deleteRating(@PathVariable Short productId, @PathVariable Short ratingId) {
         productService.deleteProductRatingById(productId, ratingId);
         return ResponseEntity.ok(200);
     }

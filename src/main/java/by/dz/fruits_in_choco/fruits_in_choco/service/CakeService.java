@@ -9,9 +9,9 @@ public interface CakeService {
     List<Cake> getAllCakes();
     List<Ingredient> getConstructorData();
     Cake saveCake(Cake cake);
-    void deleteCake(Long id);
-    Cake updateCake(Cake cake, Long id);
-    Ingredient updateIngredient(Ingredient newIngredient, Long id);
-    void deleteIngredient(Long id);
+    void deleteCake(Short id);
+    Cake updateCake(Cake cake, Short id);
+    Ingredient updateIngredient(Ingredient newIngredient, Short id);
+    void deleteIngredient(Short id);
     Ingredient createIngredient(Ingredient ingredient);
 }

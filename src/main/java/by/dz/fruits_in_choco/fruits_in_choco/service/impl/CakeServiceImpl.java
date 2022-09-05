@@ -46,7 +46,7 @@ public class CakeServiceImpl implements CakeService {
     public Cake saveCake(Cake cake) {
         Product cakeProduct = new Product();
         cakeProduct.setStatus(ProductStatus.NOT_CONFIRMED);
-        cakeProduct.setPrice((int) cake.getPrice()); // need to change price type to double
+        cakeProduct.setPrice(cake.getPrice());
         cakeProduct.setCategory(categoryService.getCategoryByName(CATEGORY_CAKES));
 
         productService.saveProduct(cakeProduct);
@@ -56,12 +56,12 @@ public class CakeServiceImpl implements CakeService {
     }
 
     @Override
-    public void deleteCake(Long id) {
+    public void deleteCake(Short id) {
         cakeRepository.deleteById(id);
     }
 
     @Override
-    public Cake updateCake(Cake newCake, Long id) {
+    public Cake updateCake(Cake newCake, Short id) {
         return cakeRepository.findById(id)
                 .map(cake -> {
                     cake.setStatus(newCake.getStatus());
@@ -77,7 +77,7 @@ public class CakeServiceImpl implements CakeService {
                 });
     }
 
-    public Ingredient updateIngredient(Ingredient newIngredient, Long id) {
+    public Ingredient updateIngredient(Ingredient newIngredient, Short id) {
         return ingredientRepository.findById(id)
                 .map(ingredient -> {
                     ingredient.setName(newIngredient.getName());
@@ -90,7 +90,7 @@ public class CakeServiceImpl implements CakeService {
                 });
     }
 
-    public void deleteIngredient(Long id) {
+    public void deleteIngredient(Short id) {
         Ingredient ingredient = ingredientRepository.findById(id).get();
         List<Cake> cakes = cakeRepository.findAll();
         List<Cake> cakeWithIngredients = cakes

@@ -7,6 +7,8 @@ import {decreaseQuantity, increaseQuantity, removeProductFromCart} from "../util
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {removeFromCart, updateProductInCart} from "../../redux/actions/shop_actions";
+import appStyle from '../../App.module.scss';
+
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -31,8 +33,8 @@ const Cart = () => {
         }
     }
 
-    return <div className={`sectionOuter ${style.cartSection}`}>
-        <div className="sectionInner">
+    return <div className={`${appStyle.sectionOuter} ${style.cartSection}`}>
+        <div className={`${appStyle.sectionInner}`}>
             <div className={style.heading}>
                 <h1>Корзина</h1>
             </div>

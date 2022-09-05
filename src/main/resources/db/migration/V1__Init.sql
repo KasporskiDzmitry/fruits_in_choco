@@ -2,48 +2,48 @@ USE fruits_in_choco;
 
 create table product
 (
-    id          bigint  not null auto_increment,
+    id          smallint unsigned not null auto_increment,
     description varchar(255),
     name        varchar(255),
-    price       integer not null,
+    price       float unsigned not null,
     imageURL    varchar(400),
-    category_id bigint,
+    category_id smallint,
     status      enum('ACTIVE', 'DELETED', 'NOT_CONFIRMED'),
     primary key (id)
 );
 
 create table cake
 (
-    id     bigint(20) NOT NULL AUTO_INCREMENT,
+    id     smallint unsigned NOT NULL AUTO_INCREMENT,
     name   varchar(255) NOT NULL,
-    price  double       NOT NULL,
-    weight double       NOT NULL,
+    price  float unsigned NOT NULL,
+    weight float unsigned NOT NULL,
     status enum('CONFIRMED','NOT_CONFIRMED') DEFAULT NULL,
     primary key (`id`)
 );
 
 create table product_ratings
 (
-    product_id bigint not null,
-    ratings_id bigint not null
+    product_id smallint unsigned not null,
+    ratings_id smallint unsigned not null
 );
 
 create table rating
 (
-    id         bigint  not null auto_increment,
+    id         smallint unsigned not null auto_increment,
     author     varchar(255),
-    author_id  bigint  not null,
+    author_id  smallint unsigned not null,
     date       datetime(6),
     message    varchar(255),
-    product_id bigint  not null,
-    rating     integer not null,
+    product_id smallint unsigned not null,
+    rating     smallint unsigned not null,
     approved   boolean default false,
     primary key (id)
 );
 
 create table user
 (
-    id              bigint not null auto_increment,
+    id              smallint unsigned not null auto_increment,
     email           varchar(255),
     firstname       varchar(255),
     lastname        varchar(255),
@@ -51,56 +51,56 @@ create table user
     role            enum('ADMIN', 'USER'),
     status          enum('ACTIVE', 'BANNED', 'NOT_CONFIRMED'),
     activationtoken varchar(500),
-    cart_id         bigint,
+    cart_id         smallint unsigned,
     primary key (id)
 );
 
 create table user_ratings
 (
-    user_id    bigint not null,
-    ratings_id bigint not null
+    user_id    smallint unsigned not null,
+    ratings_id smallint unsigned not null
 );
 
 create table orders
 (
-    id                           bigint not null auto_increment,
+    id                           smallint unsigned not null auto_increment,
     firstname                    varchar(255),
     lastname                     varchar(255),
     email                        varchar(255),
     phone                        varchar(255),
     date                         datetime(6),
-    price                        double not null,
+    price                        float unsigned not null,
     is_agree_to_sending_messages boolean default false,
     status                       enum('NOT_CONFIRMED', 'CONFIRMED', 'DECLINED'),
-    user_id                      bigint,
+    user_id                      smallint unsigned,
     primary key (id)
 );
 
 create table order_item
 (
-    id         bigint  not null auto_increment,
-    quantity   integer not null,
-    product_id bigint  not null,
+    id         smallint unsigned not null auto_increment,
+    quantity   smallint unsigned not null,
+    product_id smallint unsigned not null,
     primary key (id)
 );
 
 create table orders_order_items
 (
-    order_id       bigint not null,
-    order_items_id bigint not null
+    order_id       smallint unsigned not null,
+    order_items_id smallint unsigned not null
 );
 
 create table user_orders
 (
-    user_id   bigint not null,
-    orders_id bigint not null
+    user_id   smallint unsigned not null,
+    orders_id smallint unsigned not null
 );
 
 create table ingredient
 (
-    id     bigint not null auto_increment,
+    id     smallint unsigned not null auto_increment,
     name   varchar(45),
-    price  double not null,
+    price  float unsigned not null,
     status enum('ACTIVE', 'DELETED'),
     type   enum('FILLING', 'DECORATION', 'BISCUIT'),
     primary key (id)
@@ -108,36 +108,36 @@ create table ingredient
 
 create table cake_ingredients
 (
-    cake_id        bigint not null,
-    ingredients_id bigint not null,
+    cake_id        smallint unsigned not null,
+    ingredients_id smallint unsigned not null,
     primary key (cake_id, ingredients_id)
 );
 
 create table cart
 (
-    id       bigint not null,
+    id       smallint unsigned not null,
     quantity int    not null,
-    price    double not null,
+    price    float unsiged not null,
     primary key (id)
 );
 
 create table cart_item
 (
-    id         bigint not null,
+    id         smallint unsigned not null,
     quantity   int    not null,
-    product_id bigint not null,
+    product_id smallint unsigned not null,
     primary key (id)
 );
 
 create table cart_cart_items
 (
-    cart_id       bigint not null,
-    cart_items_id bigint not null
+    cart_id       smallint unsigned not null,
+    cart_items_id smallint unsigned not null
 );
 
 create table slide
 (
-    id       bigint not null auto_increment,
+    id       smallint unsigned not null auto_increment,
     title    varchar(45),
     text     varchar(100),
     href     varchar(400),
@@ -147,17 +147,21 @@ create table slide
 
 create table category
 (
-    id       bigint not null auto_increment,
-    name    varchar(45),
-    description     varchar(100),
-    imageURL varchar(400),
+    id          smallint unsigned not null auto_increment,
+    name        varchar(45),
+    description varchar(100),
+    imageURL    varchar(400),
     primary key (id)
 );
 
-alter table orders_order_items add constraint UK_9d47gapmi35omtannusv6btu3 unique (order_items_id);
-alter table product_ratings add constraint UK_onx7x3bfabrhsua5vtme36juu unique (ratings_id);
-alter table user_ratings add constraint UK_3vob5h0cwyyfqaj4rtxwwsovv unique (ratings_id);
-alter table user_orders add constraint UK_user_orders_orders_id unique (orders_id);
+alter table orders_order_items
+    add constraint UK_9d47gapmi35omtannusv6btu3 unique (order_items_id);
+alter table product_ratings
+    add constraint UK_onx7x3bfabrhsua5vtme36juu unique (ratings_id);
+alter table user_ratings
+    add constraint UK_3vob5h0cwyyfqaj4rtxwwsovv unique (ratings_id);
+alter table user_orders
+    add constraint UK_user_orders_orders_id unique (orders_id);
 alter table if exists product add constraint FKajjopj7ffr42w11bav8gut0cp foreign key (category_id) references category (id);
 alter table if exists product_ratings add constraint FKpwv98ikq73aspcs31gvlx1fu3 foreign key (ratings_id) references rating (id);
 alter table if exists product_ratings add constraint FKmpdgsire4ct7cepv7rt250fvs foreign key (product_id) references product (id);

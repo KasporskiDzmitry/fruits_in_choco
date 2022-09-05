@@ -27,13 +27,13 @@ public class OrderController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/orders/{id}")
-    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
+    public ResponseEntity<?> getOrderById(@PathVariable Short id) {
         return ResponseEntity.ok(orderService.getOrderById(id));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/orders/{id}")
-    public ResponseEntity<?> deleteOrderById(@PathVariable Long id) {
+    public ResponseEntity<?> deleteOrderById(@PathVariable Short id) {
         orderService.deleteOrderById(id);
         return ResponseEntity.ok(200);
     }
@@ -45,7 +45,7 @@ public class OrderController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/orders/{id}")
-    public ResponseEntity<?> updateOrder(@RequestBody Order order, @PathVariable Long id) {
+    public ResponseEntity<?> updateOrder(@RequestBody Order order, @PathVariable Short id) {
         return ResponseEntity.ok(orderService.updateOrder(order, id));
     }
 }

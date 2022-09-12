@@ -23,7 +23,6 @@ const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/Produ
 const CartPage = React.lazy(() => import('./components/Cart/Cart'));
 const OrderPage = React.lazy(() => import('./components/Order/OrderContainer'));
 const OrderSuccess = React.lazy(() => import('./components/OrderSuccess/OrderSuccessContainer'));
-const CakeConstructor = React.lazy(() => import('./components/CakeConstructor/CakeConstructor'));
 
 const App = (props) => {
     // catchAllUnhandledErrors = (e) => {
@@ -85,8 +84,6 @@ const App = (props) => {
                        render={() => <OrderPage/>}/>
                 <Route exact path='/order/success'
                        render={() => <OrderSuccess/>}/>
-                <Route exact path={'/cake/constructor'}
-                       render={() => <CakeConstructor/>}/>
                 <Route path='*' component={NotFound}/>
             </Switch>
         </React.Suspense>

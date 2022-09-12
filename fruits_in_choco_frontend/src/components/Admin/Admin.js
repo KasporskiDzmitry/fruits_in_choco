@@ -18,7 +18,6 @@ const AddProduct = React.lazy(() => import('./Product/AddProduct/AddProduct'));
 const AddCategory = React.lazy(() => import('./Category/AddCategory/AddCategory'));
 const AdminProductPage = React.lazy(() => import('./Product/EditProduct/EditProduct'));
 const AdminCategoryPage = React.lazy(() => import('./Category/EditCategory/EditCategoryPage'));
-const CakeConstructorData = React.lazy(() => import('./CakeConstructor/CakeConstructorData'));
 const AdminSlider = React.lazy(() => import('./Slider/Slider'));
 
 
@@ -44,7 +43,6 @@ class Admin extends React.Component {
                         <NavLink to={'/profile/admin/add_product'}>Добавить продукт</NavLink>
                         <NavLink to={'/profile/admin/add_category'}>Добавить категорию</NavLink>
                         <NavLink to={'/profile/admin/users'}>Пользователи</NavLink>
-                        <NavLink to={'/profile/admin/constructor'}>Конструктор</NavLink>
                         <NavLink to={'/profile/admin/slider'}>Сдайдер</NavLink>
                     </nav>
                     <>
@@ -72,8 +70,6 @@ class Admin extends React.Component {
                                    render={() => <AdminUserContainer/>}/>
                             <Route exact path='/profile/admin/users/:id'
                                    render={() => <AdminUserPage/>}/>
-                            <Route exact path='/profile/admin/constructor'
-                                   render={() => <CakeConstructorData data={this.props.constructorData}/>}/>
                             <Route exact path='/profile/admin/slider'
                                    render={() => <AdminSlider sides={this.props.slides}/>}/>
                         </React.Suspense>
@@ -86,7 +82,6 @@ class Admin extends React.Component {
 
 const mapStateToProps = (state) => ({
     slides: state.mainPage.slides,
-    constructorData: state.cakeConstructorReducer.data,
     orders: state.adminReducer.orders,
     order: state.adminReducer.order,
     categories: state.categoryReducer.categories,

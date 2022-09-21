@@ -6,7 +6,7 @@ import {
     setProduct, setUser,
     setUsers, updateOrder,
 } from "../actions/admin_actions";
-import {setProducts, updateProduct} from "../actions/shop_actions";
+import {removeFromNewReviews, setProducts, updateProduct} from "../actions/shop_actions";
 import {loadCategories} from "./category_thunks";
 import {deleteCategory, updateCategory} from "../actions/category_actions";
 import {enqueueSnackbar} from "../actions/app_actions";

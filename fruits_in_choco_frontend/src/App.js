@@ -12,8 +12,9 @@ import ScrollToTopButton from "./components/common/ScrollToTopButton/ScrollToTop
 import CartLayout from "./components/CartLayout/CartLayout";
 import useNotifier from "./components/hooks/useNotifier";
 import {connectStomp, stompClient} from "./components/utils/stomp";
-import {notificationReceived} from "./redux/actions/admin_actions";
 import {NotFound} from "./components/NotFound/NotFound";
+import {ORDER_STATUS_NOT_CONFIRMED} from "./components/utils/constants";
+import {loadAllOrders, loadProductsAdmin} from "./redux/thunks/admin_thunks";
 
 const Main = React.lazy(() => import('./components/Main/Main'));
 const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
@@ -38,6 +39,7 @@ const App = (props) => {
     // componentWillUnmount() {
     //     // window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
     // }
+
     useNotifier();
     const dispatch = useDispatch();
 
@@ -47,13 +49,19 @@ const App = (props) => {
     const productsInCart = useSelector(state => state.shopReducer.cart);
     const isLoginFetching = useSelector(state => state.authReducer.isLoginFetching);
     const isRegisterFetching = useSelector(state => state.registrationReducer.isRegisterFetching);
+    const newReviews = useSelector(state => state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length);
+    const newOrders = useSelector(state => state.adminReducer.orders.length > 0 && state.adminReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length);
 
     useEffect(() => {
         dispatch(init());
 
         if (localStorage.role === 'ADMIN') {
             connectStomp(() => {
-                stompClient.subscribe('/user/admin/notification', () => dispatch(notificationReceived()));
+                stompClient.subscribe('/user/admin/notification', (e) => {
+                    console.log(`${JSON.parse(e.body).type} notification received`)
+                    dispatch(loadProductsAdmin());
+                    dispatch(loadAllOrders());
+                });
             });
         }
     }, [])
@@ -65,7 +73,7 @@ const App = (props) => {
         </PopUp>
         <CartLayout isCartShow={isCartLayoutShow} products={productsInCart}/>
         <ScrollToTopButton/>
-        <Header/>
+        <Header newReviews={newReviews} newOrders={newOrders}/>
         <React.Suspense fallback={<Preloader/>}>
             <Switch>
                 <Route exact path='/'
@@ -77,7 +85,7 @@ const App = (props) => {
                 <Route path='/about'
                        render={() => <About/>}/>
                 <Route path='/profile'
-                       render={() => <ProfilePage/>}/>
+                       render={() => <ProfilePage newReviews={newReviews} newOrders={newOrders}/>}/>
                 <Route exact path='/cart'
                        render={() => <CartPage/>}/>
                 <Route exact path='/order'

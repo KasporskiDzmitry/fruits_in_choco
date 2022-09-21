@@ -1,11 +1,14 @@
 import {
     NOTIFICATION_RECEIVED,
     NOTIFICATION_WATCHED,
+    SET_CATEGORY,
+    SET_ORDER,
+    SET_ORDERS,
     SET_PRODUCT,
     SET_REVIEW,
-    SET_USERS,
     SET_USER,
-    SET_CATEGORY, SET_ORDERS, UPDATE_ORDER, SET_ORDER
+    SET_USERS,
+    UPDATE_ORDER
 } from "../action_types/admin_action_types";
 
 const initialState = {
@@ -16,7 +19,6 @@ const initialState = {
     orders: [],
     review: {},
     category: {},
-    isNotificationReceived: false
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -38,18 +40,6 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 order: action.order
-            }
-        }
-        case NOTIFICATION_RECEIVED: {
-            return {
-                ...state,
-                isNotificationReceived: true
-            }
-        }
-        case NOTIFICATION_WATCHED: {
-            return {
-                ...state,
-                isNotificationReceived: false
             }
         }
         case SET_USERS: {

@@ -4,9 +4,8 @@ import style from './EditProduct.module.scss';
 import {Button} from 'react-bootstrap';
 import {number, required} from "../../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
-import Expire from "../../../common/Expire/Expire";
 import formsControlsStyle from "../../../common/FormsControls/FormsControls.module.scss";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import Rating from "@material-ui/lab/Rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
@@ -126,7 +125,7 @@ const EditProduct = (props) => {
                                 <h2>{i.author}</h2>
                                 <Rating name="reviewRating" value={i.rating} readOnly/>
                             </div>
-                            <h3>{i.date.toLocaleString()}</h3>
+                            {/*<h3>{i.date?.toLocaleString()}}</h3>*/}
                             <p>{i.message}</p>
                         </div>
                         <div className={style.controlsContainer}>

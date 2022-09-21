@@ -42,7 +42,7 @@ const AddSlideForm = ({handleSubmit, error, isFetching}) => {
 const AddSlideReduxForm = reduxForm({form: 'add_slide'})(AddSlideForm);
 
 
-export const Slider = (props) => {
+const Slider = (props) => {
     const dispatch = useDispatch();
     const [isEditMode, setEditMode] = useState(false);
 
@@ -67,7 +67,7 @@ export const Slider = (props) => {
         </div>
         <div>
             {
-                props.slides.map(i => <div>
+                props.slides && props.slides.map(i => <div>
                     <div>{i.title}</div>
                     <div>{i.text}</div>
                     <div>{i.imageURL}</div>
@@ -78,3 +78,5 @@ export const Slider = (props) => {
         </div>
     </div>
 };
+
+export default Slider;

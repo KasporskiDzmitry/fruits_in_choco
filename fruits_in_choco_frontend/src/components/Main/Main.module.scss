@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-content: flex-start;
-    min-height: 90vh;
+    height: 90vh;
 
     .cardWrapper {
         border: none;
@@ -48,7 +48,7 @@
 
         .cardDescription {
             overflow: hidden;
-            height: 150px;
+            //height: 150px;
             margin-bottom: 10px;
             line-height: 1.6;
         }
@@ -62,7 +62,8 @@
 }
 
 .aboutSection {
-    border-top: 1px solid white;
+    //border-top: 1px solid white;
+    height: 90vh;
     background-color: bisque;
 
     .aboutSectionWrapper {

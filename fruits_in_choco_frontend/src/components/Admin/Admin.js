@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavLink, Route} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
-import {connect} from "react-redux";
-import {addCategory, addProduct, loadAllOrders, loadProductsAdmin} from "../../redux/thunks/admin_thunks";
+import {useDispatch, useSelector} from "react-redux";
+import {loadAllOrders, loadProductsAdmin} from "../../redux/thunks/admin_thunks";
 import style from './Admin.module.scss';
-import {notificationWatched} from "../../redux/actions/admin_actions";
-import {ORDER_STATUS_NOT_CONFIRMED} from "../utils/constants";
 import appStyle from '../../App.module.scss';
+import {Dashboard} from "@material-ui/icons";
 
 const AdminCategories = React.lazy(() => import('./Category/Categories'));
 const Orders = React.lazy(() => import('./Order/Orders'));
@@ -21,81 +20,72 @@ const AdminCategoryPage = React.lazy(() => import('./Category/EditCategory/EditC
 const AdminSlider = React.lazy(() => import('./Slider/Slider'));
 
 
-class Admin extends React.Component {
+const Admin = (props) => {
+    const dispatch = useDispatch();
+    const slides = useSelector(state => state.mainPage.slides);
+    const orders = useSelector(state => state.adminReducer.orders);
+    const order = useSelector(state => state.adminReducer.order);
+    const categories = useSelector(state => state.categoryReducer.categories);
+    const category = useSelector(state => state.adminReducer.category);
+    const product = useSelector(state => state.adminReducer.product);
+    const products = useSelector(state => state.shopReducer.products);
+    const isProductAddedSuccess = useSelector(state => state.adminReducer.isProductAddedSuccess);
+    const isCategoryAddedSuccess = useSelector(state => state.adminReducer.isCategoryAddedSuccess);
 
-    componentDidMount() {
-        this.props.loadProductsAdmin();
-        this.props.loadAllOrders();
+    useEffect(() => {
+        dispatch(loadProductsAdmin());
+        dispatch(loadAllOrders());
+    }, [])
 
-        if (this.props.isNotificationReceived) {
-            this.props.notificationWatched();
-        }
-    }
-
-    render() {
-        return <div className={`${appStyle.sectionOuter}`}>
-            <div className={`${appStyle.sectionInner}`}>
-                <div className={style.innerWrapper}>
-                    <nav className={style.navbarNav}>
-                        <NavLink to={'/profile/admin/orders'}>Заказы {this.props.newOrders > 0 && <span className={style.newOrders}>+{this.props.newOrders}</span>}</NavLink>
-                        <NavLink to={'/profile/admin/categories'}>Категории</NavLink>
-                        <NavLink to={'/profile/admin/products'}>Продукты {this.props.newReviews > 0 && <span className={style.newOrders}>+{this.props.newReviews}</span>}</NavLink>
-                        <NavLink to={'/profile/admin/add_product'}>Добавить продукт</NavLink>
-                        <NavLink to={'/profile/admin/add_category'}>Добавить категорию</NavLink>
-                        <NavLink to={'/profile/admin/users'}>Пользователи</NavLink>
-                        <NavLink to={'/profile/admin/slider'}>Сдайдер</NavLink>
-                    </nav>
-                    <>
-                        <React.Suspense fallback={<Preloader/>}>
-                            <Route exact path='/profile/admin/orders'
-                                   render={() => <Orders  orders={this.props.orders}/>}/>
-                            <Route exact path='/profile/admin/orders/:id'
-                                   render={() => <Order order={this.props.order}/>}/>
-                            <Route exact path='/profile/admin/categories'
-                                   render={() => <AdminCategories categories={this.props.categories}/>}/>
-                            <Route exact path='/profile/admin/categories/:id'
-                                   render={() => <AdminCategoryPage category={this.props.category}/>}/>
-                            <Route exact path='/profile/admin/products'
-                                   render={() => <AdminProducts products={this.props.products} categories={this.props.categories}/>}/>
-                            <Route exact path='/profile/admin/products/:id'
-                                   render={() => <AdminProductPage product={this.props.product} categories={this.props.categories}/>}/>
-                            <Route exact path={'/profile/admin/add_category'}
-                                   render={() => <AddCategory addCategory={this.props.addCategory}
-                                                              isCategoryAddedSuccess={this.props.isCategoryAddedSuccess}/>}/>
-                            <Route exact path='/profile/admin/add_product'
-                                   render={() => <AddProduct categories={this.props.categories}
-                                                             addProduct={this.props.addProduct}
-                                                             isProductAddedSuccess={this.props.isProductAddedSuccess}/>}/>
-                            <Route exact path='/profile/admin/users'
-                                   render={() => <AdminUserContainer/>}/>
-                            <Route exact path='/profile/admin/users/:id'
-                                   render={() => <AdminUserPage/>}/>
-                            <Route exact path='/profile/admin/slider'
-                                   render={() => <AdminSlider sides={this.props.slides}/>}/>
-                        </React.Suspense>
-                    </>
-                </div>
+    return <div className={`${appStyle.sectionOuter}`}>
+        <div className={`${appStyle.sectionInner}`}>
+            <div className={style.innerWrapper}>
+                <nav className={style.navbarNav}>
+                    <NavLink to={'/profile'}>Главная</NavLink>
+                    <NavLink to={'/profile/admin/orders'}>
+                        Заказы {props.newOrders > 0 && <span className={style.newOrders}>+{props.newOrders}</span>}
+                    </NavLink>
+                    <NavLink to={'/profile/admin/categories'}>Категории</NavLink>
+                    <NavLink to={'/profile/admin/products'}>
+                        Продукты {props.newReviews > 0 && <span className={style.newOrders}>+{props.newReviews}</span>}
+                    </NavLink>
+                    <NavLink to={'/profile/admin/users'}>Пользователи</NavLink>
+                    <NavLink to={'/profile/admin/slider'}>Сдайдер</NavLink>
+                </nav>
+                <>
+                    <React.Suspense fallback={<Preloader/>}>
+                        <Route exact path='/profile'
+                               render={() => <Dashboard/>}/>
+                        <Route exact path='/profile/admin/orders'
+                               render={() => <Orders orders={orders}/>}/>
+                        <Route exact path='/profile/admin/orders/:id'
+                               render={() => <Order order={order}/>}/>
+                        <Route exact path='/profile/admin/categories'
+                               render={() => <AdminCategories categories={categories}/>}/>
+                        <Route exact path='/profile/admin/categories/:id'
+                               render={() => <AdminCategoryPage category={category}/>}/>
+                        <Route exact path='/profile/admin/products'
+                               render={() => <AdminProducts products={products}
+                                                            categories={categories}/>}/>
+                        <Route exact path='/profile/admin/products/:id'
+                               render={() => <AdminProductPage product={product}
+                                                               categories={categories}/>}/>
+                        <Route exact path={'/profile/admin/add_category'}
+                               render={() => <AddCategory isCategoryAddedSuccess={isCategoryAddedSuccess}/>}/>
+                        <Route exact path='/profile/admin/add_product'
+                               render={() => <AddProduct categories={categories}
+                                                         isProductAddedSuccess={isProductAddedSuccess}/>}/>
+                        <Route exact path='/profile/admin/users'
+                               render={() => <AdminUserContainer/>}/>
+                        <Route exact path='/profile/admin/users/:id'
+                               render={() => <AdminUserPage/>}/>
+                        <Route exact path='/profile/admin/slider'
+                               render={() => <AdminSlider sides={slides}/>}/>
+                    </React.Suspense>
+                </>
             </div>
         </div>
-    }
+    </div>
 }
 
-const mapStateToProps = (state) => ({
-    slides: state.mainPage.slides,
-    orders: state.adminReducer.orders,
-    order: state.adminReducer.order,
-    categories: state.categoryReducer.categories,
-    category: state.adminReducer.category,
-    product: state.adminReducer.product,
-    products: state.shopReducer.products,
-    isProductAddedSuccess: state.adminReducer.isProductAddedSuccess,
-    isCategoryAddedSuccess: state.adminReducer.isCategoryAddedSuccess,
-    isProductFetching: state.adminReducer.isProductFetching,
-    isCategoryFetching: state.adminReducer.isCategoryFetching,
-    newReviews: state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length,
-    newOrders: state.adminReducer.orders.length > 0 && state.adminReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length,
-    isNotificationReceived: state.adminReducer.isNotificationReceived
-})
-
-export default connect(mapStateToProps, {addProduct, addCategory, loadProductsAdmin, loadAllOrders, notificationWatched})(Admin);
-
+export default Admin;

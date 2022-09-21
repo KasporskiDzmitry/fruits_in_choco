@@ -1,5 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.Notification;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.OrderItem;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
@@ -9,9 +10,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.OrderService;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,18 +18,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.NOTIFICATION_ORDER;
+
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public OrderServiceImpl(OrderRepository orderRepository, ProductRepository productRepository, OrderItemRepository orderItemRepository, UserRepository userRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, ProductRepository productRepository, OrderItemRepository orderItemRepository, UserRepository userRepository, SimpMessagingTemplate simpMessagingTemplate) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.orderItemRepository = orderItemRepository;
         this.userRepository = userRepository;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     @Override
@@ -55,6 +58,13 @@ public class OrderServiceImpl implements OrderService {
         user.getCart().setPrice((float) 0);
 
         orderRepository.save(order);
+
+        Notification notification = Notification.builder()
+                .date(new Date())
+                .type(NOTIFICATION_ORDER)
+                .build();
+
+        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", notification);
 
         return order;
     }

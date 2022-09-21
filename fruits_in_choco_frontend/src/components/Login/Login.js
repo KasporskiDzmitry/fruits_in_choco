@@ -7,7 +7,7 @@ import {login} from "../../redux/thunks/auth_thunks";
 import {Button} from 'react-bootstrap';
 import {useDispatch} from "react-redux";
 import {connectStomp, stompClient} from "../utils/stomp";
-import {notificationReceived} from "../../redux/actions/admin_actions";
+import {receiveNotification} from "../../redux/actions/admin_actions";
 
 const LoginForm = ({handleSubmit, error}) => {
     return (

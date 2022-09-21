@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Carousel} from "react-bootstrap";
 import {Button} from 'react-bootstrap';
 import style from "./Slider.module.scss";
+import appStyle from "../../../App.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {loadSlides} from "../../../redux/thunks/main_thunks";
 
@@ -22,7 +23,7 @@ const Slider = (props) => {
                     alt="First slide"
                 />
                 <Carousel.Caption className={style.slideInfo}>
-                    <div className='sectionInner'>
+                    <div className={appStyle.sectionInner}>
                         <div className={style.slideInfo__title}>
                             <h1>{slide.title}</h1>
                         </div>

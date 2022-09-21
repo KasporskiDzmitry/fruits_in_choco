@@ -34,7 +34,7 @@ public class AuthServiceImpl implements AuthService {
     public AuthenticationResponse login(String email, HttpServletResponse response) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User doesn't exists");
+            throw new UsernameNotFoundException("User doesn't exist");
         }
         if (user.getStatus() == Status.NOT_CONFIRMED) {
             throw new UserNotConfirmedException("Account not confirmed");

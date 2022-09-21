@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {Accordion} from "react-bootstrap";
+import {Accordion, Button} from "react-bootstrap";
 import style from './Filter.module.scss';
 import {useLocation} from 'react-router-dom'
 
@@ -35,19 +35,28 @@ export const Filter = (props) => {
         setFilterParams([...filterParams, id]);
     };
 
+    const resetFilter = () => {
+        setFilterParams([])
+    }
+
     return <div className={style.filterWrapper}>
-        {
-            props.categories.map(i => (
-                <div key={i.id * new Date()}>
-                    <div>
-                        <input checked={i.id === categoryId || filterParams.includes(i.id)} type="checkbox" onChange={(e) => selectCategory(i.id)}/>
+        <div className={style.resetButtonWrapper}>
+            <Button onClick={resetFilter} >Сбросить</Button>
+        </div>
+        <div>
+            {
+                props.categories.map(i => (
+                    <div key={i.id * new Date()}>
+                        <div>
+                            <input checked={i.id === categoryId || filterParams.includes(i.id)} type="checkbox" onChange={(e) => selectCategory(i.id)}/>
+                        </div>
+                        <div>
+                            {i.name}
+                        </div>
                     </div>
-                    <div>
-                        {i.name}
-                    </div>
-                </div>
-            ))
-        }
+                ))
+            }
+        </div>
     </div>
 };
 

@@ -33,7 +33,6 @@ const Main = () => {
                 </CardGroup>
             </div>
         </div>
-        <Button title="Click me"/>
         <div className={`${appStyle.sectionOuter} ${style.aboutSection}`}>
             <div className={`${appStyle.sectionInner}`}>
                 <div className={style.heading}>

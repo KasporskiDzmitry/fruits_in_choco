@@ -26,7 +26,7 @@ const ProductCard = ({product, saveProductToCart, history}) => {
 
     return <Card className={style.cardWrapper}>
         <div className={style.cardImageWrapper} onClick={selectProduct}>
-            <Card.Img  variant="top" src={'https://i2.wp.com/completelydelicious.com/wp-content/uploads/2020/05/chocolate-oreo-parfait-8-500x500.jpg'}/>
+            <Card.Img  variant="top" src={product.imageURL}/>
         </div>
         <Card.Body>
             <Card.Title className={style.cardTitle}>{product.name}</Card.Title>

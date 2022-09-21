@@ -6,6 +6,8 @@ import {Button} from 'react-bootstrap';
 import {number, required} from "../../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
 import Expire from "../../../common/Expire/Expire";
+import {useDispatch} from "react-redux";
+import {addProduct} from "../../../../redux/thunks/admin_thunks";
 
 const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
 
@@ -56,15 +58,17 @@ const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
 const AddProductReduxForm = reduxForm({form: 'add_product'})(AddProductForm);
 
 const AddProduct = props => {
+    const dispatch = useDispatch();
+
     const onSubmit = formData => {
-        props.addProduct({
+        dispatch(addProduct({
             name: formData.name,
             description: formData.description,
             category: props.categories.find(i => i.id === parseInt(formData.category)),
             price: parseInt(formData.price),
             status: 'ACTIVE',
             imageURL: formData.imageURL
-        });
+        }));
     };
 
     return <div className={style.addProductContainer}>

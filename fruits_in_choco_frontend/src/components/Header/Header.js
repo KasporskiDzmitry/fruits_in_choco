@@ -4,23 +4,21 @@ import appStyle from '../../App.module.scss';
 import {NavLink, useHistory, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
-import {ORDER_STATUS_NOT_CONFIRMED, USER_ROLE_ADMIN} from "../utils/constants";
+import {USER_ROLE_ADMIN} from "../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {setFilteredCategories} from "../../redux/actions/shop_actions";
 import {toggleCartLayout, toggleSignInSignUpPopUp} from "../../redux/actions/app_actions";
 import {logout} from "../../redux/thunks/auth_thunks";
 
 
-const Header = () => {
+const Header = (props) => {
     const location = useLocation().pathname;
     const history = useHistory();
     const dispatch = useDispatch();
 
     const productCategories = useSelector(state => state.categoryReducer.categories.map(i => i.id));
     const productsInCart = localStorage.products ? JSON.parse(localStorage.products) : [];
-    const newReviews = useSelector(state => state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length);
-    const newOrders = useSelector(state => state.adminReducer.orders.length > 0 && state.adminReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length);
-    const isNotificationReceived = useSelector(state => state.adminReducer.isNotificationReceived);
+
 
     const handleClickOnShopRef = (e) => {
         e.preventDefault();
@@ -52,7 +50,7 @@ const Header = () => {
                         <>
                             <NavLink className={style.icon} to={'/profile'}>
                                 <FontAwesomeIcon icon={faUser}/>
-                                {localStorage.role === USER_ROLE_ADMIN && (newOrders > 0 || newReviews > 0 || isNotificationReceived) && <span>!</span>}
+                                {(localStorage.role === USER_ROLE_ADMIN && (props.newOrders > 0 || props.newReviews > 0)) && <span>!</span>}
                             </NavLink>
                             <NavLink className={style.icon} to={location.includes('/profile') ? '/' : '#'}
                                      onClick={() => dispatch(logout())}>

@@ -10,5 +10,6 @@ public class Constants {
 
     public static final String CATEGORY_CAKES = "Торты";
 
-    public static final String NOTIFICATION = "REVIEW";
+    public static final String NOTIFICATION_REVIEW = "REVIEW";
+    public static final String NOTIFICATION_ORDER = "ORDER";
 }

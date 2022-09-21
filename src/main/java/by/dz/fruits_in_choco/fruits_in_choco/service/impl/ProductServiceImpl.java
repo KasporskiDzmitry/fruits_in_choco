@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static by.dz.fruits_in_choco.fruits_in_choco.security.AuthenticatedUserAuthorityAdminChecker.isAuthenticatedAndAdmin;
-import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.NOTIFICATION;
+import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.NOTIFICATION_REVIEW;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -154,7 +154,7 @@ public class ProductServiceImpl implements ProductService {
 
         Notification notification = Notification.builder()
                 .date(new Date())
-                .type(NOTIFICATION)
+                .type(NOTIFICATION_REVIEW)
                 .build();
 
         simpMessagingTemplate.convertAndSendToUser("admin", "/notification", notification);

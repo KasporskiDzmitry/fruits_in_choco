@@ -1,5 +1,7 @@
 import React from "react";
 import ProductTable from "./common/ProductTable";
+import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 const Products = ({products, categories}) => {
     const convertData = (data) => {
@@ -17,7 +19,14 @@ const Products = ({products, categories}) => {
     }
 
     return <div>
-        <ProductTable data={convertData(products)}/>
+        <div>
+            <Link to={'/profile/admin/add_product'}>
+                <Button>Добавить продукт</Button>
+            </Link>
+        </div>
+        <div>
+            <ProductTable data={convertData(products)}/>
+        </div>
     </div>
 }
 

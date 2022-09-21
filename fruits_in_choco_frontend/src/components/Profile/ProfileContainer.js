@@ -24,7 +24,7 @@ class ProfileContainer extends React.Component {
             return <Preloader/>
         } else {
             if (localStorage.role === USER_ROLE_ADMIN) {
-                return <Admin {...this.props} />;
+                return <Admin {...this.props}  />;
             } else {
                 return <Profile profile={this.props.profile} />
             }

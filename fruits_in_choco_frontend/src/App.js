@@ -13,11 +13,11 @@ import CartLayout from "./components/CartLayout/CartLayout";
 import useNotifier from "./components/hooks/useNotifier";
 import {connectStomp, stompClient} from "./components/utils/stomp";
 import {NotFound} from "./components/NotFound/NotFound";
-import {ORDER_STATUS_NOT_CONFIRMED} from "./components/utils/constants";
+import {NOTIFICATION_ORDER, NOTIFICATION_REVIEW, ORDER_STATUS_NOT_CONFIRMED} from "./components/utils/constants";
 import {loadAllOrders, loadProductsAdmin} from "./redux/thunks/admin_thunks";
 
 const Main = React.lazy(() => import('./components/Main/Main'));
-const ShopContainer = React.lazy(() => import('./components/Shop/ShopContainer'));
+const Shop = React.lazy(() => import('./components/Shop/Shop'));
 const About = React.lazy(() => import('./components/About/About'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
@@ -58,9 +58,22 @@ const App = (props) => {
         if (localStorage.role === 'ADMIN') {
             connectStomp(() => {
                 stompClient.subscribe('/user/admin/notification', (e) => {
-                    console.log(`${JSON.parse(e.body).type} notification received`)
-                    dispatch(loadProductsAdmin());
-                    dispatch(loadAllOrders());
+                    const notificationType = JSON.parse(e.body).type;
+                    console.log(`${notificationType} notification received`)
+                    switch (notificationType) {
+                        case NOTIFICATION_ORDER: {
+                            dispatch(loadAllOrders());
+                            break;
+                        }
+                        case NOTIFICATION_REVIEW: {
+                            dispatch(loadProductsAdmin());
+                            break;
+                        }
+                        default: {
+                            console.log('Unknown notification type: ' + notificationType);
+                            break;
+                        }
+                    }
                 });
             });
         }
@@ -79,7 +92,7 @@ const App = (props) => {
                 <Route exact path='/'
                        render={() => <Main/>}/>
                 <Route path='/shop'
-                       render={() => <ShopContainer/>}/>
+                       render={() => <Shop/>}/>
                 <Route path='/products/:id'
                        render={() => <ProductPage/>}/>
                 <Route path='/about'

@@ -8,7 +8,10 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductStatus;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
-import by.dz.fruits_in_choco.fruits_in_choco.repository.*;
+import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderItemRepository;
+import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRatingRepository;
+import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
+import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -90,7 +93,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product newProduct) {
-        System.out.println(newProduct);
         return productRepository.save(newProduct);
     }
 
@@ -104,6 +106,7 @@ public class ProductServiceImpl implements ProductService {
                     product.setRatings(newProduct.getRatings());
                     product.setStatus(newProduct.getStatus());
                     product.setImageURL(newProduct.getImageURL());
+                    product.setAttributes(newProduct.getAttributes());
                     return productRepository.save(product);
                 })
                 .orElseGet(() -> {

@@ -3,10 +3,8 @@ import style from './Main.module.scss';
 import Slider from "./Slider/Slider";
 import {CardGroup} from "react-bootstrap";
 import CategoryCard from "./CategoryCard";
-import {Button} from "../common/Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {setFilteredCategories} from "../../redux/actions/shop_actions";
 import appStyle from '../../App.module.scss';
 
 const Main = () => {
@@ -15,7 +13,6 @@ const Main = () => {
     const categoryCards = useSelector(state => state.categoryReducer.categories);
 
     const selectCategory = (id) => {
-        dispatch(setFilteredCategories([id]));
         history.push({pathname: `/shop`, state: {categoryId: id}})
     };
 

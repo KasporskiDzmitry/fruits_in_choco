@@ -2,7 +2,7 @@ import RequestService from "../RequestService";
 import {
     addToCart, removeFromCart,
     setCurrentProduct,
-    setCurrentProductReviews,
+    setCurrentProductReviews, setFilteredProducts,
     setIsProductFetching,
     setIsProductsFetching,
     setProducts
@@ -38,6 +38,7 @@ export const loadProductsByCategories = (categories) => async dispatch => {
     try {
         const response = await RequestService.post('/products/search', {categories});
         dispatch(setProducts(response.data));
+        dispatch(setFilteredProducts(response.data));
     } catch (e) {
         console.log(e)
     } finally {

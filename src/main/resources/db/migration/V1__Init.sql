@@ -1,4 +1,5 @@
-USE fruits_in_choco;
+USE
+fruits_in_choco;
 
 create table product
 (
@@ -9,6 +10,14 @@ create table product
     imageURL    varchar(400),
     category_id smallint,
     status      enum('ACTIVE', 'DELETED', 'NOT_CONFIRMED'),
+    attributes  JSON not null,
+    primary key (id)
+);
+
+create table product_type
+(
+    id   smallint unsigned not null auto_increment,
+    name varchar(45),
     primary key (id)
 );
 
@@ -116,7 +125,7 @@ create table cake_ingredients
 create table cart
 (
     id       smallint unsigned not null,
-    quantity int    not null,
+    quantity int not null,
     price    float unsiged not null,
     primary key (id)
 );
@@ -124,7 +133,7 @@ create table cart
 create table cart_item
 (
     id         smallint unsigned not null,
-    quantity   int    not null,
+    quantity   int not null,
     product_id smallint unsigned not null,
     primary key (id)
 );
@@ -154,6 +163,14 @@ create table category
     primary key (id)
 );
 
+create table category_attribute
+(
+    id             smallint unsigned not null auto_increment,
+    category_id    smallint    not null unsigned,
+    attribute_name varchar(45) not null,
+    primary key (id)
+);
+
 alter table orders_order_items
     add constraint UK_9d47gapmi35omtannusv6btu3 unique (order_items_id);
 alter table product_ratings
@@ -163,6 +180,7 @@ alter table user_ratings
 alter table user_orders
     add constraint UK_user_orders_orders_id unique (orders_id);
 alter table if exists product add constraint FKajjopj7ffr42w11bav8gut0cp foreign key (category_id) references category (id);
+alter table if exists product_type add constraint FK_product_type_id_p foreign key (product_type_id) references product_type (id);
 alter table if exists product_ratings add constraint FKpwv98ikq73aspcs31gvlx1fu3 foreign key (ratings_id) references rating (id);
 alter table if exists product_ratings add constraint FKmpdgsire4ct7cepv7rt250fvs foreign key (product_id) references product (id);
 alter table if exists user_ratings add constraint FKsdo6s1wbs9awfprtvhmd1bo7g foreign key (ratings_id) references rating (id);
@@ -178,3 +196,4 @@ alter table if exists user_orders add constraint FKkuspr37yv513ga1okogyxrb7m for
 alter table if exists cake_ingredients add constraint FK_cake_decorations_cake_id foreign key (cake_id) references cake (id);
 alter table if exists cake_ingredients add constraint FK_cake_decorations_decorations_id foreign key (ingredients_id) references ingredient (id);
 alter table if exists orders add constraint FK_user_id_orders foreign key (user_id) references user (id);
+alter table if exists category_attribute add constraint FK_category_id_ca foreign key (category_id) references category (id);

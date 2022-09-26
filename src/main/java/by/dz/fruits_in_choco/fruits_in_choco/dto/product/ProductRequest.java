@@ -5,6 +5,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductStatus;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class ProductRequest {
@@ -17,4 +18,5 @@ public class ProductRequest {
     private ProductStatus status;
     private Short quantity;
     private float price;
+    private Map<String, Object> attributes;
 }

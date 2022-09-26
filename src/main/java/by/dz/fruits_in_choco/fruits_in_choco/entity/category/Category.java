@@ -25,4 +25,8 @@ public class Category {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Product> products;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<CategoryAttribute> attributes;
 }

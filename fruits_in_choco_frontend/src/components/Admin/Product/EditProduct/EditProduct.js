@@ -17,13 +17,7 @@ import {
 } from "../../../../redux/thunks/admin_thunks";
 import {useHistory} from "react-router-dom";
 
-const EditProductForm = ({handleSubmit, error, categories, isFetching, product}) => {
-    const [categoryId, setCategoryId] = useState(product.categoryId);
-
-    const selectCategory = (e) => {
-        setCategoryId(parseInt(e.currentTarget.value))
-    }
-
+const EditProductForm = ({handleSubmit, error, categories, product}) => {
     return (
         <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.fieldWrapper}>
@@ -48,14 +42,16 @@ const EditProductForm = ({handleSubmit, error, categories, isFetching, product})
             </div>
             <div className={style.fieldWrapper}>
                 <div className={style.label}>Категория</div>
-                <Field className={style.field} name="categoryId" component={Select}
-                       validate={[required]} onChange={selectCategory}>
-                    <option></option>
-                    {
-                        categories.map(i => <option key={i.id} value={i.id}>{i.name}</option>)
-                    }
-                </Field>
+                <Field className={style.field} name="category" disabled component={Input} validate={[required]}/>
             </div>
+            {
+                categories.find(c => c.id == product.categoryId)?.attributes.map(i => <div>
+                        <div>{i.attributeName}</div>
+                        <Field className={style.field} placeholder={i.attributeName} name={i.attributeName}
+                               component={Input}
+                               validate={[required]}/>
+                    </div>)
+            }
             <div className={style.fieldWrapper}>
                 <div className={style.label}>Статус</div>
                 <Field className={style.field} placeholder={'Status'} name={'status'} component={Select}
@@ -80,9 +76,17 @@ const EditProductForm = ({handleSubmit, error, categories, isFetching, product})
 let EditProductReduxForm = reduxForm({form: 'edit_product', enableReinitialize: true})(EditProductForm);
 
 EditProductReduxForm = connect(
-    state => ({
-        initialValues: state.adminReducer.product
-    }), {})(EditProductReduxForm)
+    state => {
+        const product = state.adminReducer.product;
+        let category = "";
+        if (product.categoryId) {
+            category = state.categoryReducer.categories.find(i => i.id == product.categoryId);
+        }
+        return {
+            initialValues: {...product, category: category.name, ...product.attributes},
+
+        }
+    }, {})(EditProductReduxForm)
 
 const EditProduct = (props) => {
     const dispatch = useDispatch();

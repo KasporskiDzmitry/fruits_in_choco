@@ -10,13 +10,8 @@ let EditCategoryReduxForm = reduxForm({form: 'edit_category', enableReinitialize
 
 EditCategoryReduxForm = connect(
     state => {
-        const category = state.adminReducer.category;
-        let types = [];
-        if (category.types) {
-            types = category.types.map(i => i.name);
-        }
         return ({
-            initialValues: {...category, types: types}
+            initialValues: state.adminReducer.category
         })
     }, {})(EditCategoryReduxForm)
 
@@ -27,7 +22,6 @@ const EditCategoryPage = (props) => {
     useEffect(() => {
         dispatch(loadCategoryByIdAdmin(history.location.pathname.split('/').pop()));
     }, []);
-
 
     const onSubmit = (formData) => {
         dispatch(updateCategoryThunk(formData));

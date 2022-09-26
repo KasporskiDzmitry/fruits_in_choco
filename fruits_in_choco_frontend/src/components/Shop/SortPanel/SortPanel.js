@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import style from "./SortPanel.module.scss";
 import {Form} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import {setProducts} from "../../../redux/actions/shop_actions";
 
-const SortPanel = ({products, setProducts}) => {
+const SortPanel = ({products}) => {
+    const dispatch = useDispatch();
     const [sortBy, setSortBy] = useState('price');
     const [isAscSort, setIsAscSort] = useState(true);
 
@@ -16,7 +19,7 @@ const SortPanel = ({products, setProducts}) => {
             }
             return 0;
         });
-        isAscSort ? setProducts(sortedProducts) : setProducts(sortedProducts.reverse());
+        isAscSort ? dispatch(setProducts(sortedProducts)) : dispatch(setProducts(sortedProducts.reverse()));
     }, [sortBy, isAscSort]);
 
     const selectSortBy = (e) => {

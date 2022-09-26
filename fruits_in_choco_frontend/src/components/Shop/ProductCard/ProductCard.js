@@ -2,39 +2,37 @@ import React from "react";
 import style from './ProductCard.module.scss'
 import {Button, Card} from "react-bootstrap";
 import {faCartPlus, faCheckCircle} from "@fortawesome/free-solid-svg-icons";
-import {addProductToCart, isProductInCart} from "../../utils/localStorageFunctions";
+import {isProductInCart} from "../../utils/localStorageFunctions";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useDispatch} from "react-redux";
+import {saveProductToCart} from "../../../redux/thunks/shop_thunks";
+import {useHistory} from "react-router-dom";
 
-const ProductCard = ({product, saveProductToCart, history}) => {
-    // const saveProductToCart = (p) => {
-    //     if (!isProductInCart(p.id)) {
-    //         const cartProduct = {
-    //             ...p,
-    //             quantity: 1
-    //         };
-    //         addToCart(cartProduct);
-    //         addProductToCart(cartProduct);
-    //     }
-    // };
+const ProductCard = ({product}) => {
+     const dispatch = useDispatch();
+     const history = useHistory();
 
     const selectProduct = (e) => {
         e.preventDefault();
         history.push({pathname: `/products/${product.id}`})
     };
 
+    const cartButtonClickHandler = (e) => {
+        dispatch(saveProductToCart(product));
+    }
+
     const toCartButtonClassName = isProductInCart(product.id) ? `${style.toCartButton} ${style.checked}` : style.toCartButton
 
     return <Card className={style.cardWrapper}>
-        <div className={style.cardImageWrapper} onClick={selectProduct}>
-            <Card.Img  variant="top" src={product.imageURL}/>
-        </div>
         <Card.Body>
+            <div className={style.cardImageWrapper} onClick={selectProduct}>
+                <Card.Img  variant="top" src={product.imageURL}/>
+            </div>
             <Card.Title className={style.cardTitle}>{product.name}</Card.Title>
-            <Card.Text>{product.typeId}</Card.Text>
         </Card.Body>
         <Card.Footer className={style.cardFooter}>
-            <div className={style.cardPrice}>{product.price}</div>
-            <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)} onClick={() => saveProductToCart(product)}>
+            <div className={style.cardPrice}>{product.price} руб.</div>
+            <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)} onClick={cartButtonClickHandler}>
                 {
                     isProductInCart(product.id) ?
                         <FontAwesomeIcon icon={faCheckCircle} /> :

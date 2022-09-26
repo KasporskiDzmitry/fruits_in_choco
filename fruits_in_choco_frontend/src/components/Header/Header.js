@@ -6,25 +6,15 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
 import {USER_ROLE_ADMIN} from "../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
-import {setFilteredCategories} from "../../redux/actions/shop_actions";
 import {toggleCartLayout, toggleSignInSignUpPopUp} from "../../redux/actions/app_actions";
 import {logout} from "../../redux/thunks/auth_thunks";
 
 
 const Header = (props) => {
     const location = useLocation().pathname;
-    const history = useHistory();
     const dispatch = useDispatch();
 
-    const productCategories = useSelector(state => state.categoryReducer.categories.map(i => i.id));
     const productsInCart = localStorage.products ? JSON.parse(localStorage.products) : [];
-
-
-    const handleClickOnShopRef = (e) => {
-        e.preventDefault();
-        dispatch(setFilteredCategories(productCategories));
-        history.push({pathname: `/shop`, state: {categoryId: 0}})
-    };
 
     return <header className={`${appStyle.sectionOuter} ${style.sectionHeader}`}>
         <div className={`${appStyle.sectionInner} ${style.sectionInner}`}>
@@ -36,7 +26,6 @@ const Header = (props) => {
                     <NavLink to={'/'}>FRUITS IN CHOCO</NavLink>
                 </div>
                 <nav className={style.navbarNav}>
-                    <a href="/shop" onClick={handleClickOnShopRef}>Магазин</a>
                     <NavLink to={'/promotions'}>Акции</NavLink>
                     <NavLink to={'/buyers'}>Покупателям</NavLink>
                     <NavLink to={'/contacts'}>Контакты</NavLink>

@@ -1,6 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity.product;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
+import by.dz.fruits_in_choco.fruits_in_choco.util.HashMapConverter;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -10,6 +11,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Entity
@@ -27,6 +29,10 @@ public class Product implements Serializable {
     private float price;
 
     private String imageURL;
+
+    @Column(name = "attributes", columnDefinition = "json")
+    @Convert(converter = HashMapConverter.class)
+    private Map<String, Object> attributes;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status", columnDefinition = "ENUM('ACTIVE', 'DELETED', 'NOT_CONFIRMED')", nullable = false)
@@ -52,6 +58,7 @@ public class Product implements Serializable {
                 ", category=" + category +
                 ", ratings=" + ratings +
                 ", status=" + status +
+                ", attributes=" + attributes +
                 '}';
     }
 }

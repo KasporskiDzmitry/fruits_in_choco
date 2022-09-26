@@ -34,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = new Category();
         category.setName(request.getName());
         category.setDescription(request.getDescription());
+        category.setAttributes(request.getAttributes());
         category.setImageURL(request.getImageURL());
 
         return categoryRepository.save(category);
@@ -46,6 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
                     category.setName(newCategory.getName());
                     category.setDescription(newCategory.getDescription());
                     category.setImageURL(newCategory.getImageURL());
+                    category.setAttributes(newCategory.getAttributes());
                     return categoryRepository.save(category);
                 })
                 .orElseGet(() -> {

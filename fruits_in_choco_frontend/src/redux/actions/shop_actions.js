@@ -4,7 +4,7 @@ import {
     REMOVE_FROM_CART,
     SET_CURRENT_PRODUCT,
     SET_CURRENT_PRODUCT_REVIEWS,
-    SET_FILTERED_CATEGORIES,
+    SET_FILTERED_PRODUCTS,
     SET_IS_PRODUCT_FETCHING,
     SET_IS_PRODUCTS_FETCHING,
     SET_PRODUCTS,
@@ -15,7 +15,7 @@ import {
 export const setProducts = products => ({type: SET_PRODUCTS, products});
 export const setCurrentProduct = currentProduct => ({type: SET_CURRENT_PRODUCT, currentProduct});
 export const setCurrentProductReviews = reviews => ({type: SET_CURRENT_PRODUCT_REVIEWS, reviews});
-export const setFilteredCategories = categories => ({type: SET_FILTERED_CATEGORIES, categories});
+export const setFilteredProducts = products => ({type: SET_FILTERED_PRODUCTS, products});
 export const addToCart = product => ({type: ADD_TO_CART, product});
 export const removeFromCart = id => ({type: REMOVE_FROM_CART, id});
 export const updateProductInCart = (product) => ({type: UPDATE_PRODUCT_IN_CART, product});

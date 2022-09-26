@@ -9,7 +9,7 @@ import Expire from "../../../common/Expire/Expire";
 import {useDispatch} from "react-redux";
 import {addProduct} from "../../../../redux/thunks/admin_thunks";
 
-const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
+const AddProductForm = ({handleSubmit, error, categories}) => {
 
     const [categoryId, setCategoryId] = useState(null);
 
@@ -44,6 +44,16 @@ const AddProductForm = ({handleSubmit, error, categories, isFetching}) => {
                     }
                 </Field>
             </div>
+            <div>
+                {
+                    categories.find(c => c.id == categoryId)?.attributes.map(i => <div>
+                        <div>{i.attributeName}</div>
+                        <Field className={style.field} placeholder={i.attributeName} name={i.attributeName}
+                               component={Input}
+                               validate={[required]}/>
+                    </div>)
+                }
+            </div>
             {error && <div className={formsControlsStyle.formSummaryError}>
                 {error}
             </div>
@@ -61,13 +71,21 @@ const AddProduct = props => {
     const dispatch = useDispatch();
 
     const onSubmit = formData => {
+        const attributes = props.categories.find(c => c.id == parseInt(formData.category)).attributes.map(a => a.attributeName);
+        let productAttrs = {}
+
+        attributes.forEach(i => {
+            productAttrs = {...productAttrs, ...{[i]: formData[i]}}
+        })
+
         dispatch(addProduct({
             name: formData.name,
             description: formData.description,
             category: props.categories.find(i => i.id === parseInt(formData.category)),
             price: parseInt(formData.price),
             status: 'ACTIVE',
-            imageURL: formData.imageURL
+            imageURL: formData.imageURL,
+            attributes: productAttrs
         }));
     };
 

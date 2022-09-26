@@ -5,29 +5,59 @@ import SortPanel from "./SortPanel/SortPanel";
 import Preloader from "../common/Preloader/Preloader";
 import ProductCard from "./ProductCard/ProductCard";
 import appStyle from '../../App.module.scss';
+import {Breadcrumb} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
+import routes from "../utils/routes";
+import {useDispatch, useSelector} from "react-redux";
+import {loadProductsByCategories} from "../../redux/thunks/shop_thunks";
 
-const Shop = (props) => {
+const Shop = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const path = history.location.pathname.split('/');
+    const categoryId = history.location.state.categoryId;
+    const products = useSelector(state => state.shopReducer.products);
+    const isProductsFetching = useSelector(state => state.shopReducer.isProductsFetching);
+    const filteredProducts = useSelector(state => state.shopReducer.filteredProducts);
+    const categories = useSelector(state => state.categoryReducer.categories);
+
+    useEffect(() => {
+        dispatch(loadProductsByCategories([categoryId]));
+    }, [])
+
     return <div className={`${appStyle.sectionOuter} ${style.shopSection}`}>
-        <div className={`${appStyle.sectionInner}`}>
-            <div className={style.shopInnerWrapper}>
-                <Filter categories={props.categories} loadProductsByCategories={props.loadProductsByCategories}
-                        loadProducts={props.loadProducts} selectedCategory={props.selectedCategory}
-                        setFilteredCategories={props.setFilteredCategories} filteredCategories={props.filteredCategories}/>
-                <div className={style.productsWrapper}>
-                    <SortPanel products={props.products} setProducts={props.setProducts}/>
-                    {
-                        props.isProductsFetching ?
-                            <Preloader/> :
+        {
+            products.length > 0 ? <div className={`${appStyle.sectionInner}`}>
+                    <div>
+                        <Breadcrumb>
+                            {
+                                path.map((i, idx) => {
+                                    const route = routes.find(j => j.path.match('/' + i));
+                                    return <Breadcrumb.Item active={idx === path.length - 1}
+                                                            href={route.path}>{route.name}</Breadcrumb.Item>
+                                })
+                            }
+                        </Breadcrumb>
+                    </div>
+                    <div className={style.shopInnerWrapper}>
+                        <Filter categories={categories} categoryId={categoryId} filteredProducts={filteredProducts} products={products}/>
+                        <div className={style.productsWrapper}>
+                            <SortPanel products={products} />
+                            {
+                                isProductsFetching ?
+                                    <Preloader/> :
 
-                            <div className={style.products}>
-                                {
-                                    props.products.map(product => <ProductCard key={product.id} history={props.history} product={product} saveProductToCart={props.saveProductToCart} />)
-                                }
-                            </div>
-                    }
-                </div>
-            </div>
-        </div>
+                                    <div className={style.products}>
+                                        {
+                                            filteredProducts.map(product => <ProductCard key={product.id} history={history} product={product}/>)
+                                        }
+                                    </div>
+                            }
+                        </div>
+                    </div>
+                </div> :
+                <Preloader/>
+        }
     </div>
 };
 

@@ -42,7 +42,7 @@ const Shop = () => {
                     <div className={style.shopInnerWrapper}>
                         <Filter categories={categories} categoryId={categoryId} filteredProducts={filteredProducts} products={products}/>
                         <div className={style.productsWrapper}>
-                            <SortPanel products={products} />
+                            <SortPanel products={products} categoryId={categoryId}/>
                             {
                                 isProductsFetching ?
                                     <Preloader/> :

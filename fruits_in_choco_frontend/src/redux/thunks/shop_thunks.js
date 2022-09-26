@@ -38,7 +38,7 @@ export const loadProductsByCategories = (categories) => async dispatch => {
     try {
         const response = await RequestService.post('/products/search', {categories});
         dispatch(setProducts(response.data));
-        dispatch(setFilteredProducts(response.data));
+        dispatch(setFilteredProducts(response.data.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))));
     } catch (e) {
         console.log(e)
     } finally {

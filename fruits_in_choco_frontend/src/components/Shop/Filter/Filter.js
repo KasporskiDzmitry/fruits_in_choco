@@ -10,7 +10,6 @@ export const Filter = (props) => {
     const [filterParams, setFilterParams] = useState({price: 0, attributes: {}});
     const attributes = props.products[0].attributes;
 
-
     useEffect(() => {
         dispatch(setFilteredProducts(props.products.filter(i => {
             const checkAttributes = (product) => {

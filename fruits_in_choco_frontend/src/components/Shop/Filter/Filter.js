@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {Button} from "react-bootstrap";
 import style from './Filter.module.scss';
 import {useDispatch} from "react-redux";
@@ -6,26 +6,31 @@ import {setFilteredProducts} from "../../../redux/actions/shop_actions";
 
 export const Filter = (props) => {
     const dispatch = useDispatch();
+    const initialRender = useRef(true);
 
     const [filterParams, setFilterParams] = useState({price: 0, attributes: {}});
     const attributes = props.products[0].attributes;
 
     useEffect(() => {
-        dispatch(setFilteredProducts(props.products.filter(i => {
-            const checkAttributes = (product) => {
-                let isAttributeInFilterParams = true;
-                for (const [key, value] of Object.entries(filterParams.attributes)) {
-                    isAttributeInFilterParams &= !!value.includes(product.attributes[key]);
+        if (initialRender.current) {
+            initialRender.current = false;
+        } else {
+            dispatch(setFilteredProducts(props.products.filter(i => {
+                const checkAttributes = (product) => {
+                    let isAttributeInFilterParams = true;
+                    for (const [key, value] of Object.entries(filterParams.attributes)) {
+                        isAttributeInFilterParams &= !!value.includes(product.attributes[key]);
+                    }
+                    return isAttributeInFilterParams;
                 }
-                return isAttributeInFilterParams;
-            }
 
-            if (Object.keys(filterParams.attributes).length > 0) {
-                return i.price >= filterParams.price && (i.categoryId == props.categoryId) && checkAttributes(i)
-            } else {
-                return i.price >= filterParams.price && i.categoryId == props.categoryId;
-            }
-        })))
+                if (Object.keys(filterParams.attributes).length > 0) {
+                    return i.price >= filterParams.price && (i.categoryId == props.categoryId) && checkAttributes(i)
+                } else {
+                    return i.price >= filterParams.price && i.categoryId == props.categoryId;
+                }
+            })))
+        }
     }, [filterParams])
 
 
@@ -44,10 +49,20 @@ export const Filter = (props) => {
                     delete attributesTemp[attributeName];
                     setFilterParams({...filterParams, attributes: attributesTemp})
                 } else {
-                    setFilterParams({...filterParams, attributes: {...filterParamsAttributes, [attributeName]: filterParamsAttributes[attributeName].filter(i => i !== value)}})
+                    setFilterParams({...filterParams,
+                        attributes: {
+                            ...filterParamsAttributes,
+                            [attributeName]: filterParamsAttributes[attributeName].filter(i => i !== value)
+                        }
+                    })
                 }
             } else {
-                setFilterParams({...filterParams, attributes: {...filterParamsAttributes, [attributeName]: [...filterParamsAttributes[attributeName], value]}})
+                setFilterParams({...filterParams,
+                    attributes: {
+                        ...filterParamsAttributes,
+                        [attributeName]: [...filterParamsAttributes[attributeName], value]
+                    }
+                })
             }
         } else {
             setFilterParams({...filterParams, attributes: {...filterParamsAttributes, [attributeName]: [value]}})
@@ -72,7 +87,8 @@ export const Filter = (props) => {
             <Button onClick={resetFilter}>Сбросить</Button>
         </div>
         <div>
-            <input type="range" min={0} max={props.products.map(i => i.price).reduce((p, v) => p > v ? p: v)} value={filterParams.price} onInput={handlePrice}/>
+            <input type="range" min={0} max={props.products.map(i => i.price).reduce((p, v) => p > v ? p : v)}
+                   value={filterParams.price} onInput={handlePrice}/>
             <h1>Price: {filterParams.price}</h1>
         </div>
         <div>
@@ -81,7 +97,7 @@ export const Filter = (props) => {
                     <div>{i}:</div>
                     <div>
                         {[...new Set(props.products.map(p => p.attributes[i]))].map(a => <div>
-                            <input type="checkbox" name={i} value={a} id={a} onChange={handleAttributes} />
+                            <input type="checkbox" name={i} value={a} id={a} onChange={handleAttributes}/>
                             <label for={a}>{a}</label>
                         </div>)}
                     </div>

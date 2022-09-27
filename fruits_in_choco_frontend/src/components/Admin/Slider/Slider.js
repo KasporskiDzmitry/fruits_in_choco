@@ -44,10 +44,11 @@ const AddSlideReduxForm = reduxForm({form: 'add_slide'})(AddSlideForm);
 
 const Slider = (props) => {
     const dispatch = useDispatch();
-    const [isEditMode, setEditMode] = useState(false);
 
     useEffect(() => {
-        dispatch(loadSlides())
+        if (props.slides.length === 0) {
+            dispatch(loadSlides())
+        }
     }, [])
 
     const onSubmit = formData => {
@@ -60,14 +61,13 @@ const Slider = (props) => {
         }
     }
 
-
     return <div>
         <div>
             <AddSlideReduxForm onSubmit={onSubmit} />
         </div>
         <div>
             {
-                props.slides && props.slides.map(i => <div>
+                props.slides && props.slides.map(i => <div key={i.id}>
                     <div>{i.title}</div>
                     <div>{i.text}</div>
                     <div>{i.imageURL}</div>

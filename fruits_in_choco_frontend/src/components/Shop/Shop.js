@@ -6,16 +6,16 @@ import Preloader from "../common/Preloader/Preloader";
 import ProductCard from "./ProductCard/ProductCard";
 import appStyle from '../../App.module.scss';
 import {Breadcrumb} from "react-bootstrap";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import routes from "../utils/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {loadProductsByCategories} from "../../redux/thunks/shop_thunks";
 
 const Shop = () => {
-    const history = useHistory();
+    const {pathname, state} = useLocation();
     const dispatch = useDispatch();
-    const path = history.location.pathname.split('/');
-    const categoryId = history.location.state.categoryId;
+    const path = pathname.split('/');
+    const categoryId = state.categoryId;
     const products = useSelector(state => state.shopReducer.products);
     const isProductsFetching = useSelector(state => state.shopReducer.isProductsFetching);
     const filteredProducts = useSelector(state => state.shopReducer.filteredProducts);
@@ -49,7 +49,7 @@ const Shop = () => {
 
                                     <div className={style.products}>
                                         {
-                                            filteredProducts.map(product => <ProductCard key={product.id} history={history} product={product}/>)
+                                            filteredProducts.map(product => <ProductCard key={product.id} product={product}/>)
                                         }
                                     </div>
                             }

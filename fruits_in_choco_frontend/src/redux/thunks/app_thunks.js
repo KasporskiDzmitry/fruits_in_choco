@@ -19,6 +19,7 @@ export const init = () => async dispatch => {
     }
 
     if (localStorage.role === 'ADMIN') {
+        console.log('HERE WE GO!')
         dispatch(loadProductsAdmin());
         dispatch(loadAllOrders());
     }

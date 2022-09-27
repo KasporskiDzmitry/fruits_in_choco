@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import style from "./SortPanel.module.scss";
 import {Form} from "react-bootstrap";
 import {useDispatch} from "react-redux";
@@ -6,19 +6,24 @@ import {setFilteredProducts} from "../../../redux/actions/shop_actions";
 
 const SortPanel = ({products}) => {
     const dispatch = useDispatch();
+    const initialRender = useRef(true);
     const [sortBy, setSortBy] = useState('price');
     const [isAscSort, setIsAscSort] = useState(true);
 
 
     useEffect(() => {
-        const sortedProducts = [...products].sort((a, b) => {
-            if (sortBy === 'price') {
-                return parseFloat(a.price) - parseFloat(b.price);
-            } else {
-                return a.name.localeCompare(b.name)
-            }
-        });
-        isAscSort ? dispatch(setFilteredProducts(sortedProducts)) : dispatch(setFilteredProducts(sortedProducts.reverse()));
+        if (initialRender.current) {
+            initialRender.current = false;
+        } else {
+            const sortedProducts = [...products].sort((a, b) => {
+                if (sortBy === 'price') {
+                    return parseFloat(a.price) - parseFloat(b.price);
+                } else {
+                    return a.name.localeCompare(b.name)
+                }
+            });
+            isAscSort ? dispatch(setFilteredProducts(sortedProducts)) : dispatch(setFilteredProducts(sortedProducts.reverse()));
+        }
     }, [sortBy, isAscSort]);
 
     const selectSortBy = (e) => {

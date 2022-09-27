@@ -21,7 +21,6 @@ const AdminSlider = React.lazy(() => import('./Slider/Slider'));
 
 
 const Admin = (props) => {
-    const dispatch = useDispatch();
     const slides = useSelector(state => state.mainPage.slides);
     const orders = useSelector(state => state.adminReducer.orders);
     const order = useSelector(state => state.adminReducer.order);
@@ -31,11 +30,6 @@ const Admin = (props) => {
     const products = useSelector(state => state.shopReducer.products);
     const isProductAddedSuccess = useSelector(state => state.adminReducer.isProductAddedSuccess);
     const isCategoryAddedSuccess = useSelector(state => state.adminReducer.isCategoryAddedSuccess);
-
-    useEffect(() => {
-        dispatch(loadProductsAdmin());
-        dispatch(loadAllOrders());
-    }, [])
 
     return <div className={`${appStyle.sectionOuter}`}>
         <div className={`${appStyle.sectionInner}`}>
@@ -50,7 +44,7 @@ const Admin = (props) => {
                         Продукты {props.newReviews > 0 && <span className={style.newOrders}>+{props.newReviews}</span>}
                     </NavLink>
                     <NavLink to={'/profile/admin/users'}>Пользователи</NavLink>
-                    <NavLink to={'/profile/admin/slider'}>Сдайдер</NavLink>
+                    <NavLink to={'/profile/admin/slider'}>Слайдер</NavLink>
                 </nav>
                 <>
                     <React.Suspense fallback={<Preloader/>}>
@@ -80,7 +74,7 @@ const Admin = (props) => {
                         <Route exact path='/profile/admin/users/:id'
                                render={() => <AdminUserPage/>}/>
                         <Route exact path='/profile/admin/slider'
-                               render={() => <AdminSlider sides={slides}/>}/>
+                               render={() => <AdminSlider slides={slides}/>}/>
                     </React.Suspense>
                 </>
             </div>

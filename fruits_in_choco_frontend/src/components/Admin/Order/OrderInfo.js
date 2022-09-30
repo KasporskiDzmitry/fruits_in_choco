@@ -5,9 +5,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {loadOrderById, updateOrderThunk} from "../../../redux/thunks/admin_thunks";
 
-const OrderInfo = ({order}) => {
+const OrderInfo = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const order = useSelector(state => state.adminReducer.order);
 
     useEffect(() => {
         dispatch(loadOrderById(history.location.pathname.split('/').pop()));

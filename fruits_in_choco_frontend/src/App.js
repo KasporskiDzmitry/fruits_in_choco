@@ -15,6 +15,7 @@ import {connectStomp, stompClient} from "./components/utils/stomp";
 import {NotFound} from "./components/NotFound/NotFound";
 import {NOTIFICATION_ORDER, NOTIFICATION_REVIEW, ORDER_STATUS_NOT_CONFIRMED} from "./components/utils/constants";
 import {loadAllOrders, loadProductsAdmin} from "./redux/thunks/admin_thunks";
+import {emptyCartRedirect} from "./components/hoc/emptyCartRedirect";
 
 const Main = React.lazy(() => import('./components/Main/Main'));
 const Shop = React.lazy(() => import('./components/Shop/Shop'));
@@ -22,8 +23,9 @@ const About = React.lazy(() => import('./components/About/About'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
 const CartPage = React.lazy(() => import('./components/Cart/Cart'));
-const OrderPage = React.lazy(() => import('./components/Order/OrderContainer'));
-const OrderSuccess = React.lazy(() => import('./components/OrderSuccess/OrderSuccessContainer'));
+const OrderPage = React.lazy(() => import('./components/Order/Order'));
+const OrderSuccess = React.lazy(() => import('./components/OrderSuccess/OrderSuccess'));
+const Order = emptyCartRedirect(OrderPage);
 
 const App = (props) => {
     // catchAllUnhandledErrors = (e) => {
@@ -102,7 +104,7 @@ const App = (props) => {
                 <Route exact path='/cart'
                        render={() => <CartPage/>}/>
                 <Route exact path='/order'
-                       render={() => <OrderPage/>}/>
+                       render={() => <Order />}/>
                 <Route exact path='/order/success'
                        render={() => <OrderSuccess/>}/>
                 <Route path='*' component={NotFound}/>

@@ -7,7 +7,7 @@ import {addCategory} from "../../../../redux/thunks/admin_thunks";
 
 const AddCategoryReduxForm = reduxForm({form: 'add_category'})(CategoryForm);
 
-const AddCategory = props => {
+const AddCategory = (props) => {
     const dispatch = useDispatch();
 
     const onSubmit = formData => {

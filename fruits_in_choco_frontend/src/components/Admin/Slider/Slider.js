@@ -5,7 +5,7 @@ import {Input, Select, Textarea} from "../../common/FormsControls/FormsControls"
 import {number, required} from "../../utils/validators/validators";
 import formsControlsStyle from "../../common/FormsControls/FormsControls.module.scss";
 import {Button} from "react-bootstrap";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {loadSlides} from "../../../redux/thunks/main_thunks";
 import {deleteSlide, saveSlide} from "../../../redux/thunks/admin_thunks";
 
@@ -44,9 +44,10 @@ const AddSlideReduxForm = reduxForm({form: 'add_slide'})(AddSlideForm);
 
 const Slider = (props) => {
     const dispatch = useDispatch();
+    const slides = useSelector(state => state.mainPage.slides);
 
     useEffect(() => {
-        if (props.slides.length === 0) {
+        if (slides.length === 0) {
             dispatch(loadSlides())
         }
     }, [])
@@ -67,7 +68,7 @@ const Slider = (props) => {
         </div>
         <div>
             {
-                props.slides && props.slides.map(i => <div key={i.id}>
+                slides.length > 0 && slides.map(i => <div key={i.id}>
                     <div>{i.title}</div>
                     <div>{i.text}</div>
                     <div>{i.imageURL}</div>

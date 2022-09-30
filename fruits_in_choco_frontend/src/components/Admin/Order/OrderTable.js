@@ -18,16 +18,14 @@ const propTypes = {
     primaryKey: PropTypes.string.isRequired,
 };
 
-class OrderTable extends Component {
-    render() {
+const OrderTable = (props) => {
         return (
             <Table
-                {...this.props}
+                {...props}
                 selectable
                 columns={columns}
             />
         );
-    }
 }
 
 OrderTable.propTypes = propTypes;

@@ -11,7 +11,7 @@ import {logout} from "../../redux/thunks/auth_thunks";
 
 
 const Header = (props) => {
-    const location = useLocation().pathname;
+    const {pathname} = useLocation();
     const dispatch = useDispatch();
 
     const productsInCart = localStorage.products ? JSON.parse(localStorage.products) : [];
@@ -41,7 +41,7 @@ const Header = (props) => {
                                 <FontAwesomeIcon icon={faUser}/>
                                 {(localStorage.role === USER_ROLE_ADMIN && (props.newOrders > 0 || props.newReviews > 0)) && <span>!</span>}
                             </NavLink>
-                            <NavLink className={style.icon} to={location.includes('/profile') ? '/' : '#'}
+                            <NavLink className={style.icon} to={pathname.includes('/profile') ? '/' : '#'}
                                      onClick={() => dispatch(logout())}>
                                 <FontAwesomeIcon icon={faSignOutAlt}/>
                             </NavLink>

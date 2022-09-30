@@ -5,7 +5,7 @@ import {Button} from 'react-bootstrap';
 import {number, required} from "../../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
 import formsControlsStyle from "../../../common/FormsControls/FormsControls.module.scss";
-import {connect, useDispatch} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import Rating from "@material-ui/lab/Rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
@@ -91,6 +91,7 @@ EditProductReduxForm = connect(
 const EditProduct = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const product = useSelector(state => state.adminReducer.product);
 
     useEffect(() => {
         dispatch(loadProductByIdAdmin(history.location.pathname.split('/').pop()));
@@ -113,17 +114,17 @@ const EditProduct = (props) => {
 
     return <>
         <div className={style.editProductFormContainer}>
-            <h1>{props.product?.name}</h1>
-            <EditProductReduxForm onSubmit={onSubmit} categories={props.categories} product={props.product}/>
+            <h1>{product?.name}</h1>
+            <EditProductReduxForm onSubmit={onSubmit} categories={props.categories} product={product}/>
             <div>
 
             </div>
         </div>
         <div className={style.reviewsContainer}>
             {
-                props.product.ratings &&
-                props.product.ratings.length > 0 ?
-                    props.product.ratings.map(i => <div className={style.reviewItem}>
+                product.ratings &&
+                product.ratings.length > 0 ?
+                    product.ratings.map(i => <div className={style.reviewItem}>
                         <div className={style.itemInfoContainer}>
                             <div className={style.heading}>
                                 <h2>{i.author}</h2>
@@ -136,15 +137,15 @@ const EditProduct = (props) => {
                             {
                                 !i.approved &&
                                 <div className={style.controls}>
-                                    <div title={'approve'} onClick={() => approve(i, props.product)}>
+                                    <div title={'approve'} onClick={() => approve(i, product)}>
                                         <FontAwesomeIcon icon={faCheck}/>
                                     </div>
-                                    <div title={'reject'} onClick={() => remove(props.product, i.id)}>
+                                    <div title={'reject'} onClick={() => remove(product, i.id)}>
                                         <FontAwesomeIcon icon={faTimesCircle}/>
                                     </div>
                                 </div>
                             }
-                            <div className={style.delete} onClick={() => remove(props.product, i.id)}>
+                            <div className={style.delete} onClick={() => remove(product, i.id)}>
                                 <FontAwesomeIcon icon={faTimesCircle}/>
                             </div>
                         </div>

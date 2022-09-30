@@ -4,6 +4,8 @@ import {Field, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../utils/validators/validators";
 import {Button} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {makeOrder} from "../../redux/thunks/order_thunks";
 
 const OrderForm = ({handleSubmit, error}) => {
     return (
@@ -38,20 +40,23 @@ const OrderForm = ({handleSubmit, error}) => {
 const OrderReduxForm = reduxForm({form: 'order'})(OrderForm);
 
 
-export const Order = (props) => {
+const Order = (props) => {
+    const dispatch = useDispatch();
+    const cart = useSelector(state => state.shopReducer.cart);
+
     const onSubmit = formData => {
         const order = {
             ...formData,
             userId: localStorage.userId || null,
-            price: props.cart.reduce((a, b) => a + b.price * b.quantity, 0),
-            productIds: Object.fromEntries(new Map(props.cart.map(p => [p.id, p.quantity])))
+            price: cart.reduce((a, b) => a + b.price * b.quantity, 0),
+            productIds: Object.fromEntries(new Map(cart.map(p => [p.id, p.quantity])))
         }
-        props.makeOrder(order, props.history);
+        dispatch(makeOrder(order, props.history));
     }
 
     return <>
         {
-            props.cart.length > 0 ?
+            cart.length > 0 ?
                 <div>
                     <div>
                         <OrderReduxForm onSubmit={onSubmit}/>
@@ -71,7 +76,7 @@ export const Order = (props) => {
                             </thead>
                             <tbody>
                             {
-                                props.cart.map(i => <tr key={i.id}>
+                                cart.map(i => <tr key={i.id}>
                                     <td className={style.cellImage}>
                                         <div>
                                             <img
@@ -107,3 +112,5 @@ export const Order = (props) => {
 
     </>
 };
+
+export default Order;

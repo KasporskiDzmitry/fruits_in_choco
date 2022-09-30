@@ -9,7 +9,7 @@ import ReviewForm from "./Review/ReviewForm";
 import {isProductInCart} from "../../utils/localStorageFunctions";
 import appStyle from '../../../App.module.scss';
 
-const ProductPage = ({product, saveProductToCart, isFetching, addReview, profile, ratings}) => {
+const ProductPage = ({product, saveProductToCart, isFetching, profile, ratings}) => {
     const isInCart = isProductInCart(product.id);
 
     return <div className={`${appStyle.sectionOuter} ${style.productPageWrapper}`}>
@@ -45,7 +45,7 @@ const ProductPage = ({product, saveProductToCart, isFetching, addReview, profile
                         </div>
                         {
                             localStorage.name ?
-                                <ReviewForm handleSubmit={addReview} productId={product.id}/> :
+                                <ReviewForm productId={product.id}/> :
                                 <div>
                                     Войдите или зарегистрируйтесь, чтобы оставить отзыв о товаре
                                 </div>

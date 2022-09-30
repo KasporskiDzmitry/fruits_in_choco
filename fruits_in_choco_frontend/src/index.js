@@ -11,10 +11,12 @@ import {SnackbarProvider} from "notistack";
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <ScrollToTop />
-            <SnackbarProvider maxSnack={5}>
-                <App/>
-            </SnackbarProvider>
+            <React.StrictMode>
+                <ScrollToTop />
+                <SnackbarProvider maxSnack={5}>
+                    <App/>
+                </SnackbarProvider>
+            </React.StrictMode>
         </Provider>
     </BrowserRouter>,
     document.getElementById('root')

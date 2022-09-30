@@ -70,7 +70,6 @@ export const loadProductByIdAdmin = (id) => async dispatch => {
     try {
         const response = await RequestService.get(`/products/${id}`, true);
         dispatch(setProduct(response.data));
-        dispatch(updateProduct(response.data));
     } catch (e) {
         console.log(e)
     }

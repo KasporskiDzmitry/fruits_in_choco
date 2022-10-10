@@ -5,8 +5,8 @@ import {faCartPlus, faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 import {isProductInCart} from "../../utils/localStorageFunctions";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch} from "react-redux";
-import {saveProductToCart} from "../../../redux/thunks/shop_thunks";
 import {useHistory} from "react-router-dom";
+import {saveProductToCart} from "../../../redux/thunks/cart_thunks";
 
 const ProductCard = ({product}) => {
      const dispatch = useDispatch();

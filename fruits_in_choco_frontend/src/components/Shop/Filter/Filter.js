@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import {Button} from "react-bootstrap";
 import style from './Filter.module.scss';
 import {useDispatch} from "react-redux";
-import {setFilteredProducts} from "../../../redux/actions/shop_actions";
+import {setProducts} from "../../../redux/actions/filter_actions";
 
 export const Filter = (props) => {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export const Filter = (props) => {
         if (initialRender.current) {
             initialRender.current = false;
         } else {
-            dispatch(setFilteredProducts(props.products.filter(i => {
+            dispatch(setProducts(props.products.filter(i => {
                 const checkAttributes = (product) => {
                     let isAttributeInFilterParams = true;
                     for (const [key, value] of Object.entries(filterParams.attributes)) {

@@ -9,15 +9,15 @@ import {connect, useDispatch, useSelector} from "react-redux";
 import Rating from "@material-ui/lab/Rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+import {useHistory} from "react-router-dom";
 import {
     approveReview,
     deleteReview,
-    loadProductByIdAdmin,
+    loadProductById,
     updateProductThunk
-} from "../../../../redux/thunks/admin_thunks";
-import {useHistory} from "react-router-dom";
+} from "../../../../redux/thunks/product_thunks";
 
-const EditProductForm = ({handleSubmit, error, categories, product}) => {
+const EditProductForm = ({handleSubmit, error, categories, product, isProductUpdating}) => {
     return (
         <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.fieldWrapper}>
@@ -67,7 +67,7 @@ const EditProductForm = ({handleSubmit, error, categories, product}) => {
             </div>
             }
             <div>
-                <Button type="submit">Save</Button>
+                <Button type="submit" disabled={isProductUpdating}>Save</Button>
             </div>
         </form>
     )
@@ -77,7 +77,7 @@ let EditProductReduxForm = reduxForm({form: 'edit_product', enableReinitialize: 
 
 EditProductReduxForm = connect(
     state => {
-        const product = state.adminReducer.product;
+        const product = state.productReducer.product;
         let category = "";
         if (product.categoryId) {
             category = state.categoryReducer.categories.find(i => i.id == product.categoryId);
@@ -91,10 +91,13 @@ EditProductReduxForm = connect(
 const EditProduct = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const product = useSelector(state => state.adminReducer.product);
+    const product = useSelector(state => state.productReducer.product);
+    const isProductUpdating = useSelector(state => state.productReducer.isProductUpdating)
+    const isReviewAccepting = useSelector(state => state.productReducer.isReviewAccepting)
+    const isReviewDeleting = useSelector(state => state.productReducer.isReviewDeleting)
 
     useEffect(() => {
-        dispatch(loadProductByIdAdmin(history.location.pathname.split('/').pop()));
+        dispatch(loadProductById(history.location.pathname.split('/').pop()));
     }, [])
 
     const onSubmit = formData => {
@@ -115,7 +118,7 @@ const EditProduct = (props) => {
     return <>
         <div className={style.editProductFormContainer}>
             <h1>{product?.name}</h1>
-            <EditProductReduxForm onSubmit={onSubmit} categories={props.categories} product={product}/>
+            <EditProductReduxForm onSubmit={onSubmit} categories={props.categories} product={product} isProductUpdating={isProductUpdating}/>
             <div>
 
             </div>
@@ -137,15 +140,15 @@ const EditProduct = (props) => {
                             {
                                 !i.approved &&
                                 <div className={style.controls}>
-                                    <div title={'approve'} onClick={() => approve(i, product)}>
+                                    <div title={'approve'} onClick={() => {if (!isReviewAccepting) approve(i, product)}}>
                                         <FontAwesomeIcon icon={faCheck}/>
                                     </div>
-                                    <div title={'reject'} onClick={() => remove(product, i.id)}>
+                                    <div title={'reject'} onClick={() => {if (!isReviewDeleting) remove(product, i.id)}}>
                                         <FontAwesomeIcon icon={faTimesCircle}/>
                                     </div>
                                 </div>
                             }
-                            <div className={style.delete} onClick={() => remove(product, i.id)}>
+                            <div className={style.delete} onClick={() => {if (!isReviewDeleting) remove(product, i.id)}}>
                                 <FontAwesomeIcon icon={faTimesCircle}/>
                             </div>
                         </div>

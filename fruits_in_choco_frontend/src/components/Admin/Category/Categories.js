@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CategoryTable from "./common/CategoryTable";
 import {Button} from "react-bootstrap";
-import {Link, NavLink, useHistory} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {loadCategories} from "../../../redux/thunks/category_thunks";
 
 const Categories = (props) => {
-    const categories = useSelector(state => state.categoryReducer.categories);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(loadCategories());
+    }, [])
 
     return <div>
         <div>
@@ -14,7 +19,7 @@ const Categories = (props) => {
             </Link>
         </div>
         <div>
-            <CategoryTable data={categories}/>
+            <CategoryTable data={props.categories}/>
         </div>
     </div>
 }

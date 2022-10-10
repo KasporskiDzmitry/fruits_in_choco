@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 
 const mapStateToPropsForRedirect = state => ({
-    cart: state.shopReducer.cart
+    cart: state.cartReducer.cart
 });
 
 export const emptyCartRedirect = Component => {

@@ -3,7 +3,7 @@ import {reduxForm} from "redux-form";
 import {CategoryForm} from "../common/CategoryForm";
 import style from './AddCategory.module.scss';
 import {useDispatch} from "react-redux";
-import {addCategory} from "../../../../redux/thunks/admin_thunks";
+import {addCategory} from "../../../../redux/thunks/category_thunks";
 
 const AddCategoryReduxForm = reduxForm({form: 'add_category'})(CategoryForm);
 

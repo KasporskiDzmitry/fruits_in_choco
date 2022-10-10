@@ -6,10 +6,10 @@ import {Button} from 'react-bootstrap';
 import {number, required} from "../../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
 import Expire from "../../../common/Expire/Expire";
-import {useDispatch} from "react-redux";
-import {addProduct} from "../../../../redux/thunks/admin_thunks";
+import {useDispatch, useSelector} from "react-redux";
+import {addProduct} from "../../../../redux/thunks/product_thunks";
 
-const AddProductForm = ({handleSubmit, error, categories}) => {
+const AddProductForm = ({handleSubmit, error, categories, isProductAdding}) => {
 
     const [categoryId, setCategoryId] = useState(null);
 
@@ -59,7 +59,7 @@ const AddProductForm = ({handleSubmit, error, categories}) => {
             </div>
             }
             <div>
-                <Button type="submit">Add</Button>
+                <Button type="submit" disabled={isProductAdding}>Add</Button>
             </div>
         </form>
     )
@@ -69,6 +69,7 @@ const AddProductReduxForm = reduxForm({form: 'add_product'})(AddProductForm);
 
 const AddProduct = props => {
     const dispatch = useDispatch();
+    const isProductAdding = useSelector(state => state.productReducer.isProductAdding)
 
     const onSubmit = formData => {
         const attributes = props.categories.find(c => c.id == parseInt(formData.category)).attributes.map(a => a.attributeName);
@@ -91,7 +92,7 @@ const AddProduct = props => {
 
     return <div className={style.addProductContainer}>
         <h1>Add product</h1>
-        <AddProductReduxForm onSubmit={onSubmit} categories={props.categories}/>
+        <AddProductReduxForm onSubmit={onSubmit} categories={props.categories} isProductAdding={isProductAdding}/>
     </div>
 };
 

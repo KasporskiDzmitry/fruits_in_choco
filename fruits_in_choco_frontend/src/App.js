@@ -14,14 +14,15 @@ import useNotifier from "./components/hooks/useNotifier";
 import {connectStomp, stompClient} from "./components/utils/stomp";
 import {NotFound} from "./components/NotFound/NotFound";
 import {NOTIFICATION_ORDER, NOTIFICATION_REVIEW, ORDER_STATUS_NOT_CONFIRMED} from "./components/utils/constants";
-import {loadAllOrders, loadProductsAdmin} from "./redux/thunks/admin_thunks";
 import {emptyCartRedirect} from "./components/hoc/emptyCartRedirect";
+import {loadProducts} from "./redux/thunks/product_thunks";
+import {loadAllOrders} from "./redux/thunks/order_thunks";
 
 const Main = React.lazy(() => import('./components/Main/Main'));
 const Shop = React.lazy(() => import('./components/Shop/Shop'));
 const About = React.lazy(() => import('./components/About/About'));
 const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
-const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPageContainer'));
+const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/ProductPage'));
 const CartPage = React.lazy(() => import('./components/Cart/Cart'));
 const OrderPage = React.lazy(() => import('./components/Order/Order'));
 const OrderSuccess = React.lazy(() => import('./components/OrderSuccess/OrderSuccess'));
@@ -48,37 +49,14 @@ const App = (props) => {
     const isSignInSignUpPopUpShow = useSelector(state => state.appReducer.isSignInSignUpPopUpShow);
     const initialized = useSelector(state => state.appReducer.initialized);
     const isCartLayoutShow = useSelector(state => state.appReducer.isCartLayoutShow);
-    const productsInCart = useSelector(state => state.shopReducer.cart);
+    const productsInCart = useSelector(state => state.cartReducer.cart);
     const isLoginFetching = useSelector(state => state.authReducer.isLoginFetching);
     const isRegisterFetching = useSelector(state => state.registrationReducer.isRegisterFetching);
-    const newReviews = useSelector(state => state.shopReducer.products.length > 0 && state.shopReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length);
-    const newOrders = useSelector(state => state.adminReducer.orders.length > 0 && state.adminReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length);
+    const newReviews = useSelector(state => state.productReducer.products.length > 0 && state.productReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length);
+    const newOrders = useSelector(state => state.orderReducer.orders.length > 0 && state.orderReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length);
 
     useEffect(() => {
         dispatch(init());
-
-        if (localStorage.role === 'ADMIN') {
-            connectStomp(() => {
-                stompClient.subscribe('/user/admin/notification', (e) => {
-                    const notificationType = JSON.parse(e.body).type;
-                    console.log(`${notificationType} notification received`)
-                    switch (notificationType) {
-                        case NOTIFICATION_ORDER: {
-                            dispatch(loadAllOrders());
-                            break;
-                        }
-                        case NOTIFICATION_REVIEW: {
-                            dispatch(loadProductsAdmin());
-                            break;
-                        }
-                        default: {
-                            console.log('Unknown notification type: ' + notificationType);
-                            break;
-                        }
-                    }
-                });
-            });
-        }
     }, [])
 
 

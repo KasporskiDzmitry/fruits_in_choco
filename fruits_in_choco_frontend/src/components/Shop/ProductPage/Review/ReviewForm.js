@@ -6,7 +6,7 @@ import {Field, reduxForm, reset} from "redux-form";
 import {Textarea} from "../../../common/FormsControls/FormsControls";
 import {required} from "../../../utils/validators/validators";
 import {useDispatch} from "react-redux";
-import {addReview} from "../../../../redux/thunks/shop_thunks";
+import {addReview} from "../../../../redux/thunks/product_thunks";
 
 const ReviewForm = (props) => {
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const ReviewForm = (props) => {
 
     return <div>
         <Rating name="rating" value={rating} onChange={(event, newValue) => setRating(newValue)}/>
-        <AddReviewReduxForm onSubmit={onSubmit} {...props}/>
+        <AddReviewReduxForm onSubmit={onSubmit} {...props} isReviewAdding={props.isReviewAdding}/>
     </div>
 };
 
@@ -38,7 +38,7 @@ const Form = ({handleSubmit, error, ...props}) => {
             <Field className={style.field} placeholder={'Description'} name={'message'} component={Textarea} validate={[required]}/>
         </div>
         <div className={style.btnWrapper}>
-            <Button type={"submit"}>Send</Button>
+            <Button type={"submit"} disabled={props.isReviewAdding}>Send</Button>
         </div>
     </form>
 }

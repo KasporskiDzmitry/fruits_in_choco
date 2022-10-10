@@ -6,8 +6,7 @@ import {number, required} from "../../utils/validators/validators";
 import formsControlsStyle from "../../common/FormsControls/FormsControls.module.scss";
 import {Button} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {loadSlides} from "../../../redux/thunks/main_thunks";
-import {deleteSlide, saveSlide} from "../../../redux/thunks/admin_thunks";
+import {deleteSlide, loadSlides, saveSlide} from "../../../redux/thunks/slide_thunks";
 
 const AddSlideForm = ({handleSubmit, error, isFetching}) => {
     return (
@@ -44,7 +43,7 @@ const AddSlideReduxForm = reduxForm({form: 'add_slide'})(AddSlideForm);
 
 const Slider = (props) => {
     const dispatch = useDispatch();
-    const slides = useSelector(state => state.mainPage.slides);
+    const slides = useSelector(state => state.slideReducer.slides);
 
     useEffect(() => {
         if (slides.length === 0) {

@@ -3,8 +3,8 @@ import {loginSuccess, logoutSuccess, toggleIsFetching} from "../actions/auth_act
 import {reset, stopSubmit} from "redux-form";
 import {removeUserInfoFromLS, saveUserInfoToLS} from "../../components/utils/localStorageFunctions";
 import {toggleSignInSignUpPopUp} from "../actions/app_actions";
-import {synchronizeCarts} from "./shop_thunks";
 import {stompClient} from "../../components/utils/stomp";
+import {synchronizeCarts} from "./cart_thunks";
 
 export const login = (email, password) => async dispatch => {
     let cart = [];

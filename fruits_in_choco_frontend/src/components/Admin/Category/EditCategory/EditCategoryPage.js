@@ -4,14 +4,14 @@ import {reduxForm} from "redux-form";
 import {connect, useDispatch} from "react-redux";
 import {CategoryForm} from "../common/CategoryForm";
 import {useHistory} from "react-router-dom";
-import {loadCategoryByIdAdmin, updateCategoryThunk} from "../../../../redux/thunks/admin_thunks";
+import {loadCategoryById, updateCategoryThunk} from "../../../../redux/thunks/category_thunks";
 
 let EditCategoryReduxForm = reduxForm({form: 'edit_category', enableReinitialize: true})(CategoryForm);
 
 EditCategoryReduxForm = connect(
     state => {
         return ({
-            initialValues: state.adminReducer.category
+            initialValues: state.categoryReducer.category
         })
     }, {})(EditCategoryReduxForm)
 
@@ -20,7 +20,7 @@ const EditCategoryPage = (props) => {
     const history = useHistory();
 
     useEffect(() => {
-        dispatch(loadCategoryByIdAdmin(history.location.pathname.split('/').pop()));
+        dispatch(loadCategoryById(history.location.pathname.split('/').pop()));
     }, []);
 
     const onSubmit = (formData) => {

@@ -9,16 +9,16 @@ import {Breadcrumb} from "react-bootstrap";
 import {useHistory, useLocation} from "react-router-dom";
 import routes from "../utils/routes";
 import {useDispatch, useSelector} from "react-redux";
-import {loadProductsByCategories} from "../../redux/thunks/shop_thunks";
+import {loadProductsByCategories} from "../../redux/thunks/product_thunks";
 
 const Shop = () => {
     const {pathname, state} = useLocation();
     const dispatch = useDispatch();
     const path = pathname.split('/');
     const categoryId = state.categoryId;
-    const products = useSelector(state => state.shopReducer.products);
-    const isProductsFetching = useSelector(state => state.shopReducer.isProductsFetching);
-    const filteredProducts = useSelector(state => state.shopReducer.filteredProducts);
+    const products = useSelector(state => state.productReducer.products);
+    const isProductsFetching = useSelector(state => state.productReducer.isProductsFetching);
+    const filteredProducts = useSelector(state => state.filterReducer.products);
     const categories = useSelector(state => state.categoryReducer.categories);
 
     useEffect(() => {

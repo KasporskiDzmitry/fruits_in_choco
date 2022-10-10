@@ -4,10 +4,10 @@ import {Button} from 'react-bootstrap';
 import style from "./Slider.module.scss";
 import appStyle from "../../../App.module.scss";
 import {useDispatch, useSelector} from "react-redux";
-import {loadSlides} from "../../../redux/thunks/main_thunks";
+import {loadSlides} from "../../../redux/thunks/slide_thunks";
 
 const Slider = (props) => {
-    const slides = useSelector(state => state.mainPage.slides);
+    const slides = useSelector(state => state.slideReducer.slides);
     const dispatch = useDispatch()
 
     useEffect(() => {

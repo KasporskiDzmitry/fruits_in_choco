@@ -1,9 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ProductTable from "./common/ProductTable";
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {loadProducts} from "../../../redux/thunks/product_thunks";
 
-const Products = ({products, categories}) => {
+const Products = ({categories}) => {
+    const dispatch = useDispatch();
+    const products = useSelector(state => state.productReducer.products);
+    const isProductDeleting = useSelector(state => state.productReducer.isProductDeleting);
+
+    useEffect(() => {
+        dispatch(loadProducts());
+    }, [])
+
     const convertData = (data) => {
         if (data.length > 0) {
             return data.map(i => {
@@ -25,7 +35,7 @@ const Products = ({products, categories}) => {
             </Link>
         </div>
         <div>
-            <ProductTable data={convertData(products)}/>
+            <ProductTable data={convertData(products)} isProductDeleting={isProductDeleting}/>
         </div>
     </div>
 }

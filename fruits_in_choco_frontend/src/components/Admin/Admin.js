@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavLink, Route} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import style from './Admin.module.scss';
 import appStyle from '../../App.module.scss';
 import {Dashboard} from "@material-ui/icons";
@@ -21,7 +21,6 @@ const AdminSlider = React.lazy(() => import('./Slider/Slider'));
 
 const Admin = (props) => {
     const categories = useSelector(state => state.categoryReducer.categories);
-    const products = useSelector(state => state.shopReducer.products);
 
     return <div className={`${appStyle.sectionOuter}`}>
         <div className={`${appStyle.sectionInner}`}>
@@ -51,7 +50,7 @@ const Admin = (props) => {
                         <Route exact path='/profile/admin/categories/:id'
                                render={() => <AdminCategoryPage/>}/>
                         <Route exact path='/profile/admin/products'
-                               render={() => <AdminProducts products={products} categories={categories}/>}/>
+                               render={() => <AdminProducts categories={categories}/>}/>
                         <Route exact path='/profile/admin/products/:id'
                                render={() => <AdminProductPage categories={categories}/>}/>
                         <Route exact path={'/profile/admin/add_category'}

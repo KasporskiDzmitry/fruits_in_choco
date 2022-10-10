@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {API_BASE_URL} from "../components/utils/constants";
 import store from "./redux-store";
-import {clearToken, refreshTokenSuccess} from "./actions/auth_actions";
+import {clearToken, fetchRefreshTokenSuccess} from "./actions/auth_actions";
 import {removeUserInfoFromLS} from "../components/utils/localStorageFunctions";
 
 class RequestService {
@@ -54,7 +54,7 @@ axios.interceptors.response.use((response) => {
         originalRequest._retry = true;
         try {
             const response = await new RequestService().post("/auth/refreshToken");
-            store.dispatch(refreshTokenSuccess(response.data));
+            store.dispatch(fetchRefreshTokenSuccess(response.data));
             originalRequest.headers.Authorization = response.data;
             return axios(originalRequest);
         } catch (e) {

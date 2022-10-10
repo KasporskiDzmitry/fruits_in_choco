@@ -1,5 +1,5 @@
-import {REGISTER_FAILURE, REGISTER_SUCCESS, TOGGLE_IS_FETCHING} from "../action_types/registration_action_types";
+import {REGISTER_BEGIN, REGISTER_FAILURE, REGISTER_SUCCESS} from "../action_types/registration_action_types";
 
-export const toggleIsFetching = isFetching => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const registerBegin = () => ({type: REGISTER_BEGIN});
 export const registerSuccess = () => ({type: REGISTER_SUCCESS});
 export const registerFailure = errors => ({type: REGISTER_FAILURE, payload: errors});

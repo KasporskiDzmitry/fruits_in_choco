@@ -7,8 +7,7 @@ import {Button} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {toggleCartLayout} from "../../redux/actions/app_actions";
-import {removeFromCart} from "../../redux/actions/shop_actions";
-import {deleteFromCart} from "../../redux/thunks/shop_thunks";
+import {deleteFromCart} from "../../redux/thunks/cart_thunks";
 
 const CartLayout = (props) => {
     const dispatch = useDispatch();

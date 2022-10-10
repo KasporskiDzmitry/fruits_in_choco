@@ -1,7 +1,7 @@
 import React from "react";
 import Users from "./Users";
 import {connect} from "react-redux";
-import {loadUsers} from "../../../redux/thunks/admin_thunks";
+import {loadUsers} from "../../../redux/thunks/user_thunks";
 
 class UsersContainer extends React.Component {
 
@@ -15,7 +15,7 @@ class UsersContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    users: state.adminReducer.users,
+    users: state.userReducer.users,
 })
 
 export default connect(mapStateToProps, {loadUsers})(UsersContainer);

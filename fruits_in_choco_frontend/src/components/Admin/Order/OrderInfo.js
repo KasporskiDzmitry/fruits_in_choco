@@ -3,12 +3,12 @@ import Preloader from "../../common/Preloader/Preloader";
 import {ORDER_STATUS_CONFIRMED, ORDER_STATUS_DECLINED, ORDER_STATUS_NOT_CONFIRMED} from "../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {loadOrderById, updateOrderThunk} from "../../../redux/thunks/admin_thunks";
+import {loadOrderById, updateOrderThunk} from "../../../redux/thunks/order_thunks";
 
 const OrderInfo = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const order = useSelector(state => state.adminReducer.order);
+    const order = useSelector(state => state.orderReducer.order);
 
     useEffect(() => {
         dispatch(loadOrderById(history.location.pathname.split('/').pop()));

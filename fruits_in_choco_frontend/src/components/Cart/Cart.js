@@ -6,19 +6,19 @@ import {Button} from "react-bootstrap";
 import {decreaseQuantity, increaseQuantity, removeProductFromCart} from "../utils/localStorageFunctions";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {removeFromCart, updateProductInCart} from "../../redux/actions/shop_actions";
 import appStyle from '../../App.module.scss';
+import {removeFromCartLocally, updateProductInCart} from "../../redux/actions/cart_actions";
 
 
 const Cart = () => {
     const dispatch = useDispatch();
-    const cart = useSelector(state => state.shopReducer.cart);
+    const cart = useSelector(state => state.cartReducer.cart);
 
     const totalSum = cart.reduce((a, b) => a + b.price * b.quantity, 0);
 
     const removeItem = (product) => {
         removeProductFromCart(product.id);
-        dispatch(removeFromCart(product.id));
+        dispatch(removeFromCartLocally(product.id));
     }
 
     const incrProduct = (product) => {

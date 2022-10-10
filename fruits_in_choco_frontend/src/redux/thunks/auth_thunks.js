@@ -1,22 +1,29 @@
 import RequestService from "../RequestService";
-import {loginSuccess, logoutSuccess, toggleIsFetching} from "../actions/auth_actions";
+import {
+    loginationBegin,
+    loginationFailure,
+    loginationSuccess,
+    logoutBegin,
+    logoutFailure,
+    logoutSuccess
+} from "../actions/auth_actions";
 import {reset, stopSubmit} from "redux-form";
 import {removeUserInfoFromLS, saveUserInfoToLS} from "../../components/utils/localStorageFunctions";
 import {toggleSignInSignUpPopUp} from "../actions/app_actions";
-import {synchronizeCarts} from "./shop_thunks";
 import {stompClient} from "../../components/utils/stomp";
+import {synchronizeCarts} from "./cart_thunks";
 
 export const login = (email, password) => async dispatch => {
     let cart = [];
 
-    dispatch(toggleIsFetching());
+    dispatch(loginationBegin());
     try {
         const response = await RequestService.post("/auth/login", {email, password});
 
         cart = response.data.cart;
 
         saveUserInfoToLS(response.data);
-        dispatch(loginSuccess(
+        dispatch(loginationSuccess(
             response.data.id,
             response.data.email,
             response.data.name,
@@ -31,15 +38,13 @@ export const login = (email, password) => async dispatch => {
     } catch (error) {
         console.log(error)
         dispatch(stopSubmit('login', {_error: error.response.data}));
-    } finally {
-        dispatch(toggleIsFetching());
-
-        // IS IT SAFE???
+        dispatch(loginationFailure(error));
     }
 };
 
 export const logout = () => async dispatch => {
     try {
+        dispatch(logoutBegin());
         const response = await RequestService.post("/auth/logout", null, true);
         removeUserInfoFromLS();
         dispatch(logoutSuccess());
@@ -50,10 +55,9 @@ export const logout = () => async dispatch => {
         }
     } catch (e) {
         console.log(e)
+        dispatch(logoutFailure(e));
     } finally {
         // IS IT SAFE???
         window.location.reload(false)
     }
-
-
 };

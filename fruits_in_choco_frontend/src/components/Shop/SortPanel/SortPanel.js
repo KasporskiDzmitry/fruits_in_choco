@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import style from "./SortPanel.module.scss";
 import {Form} from "react-bootstrap";
 import {useDispatch} from "react-redux";
-import {setFilteredProducts} from "../../../redux/actions/shop_actions";
+import {setProducts} from "../../../redux/actions/filter_actions";
 
 const SortPanel = ({products}) => {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const SortPanel = ({products}) => {
                     return a.name.localeCompare(b.name)
                 }
             });
-            isAscSort ? dispatch(setFilteredProducts(sortedProducts)) : dispatch(setFilteredProducts(sortedProducts.reverse()));
+            isAscSort ? dispatch(setProducts(sortedProducts)) : dispatch(setProducts(sortedProducts.reverse()));
         }
     }, [sortBy, isAscSort]);
 

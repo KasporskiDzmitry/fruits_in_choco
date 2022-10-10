@@ -1,29 +1,31 @@
-import {REGISTER_FAILURE, REGISTER_SUCCESS, TOGGLE_IS_FETCHING} from "../action_types/registration_action_types";
+import {REGISTER_BEGIN, REGISTER_FAILURE, REGISTER_SUCCESS} from "../action_types/registration_action_types";
 
 const initialState = {
     isRegistered: false,
-    isFetching: false,
-    errors: {}
+    isRegistrationFetching: false,
+    error: null
 };
 
 const registrationReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TOGGLE_IS_FETCHING: {
+        case REGISTER_BEGIN: {
             return {
                 ...state,
-                isFetching: action.isFetching
+                isRegistrationFetching: true
             }
         }
         case REGISTER_SUCCESS: {
             return {
                 ...state,
+                isRegistrationFetching: false,
                 isRegistered: true
             }
         }
         case REGISTER_FAILURE: {
             return {
                 ...state,
-                errors: action.payload,
+                isRegistrationFetching: false,
+                error: action.error,
             }
         }
         default: {

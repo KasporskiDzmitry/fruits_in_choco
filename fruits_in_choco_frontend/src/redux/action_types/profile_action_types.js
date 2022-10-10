@@ -1,1 +1,3 @@
-export const SET_PROFILE = 'profile/SET_PROFILE';
+export const FETCH_PROFILE_BEGIN = 'profile/FETCH_PROFILE_BEGIN';
+export const FETCH_PROFILE_SUCCESS = 'profile/FETCH_PROFILE_SUCCESS';
+export const FETCH_PROFILE_FAILURE = 'profile/FETCH_PROFILE_FAILURE';

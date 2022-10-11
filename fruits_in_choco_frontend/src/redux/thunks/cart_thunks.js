@@ -1,10 +1,11 @@
 import {addProductToCart, isProductInCart, removeProductFromCart} from "../../components/utils/localStorageFunctions";
 import RequestService from "../RequestService";
 import {
+    addToCartLocally,
     addToCartBegin,
     addToCartFailure,
-    addToCartLocally,
-    addToCartSuccess, deleteFromCartBegin, deleteFromCartFailure, deleteFromCartSuccess,
+    addToCartSuccess,
+    deleteFromCartBegin, deleteFromCartFailure, deleteFromCartSuccess,
     removeFromCartLocally
 } from "../actions/cart_actions";
 
@@ -14,7 +15,7 @@ const postToServerCart = (product) => async dispatch => {
         const response = await RequestService.post('/profile/cart', product, true);
         dispatch(addToCartSuccess());
     } catch (e) {
-        console.log(e)
+        console.log(e);
         dispatch(addToCartFailure(e));
     }
 }

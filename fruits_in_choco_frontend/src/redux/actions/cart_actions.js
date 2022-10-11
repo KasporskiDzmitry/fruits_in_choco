@@ -15,4 +15,3 @@ export const deleteFromCartSuccess = () => ({type: DELETE_FROM_CART_SUCCESS});
 export const deleteFromCartFailure = (error) => ({type: DELETE_FROM_CART_FAILURE, error});
 export const updateProductInCart = (product) => ({type: UPDATE_PRODUCT_IN_CART, product});
 export const clearCart = () => ({type: CLEAR_CART});
-

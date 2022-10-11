@@ -7,7 +7,9 @@ import {decreaseQuantity, increaseQuantity, removeProductFromCart} from "../util
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import appStyle from '../../App.module.scss';
+
 import {removeFromCartLocally, updateProductInCart} from "../../redux/actions/cart_actions";
+
 
 
 const Cart = () => {

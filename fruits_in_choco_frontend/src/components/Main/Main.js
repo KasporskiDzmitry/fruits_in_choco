@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import style from './Main.module.scss';
 import Slider from "./Slider/Slider";
 import {CardGroup} from "react-bootstrap";
@@ -6,6 +6,7 @@ import CategoryCard from "./CategoryCard";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import appStyle from '../../App.module.scss';
+import {scrollToTarget} from "../utils/routes";
 
 const Main = () => {
     const dispatch = useDispatch();
@@ -16,9 +17,16 @@ const Main = () => {
         history.push({pathname: `/shop`, state: {categoryId: id}})
     };
 
+    useEffect(() => {
+        const anchor = window.location.hash.split("#")[1];
+        if (anchor) {
+            scrollToTarget(anchor)
+        }
+    }, []);
+
     return <div className={style.main}>
         <Slider/>
-        <div className={`${appStyle.sectionOuter} ${style.ourProductsSection}`}>
+        <div id={"production"} className={`${appStyle.sectionOuter} ${style.ourProductsSection}`}>
             <div className={`${appStyle.sectionInner}`}>
                 <div className={style.heading}>
                     <h1>Что мы делаем</h1>
@@ -30,7 +38,7 @@ const Main = () => {
                 </CardGroup>
             </div>
         </div>
-        <div className={`${appStyle.sectionOuter} ${style.aboutSection}`}>
+        <div id={"about"} className={`${appStyle.sectionOuter} ${style.aboutSection}`}>
             <div className={`${appStyle.sectionInner}`}>
                 <div className={style.heading}>
                     <h1>Кто мы</h1>

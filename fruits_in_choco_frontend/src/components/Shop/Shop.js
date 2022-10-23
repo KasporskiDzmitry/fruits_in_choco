@@ -7,9 +7,9 @@ import ProductCard from "./ProductCard/ProductCard";
 import appStyle from '../../App.module.scss';
 import {Breadcrumb} from "react-bootstrap";
 import {useHistory, useLocation} from "react-router-dom";
-import routes from "../utils/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {loadProductsByCategories} from "../../redux/thunks/product_thunks";
+import {routes} from "../utils/routes";
 
 const Shop = () => {
     const {pathname, state} = useLocation();

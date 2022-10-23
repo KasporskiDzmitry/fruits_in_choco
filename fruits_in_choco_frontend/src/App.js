@@ -75,8 +75,6 @@ const App = (props) => {
                        render={() => <Shop/>}/>
                 <Route path='/products/:id'
                        render={() => <ProductPage/>}/>
-                <Route path='/about'
-                       render={() => <About/>}/>
                 <Route path='/profile'
                        render={() => <ProfilePage newReviews={newReviews} newOrders={newOrders}/>}/>
                 <Route exact path='/cart'
@@ -85,7 +83,7 @@ const App = (props) => {
                        render={() => <Order />}/>
                 <Route exact path='/order/success'
                        render={() => <OrderSuccess/>}/>
-                <Route path='*' component={NotFound}/>
+                <Route render={() => <NotFound/>}/>
             </Switch>
         </React.Suspense>
         <Footer/>

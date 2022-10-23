@@ -1,14 +1,14 @@
 import React from 'react';
 import style from './Header.module.scss';
 import appStyle from '../../App.module.scss';
-import {NavLink, useHistory, useLocation} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartArrowDown, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
 import {USER_ROLE_ADMIN} from "../utils/constants";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {toggleCartLayout, toggleSignInSignUpPopUp} from "../../redux/actions/app_actions";
 import {logout} from "../../redux/thunks/auth_thunks";
-
+import {scrollToTarget} from "../utils/routes";
 
 const Header = (props) => {
     const {pathname} = useLocation();
@@ -22,13 +22,13 @@ const Header = (props) => {
                 <i className="fa fa-bars">Кнопка меню для телефона</i>
             </div>
             <div className={style.navbar}>
-                <div className='logo'>
-                    <NavLink to={'/'}>FRUITS IN CHOCO</NavLink>
+                <div className='logo' onClick={() => window.scrollTo(0,0)}>
+                    <Link to={"/"}>FRUITS IN CHOCO</Link>
                 </div>
                 <nav className={style.navbarNav}>
-                    <NavLink to={'/promotions'}>Акции</NavLink>
-                    <NavLink to={'/buyers'}>Покупателям</NavLink>
-                    <NavLink to={'/contacts'}>Контакты</NavLink>
+                    <Link to={{pathname: '/', hash: "#production"}} onClick={() => scrollToTarget("production")}>Продукция</Link>
+                    <Link to={{pathname: '/', hash: "#about"}} onClick={() => scrollToTarget("about")}>О нас</Link>
+                    <Link to={{pathname: '/', hash: "#contacts"}} onClick={() => scrollToTarget("contacts")}>Контакты</Link>
                 </nav>
                 <div className={style.navbarAside}>
                     <div className={style.cartIcon} onClick={() => dispatch(toggleCartLayout())}>

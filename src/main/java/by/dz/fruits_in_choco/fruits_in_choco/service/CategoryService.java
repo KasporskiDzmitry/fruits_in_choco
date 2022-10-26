@@ -11,5 +11,4 @@ public interface CategoryService {
     Category saveCategory(CategoryRequest request);
     Category updateCategory(Category category, Short id);
     void deleteCategoryById(Short id);
-    Category getCategoryByName(String name);
 }

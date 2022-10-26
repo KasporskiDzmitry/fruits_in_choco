@@ -1,9 +1,11 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.AuthServiceImpl;
 import by.dz.fruits_in_choco.fruits_in_choco.util.CookieCreator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthServiceImpl authService;
+    private final Logger log = LogManager.getLogger(AuthController.class);
 
     public AuthController(AuthenticationManager authenticationManager, AuthServiceImpl authService) {
         this.authenticationManager = authenticationManager;
@@ -31,24 +34,34 @@ public class AuthController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
             return ResponseEntity.ok(authService.login(request.getEmail(), response));
-        } catch (AuthenticationException | UserNotConfirmedException e) {
+        } catch (AuthenticationException | EntityNotFoundException e) {
+            log.error("Login process for user with email " + request.getEmail() + " failed", e);
             return ResponseEntity.status(403).body(e.getMessage());
         }
     }
 
     @PostMapping("/refreshToken")
     public ResponseEntity<?> refreshToken(@CookieValue(name = "refreshToken") String refreshToken, HttpServletResponse response) {
-        return ResponseEntity.ok(authService.refreshToken(refreshToken, response));
+        try {
+            return ResponseEntity.ok(authService.refreshToken(refreshToken, response));
+        } catch (EntityNotFoundException e) {
+            log.error("Unable to obtain refresh token", e);
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')") // оставить только USER?
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
-        SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
-        securityContextLogoutHandler.logout(request, response, null);
-
-        response.addCookie(CookieCreator.createRefreshTokenCookie(null, 0));
-        return ResponseEntity.ok().build();
+        try {
+            SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
+            securityContextLogoutHandler.logout(request, response, null);
+            response.addCookie(CookieCreator.createRefreshTokenCookie(null, 0));
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.error("Logout process failed", e);
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
     }
 
 }

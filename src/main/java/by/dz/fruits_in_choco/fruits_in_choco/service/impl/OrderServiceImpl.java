@@ -1,22 +1,22 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.Notification;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.OrderItem;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderItemRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.OrderService;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.NOTIFICATION_ORDER;
 
@@ -39,10 +39,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order makeOrder(Order order, Map<Short, Short> products) {
         List<OrderItem> orderItemList = new ArrayList<>();
-        User user = userRepository.findById(order.getUserId()).get();
+        Short userId = order.getUserId();
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (null == user) {
+            throw new EntityNotFoundException(User.class.getSimpleName(), userId);
+        }
 
         for (Map.Entry<Short, Short> entry: products.entrySet()) {
-            Product product = productRepository.findById(entry.getKey()).get();
+            Short productId = entry.getKey();
+            Product product = productRepository.findById(productId).orElse(null);
+
+            if (null == product) {
+                throw new EntityNotFoundException(Product.class.getSimpleName(), productId);
+            }
+
             OrderItem item = new OrderItem();
             item.setProduct(product);
             item.setQuantity(entry.getValue());
@@ -76,12 +87,20 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getOrderById(Short id) {
-        return orderRepository.findById(id).get();
+        Order order = orderRepository.findById(id).orElse(null);
+        if (null == order) {
+            throw new EntityNotFoundException(Order.class.getSimpleName(), id);
+        }
+        return order;
     }
 
     @Override
     public void deleteOrderById(Short id) {
-        orderRepository.deleteById(id);
+        try {
+            orderRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+             throw new EntityNotFoundException(Order.class.getSimpleName(), id);
+        }
     }
 
     @Override

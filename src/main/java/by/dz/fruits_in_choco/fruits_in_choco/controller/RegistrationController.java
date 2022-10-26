@@ -4,6 +4,8 @@ import by.dz.fruits_in_choco.fruits_in_choco.dto.RegistrationRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.UserMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.JwtAuthenticationException;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class RegistrationController {
     private final UserMapper userMapper;
     private final JwtTokenProvider jwtTokenProvider;
+    private final static Logger log = LogManager.getLogger(RegistrationController.class);
 
 
     public RegistrationController(UserMapper userMapper, JwtTokenProvider jwtTokenProvider) {
@@ -29,6 +32,7 @@ public class RegistrationController {
         try {
             return ResponseEntity.ok(userMapper.register(request, httpRequest));
         } catch (IllegalStateException e) {
+            log.error("Failed to register new user", e);
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -38,6 +42,7 @@ public class RegistrationController {
         try {
             jwtTokenProvider.validateToken(token);
         } catch (JwtAuthenticationException e) {
+            log.error("Registration confirmation failed", e);
             model.addAttribute("errorMessage", e.getMessage());
             return "registrationFailed";
         }

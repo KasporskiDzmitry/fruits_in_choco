@@ -1,4 +1,9 @@
-import {addProductToCart, isProductInCart, removeProductFromCart} from "../../components/utils/localStorageFunctions";
+import {
+    addProductToCart, decreaseQuantity,
+    increaseQuantity,
+    isProductInCart,
+    removeProductFromCart
+} from "../../components/utils/localStorageFunctions";
 import RequestService from "../RequestService";
 import {
     addToCartLocally,
@@ -6,7 +11,7 @@ import {
     addToCartFailure,
     addToCartSuccess,
     deleteFromCartBegin, deleteFromCartFailure, deleteFromCartSuccess,
-    removeFromCartLocally
+    removeFromCartLocally, updateProductInCart
 } from "../actions/cart_actions";
 
 const postToServerCart = (product) => async dispatch => {
@@ -70,3 +75,21 @@ export const synchronizeCarts = (cart) => async dispatch => {
         }
     }
 }
+
+// export const removeItem = (product) => dispatch => {
+//     removeProductFromCart(product.id);
+//     dispatch(removeFromCartLocally(product.id));
+// }
+
+export const incrProduct = (product) => dispatch => {
+    increaseQuantity(product.id);
+    dispatch(updateProductInCart({...product, quantity: product.quantity + 1}));
+}
+
+export const decrProduct = (product) => dispatch => {
+    if (product.quantity > 1) {
+        decreaseQuantity(product.id);
+        dispatch(updateProductInCart({...product, quantity: product.quantity - 1}));
+    }
+}
+

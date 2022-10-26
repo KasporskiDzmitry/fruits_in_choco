@@ -7,6 +7,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductStatus;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.OrderItemRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.ProductRatingRepository;
@@ -71,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id).orElse(null);
 
         if (product == null) {
-            throw new NoSuchElementException("Продукт не найден");
+            throw new EntityNotFoundException(Product.class.getSimpleName(), id);
         }
 
         if (!isAuthenticatedAndAdmin()) {
@@ -117,7 +118,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProductById(Short id) {
-        Product product = productRepository.findById(id).get();
+        Product product = productRepository.findById(id).orElse(null);
+
+        if (null == product) {
+            throw new EntityNotFoundException(Product.class.getSimpleName(), id);
+        }
+
         OrderItem orderItem = orderItemRepository.findByProduct_Id(id);
 
         if (orderItem != null) {
@@ -137,8 +143,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product rateProduct(ProductRatingRequest request, Short id) {
-        Product product = productRepository.findById(id).get();
-        User user = userRepository.findById(request.getUserId()).get();
+        Product product = productRepository.findById(id).orElse(null);
+
+        if (null == product) {
+            throw new EntityNotFoundException(Product.class.getSimpleName(), id);
+        }
+
+        User user = userRepository.findById(request.getUserId()).orElse(null);
+
+        if (null == user) {
+            throw new EntityNotFoundException(User.class.getSimpleName(), request.getUserId());
+        }
 
         ProductRating rating = new ProductRating();
 
@@ -167,22 +182,48 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product approveReview(ProductRatingRequest newRating, Short productId, Short ratingId) {
-        ProductRating rating = productRatingRepository.findById(ratingId).get();
+        ProductRating rating = productRatingRepository.findById(ratingId).orElse(null);
+
+        if (null == rating) {
+            throw new EntityNotFoundException(ProductRating.class.getSimpleName(), ratingId);
+        }
 
         rating.setApproved(newRating.isApproved());
         rating.setMessage(newRating.getMessage());
 
         productRatingRepository.save(rating);
-        return productRepository.findById(productId).get();
+        Product product = productRepository.findById(productId).orElse(null);
+
+        if (null == product) {
+            throw new EntityNotFoundException(Product.class.getSimpleName(), productId);
+        }
+
+        return product;
     }
 
     @Override
     public void deleteProductRatingById(Short productId, Short ratingId) {
-        Product product = productRepository.findById(productId).get();
+        Product product = productRepository.findById(productId).orElse(null);
+
+        if (null == product) {
+            throw new EntityNotFoundException(Product.class.getSimpleName(), productId);
+        }
+
         product.getRatings().removeIf(rating -> rating.getId().equals(ratingId));
 
-        User user = userRepository.findById(productRatingRepository.findById(ratingId).get().getAuthorId()).get();
-        user.getRatings().removeIf(rating -> rating.getId().equals(ratingId));
+        ProductRating rating = productRatingRepository.findById(ratingId).orElse(null);
+
+        if (null == rating) {
+            throw new EntityNotFoundException(ProductRating.class.getSimpleName(), ratingId);
+        }
+        Short userId = rating.getAuthorId();
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (null == user) {
+            throw new EntityNotFoundException(User.class.getSimpleName(), userId);
+        }
+
+         user.getRatings().removeIf(item -> item.getId().equals(ratingId));
 
         productRatingRepository.deleteById(ratingId);
     }

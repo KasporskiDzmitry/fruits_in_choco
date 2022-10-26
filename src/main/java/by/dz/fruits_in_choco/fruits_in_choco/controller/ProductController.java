@@ -3,14 +3,15 @@ package by.dz.fruits_in_choco.fruits_in_choco.controller;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductSearchRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.ProductDeletedException;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.ProductMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.ProductServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.NoSuchElementException;
 
 import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 
@@ -19,6 +20,7 @@ import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 public class ProductController {
     private final ProductServiceImpl productService;
     private final ProductMapper mapper;
+    private final static Logger log = LogManager.getLogger(ProductController.class);
 
     public ProductController(ProductServiceImpl productService, ProductMapper mapper) {
         this.productService = productService;
@@ -38,7 +40,8 @@ public class ProductController {
     public ResponseEntity<?> getProductById(@PathVariable Short id) {
         try {
             return ResponseEntity.ok(mapper.getProductById(id));
-        } catch (NoSuchElementException | ProductDeletedException e) {
+        } catch (EntityNotFoundException | ProductDeletedException e) {
+            log.error("Failed to get product with id " + id, e);
             return ResponseEntity.status(404).body(e.getMessage());
         }
     }
@@ -51,7 +54,7 @@ public class ProductController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/admin/products")
     public ResponseEntity<?> saveProduct(@RequestBody Product product) {
-        return ResponseEntity.ok(productService.saveProduct(product));
+        return ResponseEntity.ok(mapper.saveProduct(product));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -63,26 +66,46 @@ public class ProductController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/admin/products/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Short id) {
-        productService.deleteProductById(id);
-        return ResponseEntity.ok(200);
+        try {
+            productService.deleteProductById(id);
+            return ResponseEntity.ok(200);
+        } catch (EntityNotFoundException e) {
+            log.error("Failed to delete product with id " + id, e);
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/products/{id}/ratings")
     public ResponseEntity<?> rateProduct(@RequestBody ProductRatingRequest request, @PathVariable Short id) {
-        return ResponseEntity.ok(mapper.rateProduct(request, id));
+        try {
+            return ResponseEntity.ok(mapper.rateProduct(request, id));
+        } catch (EntityNotFoundException e) {
+            log.error("Failed to rate product with id " + id);
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/admin/products/{productId}/ratings/{ratingId}")
     public ResponseEntity<?> approveRating(@RequestBody ProductRatingRequest rating, @PathVariable Short productId, @PathVariable Short ratingId) {
-        return ResponseEntity.ok(productService.approveReview(rating, productId, ratingId));
+        try {
+            return ResponseEntity.ok(productService.approveReview(rating, productId, ratingId));
+        } catch (EntityNotFoundException e) {
+            log.error("Failed to approve rating with id " + ratingId, e);
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/admin/products/{productId}/ratings/{ratingId}")
     public ResponseEntity<?> deleteRating(@PathVariable Short productId, @PathVariable Short ratingId) {
-        productService.deleteProductRatingById(productId, ratingId);
-        return ResponseEntity.ok(200);
+        try {
+            productService.deleteProductRatingById(productId, ratingId);
+            return ResponseEntity.ok(200);
+        } catch (EntityNotFoundException e) {
+            log.error("Failed to delete product rating with id " + ratingId, e);
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 }

@@ -1,8 +1,10 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.slide.Slide;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.SliderRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.SliderService;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,6 +45,10 @@ public class SliderServiceImpl implements SliderService {
 
     @Override
     public void deleteSlide(Short id) {
-        sliderRepository.deleteById(id);
+        try {
+            sliderRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException(Slide.class.getSimpleName(), id);
+        }
     }
 }

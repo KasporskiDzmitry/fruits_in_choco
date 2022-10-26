@@ -7,7 +7,7 @@ import {Button} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {toggleCartLayout} from "../../redux/actions/app_actions";
-import {deleteFromCart} from "../../redux/thunks/cart_thunks";
+import {decrProduct, deleteFromCart, incrProduct} from "../../redux/thunks/cart_thunks";
 
 const CartLayout = (props) => {
     const dispatch = useDispatch();
@@ -36,11 +36,23 @@ const CartLayout = (props) => {
     </div>
 }
 
-const CartItem = ({id, name, description, price, styles, quantity}) => {
+const CartItem = (item) => {
     const dispatch = useDispatch();
+    //
+    // const removeItem = () => {
+    //     dispatch(deleteFromCart(id));
+    // }
 
-    const removeItem = () => {
-        dispatch(deleteFromCart(id));
+    const decrementHandler = () => {
+        dispatch(decrProduct(item));
+    }
+
+    const incrementHandler = () => {
+        dispatch(incrProduct(item));
+    }
+
+    const deleteHandler = () => {
+        dispatch(deleteFromCart(item.id))
     }
 
     return <div className={style.item}>
@@ -51,19 +63,19 @@ const CartItem = ({id, name, description, price, styles, quantity}) => {
         </div>
         <div>
             <div className={style.info}>
-                <h3>{name}</h3>
+                <h3>{item.name}</h3>
                 <h4>https://i2.wp.com/completelydelicious.com/wp-content/uploads/2020/05/chocolate-oreo-parfait-8-500x500.jpghttps://i2.wp.com/completelydelicious.com/wp-content/uploads/2020/05/chocolate-oreo-parfait-8-500x500.jpg</h4>
             </div>
             <div className={style.totalPriceWrapper}>
-                <div className={style.totalPrice}>{price}</div>
+                <div className={style.totalPrice}>{item.price}</div>
                 <div className={style.controls}>
-                    <div className={style.controlBtn}>-</div>
-                    <div className={style.count}>{quantity}</div>
-                    <div className={style.controlBtn}>+</div>
+                    <div className={style.controlBtn} onClick={decrementHandler}>-</div>
+                    <div className={style.count}>{item.quantity}</div>
+                    <div className={style.controlBtn} onClick={incrementHandler}>+</div>
                 </div>
             </div>
         </div>
-        <div onClick={removeItem} className={style.remove}>
+        <div onClick={deleteHandler} className={style.remove}>
             <FontAwesomeIcon icon={faTrash}/>
         </div>
     </div>

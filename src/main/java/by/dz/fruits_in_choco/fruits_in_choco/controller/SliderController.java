@@ -1,8 +1,11 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.slide.Slide;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.SliderService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.SliderServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/slide")
 public class SliderController {
     private final SliderService sliderService;
+    private final static Logger log = LogManager.getLogger(SliderController.class);
 
     public SliderController(SliderServiceImpl sliderService) {
         this.sliderService = sliderService;
@@ -36,7 +40,12 @@ public class SliderController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> deleteSlide(@PathVariable Short id) {
-        sliderService.deleteSlide(id);
-        return ResponseEntity.ok(200);
+        try {
+            sliderService.deleteSlide(id);
+            return ResponseEntity.ok(200);
+        } catch (EntityNotFoundException e) {
+            log.error("Failed to delete slide with id " + id , e);
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 }

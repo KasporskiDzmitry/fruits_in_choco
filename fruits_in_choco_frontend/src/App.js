@@ -52,7 +52,7 @@ const App = (props) => {
     const productsInCart = useSelector(state => state.cartReducer.cart);
     const isLoginFetching = useSelector(state => state.authReducer.isLoginFetching);
     const isRegisterFetching = useSelector(state => state.registrationReducer.isRegisterFetching);
-    const newReviews = useSelector(state => state.productReducer.products.length > 0 && state.productReducer.products.map(i => i.ratings).flat().filter(i => !i.approved).length);
+    const newReviews = useSelector(state => state.productReducer.products.length > 0 && state.productReducer.products.map(i => i.ratings).flat().filter(i => i && !i.approved).length);
     const newOrders = useSelector(state => state.orderReducer.orders.length > 0 && state.orderReducer.orders.filter(i => i.status === ORDER_STATUS_NOT_CONFIRMED).length);
 
     useEffect(() => {

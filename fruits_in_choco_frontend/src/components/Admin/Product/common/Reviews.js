@@ -2,8 +2,8 @@ import React from "react";
 
 const Reviews = (props) => {
 
-    const reviews = props.row.ratings;
-    const approvedReviews = reviews.filter(i => i.approved);
+    const reviews = props.row.ratings || [];
+    const approvedReviews = reviews.filter(i => i && i.approved);
 
     return <div>
         <div>{approvedReviews.length}</div>

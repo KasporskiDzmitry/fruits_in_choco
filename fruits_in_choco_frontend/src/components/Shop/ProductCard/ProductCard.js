@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import style from './ProductCard.module.scss'
 import {Button, Card} from "react-bootstrap";
 import {faCartPlus, faCheckCircle} from "@fortawesome/free-solid-svg-icons";
@@ -9,8 +9,8 @@ import {useHistory} from "react-router-dom";
 import {saveProductToCart} from "../../../redux/thunks/cart_thunks";
 
 const ProductCard = ({product}) => {
-     const dispatch = useDispatch();
-     const history = useHistory();
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const selectProduct = (e) => {
         e.preventDefault();
@@ -23,20 +23,22 @@ const ProductCard = ({product}) => {
 
     const toCartButtonClassName = isProductInCart(product.id) ? `${style.toCartButton} ${style.checked}` : style.toCartButton
 
+
     return <Card className={style.cardWrapper}>
         <Card.Body>
             <div className={style.cardImageWrapper} onClick={selectProduct}>
-                <Card.Img  variant="top" src={product.imageURL}/>
+                <Card.Img variant="top" src={product.imageURL}/>
             </div>
             <Card.Title className={style.cardTitle}>{product.name}</Card.Title>
         </Card.Body>
         <Card.Footer className={style.cardFooter}>
             <div className={style.cardPrice}>{product.price} руб.</div>
-            <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)} onClick={cartButtonClickHandler}>
+            <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)}
+                    onClick={cartButtonClickHandler}>
                 {
                     isProductInCart(product.id) ?
-                        <FontAwesomeIcon icon={faCheckCircle} /> :
-                        <FontAwesomeIcon icon={faCartPlus} />
+                        <FontAwesomeIcon icon={faCheckCircle}/> :
+                        <FontAwesomeIcon icon={faCartPlus}/>
                 }
             </Button>
         </Card.Footer>

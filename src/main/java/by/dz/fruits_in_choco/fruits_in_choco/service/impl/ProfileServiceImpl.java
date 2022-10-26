@@ -4,6 +4,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.cart.Cart;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.cart.CartItem;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.*;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProfileService;
 import org.springframework.stereotype.Service;
@@ -60,7 +61,12 @@ public class ProfileServiceImpl implements ProfileService {
     public void deleteFromCart(Short id, String email) {
         User user = userRepository.findByEmail(email);
         Cart cart = user.getCart();
-        CartItem cartItem = cartItemRepository.findById(cart.getCartItems().stream().filter(i -> i.getProduct().getId().equals(id)).collect(Collectors.toList()).get(0).getId()).get();
+        Short cartItemId = cart.getCartItems().stream().filter(i -> i.getProduct().getId().equals(id)).collect(Collectors.toList()).get(0).getId();
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElse(null);
+
+        if (null == cartItem) {
+            throw new EntityNotFoundException(CartItem.class.getSimpleName(), cartItemId);
+        }
 
         cart.getCartItems().remove(cartItem);
 

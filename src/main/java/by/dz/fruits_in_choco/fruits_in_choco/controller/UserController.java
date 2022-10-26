@@ -1,7 +1,10 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
+import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.UserMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.UserServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +14,9 @@ import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
-    UserServiceImpl userService;
-    UserMapper userMapper;
+    private final UserServiceImpl userService;
+    private final UserMapper userMapper;
+    private final static Logger log = LogManager.getLogger(UserController.class);
 
     UserController(UserServiceImpl userService, UserMapper userMapper) {
         this.userMapper = userMapper;
@@ -32,6 +36,11 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/users/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Short id) {
-        return ResponseEntity.ok(userMapper.getUserById(id));
+        try {
+            return ResponseEntity.ok(userMapper.getUserById(id));
+        } catch (EntityNotFoundException e) {
+            log.error("Failed to get user with id " + id,e );
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 }

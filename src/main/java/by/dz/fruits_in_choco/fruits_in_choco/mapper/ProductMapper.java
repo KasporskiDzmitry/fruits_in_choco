@@ -45,6 +45,10 @@ public class ProductMapper {
                 .collect(Collectors.toList());
     }
 
+    public ProductResponse saveProduct(Product product) {
+        return mapToResponseDTO(service.saveProduct(product));
+    }
+
     public ProductResponse rateProduct(ProductRatingRequest request, Short id) {
         return mapToResponseDTO(service.rateProduct(request, id));
     }

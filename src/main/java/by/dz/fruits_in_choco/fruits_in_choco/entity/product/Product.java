@@ -55,7 +55,7 @@ public class Product implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", imageURL=" + imageURL +
-                ", category=" + category +
+                ", categoryId=" + category.getId() +
                 ", ratings=" + ratings +
                 ", status=" + status +
                 ", attributes=" + attributes +

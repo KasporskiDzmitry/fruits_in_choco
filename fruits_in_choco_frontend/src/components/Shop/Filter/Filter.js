@@ -25,9 +25,9 @@ export const Filter = (props) => {
                 }
 
                 if (Object.keys(filterParams.attributes).length > 0) {
-                    return i.price >= filterParams.price && (i.categoryId == props.categoryId) && checkAttributes(i)
+                    return i.price >= filterParams.price && (i.categoryId === props.categoryId) && checkAttributes(i)
                 } else {
-                    return i.price >= filterParams.price && i.categoryId == props.categoryId;
+                    return i.price >= filterParams.price && i.categoryId === props.categoryId;
                 }
             })))
         }

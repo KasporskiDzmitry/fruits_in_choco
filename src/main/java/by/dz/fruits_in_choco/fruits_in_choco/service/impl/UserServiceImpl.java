@@ -1,6 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.*;
 import by.dz.fruits_in_choco.fruits_in_choco.service.UserService;
 import org.springframework.data.domain.Page;
@@ -31,7 +32,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Short id) {
-        return userRepository.findById(id).get();
+        User user = userRepository.findById(id).orElse(null);
+        if (null == user) {
+            throw new EntityNotFoundException(User.class.getSimpleName(), id);
+        }
+        return user;
     }
 
 }

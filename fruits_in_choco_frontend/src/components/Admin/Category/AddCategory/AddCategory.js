@@ -11,7 +11,8 @@ const AddCategory = (props) => {
     const dispatch = useDispatch();
 
     const onSubmit = formData => {
-        dispatch(addCategory(formData));
+        const attributes = formData.attributes.map(i => ({attributeName: i}));
+        dispatch(addCategory({...formData, attributes: attributes}));
     };
 
     return <div className={style.addCategoryContainer}>

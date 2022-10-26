@@ -5,7 +5,6 @@ import style from './AddProduct.module.scss';
 import {Button} from 'react-bootstrap';
 import {number, required} from "../../../utils/validators/validators";
 import {Input, Select, Textarea} from "../../../common/FormsControls/FormsControls";
-import Expire from "../../../common/Expire/Expire";
 import {useDispatch, useSelector} from "react-redux";
 import {addProduct} from "../../../../redux/thunks/product_thunks";
 

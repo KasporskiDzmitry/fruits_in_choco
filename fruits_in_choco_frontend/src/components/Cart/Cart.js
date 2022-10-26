@@ -3,36 +3,28 @@ import style from './Cart.module.scss';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Button} from "react-bootstrap";
-import {decreaseQuantity, increaseQuantity, removeProductFromCart} from "../utils/localStorageFunctions";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import appStyle from '../../App.module.scss';
-
-import {removeFromCartLocally, updateProductInCart} from "../../redux/actions/cart_actions";
-
+import {decrProduct, deleteFromCart, incrProduct, removeItem} from "../../redux/thunks/cart_thunks";
 
 
 const Cart = () => {
-    const dispatch = useDispatch();
     const cart = useSelector(state => state.cartReducer.cart);
+    const dispatch = useDispatch();
 
     const totalSum = cart.reduce((a, b) => a + b.price * b.quantity, 0);
 
-    const removeItem = (product) => {
-        removeProductFromCart(product.id);
-        dispatch(removeFromCartLocally(product.id));
+    const decrementHandler = (item) => {
+        dispatch(decrProduct(item));
     }
 
-    const incrProduct = (product) => {
-        increaseQuantity(product.id);
-        dispatch(updateProductInCart({...product, quantity: product.quantity + 1}));
+    const incrementHandler = (item) => {
+        dispatch(incrProduct(item));
     }
 
-    const decrProduct = (product) => {
-        if (product.quantity > 1) {
-            decreaseQuantity(product.id);
-            dispatch(updateProductInCart({...product, quantity: product.quantity - 1}));
-        }
+    const deleteHandler = (id) => {
+        dispatch(deleteFromCart(id))
     }
 
     return <div className={`${appStyle.sectionOuter} ${style.cartSection}`}>
@@ -73,16 +65,16 @@ const Cart = () => {
                                     </td>
                                     <td className={style.cellControls}>
                                         <div className={style.controls}>
-                                            <div className={style.controlBtn} onClick={() => decrProduct(i)}>-</div>
+                                            <div className={style.controlBtn} onClick={() => decrementHandler(i)}>-</div>
                                             <div className={style.count}>{i.quantity}</div>
-                                            <div className={style.controlBtn} onClick={() => incrProduct(i)}>+</div>
+                                            <div className={style.controlBtn} onClick={() => incrementHandler(i)}>+</div>
                                         </div>
                                     </td>
                                     <td className={style.cellTotalPrice}>
                                         <div className={style.price}>{i.price * i.quantity}</div>
                                     </td>
                                     <td className={style.cellRemove}>
-                                        <div onClick={() => removeItem(i)}>
+                                        <div onClick={() => deleteHandler(i.id)}>
                                             <FontAwesomeIcon icon={faTrash}/>
                                         </div>
                                     </td>

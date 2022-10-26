@@ -72,6 +72,17 @@ const Main = () => {
                 </div>
             </div>
         </div>
+        <div id={"contacts"} className={`${appStyle.sectionOuter} ${style.aboutSection}`}>
+            <div className={`${appStyle.sectionInner}`}>
+                <div className={style.heading}>
+                    <h1>Контакты</h1>
+                </div>
+                <div>
+                    Телефон
+                </div>
+            </div>
+        </div>
+
     </div>
 };
 

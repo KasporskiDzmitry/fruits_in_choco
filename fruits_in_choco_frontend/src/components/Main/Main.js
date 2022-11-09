@@ -4,17 +4,17 @@ import Slider from "./Slider/Slider";
 import {CardGroup} from "react-bootstrap";
 import CategoryCard from "./CategoryCard";
 import {useDispatch, useSelector} from "react-redux";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import appStyle from '../../App.module.scss';
 import {scrollToTarget} from "../utils/routes";
 
 const Main = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const categoryCards = useSelector(state => state.categoryReducer.categories);
 
     const selectCategory = (id) => {
-        history.push({pathname: `/shop`, state: {categoryId: id}})
+        navigate(`/shop`, {state: {categoryId: id}})
     };
 
     useEffect(() => {

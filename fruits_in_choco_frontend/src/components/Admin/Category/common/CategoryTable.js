@@ -1,31 +1,17 @@
-import React, { Component} from 'react';
-import PropTypes from 'prop-types';
-import sematable, { Table } from 'sematable';
+import React from 'react';
 import CategoryTableActions from "./CategoryTableActions";
+import MaterialTable from "material-table";
 
 const columns = [
-    { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
-    { key: 'name', header: 'Название', sortable: true, searchable: true },
-    { key: 'actions', header: 'Actions', Component: CategoryTableActions }
+    { title: 'id', field: 'id'},
+    { title: 'name', field: 'name'},
+    { title: 'actions', render: row =>  <CategoryTableActions row={row}/> }
 ];
 
-const propTypes = {
-    headers: PropTypes.object.isRequired,
-    data: PropTypes.array.isRequired,
-    primaryKey: PropTypes.string.isRequired,
-};
-
-class CategoryTable extends Component {
-    render() {
-        return (
-            <Table
-                {...this.props}
-                selectable
-                columns={columns}
-            />
-        );
-    }
+const CategoryTable = (props) => {
+    return (
+        <MaterialTable columns={columns} data={props.data} title="Categories" options={{search: true}}/>
+    );
 }
 
-CategoryTable.propTypes = propTypes;
-export default sematable('categoryTable', CategoryTable, columns);
+export default CategoryTable;

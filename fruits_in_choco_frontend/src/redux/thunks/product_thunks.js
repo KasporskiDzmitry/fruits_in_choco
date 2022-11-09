@@ -31,6 +31,7 @@ export const loadProducts = () => async dispatch => {
 };
 
 export const loadProductById = id => async dispatch => {
+    console.log("LOAD PRODUCT BY ID")
     try {
         dispatch(fetchProductBegin());
         const response = await RequestService.get(`/products/${id}`);

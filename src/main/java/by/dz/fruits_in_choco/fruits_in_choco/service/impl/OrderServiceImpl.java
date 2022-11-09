@@ -1,7 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.Notification;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.Order;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.order.OrderItem;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;

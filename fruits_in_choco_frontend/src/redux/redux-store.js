@@ -8,7 +8,6 @@ import slide_reducer from "./reducers/slide_reducer";
 import authReducer from "./reducers/auth-reducer";
 import profileReducer from "./reducers/profile-reducer";
 import registrationReducer from "./reducers/registration-reducer";
-import { reducer as sematable } from 'sematable';
 import orderReducer from "./reducers/order-reducer";
 import categoryReducer from "./reducers/category-reducer";
 import productReducer from "./reducers/product-reducer";
@@ -17,7 +16,6 @@ import filterReducer from "./reducers/filter_reducer";
 import userReducer from "./reducers/user_reducer";
 
 let reducers = combineReducers({
-    sematable,
     form: formReducer,
     slideReducer: slide_reducer,
     appReducer: appReducer,

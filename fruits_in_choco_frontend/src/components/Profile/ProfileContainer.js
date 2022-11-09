@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import Profile from "./Profile";
 import {compose} from "redux";
-import {withRouter} from "react-router-dom";
+import {withRouter} from "../hoc/withRouter";
 import Preloader from "../common/Preloader/Preloader";
 import {getProfile} from "../../redux/thunks/profile_thunks";
 import Admin from "../Admin/Admin";

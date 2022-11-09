@@ -1,35 +1,28 @@
-import React, { Component} from 'react';
-import PropTypes from 'prop-types';
-import sematable, { Table } from 'sematable';
-import UsersTableActions from "./UsersTableActions";
+import React from 'react';
+import MaterialTable from "material-table";
+import {NavLink} from "react-router-dom";
 
 const columns = [
-    { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
-    { key: 'firstName', header: 'Имя', sortable: true, searchable: true },
-    { key: 'lastName', header: 'Фамилия', sortable: true },
-    { key: 'email', header: 'Email', sortable: true },
-    { key: 'role', header: 'Роль', sortable: true },
-    { key: 'status', header: 'Статус', sortable: true },
-    { key: 'actions', header: 'Actions', Component: UsersTableActions }
+    { title: 'id', field: 'id'},
+    { title: 'firstName', field: 'firstName'},
+    { title: 'lastName', field: 'lastName'},
+    { title: 'email', field: 'email'},
+    { title: 'role', field: 'role'},
+    { title: 'status', field: 'status'},
+    { title: 'actions', render: row => <UsersTableActions row={row}/> }
 ];
 
-const propTypes = {
-    headers: PropTypes.object.isRequired,
-    data: PropTypes.array.isRequired,
-    primaryKey: PropTypes.string.isRequired,
-};
-
-class UsersTable extends Component {
-    render() {
-        return (
-            <Table
-                {...this.props}
-                selectable
-                columns={columns}
-            />
-        );
-    }
+const UsersTableActions = (props) => {
+    const row = props.row;
+    return (
+        <div>
+            <NavLink to={`/profile/admin/users/${row.id}`}>More</NavLink>
+        </div>
+    );
 }
 
-UsersTable.propTypes = propTypes;
-export default sematable('userTable', UsersTable, columns);
+const UsersTable = (props) => {
+    return <MaterialTable columns={columns} data={props.data} title="Users" options={{search: true}}/>
+}
+
+export default UsersTable

@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
@@ -39,20 +40,23 @@ public class UserMapper {
         return modelMapper.map(registrationRequest, User.class);
     }
 
-    private UserResponse mapToResponseDto(User user) {
+    private UserResponse mapToResponseDTO(User user) {
+        modelMapper.typeMap(User.class, UserResponse.class).addMappings(mapper -> {
+            mapper.map(src -> user.getRatings().stream().map(productMapper::mapToResponseDTO).collect(Collectors.toList()), UserResponse::setRatings);
+        });
         return modelMapper.map(user, UserResponse.class);
     }
 
     public UserResponse getProfile(String email) {
-        return mapToResponseDto(userService.getUserByEmail(email));
+        return mapToResponseDTO(userService.getUserByEmail(email));
     }
 
     public UserResponse getUserById(Short id) {
-        return mapToResponseDto(userService.getUserById(id));
+        return mapToResponseDTO(userService.getUserById(id));
     }
 
     public UserResponse updateProfile(UserRequest userRequest) {
-        return mapToResponseDto(profileService.updateProfile(convertToEntity(userRequest)));
+        return mapToResponseDTO(profileService.updateProfile(convertToEntity(userRequest)));
     }
 
     public Product addToCart(ProductRequest request, String email) {

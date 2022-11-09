@@ -30,6 +30,7 @@ public class Product implements Serializable {
 
     private String imageURL;
 
+    @SuppressWarnings("JpaAttributeTypeInspection")
     @Column(name = "attributes", columnDefinition = "json")
     @Convert(converter = HashMapConverter.class)
     private Map<String, Object> attributes;

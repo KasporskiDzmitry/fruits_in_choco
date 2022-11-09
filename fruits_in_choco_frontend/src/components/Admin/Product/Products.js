@@ -17,7 +17,6 @@ const Products = ({categories}) => {
     const convertData = (data) => {
         if (data.length > 0) {
             return data.map(i => {
-                console.log(i)
                 const category = categories.find(c => c.id == i.categoryId)
                 return {
                     ...i,

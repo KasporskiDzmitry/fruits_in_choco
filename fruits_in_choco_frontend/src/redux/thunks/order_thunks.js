@@ -13,7 +13,7 @@ import RequestService from "../RequestService";
 import {reset, stopSubmit} from "redux-form";
 import {clearCart} from "../actions/cart_actions";
 
-export const makeOrder = (order, history) => async dispatch => {
+export const makeOrder = (order, navigate) => async dispatch => {
     try {
         dispatch(makeOrderBegin());
         const response = await RequestService.post("/orders", order);
@@ -21,7 +21,7 @@ export const makeOrder = (order, history) => async dispatch => {
         dispatch(reset("order"));
         dispatch(clearCart());
         localStorage.removeItem("products");
-        history.push("/cart/success");
+        navigate("/cart/success");
     } catch (error) {
         console.log(error)
         dispatch(stopSubmit('order', {_error: error.response.data}))

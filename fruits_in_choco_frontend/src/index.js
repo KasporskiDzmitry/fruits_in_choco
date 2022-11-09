@@ -8,7 +8,10 @@ import ScrollToTop from "./components/common/ScrollToTop";
 import {SnackbarProvider} from "notistack";
 
 
-ReactDOM.render(
+import { createRoot } from 'react-dom/client';
+const root = createRoot(document.getElementById('root')); // createRoot(container!) if you use TypeScript
+
+root.render(
     <BrowserRouter>
         <Provider store={store}>
             <React.StrictMode>
@@ -18,6 +21,5 @@ ReactDOM.render(
                 </SnackbarProvider>
             </React.StrictMode>
         </Provider>
-    </BrowserRouter>,
-    document.getElementById('root')
+    </BrowserRouter>
 );

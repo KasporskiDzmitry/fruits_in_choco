@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {NavLink, Route} from "react-router-dom";
+import {NavLink, Route, Routes, Outlet} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
 import {useDispatch, useSelector} from "react-redux";
 import style from './Admin.module.scss';
@@ -10,7 +10,7 @@ const AdminCategories = React.lazy(() => import('./Category/Categories'));
 const Orders = React.lazy(() => import('./Order/Orders'));
 const Order = React.lazy(() => import('./Order/OrderInfo'));
 const AdminProducts = React.lazy(() => import('./Product/Products'));
-const AdminUserContainer = React.lazy(() => import('./User/UsersContainer'));
+const AdminUsers = React.lazy(() => import('./User/Users'));
 const AdminUserPage = React.lazy(() => import('./User/UserInfo'))
 const AddProduct = React.lazy(() => import('./Product/AddProduct/AddProduct'));
 const AddCategory = React.lazy(() => import('./Category/AddCategory/AddCategory'));
@@ -39,30 +39,32 @@ const Admin = (props) => {
                 </nav>
                 <>
                     <React.Suspense fallback={<Preloader/>}>
-                        <Route exact path='/profile'
-                               render={() => <Dashboard/>}/>
-                        <Route exact path='/profile/admin/orders'
-                               render={() => <Orders/>}/>
-                        <Route exact path='/profile/admin/orders/:id'
-                               render={() => <Order/>}/>
-                        <Route exact path='/profile/admin/categories'
-                               render={() => <AdminCategories categories={categories}/>}/>
-                        <Route exact path='/profile/admin/categories/:id'
-                               render={() => <AdminCategoryPage/>}/>
-                        <Route exact path='/profile/admin/products'
-                               render={() => <AdminProducts categories={categories}/>}/>
-                        <Route exact path='/profile/admin/products/:id'
-                               render={() => <AdminProductPage categories={categories}/>}/>
-                        <Route exact path={'/profile/admin/add_category'}
-                               render={() => <AddCategory/>}/>
-                        <Route exact path='/profile/admin/add_product'
-                               render={() => <AddProduct categories={categories}/>}/>
-                        <Route exact path='/profile/admin/users'
-                               render={() => <AdminUserContainer/>}/>
-                        <Route exact path='/profile/admin/users/:id'
-                               render={() => <AdminUserPage/>}/>
-                        <Route exact path='/profile/admin/slider'
-                               render={() => <AdminSlider/>}/>
+                        <Routes>
+                            <Route exact path='/'
+                                   element={<Dashboard/>}/>
+                            <Route exact path='/admin/orders'
+                                   element={<Orders/>}/>
+                            <Route exact path='/admin/orders/:id'
+                                   element={<Order/>}/>
+                            <Route exact path='/admin/categories'
+                                   element={<AdminCategories categories={categories}/>}/>
+                            <Route exact path='/admin/categories/:id'
+                                   element={<AdminCategoryPage/>}/>
+                            <Route exact path='/admin/products'
+                                   element={<AdminProducts categories={categories}/>}/>
+                            <Route exact path='/admin/products/:id'
+                                   element={<AdminProductPage categories={categories}/>}/>
+                            <Route exact path={'/admin/add_category'}
+                                   element={<AddCategory/>}/>
+                            <Route exact path='/admin/add_product'
+                                   element={<AddProduct categories={categories}/>}/>
+                            <Route exact path='/admin/users'
+                                   element={<AdminUsers/>}/>
+                            <Route exact path='/admin/users/:id'
+                                   element={<AdminUserPage/>}/>
+                            <Route exact path='/admin/slider'
+                                   element={<AdminSlider/>}/>
+                        </Routes>
                     </React.Suspense>
                 </>
             </div>

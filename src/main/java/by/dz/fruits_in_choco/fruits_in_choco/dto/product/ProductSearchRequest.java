@@ -5,6 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ProductSearchRequest {
+public class  ProductSearchRequest {
     private List<Short> categories;
 }

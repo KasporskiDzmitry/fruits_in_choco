@@ -132,7 +132,12 @@ public class ProductServiceImpl implements ProductService {
         } else {
             List<ProductRating> ratings = product.getRatings();
             for (ProductRating rating : ratings) {
-                User user = userRepository.findById(rating.getAuthorId()).get();
+                User user = userRepository.findById(rating.getAuthorId()).orElse(null);
+
+                if (null == user) {
+                    throw new EntityNotFoundException(User.class.getSimpleName(), rating.getAuthorId());
+                }
+
                 List<ProductRating> userRatingsList = user.getRatings();
                 userRatingsList.remove(rating);
             }

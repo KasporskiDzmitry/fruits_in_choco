@@ -8,7 +8,7 @@ header {
 
 .sectionHeader {
     color: $linkColor;
-    background: moccasin;
+    background: rgba(10, 20, 30, .6);
 
     .sectionInner {
         //display: flex;
@@ -23,6 +23,14 @@ header {
         color: #FCFCFC;
         margin-right: 50px;
     }
+}
+
+.mainPage {
+    background: moccasin;
+}
+
+.withBack {
+    background: moccasin;
 }
 
 .toggleNavBtn {

@@ -20,7 +20,7 @@ const renderAttributes = ({ fields, meta: { error } }) => (
                     onClick={() => fields.remove(index)}
                 />
                 <Field
-                    name={attribute}
+                    name={`${attribute}.attributeName`}
                     type="text"
                     component={Input}
                     label={`Attribute #${index + 1}`}

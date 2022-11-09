@@ -8,6 +8,7 @@ import {connectStomp, stompClient} from "../../components/utils/stomp";
 import {NOTIFICATION_ORDER, NOTIFICATION_REVIEW} from "../../components/utils/constants";
 
 export const init = () => async dispatch => {
+    console.log("INIT")
     if (localStorage.name) {
         try {
             dispatch(fetchRefreshTokenBegin());

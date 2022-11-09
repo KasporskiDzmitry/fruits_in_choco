@@ -7,8 +7,4 @@ public class UserNotConfirmedException extends RuntimeException {
     public UserNotConfirmedException(String msg) {
         super(msg);
     }
-
-    public UserNotConfirmedException(String msg, Throwable cause) {
-        super(msg, cause);
-    }
 }

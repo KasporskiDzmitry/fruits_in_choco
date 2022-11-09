@@ -1,5 +1,11 @@
 import RequestService from "../RequestService";
-import {fetchUsersBegin, fetchUsersFailure, fetchUsersSuccess} from "../actions/user_actions";
+import {
+    fetchUserBegin, fetchUserFailure,
+    fetchUsersBegin,
+    fetchUsersFailure,
+    fetchUsersSuccess,
+    fetchUserSuccess
+} from "../actions/user_actions";
 
 export const loadUsers = () => async dispatch => {
     try {
@@ -14,11 +20,11 @@ export const loadUsers = () => async dispatch => {
 
 export const loadUserById = id => async dispatch =>{
     try {
-        dispatch(fetchUsersBegin());
+        dispatch(fetchUserBegin());
         const response = await RequestService.get(`/admin/users/${id}`, true);
-        dispatch(fetchUsersSuccess(response.data));
+        dispatch(fetchUserSuccess(response.data));
     } catch (e) {
         console.log(e)
-        dispatch(fetchUsersFailure(e));
+        dispatch(fetchUserFailure(e));
     }
 }

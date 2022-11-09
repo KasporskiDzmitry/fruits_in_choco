@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from "react";
-import style from "../Product/AddProduct/AddProduct.module.scss";
+import React, {useEffect} from "react";
 import {Field, reduxForm} from "redux-form";
-import {Input, Select, Textarea} from "../../common/FormsControls/FormsControls";
-import {number, required} from "../../utils/validators/validators";
+import {Input} from "../../common/FormsControls/FormsControls";
+import {required} from "../../utils/validators/validators";
 import formsControlsStyle from "../../common/FormsControls/FormsControls.module.scss";
 import {Button} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
+import style from "./Slider.module.scss";
 import {deleteSlide, loadSlides, saveSlide} from "../../../redux/thunks/slide_thunks";
+import Slide from "./Slide";
 
 const AddSlideForm = ({handleSubmit, error, isFetching}) => {
     return (
@@ -61,19 +62,13 @@ const Slider = (props) => {
         }
     }
 
-    return <div>
+    return <div className={style.container}>
         <div>
             <AddSlideReduxForm onSubmit={onSubmit} />
         </div>
-        <div>
+        <div className={style.slidesContainer}>
             {
-                slides.length > 0 && slides.map(i => <div key={i.id}>
-                    <div>{i.title}</div>
-                    <div>{i.text}</div>
-                    <div>{i.imageURL}</div>
-                    <div>{i.href}</div>
-                    <div onClick={() => removeSlide(i)}>Удалить</div>
-                </div>)
+                slides.length > 0 && slides.map(i => <Slide slide={i} removeSlide={removeSlide}/>)
             }
         </div>
     </div>

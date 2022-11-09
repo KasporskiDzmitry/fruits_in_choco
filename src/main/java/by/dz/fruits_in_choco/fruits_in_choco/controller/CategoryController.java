@@ -1,7 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.CategoryMapper;

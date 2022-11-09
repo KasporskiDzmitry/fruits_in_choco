@@ -2,6 +2,8 @@ package by.dz.fruits_in_choco.fruits_in_choco.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.AttributeConverter;
@@ -10,6 +12,7 @@ import java.util.Map;
 @Service
 public class HashMapConverter implements AttributeConverter<Map<String, Object>, String> {
     private final ObjectMapper objectMapper;
+    private final static Logger log = LogManager.getLogger(HashMapConverter.class);
 
     public HashMapConverter(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -21,7 +24,7 @@ public class HashMapConverter implements AttributeConverter<Map<String, Object>,
         try {
             attributesJson = objectMapper.writeValueAsString(attributes);
         } catch (final JsonProcessingException e) {
-            System.out.println("JSON writing error");
+            log.error("JSON writing error", e);
         }
 
         return attributesJson;
@@ -33,7 +36,7 @@ public class HashMapConverter implements AttributeConverter<Map<String, Object>,
         try {
             attributes = objectMapper.readValue(attributesJson, Map.class);
         } catch (final IOException e) {
-            System.out.println("JSON reading error");
+            log.error("JSON reading error", e);
         }
 
         return attributes;

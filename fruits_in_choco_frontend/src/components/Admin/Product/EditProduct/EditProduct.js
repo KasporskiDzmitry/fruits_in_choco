@@ -9,7 +9,7 @@ import {connect, useDispatch, useSelector} from "react-redux";
 import Rating from "@material-ui/lab/Rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
-import {useHistory} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {
     approveReview,
     deleteReview,
@@ -90,14 +90,14 @@ EditProductReduxForm = connect(
 
 const EditProduct = (props) => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const {pathname} = useLocation();
     const product = useSelector(state => state.productReducer.product);
     const isProductUpdating = useSelector(state => state.productReducer.isProductUpdating)
     const isReviewAccepting = useSelector(state => state.productReducer.isReviewAccepting)
     const isReviewDeleting = useSelector(state => state.productReducer.isReviewDeleting)
 
     useEffect(() => {
-        dispatch(loadProductById(history.location.pathname.split('/').pop()));
+        dispatch(loadProductById(pathname.split('/').pop()));
     }, [])
 
     const onSubmit = formData => {

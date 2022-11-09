@@ -1,36 +1,22 @@
-import React, { Component} from 'react';
-import PropTypes from 'prop-types';
-import sematable, {makeSelectors, Table} from 'sematable';
+import React from 'react';
 import ProductTableActions from "./ProductTableActions";
 import Reviews from "./Reviews";
+import MaterialTable from "material-table";
 
 const columns = [
-    { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
-    { key: 'name', header: 'Название', sortable: true, searchable: true },
-    { key: 'price', header: 'Цена', sortable: true },
-    { key: 'category', header: 'Категория', sortable: true },
-    { key: 'reviews', header: 'Отзывы', Component: Reviews },
-    { key: 'status', header: 'Статус', sortable: true},
-    { key: 'actions', header: 'Actions', Component: ProductTableActions }
+    { title: 'id', field: 'id'},
+    { title: 'name', field: 'name'},
+    { title: 'price', field: 'price'},
+    { title: 'category', field: 'category'},
+    { title: 'reviews', render: row => <Reviews row={row} /> },
+    { title: 'status', field: 'status'},
+    { title: 'actions', render: row => <ProductTableActions row={row}/> }
 ];
 
-const propTypes = {
-    headers: PropTypes.object.isRequired,
-    data: PropTypes.array.isRequired,
-    primaryKey: PropTypes.string.isRequired,
-};
-
-class ProductTable extends Component {
-    render() {
-        return (
-            <Table
-                {...this.props}
-                selectable
-                columns={columns}
-            />
-        );
-    }
+const ProductTable = (props) => {
+    return (
+        <MaterialTable columns={columns} data={props.data} title="Products" options={{search: true}}/>
+    );
 }
 
-ProductTable.propTypes = propTypes;
-export default sematable('productTable', ProductTable, columns);
+export default ProductTable

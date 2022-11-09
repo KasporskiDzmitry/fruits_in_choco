@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import style from './Header.module.scss';
 import appStyle from '../../App.module.scss';
 import {Link, NavLink, useLocation} from "react-router-dom";
@@ -13,10 +13,23 @@ import {scrollToTarget} from "../utils/routes";
 const Header = (props) => {
     const {pathname} = useLocation();
     const dispatch = useDispatch();
+    const header = useRef(null);
 
     const productsInCart = localStorage.products ? JSON.parse(localStorage.products) : [];
 
-    return <header className={`${appStyle.sectionOuter} ${style.sectionHeader}`}>
+    useEffect(() => {
+        const scroll = () => {
+            if (window.scrollY > 0) {
+                header.current.classList.add(style.mainPage)
+            } else {
+                header.current.classList.remove(style.mainPage)
+            }
+        }
+        window.addEventListener("scroll", () => scroll())
+        return window.removeEventListener("scroll", scroll);
+    }, [])
+
+    return <header ref={header} className={`${appStyle.sectionOuter} ${style.sectionHeader} ${pathname !== "/" && style.withBack}`}>
         <div className={`${appStyle.sectionInner} ${style.sectionInner}`}>
             <div className={style.toggleNavBtn}>
                 <i className="fa fa-bars">Кнопка меню для телефона</i>

@@ -1,7 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity.category;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 

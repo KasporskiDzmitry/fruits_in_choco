@@ -6,7 +6,7 @@ import {required} from "../utils/validators/validators";
 import {Button} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {makeOrder} from "../../redux/thunks/order_thunks";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const OrderForm = ({handleSubmit, error}) => {
     return (
@@ -43,7 +43,7 @@ const OrderReduxForm = reduxForm({form: 'order'})(OrderForm);
 
 const Order = (props) => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const cart = useSelector(state => state.cartReducer.cart);
 
     const onSubmit = formData => {
@@ -54,7 +54,7 @@ const Order = (props) => {
             productIds: Object.fromEntries(new Map(cart.map(p => [p.id, p.quantity])))
         }
         console.log(order)
-        dispatch(makeOrder(order, history));
+        dispatch(makeOrder(order, navigate));
     }
 
     return <>

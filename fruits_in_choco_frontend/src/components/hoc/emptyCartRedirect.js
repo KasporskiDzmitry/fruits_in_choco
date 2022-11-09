@@ -1,6 +1,6 @@
 import React from "react";
-import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
+import {redirect} from "react-router-dom";
 
 const mapStateToPropsForRedirect = state => ({
     cart: state.cartReducer.cart
@@ -9,7 +9,7 @@ const mapStateToPropsForRedirect = state => ({
 export const emptyCartRedirect = Component => {
     class EmptyCartRedirectComponent extends React.Component {
         render() {
-            if (this.props.cart.length === 0) return <Redirect to={'/cart'}/>
+            if (this.props.cart.length === 0) return redirect('/cart')
             return <Component {...this.props} />
         }
     }

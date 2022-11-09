@@ -1,32 +1,29 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import sematable, {Table} from 'sematable';
-import OrderTableActions from "./OrderTableActions";
+import React from 'react';
+import MaterialTable from "material-table";
+import {NavLink} from "react-router-dom";
 
 const columns = [
-    { key: 'id', header: 'ID', sortable: true, searchable: true, primaryKey: true },
-    { key: 'name', header: 'Название', sortable: true, searchable: true },
-    { key: 'price', header: 'Цена', sortable: true, searchable: true },
-    { key: 'date', header: 'Дата', sortable: true, searchable: true },
-    { key: 'status', header: 'Статус', sortable: true, searchable: true },
-    { key: 'actions', header: 'Actions', Component: OrderTableActions }
+    { title: 'id', field: 'id'},
+    { title: 'name', field: 'name'},
+    { title: 'price', field: 'price'},
+    { title: 'date', field: 'date'},
+    { title: 'status', field: 'status'},
+    { title: 'actions', render: row => <OrderTableActions row={row} />}
 ];
 
-const propTypes = {
-    headers: PropTypes.object.isRequired,
-    data: PropTypes.array.isRequired,
-    primaryKey: PropTypes.string.isRequired,
-};
+const OrderTableActions = (props) => {
+    const row = props.row;
+    return (
+        <div>
+            <NavLink to={`/profile/admin/orders/${row.id}`}>Info</NavLink>
+        </div>
+    );
+}
 
 const OrderTable = (props) => {
         return (
-            <Table
-                {...props}
-                selectable
-                columns={columns}
-            />
+            <MaterialTable columns={columns} data={props.data} title="Orders" options={{search: true}}/>
         );
 }
 
-OrderTable.propTypes = propTypes;
-export default sematable('orderTable', OrderTable, columns);
+export default OrderTable

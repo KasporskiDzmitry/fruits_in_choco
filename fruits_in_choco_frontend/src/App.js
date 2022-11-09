@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Routes, useLocation} from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -45,6 +45,7 @@ const App = (props) => {
 
     useNotifier();
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const isSignInSignUpPopUpShow = useSelector(state => state.appReducer.isSignInSignUpPopUpShow);
     const initialized = useSelector(state => state.appReducer.initialized);
@@ -68,23 +69,23 @@ const App = (props) => {
         <ScrollToTopButton/>
         <Header newReviews={newReviews} newOrders={newOrders}/>
         <React.Suspense fallback={<Preloader/>}>
-            <Switch>
+            <Routes>
                 <Route exact path='/'
-                       render={() => <Main/>}/>
+                       element={<Main/>}/>
                 <Route path='/shop'
-                       render={() => <Shop/>}/>
+                       element={<Shop/>}/>
                 <Route path='/products/:id'
-                       render={() => <ProductPage/>}/>
-                <Route path='/profile'
-                       render={() => <ProfilePage newReviews={newReviews} newOrders={newOrders}/>}/>
+                       element={<ProductPage/>}/>
+                <Route path='/profile/*'
+                       element={<ProfilePage newReviews={newReviews} newOrders={newOrders}/>}/>
                 <Route exact path='/cart'
-                       render={() => <CartPage/>}/>
+                       element={<CartPage/>}/>
                 <Route exact path='/order'
-                       render={() => <Order />}/>
+                       element={<Order/>}/>
                 <Route exact path='/order/success'
-                       render={() => <OrderSuccess/>}/>
-                <Route render={() => <NotFound/>}/>
-            </Switch>
+                       element={<OrderSuccess/>}/>
+                <Route element={<NotFound/>}/>
+            </Routes>
         </React.Suspense>
         <Footer/>
     </>

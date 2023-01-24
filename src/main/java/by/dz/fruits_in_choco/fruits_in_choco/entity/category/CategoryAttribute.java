@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class CategoryAttribute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;
+    private short id;
 
     @Column(name = "attribute_name")
     private String attributeName;

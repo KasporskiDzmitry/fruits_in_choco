@@ -6,7 +6,7 @@ import java.util.Map;
 
 @Data
 public class OrderRequest {
-    private Short userId;
+    private short userId;
     private String firstname;
     private String lastname;
     private String email;

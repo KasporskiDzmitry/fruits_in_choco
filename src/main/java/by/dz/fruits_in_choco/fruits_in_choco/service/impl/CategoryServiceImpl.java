@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category updateCategory(Category newCategory, Short id) {
+    public Category updateCategory(Category newCategory, short id) {
         return categoryRepository.findById(id)
                 .map(category -> {
                     category.setName(newCategory.getName());
@@ -65,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategoryById(Short id) {
+    public void deleteCategoryById(short id) {
         try {
             categoryRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
@@ -74,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategoryById(Short id) {
+    public Category getCategoryById(short id) {
         Category category = categoryRepository.findById(id).orElse(null);
         if (null == category) {
             throw new EntityNotFoundException(Category.class.getSimpleName(), id);

@@ -37,6 +37,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoginationInProcess: false,
+                isAuth: true,
                 ...action.payload
             }
         }
@@ -57,6 +58,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: action.token,
+                isAuth: true,
                 isTokenFetching: false
             }
         }

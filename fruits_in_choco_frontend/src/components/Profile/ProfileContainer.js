@@ -7,6 +7,7 @@ import Preloader from "../common/Preloader/Preloader";
 import {getProfile} from "../../redux/thunks/profile_thunks";
 import Admin from "../Admin/Admin";
 import {USER_ROLE_ADMIN} from "../utils/constants";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -38,5 +39,6 @@ const mapStateToProps = state => ({
 
 export default compose (
     connect(mapStateToProps, {getProfile}),
-    withRouter
+    withRouter,
+    withAuthRedirect
 )(ProfileContainer)

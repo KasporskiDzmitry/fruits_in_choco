@@ -7,6 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {saveProductToCart} from "../../../redux/thunks/cart_thunks";
+import Rating from "@material-ui/lab/Rating";
 
 const ProductCard = ({product}) => {
     const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const ProductCard = ({product}) => {
         </Card.Body>
         <Card.Footer className={style.cardFooter}>
             <div className={style.cardPrice}>{product.price} руб.</div>
+            <Rating name="starsRating" value={parseInt(product.avgRating)} readOnly/>
             <Button className={toCartButtonClassName} disabled={isProductInCart(product.id)}
                     onClick={cartButtonClickHandler}>
                 {

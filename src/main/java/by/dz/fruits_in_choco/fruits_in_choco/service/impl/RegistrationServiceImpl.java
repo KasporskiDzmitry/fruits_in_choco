@@ -51,8 +51,6 @@ public class RegistrationServiceImpl implements RegistrationService {
             user.setActivationToken(tokenProvider.createActivationAccountToken(UUID.randomUUID().toString(), validity));
             user.setCart(cartRepository.save(new Cart()));
 
-            System.out.println(user.getRole().getClass().getName());
-
             userRepository.save(user);
 
             String appUrl = request.getContextPath();

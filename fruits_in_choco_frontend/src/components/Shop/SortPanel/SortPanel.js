@@ -18,7 +18,10 @@ const SortPanel = ({products}) => {
             const sortedProducts = [...products].sort((a, b) => {
                 if (sortBy === 'price') {
                     return parseFloat(a.price) - parseFloat(b.price);
-                } else {
+                } else if (sortBy === 'rating') {
+                    return parseInt(a.avgRating) - parseInt(b.avgRating);
+                }
+                else {
                     return a.name.localeCompare(b.name)
                 }
             });
@@ -40,6 +43,7 @@ const SortPanel = ({products}) => {
             <Form.Select className={style.selectArea} aria-label="Default select example" onChange={selectSortBy}>
                 <option value="price">цене</option>
                 <option value="name">алфавиту</option>
+                <option value="rating">популярности</option>
             </Form.Select>
             {isAscSort ?
                 <span className={style.sortArrow} onClick={selectIsAscSort}>&uarr;</span> :

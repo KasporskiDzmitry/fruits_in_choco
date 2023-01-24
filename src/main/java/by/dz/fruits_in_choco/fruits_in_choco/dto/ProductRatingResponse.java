@@ -7,10 +7,10 @@ import java.util.Date;
 
 @Data
 public class ProductRatingResponse {
-    private Short id;
-    private Short authorId;
+    private short id;
+    private short authorId;
     private String author;
-    private Short rating;
+    private short rating;
     private Product product;
     private String message;
     private boolean approved;

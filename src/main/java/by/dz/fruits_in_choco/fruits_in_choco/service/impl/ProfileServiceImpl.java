@@ -58,10 +58,10 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void deleteFromCart(Short id, String email) {
+    public void deleteFromCart(short id, String email) {
         User user = userRepository.findByEmail(email);
         Cart cart = user.getCart();
-        Short cartItemId = cart.getCartItems().stream().filter(i -> i.getProduct().getId().equals(id)).collect(Collectors.toList()).get(0).getId();
+        Short cartItemId = cart.getCartItems().stream().filter(i -> i.getProduct().getId() == id).collect(Collectors.toList()).get(0).getId();
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElse(null);
 
         if (null == cartItem) {

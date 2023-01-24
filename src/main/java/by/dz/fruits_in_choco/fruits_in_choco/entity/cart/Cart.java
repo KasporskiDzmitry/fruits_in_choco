@@ -14,9 +14,9 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;
+    private short id;
 
-    private Short quantity;
+    private short quantity;
 
     private float price;
 

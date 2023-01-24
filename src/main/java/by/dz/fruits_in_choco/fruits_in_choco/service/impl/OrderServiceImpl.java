@@ -85,7 +85,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrderById(Short id) {
+    public Order getOrderById(short id) {
         Order order = orderRepository.findById(id).orElse(null);
         if (null == order) {
             throw new EntityNotFoundException(Order.class.getSimpleName(), id);
@@ -94,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteOrderById(Short id) {
+    public void deleteOrderById(short id) {
         try {
             orderRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
@@ -103,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order updateOrder(Order newOrder, Short id) {
+    public Order updateOrder(Order newOrder, short id) {
         return orderRepository.findById(id)
                 .map(order -> {
                     order.setOrderItems(newOrder.getOrderItems());

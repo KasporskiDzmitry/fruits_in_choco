@@ -68,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Short id) {
+    public Product getProductById(short id) {
         Product product = productRepository.findById(id).orElse(null);
 
         if (product == null) {
@@ -98,7 +98,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Product newProduct, Short id) {
+    public Product updateProduct(Product newProduct, short id) {
         return productRepository.findById(id)
                 .map(product -> {
                     product.setName(newProduct.getName());
@@ -108,6 +108,7 @@ public class ProductServiceImpl implements ProductService {
                     product.setStatus(newProduct.getStatus());
                     product.setImageURL(newProduct.getImageURL());
                     product.setAttributes(newProduct.getAttributes());
+                    product.setAvgRating(newProduct.getAvgRating());
                     return productRepository.save(product);
                 })
                 .orElseGet(() -> {
@@ -117,7 +118,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProductById(Short id) {
+    public void deleteProductById(short id) {
         Product product = productRepository.findById(id).orElse(null);
 
         if (null == product) {
@@ -147,7 +148,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product rateProduct(ProductRatingRequest request, Short id) {
+    public Product rateProduct(ProductRatingRequest request, short id) {
         Product product = productRepository.findById(id).orElse(null);
 
         if (null == product) {
@@ -185,8 +186,22 @@ public class ProductServiceImpl implements ProductService {
         return filterUnapprovedRatings(product);
     }
 
+    private Short calculateAvgRating(Product product) {
+        List<Short> ratings = product.getRatings()
+                .stream()
+                .map(ProductRating::getRating)
+                .collect(Collectors.toList());
+
+        short sum = 0;
+        for (short i : ratings) {
+            sum += i;
+        }
+
+        return (short) Math.round((double) sum / ratings.size());
+    }
+
     @Override
-    public Product approveReview(ProductRatingRequest newRating, Short productId, Short ratingId) {
+    public Product approveReview(ProductRatingRequest newRating, short productId, short ratingId) {
         ProductRating rating = productRatingRepository.findById(ratingId).orElse(null);
 
         if (null == rating) {
@@ -203,24 +218,29 @@ public class ProductServiceImpl implements ProductService {
             throw new EntityNotFoundException(Product.class.getSimpleName(), productId);
         }
 
-        return product;
+        product.setAvgRating(calculateAvgRating(product));
+        return productRepository.save(product);
     }
 
     @Override
-    public void deleteProductRatingById(Short productId, Short ratingId) {
+    public void deleteProductRatingById(short productId, short ratingId) {
         Product product = productRepository.findById(productId).orElse(null);
 
         if (null == product) {
             throw new EntityNotFoundException(Product.class.getSimpleName(), productId);
         }
 
-        product.getRatings().removeIf(rating -> rating.getId().equals(ratingId));
+        product.getRatings().removeIf(rating -> rating.getId() == ratingId);
 
         ProductRating rating = productRatingRepository.findById(ratingId).orElse(null);
 
         if (null == rating) {
             throw new EntityNotFoundException(ProductRating.class.getSimpleName(), ratingId);
         }
+
+        product.setAvgRating(calculateAvgRating(product));
+        productRepository.save(product);
+
         Short userId = rating.getAuthorId();
         User user = userRepository.findById(userId).orElse(null);
 
@@ -228,8 +248,7 @@ public class ProductServiceImpl implements ProductService {
             throw new EntityNotFoundException(User.class.getSimpleName(), userId);
         }
 
-         user.getRatings().removeIf(item -> item.getId().equals(ratingId));
-
+        user.getRatings().removeIf(item -> item.getId() == ratingId);
         productRatingRepository.deleteById(ratingId);
     }
 }

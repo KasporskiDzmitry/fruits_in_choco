@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Short id) {
+    public User getUserById(short id) {
         User user = userRepository.findById(id).orElse(null);
         if (null == user) {
             throw new EntityNotFoundException(User.class.getSimpleName(), id);

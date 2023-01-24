@@ -25,6 +25,7 @@ const ProductPage = () => {
 
     const isInCart = isProductInCart(product?.id);
 
+
     return <div className={`${appStyle.sectionOuter} ${style.productPageWrapper}`}>
         <div className={`${appStyle.sectionInner}`}>
             {!product ?
@@ -42,7 +43,7 @@ const ProductPage = () => {
                         <div className={style.infoTextWrapper}>
                             <h3>{product.name}</h3>
                             <div className={style.ratingWrapper}>
-                                <Rating name="starsRating" value={2} readOnly/>
+                                <Rating name="starsRating" value={parseInt(product.avgRating)} readOnly/>
                                 <Typography className={style.reviews} component="legend">Reviews</Typography>
                             </div>
                             <h2>{product.price}</h2>

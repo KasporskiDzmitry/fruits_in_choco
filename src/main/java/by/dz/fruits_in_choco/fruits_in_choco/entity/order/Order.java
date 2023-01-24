@@ -17,7 +17,7 @@ public class Order {
     private short id;
 
     @Column(name = "user_id")
-    private Short userId;
+    private short userId;
 
     private String firstname;
 

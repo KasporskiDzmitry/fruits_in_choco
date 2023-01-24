@@ -11,9 +11,9 @@ import javax.persistence.*;
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;
+    private short id;
 
-    private Short quantity;
+    private short quantity;
 
     @OneToOne
     @JoinColumn(name = "product_id")

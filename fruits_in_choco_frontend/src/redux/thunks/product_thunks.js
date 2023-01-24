@@ -101,7 +101,10 @@ export const approveReview = (review, productId) => async dispatch => {
         const response = await RequestService.put(`/admin/products/${productId}/ratings/${review.id}`, review, true);
         dispatch(acceptReviewSuccess());
         dispatch(enqueueSnackbar("Review approved successfully", "success"));
-        dispatch(loadProductById(productId));
+        dispatch(loadProductById(productId)); //TODO: think about updating logic. Is it necessary here?
+        dispatch(loadProducts());
+        // dispatch(updateProductBegin())
+        // dispatch(updateProductSuccess(response.data))
     } catch (e) {
         dispatch(enqueueSnackbar("Error while approving review", "error"));
         dispatch(acceptReviewFailure());

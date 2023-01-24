@@ -8,7 +8,7 @@ import java.util.Map;
 public interface OrderService {
     Order makeOrder(Order order, Map<Short, Short> products);
     List<Order> getAllOrders();
-    Order getOrderById(Short id);
-    void deleteOrderById(Short id);
-    Order updateOrder(Order order, Short id);
+    Order getOrderById(short id);
+    void deleteOrderById(short id);
+    Order updateOrder(Order order, short id);
 }

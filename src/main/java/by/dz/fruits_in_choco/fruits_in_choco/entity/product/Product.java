@@ -20,7 +20,7 @@ import java.util.Map;
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;
+    private short id;
 
     private String name;
 
@@ -29,6 +29,8 @@ public class Product implements Serializable {
     private float price;
 
     private String imageURL;
+
+    private short avgRating;
 
     @SuppressWarnings("JpaAttributeTypeInspection")
     @Column(name = "attributes", columnDefinition = "json")
@@ -60,6 +62,7 @@ public class Product implements Serializable {
                 ", ratings=" + ratings +
                 ", status=" + status +
                 ", attributes=" + attributes +
+                ", avgRating=" + avgRating +
                 '}';
     }
 }

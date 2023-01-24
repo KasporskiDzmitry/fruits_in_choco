@@ -8,13 +8,14 @@ import java.util.Map;
 
 @Data
 public class ProductResponse {
-    private Short id;
+    private short id;
     private String name;
     private String description;
     private int price;
     private String status;
     private String imageURL;
-    private Short categoryId;
+    private short categoryId;
     private List<ProductRating> ratings;
     private Map<String, Object> attributes;
+    private short avgRating;
 }

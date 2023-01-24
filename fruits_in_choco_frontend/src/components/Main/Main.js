@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import appStyle from '../../App.module.scss';
 import {scrollToTarget} from "../utils/routes";
+import Contacts from "../Contacts/Contacts";
 
 const Main = () => {
     const dispatch = useDispatch();
@@ -72,14 +73,9 @@ const Main = () => {
                 </div>
             </div>
         </div>
-        <div id={"contacts"} className={`${appStyle.sectionOuter} ${style.aboutSection}`}>
+        <div id={"contacts"} className={`${appStyle.sectionOuter} ${style.contactsSection}`}>
             <div className={`${appStyle.sectionInner}`}>
-                <div className={style.heading}>
-                    <h1>Контакты</h1>
-                </div>
-                <div>
-                    Телефон
-                </div>
+                <Contacts />
             </div>
         </div>
 

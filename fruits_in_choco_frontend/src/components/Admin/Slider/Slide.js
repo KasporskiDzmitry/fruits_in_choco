@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from "react";
 import style from "./Slider.module.scss";
 import {Button} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import {updateSlide} from "../../../redux/thunks/slide_thunks";
 
 const Slide = ({slide, removeSlide}) => {
+    const dispatch = useDispatch();
     const [isEditMode, setIsEditMode] = useState(false);
     const [data, setData] = useState(slide);
 
@@ -14,7 +17,7 @@ const Slide = ({slide, removeSlide}) => {
     const onSubmit = (e) => {
         e.preventDefault();
         toggleEditMode(e);
-        console.log(data)
+        dispatch(updateSlide(data))
     }
 
     const onChange = (e) => {

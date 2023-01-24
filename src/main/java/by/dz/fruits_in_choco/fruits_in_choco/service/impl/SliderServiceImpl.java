@@ -28,7 +28,7 @@ public class SliderServiceImpl implements SliderService {
     }
 
     @Override
-    public Slide updateSlide(Slide newSlide, Short id) {
+    public Slide updateSlide(Slide newSlide, short id) {
         return sliderRepository.findById(id)
                 .map(slide -> {
                     slide.setTitle(newSlide.getTitle());
@@ -44,7 +44,7 @@ public class SliderServiceImpl implements SliderService {
     }
 
     @Override
-    public void deleteSlide(Short id) {
+    public void deleteSlide(short id) {
         try {
             sliderRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {

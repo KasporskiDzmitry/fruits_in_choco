@@ -19,7 +19,7 @@ export const init = () => async dispatch => {
             localStorage.removeItem('name');
             localStorage.removeItem('role');
             localStorage.removeItem('userId');
-            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('isAuth');
             console.log(e);
             dispatch(fetchRefreshTokenFailure(e));
         }
@@ -54,4 +54,8 @@ export const init = () => async dispatch => {
     await Promise.all([dispatch(loadCategories())]);
     dispatch(initializedSuccess());
 };
+
+export const sendEmail = (email) => async dispatch => {
+
+}
 

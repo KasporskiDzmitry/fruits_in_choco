@@ -4,6 +4,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.CategoryMapper;
+import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.CategoryServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,7 @@ import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 @RequestMapping("/api/v1")
 public class CategoryController {
     private final static Logger log = LogManager.getLogger(CategoryController.class);
-    private final CategoryServiceImpl categoryService;
+    private final CategoryService categoryService;
     private final CategoryMapper mapper;
 
     public CategoryController(CategoryServiceImpl categoryService, CategoryMapper mapper) {
@@ -26,7 +27,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{id}")
-    public ResponseEntity<?> getCategoryById(@PathVariable Short id) {
+    public ResponseEntity<?> getCategoryById(@PathVariable short id) {
         try {
             return ResponseEntity.ok(mapper.getCategoryById(id));
         } catch (EntityNotFoundException e) {
@@ -52,13 +53,13 @@ public class CategoryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/admin/categories/{id}")
-    public ResponseEntity<?> updateCategory(@RequestBody Category category, @PathVariable Short id) {
+    public ResponseEntity<?> updateCategory(@RequestBody Category category, @PathVariable short id) {
         return ResponseEntity.ok(categoryService.updateCategory(category, id));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/admin/categories/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Short id) {
+    public ResponseEntity<?> deleteCategory(@PathVariable short id) {
         try {
             categoryService.deleteCategoryById(id);
             return ResponseEntity.ok(200);

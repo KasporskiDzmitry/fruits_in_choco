@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class CategoryMapper {
-
     private final CategoryService service;
     private final ModelMapper modelMapper;
 

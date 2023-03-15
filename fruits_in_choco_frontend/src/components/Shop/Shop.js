@@ -15,7 +15,7 @@ const Shop = () => {
     const {pathname, state} = useLocation();
     const dispatch = useDispatch();
     const path = pathname.split('/');
-    const categoryId = state.categoryId;
+    const categoryId = state?.categoryId || 1;
     const products = useSelector(state => state.productReducer.products);
     const isProductsFetching = useSelector(state => state.productReducer.isProductsFetching);
     const filteredProducts = useSelector(state => state.filterReducer.products);

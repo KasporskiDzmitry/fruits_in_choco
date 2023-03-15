@@ -1,10 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.RegistrationRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProfileService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.RegistrationService;
@@ -57,10 +55,6 @@ public class UserMapper {
 
     public UserResponse updateProfile(UserRequest userRequest) {
         return mapToResponseDTO(profileService.updateProfile(convertToEntity(userRequest)));
-    }
-
-    public Product addToCart(ProductRequest request, String email) {
-        return profileService.addToCart(productMapper.mapToEntity(request), request.getQuantity(), email);
     }
 
     public String register(RegistrationRequest registrationRequest, HttpServletRequest request) {

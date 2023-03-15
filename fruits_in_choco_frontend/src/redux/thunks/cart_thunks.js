@@ -11,7 +11,7 @@ import {
     addToCartFailure,
     addToCartSuccess,
     deleteFromCartBegin, deleteFromCartFailure, deleteFromCartSuccess,
-    removeFromCartLocally, updateProductInCart
+    removeFromCartLocally, updateProductInCart, updateServerCartBegin, updateServerCartSuccess, updateServerCartFailure
 } from "../actions/cart_actions";
 
 const postToServerCart = (product) => async dispatch => {
@@ -25,6 +25,17 @@ const postToServerCart = (product) => async dispatch => {
     }
 }
 
+const updateServerCart = (product) => async dispatch => {
+    try {
+        dispatch(updateServerCartBegin());
+        const response = await RequestService.put('/profile/cart', product, true);
+        dispatch(updateServerCartSuccess());
+    } catch (e) {
+        console.log(e);
+        dispatch(updateServerCartFailure(e));
+    }
+}
+
 export const saveProductToCart = (product) => async dispatch => {
     const productDTO = {...product, quantity: 1}
     if (!isProductInCart(product.id)) {
@@ -32,7 +43,7 @@ export const saveProductToCart = (product) => async dispatch => {
         dispatch(addToCartLocally(productDTO));
 
         if (localStorage.name) {
-            postToServerCart(productDTO);
+            dispatch(postToServerCart(productDTO));
         }
     }
 }
@@ -83,13 +94,17 @@ export const synchronizeCarts = (cart) => async dispatch => {
 
 export const incrProduct = (product) => dispatch => {
     increaseQuantity(product.id);
-    dispatch(updateProductInCart({...product, quantity: product.quantity + 1}));
+    const productToUpdate = {...product, quantity: product.quantity + 1}
+    dispatch(updateProductInCart(productToUpdate));
+    dispatch(updateServerCart(productToUpdate))
 }
 
 export const decrProduct = (product) => dispatch => {
     if (product.quantity > 1) {
         decreaseQuantity(product.id);
-        dispatch(updateProductInCart({...product, quantity: product.quantity - 1}));
+        const productToUpdate = {...product, quantity: product.quantity - 1}
+        dispatch(updateServerCart(productToUpdate))
+        dispatch(updateProductInCart(productToUpdate));
     }
 }
 

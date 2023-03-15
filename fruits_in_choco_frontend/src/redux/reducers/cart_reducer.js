@@ -3,12 +3,13 @@ import {
     ADD_PRODUCT_TO_CART_SUCCESS,
     CLEAR_CART, DELETE_FROM_CART_BEGIN, DELETE_FROM_CART_FAILURE, DELETE_FROM_CART_SUCCESS,
     REMOVE_FROM_CART_LOCALLY,
-    UPDATE_PRODUCT_IN_CART
+    UPDATE_PRODUCT_IN_CART, UPDATE_SERVER_CART_BEGIN, UPDATE_SERVER_CART_FAILURE, UPDATE_SERVER_CART_SUCCESS
 } from "../action_types/cart_action_types";
 
 const initialState = {
     isCartFetching: false,
     isProductSavingToCart: false,
+    isServerCartUpdating: false,
     isProductDeletingFromCart: false,
     error: null,
     cart: localStorage.products ? JSON.parse(localStorage.products) : []
@@ -45,6 +46,25 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 error: action.error.error,
                 isProductSavingToCart: false
+            }
+        }
+        case UPDATE_SERVER_CART_BEGIN: {
+            return {
+                ...state,
+                isServerCartUpdating: true
+            }
+        }
+        case UPDATE_SERVER_CART_SUCCESS: {
+            return {
+                ...state,
+                isServerCartUpdating: false
+            }
+        }
+        case UPDATE_SERVER_CART_FAILURE: {
+            return {
+                ...state,
+                error: action.error.error,
+                isServerCartUpdating: false
             }
         }
         case UPDATE_PRODUCT_IN_CART: {

@@ -1,6 +1,5 @@
 import React from 'react';
 import style from './CartLayout.module.scss'
-import {removeProductFromCart} from "../utils/localStorageFunctions";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Button} from "react-bootstrap";
@@ -38,10 +37,6 @@ const CartLayout = (props) => {
 
 const CartItem = (item) => {
     const dispatch = useDispatch();
-    //
-    // const removeItem = () => {
-    //     dispatch(deleteFromCart(id));
-    // }
 
     const decrementHandler = () => {
         dispatch(decrProduct(item));

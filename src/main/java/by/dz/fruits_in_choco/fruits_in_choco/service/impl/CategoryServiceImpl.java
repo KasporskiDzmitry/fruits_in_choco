@@ -18,7 +18,6 @@ import java.util.List;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
-
     private final CategoryRepository categoryRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
 

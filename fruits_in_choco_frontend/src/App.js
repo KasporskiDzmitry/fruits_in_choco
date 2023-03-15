@@ -37,7 +37,7 @@ const App = (props) => {
     // componentDidMount() {
     //     this.props.init();
     //     // window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
-    // }
+    // }1
     //
     // componentWillUnmount() {
     //     // window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
@@ -81,7 +81,7 @@ const App = (props) => {
                 <Route exact path='/cart'
                        element={<CartPage/>}/>
                 <Route exact path='/order'
-                       element={<Order/>}/>
+                       element={<OrderPage/>}/>
                 <Route exact path='/order/success'
                        element={<OrderSuccess/>}/>
                 <Route element={<NotFound/>}/>

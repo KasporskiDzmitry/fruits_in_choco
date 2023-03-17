@@ -54,8 +54,3 @@ export const init = () => async dispatch => {
     await Promise.all([dispatch(loadCategories())]);
     dispatch(initializedSuccess());
 };
-
-export const sendEmail = (email) => async dispatch => {
-
-}
-

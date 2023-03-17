@@ -5,6 +5,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Status;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
+import by.dz.fruits_in_choco.fruits_in_choco.mapper.CartMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.AuthService;
@@ -22,16 +23,19 @@ public class AuthServiceImpl implements AuthService {
     private Long tokenValidity;
     @Value("${jwt.expirationRefresh}")
     private Long refreshTokenValidity;
+    private final CartMapper cartMapper;
 
 
-    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
+    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, CartMapper cartMapper) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.cartMapper = cartMapper;
     }
 
     @Override
     public AuthenticationResponse login(String email, HttpServletResponse response) {
         User user = userRepository.findByEmail(email);
+
         if (user == null) {
             throw new EntityNotFoundException("User doesn't exist");
         }
@@ -49,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
                 .role(user.getRole().name())
                 .name(user.getFirstName() + " " + user.getLastName())
                 .id(user.getId())
-                .cart(user.getCart())
+                .cart(cartMapper.mapToResponseDTO(user.getCart()))
                 .build();
     }
 

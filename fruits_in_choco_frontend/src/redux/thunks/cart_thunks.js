@@ -67,7 +67,6 @@ export const deleteFromCart = (id) => async dispatch => {
 export const synchronizeCarts = (cart) => async dispatch => {
     const cartFromDB = cart.cartItems.map(i => ({...i.product, quantity: i.quantity}));
 
-
     let productsInLS = localStorage.products;
     let products = [];
     if (productsInLS) {
@@ -75,7 +74,7 @@ export const synchronizeCarts = (cart) => async dispatch => {
 
         for (let i = 0; i < products.length; i++) {
             if (!cartFromDB.find(p => p.id === products[i].id)) {
-                postToServerCart(products[i]);
+                dispatch(postToServerCart(products[i]));
             }
         }
     }
@@ -87,24 +86,23 @@ export const synchronizeCarts = (cart) => async dispatch => {
     }
 }
 
-// export const removeItem = (product) => dispatch => {
-//     removeProductFromCart(product.id);
-//     dispatch(removeFromCartLocally(product.id));
-// }
-
 export const incrProduct = (product) => dispatch => {
     increaseQuantity(product.id);
     const productToUpdate = {...product, quantity: product.quantity + 1}
     dispatch(updateProductInCart(productToUpdate));
-    dispatch(updateServerCart(productToUpdate))
+    if (localStorage.name) {
+        dispatch(updateServerCart(productToUpdate))
+    }
 }
 
 export const decrProduct = (product) => dispatch => {
     if (product.quantity > 1) {
         decreaseQuantity(product.id);
         const productToUpdate = {...product, quantity: product.quantity - 1}
-        dispatch(updateServerCart(productToUpdate))
         dispatch(updateProductInCart(productToUpdate));
+        if (localStorage.name) {
+            dispatch(updateServerCart(productToUpdate))
+        }
     }
 }
 

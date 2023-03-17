@@ -29,9 +29,7 @@ public class CartServiceImpl implements CartService {
     public CartItem updateCart(String email, Product product, short quantity) {
         Cart cart = userRepository.findByEmail(email).getCart();
         CartItem cartItem = cart.getCartItems().stream().filter(i -> i.getProduct().getId() == product.getId()).collect(Collectors.toList()).get(0);
-        System.out.println(cart.getCartItems());
         cartItem.setQuantity(quantity);
-        System.out.println(cart.getCartItems());
 
         cartItemRepository.save(cartItem);
 

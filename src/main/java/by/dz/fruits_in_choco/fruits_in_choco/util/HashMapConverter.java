@@ -4,12 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.AttributeConverter;
 import java.io.IOException;
 import java.util.Map;
-@Service
+
+@Component
 public class HashMapConverter implements AttributeConverter<Map<String, Object>, String> {
     private final ObjectMapper objectMapper;
     private final static Logger log = LogManager.getLogger(HashMapConverter.class);

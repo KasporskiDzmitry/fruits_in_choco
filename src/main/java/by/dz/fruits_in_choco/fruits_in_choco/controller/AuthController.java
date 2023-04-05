@@ -23,10 +23,12 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthServiceImpl authService;
     private final Logger log = LogManager.getLogger(AuthController.class);
+    private final CookieCreator cookieCreator;
 
-    public AuthController(AuthenticationManager authenticationManager, AuthServiceImpl authService) {
+    public AuthController(AuthenticationManager authenticationManager, AuthServiceImpl authService, CookieCreator cookieCreator) {
         this.authenticationManager = authenticationManager;
         this.authService = authService;
+        this.cookieCreator = cookieCreator;
     }
 
     @PostMapping("/login")
@@ -56,7 +58,7 @@ public class AuthController {
         try {
             SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
             securityContextLogoutHandler.logout(request, response, null);
-            response.addCookie(CookieCreator.createRefreshTokenCookie(null, 0));
+            response.addCookie(cookieCreator.createRefreshTokenCookie(null, 0));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.error("Logout process failed", e);

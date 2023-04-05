@@ -24,12 +24,14 @@ public class AuthServiceImpl implements AuthService {
     @Value("${jwt.expirationRefresh}")
     private Long refreshTokenValidity;
     private final CartMapper cartMapper;
+    private final CookieCreator cookieCreator;
 
 
-    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, CartMapper cartMapper) {
+    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, CartMapper cartMapper, CookieCreator cookieCreator) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.cartMapper = cartMapper;
+        this.cookieCreator = cookieCreator;
     }
 
     @Override
@@ -46,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
         String token = jwtTokenProvider.createToken(email, user.getRole().name(), tokenValidity);
         String refreshToken = jwtTokenProvider.createToken(email, user.getRole().name(), refreshTokenValidity);
 
-        response.addCookie(CookieCreator.createRefreshTokenCookie(refreshToken, Math.toIntExact(refreshTokenValidity)));
+        response.addCookie(cookieCreator.createRefreshTokenCookie(refreshToken, Math.toIntExact(refreshTokenValidity)));
 
         return AuthenticationResponse.builder().email(email)
                 .token(token)
@@ -65,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
             throw new EntityNotFoundException("User doesn't exist");
         }
 
-        response.addCookie(CookieCreator.createRefreshTokenCookie(
+        response.addCookie(cookieCreator.createRefreshTokenCookie(
                 jwtTokenProvider.createToken(user.getEmail(), user.getRole().name(), refreshTokenValidity),
                 Math.toIntExact(refreshTokenValidity)));
         return jwtTokenProvider.createToken(user.getEmail(), user.getRole().name(), tokenValidity);

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class UserRequest {
-    private short id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;

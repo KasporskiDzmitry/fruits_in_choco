@@ -1,6 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.AuthServiceImpl;
 import by.dz.fruits_in_choco.fruits_in_choco.util.CookieCreator;
@@ -11,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +35,8 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-            return ResponseEntity.ok(authService.login(request.getEmail(), response));
+            AuthenticationResponse response1 = authService.login(request.getEmail(), response);
+            return ResponseEntity.ok(response1);
         } catch (AuthenticationException | EntityNotFoundException e) {
             log.error("Login process for user with email " + request.getEmail() + " failed", e);
             return ResponseEntity.status(403).body(e.getMessage());
@@ -56,8 +57,7 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
         try {
-            SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
-            securityContextLogoutHandler.logout(request, response, null);
+            authService.logout(request, response);
             response.addCookie(cookieCreator.createRefreshTokenCookie(null, 0));
             return ResponseEntity.ok().build();
         } catch (Exception e) {

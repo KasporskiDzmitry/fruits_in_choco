@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class CategoryResponse {
-    private short id;
+    private Long id;
     private String name;
     private String description;
     private String imageURL;

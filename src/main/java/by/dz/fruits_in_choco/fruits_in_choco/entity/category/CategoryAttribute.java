@@ -6,12 +6,12 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Data
-@Entity
+@Entity(name = "CategoryAttribute")
 @Table(name = "category_attribute")
 public class CategoryAttribute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private short id;
+    private Long id;
 
     @Column(name = "attribute_name")
     private String attributeName;

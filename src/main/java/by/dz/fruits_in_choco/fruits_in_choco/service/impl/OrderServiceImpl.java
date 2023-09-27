@@ -36,22 +36,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order makeOrder(Order order, Map<Short, Short> products) {
+    public Order makeOrder(Order order, Map<Long, Integer> products) {
         List<OrderItem> orderItemList = new ArrayList<>();
-        Short userId = order.getUserId();
-        User user = userRepository.findById(userId).orElse(null);
+        Long userId = order.getUserId();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(User.class.getSimpleName(), userId));
 
-        if (null == user) {
-            throw new EntityNotFoundException(User.class.getSimpleName(), userId);
-        }
-
-        for (Map.Entry<Short, Short> entry: products.entrySet()) {
-            Short productId = entry.getKey();
-            Product product = productRepository.findById(productId).orElse(null);
-
-            if (null == product) {
-                throw new EntityNotFoundException(Product.class.getSimpleName(), productId);
-            }
+        for (Map.Entry<Long, Integer> entry : products.entrySet()) {
+            Long productId = entry.getKey();
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(() -> new EntityNotFoundException(Product.class.getSimpleName(), productId));
 
             OrderItem item = new OrderItem();
             item.setProduct(product);
@@ -63,18 +57,15 @@ public class OrderServiceImpl implements OrderService {
         order.getOrderItems().addAll(orderItemList);
 
         user.getOrders().add(order);
-        user.getCart().setCartItems(null);
-        user.getCart().setQuantity((short) 0);
-        user.getCart().setPrice((float) 0);
 
         orderRepository.save(order);
 
-        Notification notification = Notification.builder()
+        user.getCart().clear();
+
+        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", Notification.builder()
                 .date(new Date())
                 .type(NOTIFICATION_ORDER)
-                .build();
-
-        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", notification);
+                .build());
 
         return order;
     }
@@ -85,42 +76,37 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrderById(short id) {
-        Order order = orderRepository.findById(id).orElse(null);
-        if (null == order) {
-            throw new EntityNotFoundException(Order.class.getSimpleName(), id);
-        }
-        return order;
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Order.class.getSimpleName(), id));
     }
 
     @Override
-    public void deleteOrderById(short id) {
+    public void deleteOrderById(Long id) {
         try {
+            Order order = orderRepository.getById(id);
+            User user = userRepository.getById(order.getUserId());
+            user.getOrders().removeIf(o -> o.getId() == id);
             orderRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-             throw new EntityNotFoundException(Order.class.getSimpleName(), id);
+            throw new EntityNotFoundException(Order.class.getSimpleName(), id);
         }
     }
 
     @Override
-    public Order updateOrder(Order newOrder, short id) {
-        return orderRepository.findById(id)
-                .map(order -> {
-                    order.setOrderItems(newOrder.getOrderItems());
-                    order.setFirstname(newOrder.getFirstname());
-                    order.setEmail(newOrder.getEmail());
-                    order.setStatus(newOrder.getStatus());
-                    order.setDate(newOrder.getDate());
-                    order.setAgreeToSendingMessages(newOrder.isAgreeToSendingMessages());
-                    order.setPhone(newOrder.getPhone());
-                    order.setLastname(newOrder.getLastname());
-                    order.setPrice(newOrder.getPrice());
-                    order.setUserId(newOrder.getUserId());
-                    return orderRepository.save(order);
-                })
-                .orElseGet(() -> {
-                    newOrder.setId(id);
-                    return orderRepository.save(newOrder);
-                });
+    public Order updateOrder(Order newOrder, Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Order.class.getSimpleName(), id));
+        order.setOrderItems(newOrder.getOrderItems());
+        order.setFirstname(newOrder.getFirstname());
+        order.setEmail(newOrder.getEmail());
+        order.setStatus(newOrder.getStatus());
+        order.setDate(newOrder.getDate());
+        order.setAgreeToSendingMessages(newOrder.isAgreeToSendingMessages());
+        order.setPhone(newOrder.getPhone());
+        order.setLastname(newOrder.getLastname());
+        order.setPrice(newOrder.getPrice());
+        order.setUserId(newOrder.getUserId());
+        return orderRepository.save(order);
     }
 }

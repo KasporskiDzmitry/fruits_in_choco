@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).get();
     }
 
     @Override
@@ -31,12 +31,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(short id) {
-        User user = userRepository.findById(id).orElse(null);
-        if (null == user) {
-            throw new EntityNotFoundException(User.class.getSimpleName(), id);
-        }
-        return user;
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(()
+                -> new EntityNotFoundException(User.class.getSimpleName(), id));
     }
 
 }

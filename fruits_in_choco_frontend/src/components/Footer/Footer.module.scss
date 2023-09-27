@@ -1,5 +1,53 @@
+@import "src/App.module";
+
 .footer {
-    background-color: peru;
-    height: 50px;
     width: 100%;
+    background-color: rgba(49, 101, 103, 0.05);
+
+    .footerWrapper {
+        padding: 100px 0 50px 0;
+        display: flex;
+        justify-content: space-between;
+
+        .logoWrapper {
+            height: 80%;
+            width: 225px; // TODO: change to em
+
+            img {
+                height: auto;
+                width: 100%;
+            }
+        }
+
+        nav, .contactsWrapper {
+            @include flexCenter;
+            font-size: 20px;
+
+            div {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+            }
+        }
+
+        .socialNetworksWrapper {
+            @include flexCenter;
+
+            img {
+                width: 50px;
+                margin-bottom: 20px;
+                cursor: pointer;
+
+                &:hover {
+                    filter: invert(54%) sepia(68%) saturate(5938%) hue-rotate(338deg) brightness(102%) contrast(92%);
+                }
+            }
+        }
+    }
+
+    .copyright {
+        text-align: center;
+        padding: 20px;
+    }
 }

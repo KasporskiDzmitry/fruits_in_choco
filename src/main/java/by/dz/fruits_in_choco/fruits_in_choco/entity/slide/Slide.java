@@ -5,13 +5,13 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Data
-@Entity
+@Entity(name = "Slide")
 @Table(name = "slide")
 public class Slide {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private short id;
+    private Long id;
 
     private String title;
 

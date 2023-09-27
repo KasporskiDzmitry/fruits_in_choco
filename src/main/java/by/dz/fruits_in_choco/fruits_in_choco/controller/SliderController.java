@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/slide")
 public class SliderController {
@@ -21,25 +23,25 @@ public class SliderController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getSlides() {
+    public ResponseEntity<List<Slide>> getSlides() {
         return ResponseEntity.ok(sliderService.getSlides());
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> saveSlide(@RequestBody Slide slide) {
+    public ResponseEntity<Slide> saveSlide(@RequestBody Slide slide) {
         return ResponseEntity.ok(sliderService.saveSlide(slide));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> updateSlide(@RequestBody Slide slide, @PathVariable Short id) {
+    public ResponseEntity<Slide> updateSlide(@RequestBody Slide slide, @PathVariable Long id) {
         return ResponseEntity.ok(sliderService.updateSlide(slide, id));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> deleteSlide(@PathVariable Short id) {
+    public ResponseEntity<?> deleteSlide(@PathVariable Long id) {
         try {
             sliderService.deleteSlide(id);
             return ResponseEntity.ok(200);

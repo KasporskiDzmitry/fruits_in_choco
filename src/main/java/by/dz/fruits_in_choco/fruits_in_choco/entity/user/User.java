@@ -10,12 +10,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@Entity
+@Entity(name = "User")
 @Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private short id;
+    private Long id;
 
     private String email;
 
@@ -38,16 +38,20 @@ public class User {
     @Column(name = "activationtoken")
     private String activationToken;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductRating> ratings;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Order> orders;
 
     @OneToOne
-    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    @JoinColumn(name = "cart_id")
     @JsonManagedReference
     private Cart cart;
+
+    @OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "user", orphanRemoval = true)
+    @JsonManagedReference
+    private List<Token> tokens;
 
     @Override
     public String toString() {
@@ -63,6 +67,7 @@ public class User {
                 ", ratings=" + ratings +
                 ", orders=" + orders +
                 ", cartId=" + cart.getId() +
+                ", tokens=" + tokens +
                 '}';
     }
 }

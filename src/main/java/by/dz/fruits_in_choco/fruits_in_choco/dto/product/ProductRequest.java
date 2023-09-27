@@ -9,15 +9,15 @@ import java.util.Map;
 
 @Data
 public class ProductRequest {
-    private short categoryId;
+    private Long categoryId;
     private String description;
-    private short id;
+    private Long id;
     private String imageURL;
     private String name;
     private List<ProductRating> ratings;
     private ProductStatus status;
-    private short quantity;
+    private int quantity;
     private float price;
     private Map<String, Object> attributes;
-    private short avgRating;
+    private int avgRating;
 }

@@ -6,14 +6,14 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Data
-@Entity
+@Entity(name = "OrderItem")
 @Table(name = "order_item")
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private short id;
+    private Long id;
 
-    private short quantity;
+    private int quantity;
 
     @OneToOne
     @JoinColumn(name = "product_id")

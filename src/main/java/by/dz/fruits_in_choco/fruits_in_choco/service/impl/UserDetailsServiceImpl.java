@@ -1,6 +1,5 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.SecurityUser;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,11 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("User doesn't exists");
-        }
-        return SecurityUser.fromUser(user);
+        return SecurityUser.fromUser(userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User doesn't exists")));
     }
 
 }

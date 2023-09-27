@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = new Category();
         category.setName(request.getName());
         category.setDescription(request.getDescription());
-        category.setAttributes(new ArrayList<>());
+        category.setAttributes(request.getAttributes());
         category.setImageURL(request.getImageURL());
         Category savedCategory = categoryRepository.save(category);
         for (CategoryAttribute attribute: request.getAttributes()) {
@@ -48,23 +49,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category updateCategory(Category newCategory, short id) {
-        return categoryRepository.findById(id)
-                .map(category -> {
-                    category.setName(newCategory.getName());
-                    category.setDescription(newCategory.getDescription());
-                    category.setImageURL(newCategory.getImageURL());
-                    category.setAttributes(newCategory.getAttributes());
-                    return categoryRepository.save(category);
-                })
-                .orElseGet(() -> {
-                    newCategory.setId(id);
-                    return categoryRepository.save(newCategory);
-                });
+    public Category updateCategory(Category newCategory, Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Category.class.getSimpleName(), id));
+        category.setName(newCategory.getName());
+        category.setDescription(newCategory.getDescription());
+        category.setImageURL(newCategory.getImageURL());
+        category.setAttributes(newCategory.getAttributes());
+        return categoryRepository.save(category);
     }
 
     @Override
-    public void deleteCategoryById(short id) {
+    public void deleteCategoryById(Long id) {
         try {
             categoryRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
@@ -73,11 +69,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategoryById(short id) {
-        Category category = categoryRepository.findById(id).orElse(null);
-        if (null == category) {
-            throw new EntityNotFoundException(Category.class.getSimpleName(), id);
-        }
-        return category;
+    public Category getCategoryById(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Category.class.getSimpleName(), id));
     }
 }

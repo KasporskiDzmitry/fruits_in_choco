@@ -28,23 +28,19 @@ public class SliderServiceImpl implements SliderService {
     }
 
     @Override
-    public Slide updateSlide(Slide newSlide, short id) {
-        return sliderRepository.findById(id)
-                .map(slide -> {
-                    slide.setTitle(newSlide.getTitle());
-                    slide.setText(newSlide.getText());
-                    slide.setImageURL(newSlide.getImageURL());
-                    slide.setHref(newSlide.getHref());
-                    return sliderRepository.save(slide);
-                })
-                .orElseGet(() -> {
-                    newSlide.setId(id);
-                    return sliderRepository.save(newSlide);
-                });
+    public Slide updateSlide(Slide newSlide, Long id) {
+        Slide slide = sliderRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Slide.class.getSimpleName(), id));
+
+        slide.setTitle(newSlide.getTitle());
+        slide.setText(newSlide.getText());
+        slide.setImageURL(newSlide.getImageURL());
+        slide.setHref(newSlide.getHref());
+        return sliderRepository.save(slide);
     }
 
     @Override
-    public void deleteSlide(short id) {
+    public void deleteSlide(Long id) {
         try {
             sliderRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {

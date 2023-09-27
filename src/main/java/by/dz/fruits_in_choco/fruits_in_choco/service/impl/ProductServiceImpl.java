@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -68,12 +69,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(short id) {
-        Product product = productRepository.findById(id).orElse(null);
-
-        if (product == null) {
-            throw new EntityNotFoundException(Product.class.getSimpleName(), id);
-        }
+    public Product getProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Product.class.getSimpleName(), id));
 
         if (!isAuthenticatedAndAdmin()) {
             product = filterUnapprovedRatings(product);
@@ -87,7 +85,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsFilteredByCategories(List<Short> categories) {
+    public List<Product> getProductsFilteredByCategories(List<Long> categories) {
         List<Product> products = productRepository.findByCategory_IdIn(categories);
         return products.stream().filter(this::isProductActive).map(this::filterUnapprovedRatings).collect(Collectors.toList());
     }
@@ -98,46 +96,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Product newProduct, short id) {
-        return productRepository.findById(id)
-                .map(product -> {
-                    product.setName(newProduct.getName());
-                    product.setDescription(newProduct.getDescription());
-                    product.setPrice(newProduct.getPrice());
-                    product.setRatings(newProduct.getRatings());
-                    product.setStatus(newProduct.getStatus());
-                    product.setImageURL(newProduct.getImageURL());
-                    product.setAttributes(newProduct.getAttributes());
-                    product.setAvgRating(newProduct.getAvgRating());
-                    return productRepository.save(product);
-                })
-                .orElseGet(() -> {
-                    newProduct.setId(id);
-                    return productRepository.save(newProduct);
-                });
+    public Product updateProduct(Product newProduct, Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Product.class.getSimpleName(), id));
+
+        product.setName(newProduct.getName());
+        product.setDescription(newProduct.getDescription());
+        product.setPrice(newProduct.getPrice());
+        product.setRatings(newProduct.getRatings());
+        product.setStatus(newProduct.getStatus());
+        product.setImageURL(newProduct.getImageURL());
+        product.setAttributes(newProduct.getAttributes());
+        product.setAvgRating(newProduct.getAvgRating());
+        return productRepository.save(product);
     }
 
     @Override
-    public void deleteProductById(short id) {
-        Product product = productRepository.findById(id).orElse(null);
-
-        if (null == product) {
-            throw new EntityNotFoundException(Product.class.getSimpleName(), id);
-        }
+    @Transactional
+    public void deleteProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Product.class.getSimpleName(), id));
 
         OrderItem orderItem = orderItemRepository.findByProduct_Id(id);
 
         if (orderItem != null) {
             product.setStatus(ProductStatus.DELETED);
-            productRepository.save(product);
         } else {
             List<ProductRating> ratings = product.getRatings();
             for (ProductRating rating : ratings) {
-                User user = userRepository.findById(rating.getAuthorId()).orElse(null);
-
-                if (null == user) {
-                    throw new EntityNotFoundException(User.class.getSimpleName(), rating.getAuthorId());
-                }
+                User user = userRepository.findById(rating.getAuthorId())
+                        .orElseThrow(() -> new EntityNotFoundException(User.class.getSimpleName(), rating.getAuthorId()));
 
                 List<ProductRating> userRatingsList = user.getRatings();
                 userRatingsList.remove(rating);
@@ -148,18 +136,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product rateProduct(ProductRatingRequest request, short id) {
-        Product product = productRepository.findById(id).orElse(null);
+    @Transactional
+    public Product rateProduct(ProductRatingRequest request, Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Product.class.getSimpleName(), id));
 
-        if (null == product) {
-            throw new EntityNotFoundException(Product.class.getSimpleName(), id);
-        }
-
-        User user = userRepository.findById(request.getUserId()).orElse(null);
-
-        if (null == user) {
-            throw new EntityNotFoundException(User.class.getSimpleName(), request.getUserId());
-        }
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException(User.class.getSimpleName(), request.getUserId()));
 
         ProductRating rating = new ProductRating();
 
@@ -174,81 +157,47 @@ public class ProductServiceImpl implements ProductService {
         product.getRatings().add(rating);
         user.getRatings().add(rating);
 
-        productRatingRepository.save(rating);
-
-        Notification notification = Notification.builder()
+        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", Notification.builder()
                 .date(new Date())
                 .type(NOTIFICATION_REVIEW)
-                .build();
-
-        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", notification);
+                .build());
 
         return filterUnapprovedRatings(product);
     }
 
-    private Short calculateAvgRating(Product product) {
-        List<Short> ratings = product.getRatings()
-                .stream()
-                .map(ProductRating::getRating)
-                .collect(Collectors.toList());
-
-        short sum = 0;
-        for (short i : ratings) {
-            sum += i;
-        }
-
-        return (short) Math.round((double) sum / ratings.size());
-    }
-
     @Override
-    public Product approveReview(ProductRatingRequest newRating, short productId, short ratingId) {
-        ProductRating rating = productRatingRepository.findById(ratingId).orElse(null);
-
-        if (null == rating) {
-            throw new EntityNotFoundException(ProductRating.class.getSimpleName(), ratingId);
-        }
+    @Transactional
+    public Product approveReview(ProductRatingRequest newRating, Long productId, Long ratingId) {
+        ProductRating rating = productRatingRepository.findById(ratingId)
+                .orElseThrow(() -> new EntityNotFoundException(ProductRating.class.getSimpleName(), ratingId));
 
         rating.setApproved(newRating.isApproved());
         rating.setMessage(newRating.getMessage());
 
-        productRatingRepository.save(rating);
-        Product product = productRepository.findById(productId).orElse(null);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException(Product.class.getSimpleName(), productId));
 
-        if (null == product) {
-            throw new EntityNotFoundException(Product.class.getSimpleName(), productId);
-        }
-
-        product.setAvgRating(calculateAvgRating(product));
-        return productRepository.save(product);
+        product.calcAverageRating();
+        return product;
     }
 
     @Override
-    public void deleteProductRatingById(short productId, short ratingId) {
-        Product product = productRepository.findById(productId).orElse(null);
-
-        if (null == product) {
-            throw new EntityNotFoundException(Product.class.getSimpleName(), productId);
-        }
+    @Transactional
+    public void deleteProductRatingById(Long productId, Long ratingId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException(Product.class.getSimpleName(), productId));
 
         product.getRatings().removeIf(rating -> rating.getId() == ratingId);
 
-        ProductRating rating = productRatingRepository.findById(ratingId).orElse(null);
+        ProductRating rating = productRatingRepository.findById(ratingId)
+                .orElseThrow(() -> new EntityNotFoundException(ProductRating.class.getSimpleName(), ratingId));
 
-        if (null == rating) {
-            throw new EntityNotFoundException(ProductRating.class.getSimpleName(), ratingId);
-        }
+        product.calcAverageRating();
 
-        product.setAvgRating(calculateAvgRating(product));
-        productRepository.save(product);
-
-        Short userId = rating.getAuthorId();
-        User user = userRepository.findById(userId).orElse(null);
-
-        if (null == user) {
-            throw new EntityNotFoundException(User.class.getSimpleName(), userId);
-        }
+        Long userId = rating.getAuthorId();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(User.class.getSimpleName(), userId));
 
         user.getRatings().removeIf(item -> item.getId() == ratingId);
-        productRatingRepository.deleteById(ratingId);
     }
 }

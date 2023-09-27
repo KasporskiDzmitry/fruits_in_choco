@@ -9,6 +9,6 @@ public class CategoryRequest {
     private String name;
     private String description;
     private String imageURL;
-    private List<String> products;
+//    private List<String> products;
     private List<CategoryAttribute> attributes;
 }

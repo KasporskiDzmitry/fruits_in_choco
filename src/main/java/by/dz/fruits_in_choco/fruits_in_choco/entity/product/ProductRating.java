@@ -10,20 +10,20 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Entity
+@Entity(name = "ProductRating")
 @Table(name = "rating")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ProductRating.class)
 public class ProductRating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private short id;
+    private Long id;
 
     private String author;
 
     @Column(name = "author_id")
-    private short authorId;
+    private Long authorId;
 
-    private short rating;
+    private int rating;
 
     private String message;
 

@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/v1")
@@ -26,13 +28,13 @@ public class OrderController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/orders")
-    public ResponseEntity<?> getAllOrders() {
+    public ResponseEntity<List<Order>> getAllOrders() {
         return ResponseEntity.ok(orderService.getAllOrders());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/orders/{id}")
-    public ResponseEntity<?> getOrderById(@PathVariable Short id) {
+    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(orderService.getOrderById(id));
         } catch (EntityNotFoundException e) {
@@ -43,7 +45,7 @@ public class OrderController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/orders/{id}")
-    public ResponseEntity<?> deleteOrderById(@PathVariable Short id) {
+    public ResponseEntity<?> deleteOrderById(@PathVariable Long id) {
         try {
             orderService.deleteOrderById(id);
             return ResponseEntity.ok(200);
@@ -65,7 +67,7 @@ public class OrderController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/orders/{id}")
-    public ResponseEntity<?> updateOrder(@RequestBody Order order, @PathVariable Short id) {
+    public ResponseEntity<Order> updateOrder(@RequestBody Order order, @PathVariable Long id) {
         return ResponseEntity.ok(orderService.updateOrder(order, id));
     }
 }

@@ -9,15 +9,15 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Entity
+@Entity(name = "Order")
 @Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private short id;
+    private Long id;
 
     @Column(name = "user_id")
-    private short userId;
+    private Long userId;
 
     private String firstname;
 

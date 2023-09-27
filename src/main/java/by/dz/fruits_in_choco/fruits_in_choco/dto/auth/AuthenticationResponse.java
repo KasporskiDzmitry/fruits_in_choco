@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AuthenticationResponse {
-    private short id;
+    private Long id;
     private String email;
     private String token;
     private String refreshToken;

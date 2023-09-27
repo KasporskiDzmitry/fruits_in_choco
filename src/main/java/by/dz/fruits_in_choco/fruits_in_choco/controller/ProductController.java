@@ -1,6 +1,7 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductSearchRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
@@ -12,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 
@@ -28,7 +31,7 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<?> getProducts(
+    public ResponseEntity<List<ProductResponse>> getProducts(
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE) int page,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
             @RequestParam(required = false, defaultValue = DEFAULT_SORT_BY_FIELD) String sortBy,
@@ -37,7 +40,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<?> getProductById(@PathVariable Short id) {
+    public ResponseEntity<?> getProductById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(mapper.getProductById(id));
         } catch (EntityNotFoundException | ProductDeletedException e) {
@@ -47,25 +50,25 @@ public class ProductController {
     }
 
     @PostMapping("/products/search")
-    public ResponseEntity<?> getProductsFilteredByCategories(@RequestBody ProductSearchRequest request) {
+    public ResponseEntity<List<ProductResponse>> getProductsFilteredByCategories(@RequestBody ProductSearchRequest request) {
         return ResponseEntity.ok(mapper.getProductsFilteredByCategories(request.getCategories()));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/admin/products")
-    public ResponseEntity<?> saveProduct(@RequestBody Product product) {
+    public ResponseEntity<ProductResponse> saveProduct(@RequestBody Product product) {
         return ResponseEntity.ok(mapper.saveProduct(product));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/admin/products/{id}")
-    public ResponseEntity<?> updateProduct(@RequestBody Product product, @PathVariable Short id) {
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id) {
         return ResponseEntity.ok(productService.updateProduct(product, id));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/admin/products/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Short id) {
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         try {
             productService.deleteProductById(id);
             return ResponseEntity.ok(200);
@@ -77,7 +80,7 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/products/{id}/ratings")
-    public ResponseEntity<?> rateProduct(@RequestBody ProductRatingRequest request, @PathVariable Short id) {
+    public ResponseEntity<?> rateProduct(@RequestBody ProductRatingRequest request, @PathVariable Long id) {
         try {
             return ResponseEntity.ok(mapper.rateProduct(request, id));
         } catch (EntityNotFoundException e) {
@@ -88,7 +91,7 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/admin/products/{productId}/ratings/{ratingId}")
-    public ResponseEntity<?> approveRating(@RequestBody ProductRatingRequest rating, @PathVariable Short productId, @PathVariable Short ratingId) {
+    public ResponseEntity<?> approveRating(@RequestBody ProductRatingRequest rating, @PathVariable Long productId, @PathVariable Long ratingId) {
         try {
             return ResponseEntity.ok(productService.approveReview(rating, productId, ratingId));
         } catch (EntityNotFoundException e) {
@@ -99,7 +102,7 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/admin/products/{productId}/ratings/{ratingId}")
-    public ResponseEntity<?> deleteRating(@PathVariable Short productId, @PathVariable Short ratingId) {
+    public ResponseEntity<?> deleteRating(@PathVariable Long productId, @PathVariable Long ratingId) {
         try {
             productService.deleteProductRatingById(productId, ratingId);
             return ResponseEntity.ok(200);

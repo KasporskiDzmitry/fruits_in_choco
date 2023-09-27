@@ -26,6 +26,7 @@ const ProductPage = React.lazy(() => import('./components/Shop/ProductPage/Produ
 const CartPage = React.lazy(() => import('./components/Cart/Cart'));
 const OrderPage = React.lazy(() => import('./components/Order/Order'));
 const OrderSuccess = React.lazy(() => import('./components/OrderSuccess/OrderSuccess'));
+const LoginPage = React.lazy(() => import('./components/Login/Login'))
 const Order = emptyCartRedirect(OrderPage);
 
 const App = (props) => {
@@ -72,6 +73,8 @@ const App = (props) => {
             <Routes>
                 <Route exact path='/'
                        element={<Main/>}/>
+                <Route exact path='/login'
+                       element={<LoginPage />} />
                 <Route path='/shop'
                        element={<Shop/>}/>
                 <Route path='/products/:id'

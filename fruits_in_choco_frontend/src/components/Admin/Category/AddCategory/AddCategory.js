@@ -7,12 +7,11 @@ import {addCategory} from "../../../../redux/thunks/category_thunks";
 
 const AddCategoryReduxForm = reduxForm({form: 'add_category'})(CategoryForm);
 
-const AddCategory = (props) => {
+const AddCategory = () => {
     const dispatch = useDispatch();
 
     const onSubmit = formData => {
-        const attributes = formData.attributes.map(i => ({attributeName: i}));
-        dispatch(addCategory({...formData, attributes: attributes}));
+        dispatch(addCategory({...formData, attributes: formData.attributes || []}));
     };
 
     return <div className={style.addCategoryContainer}>

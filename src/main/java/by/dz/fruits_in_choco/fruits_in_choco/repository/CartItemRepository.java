@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 
 @Repository
-@Transactional
-public interface CartItemRepository extends JpaRepository<CartItem, Short> {
+//@Transactional // TODO: why here?
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 }

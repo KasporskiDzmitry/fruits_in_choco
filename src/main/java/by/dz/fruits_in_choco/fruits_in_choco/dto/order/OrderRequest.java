@@ -6,12 +6,12 @@ import java.util.Map;
 
 @Data
 public class OrderRequest {
-    private short userId;
+    private Long userId;
     private String firstname;
     private String lastname;
     private String email;
     private String phone;
     private float price;
     private Boolean isAgreeToSendingMessages;
-    private Map<Short, Short> productIds;
+    private Map<Long, Integer> productIds;
 }

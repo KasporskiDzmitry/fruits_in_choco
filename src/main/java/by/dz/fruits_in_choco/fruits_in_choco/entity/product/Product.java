@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@Entity
+@Entity(name = "Product")
 @Table(name = "product")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Product.class)
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private short id;
+    private Long id;
 
     private String name;
 
@@ -30,7 +30,7 @@ public class Product implements Serializable {
 
     private String imageURL;
 
-    private short avgRating;
+    private int avgRating;
 
     @SuppressWarnings("JpaAttributeTypeInspection")
     @Column(name = "attributes", columnDefinition = "json")
@@ -46,9 +46,17 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
     @JsonManagedReference
     List<ProductRating> ratings;
+
+    public void calcAverageRating() {
+        int sum = 0;
+        for (ProductRating rating : this.ratings) {
+            sum += rating.getRating();
+        }
+        this.avgRating = this.ratings.size() > 0 ? Math.round(sum / this.ratings.size()) : 0;
+    }
 
     @Override
     public String toString() {

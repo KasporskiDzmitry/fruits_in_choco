@@ -1,5 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.UserMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.UserServiceImpl;
@@ -8,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 
@@ -25,7 +28,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/users")
-    public ResponseEntity<?> getUsers(
+    public ResponseEntity<List<User>> getUsers(
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE) int page,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
             @RequestParam(required = false, defaultValue = DEFAULT_SORT_BY_FIELD) String sortBy,
@@ -35,7 +38,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/users/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Short id) {
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(userMapper.getUserById(id));
         } catch (EntityNotFoundException e) {

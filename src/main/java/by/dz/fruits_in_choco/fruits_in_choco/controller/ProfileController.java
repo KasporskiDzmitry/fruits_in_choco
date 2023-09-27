@@ -2,6 +2,9 @@ package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserRequest;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.user.UserResponse;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.cart.CartItem;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.ProductMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.UserMapper;
@@ -34,31 +37,31 @@ public class ProfileController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/profile")
-    public ResponseEntity<?> getProfile(Authentication authentication) {
+    public ResponseEntity<UserResponse> getProfile(Authentication authentication) {
         return ResponseEntity.ok(userMapper.getProfile(authentication.getName()));
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @PutMapping("/profile")
-    public ResponseEntity<?> updateProfile(@RequestBody UserRequest newProfile) {
+    public ResponseEntity<UserResponse> updateProfile(@RequestBody UserRequest newProfile) {
         return ResponseEntity.ok(userMapper.updateProfile(newProfile));
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/profile/cart")
-    public ResponseEntity<?> addToCart(@RequestBody ProductRequest product, Authentication authentication) {
+    public ResponseEntity<Product> addToCart(@RequestBody ProductRequest product, Authentication authentication) {
         return ResponseEntity.ok(cartService.addToCart(productMapper.mapToEntity(product), product.getQuantity(), authentication.getName()));
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @PutMapping("/profile/cart")
-    public ResponseEntity<?> updateCart(@RequestBody ProductRequest request, Authentication authentication) {
+    public ResponseEntity<CartItem> updateCart(@RequestBody ProductRequest request, Authentication authentication) {
         return ResponseEntity.ok(cartService.updateCart(authentication.getName(), productMapper.mapToEntity(request), request.getQuantity()));
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @DeleteMapping("/profile/cart/{id}")
-    public ResponseEntity<?> deleteFromCart(@PathVariable Short id, Authentication authentication) {
+    public ResponseEntity<?> deleteFromCart(@PathVariable Long id, Authentication authentication) {
         try {
             cartService.deleteFromCart(id, authentication.getName());
             return ResponseEntity.ok(200);

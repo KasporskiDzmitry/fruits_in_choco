@@ -6,6 +6,10 @@ import appStyle from "../../../App.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {loadSlides} from "../../../redux/thunks/slide_thunks";
 
+// test
+import banner from "../../../assets/images/banner.png"
+//test
+
 const Slider = (props) => {
     const slides = useSelector(state => state.slideReducer.slides);
     const dispatch = useDispatch()
@@ -19,7 +23,7 @@ const Slider = (props) => {
             return <Carousel.Item key={slide.id}>
                 <img
                     className={style.sliderImage}
-                    src={slide.imageURL}
+                    src={banner}
                     alt="First slide"
                 />
                 <Carousel.Caption className={style.slideInfo}>

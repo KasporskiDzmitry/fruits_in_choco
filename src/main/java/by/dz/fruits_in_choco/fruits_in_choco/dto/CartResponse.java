@@ -8,16 +8,16 @@ import java.util.List;
 
 @Data
 public class CartResponse {
-    private short id;
-    private short quantity;
+    private Long id;
+    private int quantity;
     private float price;
     private List<CartItemResponse> cartItems;
     private User user;
 
     @Data
     private static class CartItemResponse {
-        private short id;
-        private short quantity;
+        private Long id;
+        private int quantity;
         private ProductResponse product;
     }
 }

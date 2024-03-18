@@ -22,28 +22,20 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartItem updateCart(String email, Product product, int quantity) {
         Cart cart = userRepository.findByEmail(email).get().getCart();
-        CartItem cartItem = cart.getCartItems().stream()
-                .filter(i -> i.getProduct().getId() == product.getId())
-                .collect(Collectors.toList())
-                .get(0);
-
-        cartItem.setQuantity(quantity);
-        cart.refresh();
-        return cartItem;
+        return cart.update(product, quantity);
     }
 
     @Override
     public Product addToCart(Product product, int quantity, String email) {
         Cart cart = userRepository.findByEmail(email).get().getCart();
-        cart.getCartItems().add(new CartItem(quantity, product));
-        cart.refresh();
+        cart.add(new CartItem(quantity, product));
+//        cart.refresh();
         return product;
     }
 
     @Override
     public void deleteFromCart(Long id, String email) {
         Cart cart = userRepository.findByEmail(email).get().getCart();
-        cart.getCartItems().removeIf(i -> i.getProduct().getId() == id);
-        cart.refresh();
+        cart.delete(id);
     }
 }

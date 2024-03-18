@@ -27,6 +27,6 @@ public class OrderMapper {
     }
 
     public OrderResponse makeOrder(OrderRequest orderRequest) {
-        return convertToResponseDto(orderService.makeOrder(convertToEntity(orderRequest), orderRequest.getProductIds()));
+        return convertToResponseDto(orderService.makeOrder(convertToEntity(orderRequest), orderRequest.productIds()));
     }
 }

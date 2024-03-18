@@ -34,11 +34,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-            AuthenticationResponse response1 = authService.login(request.getEmail(), response);
-            return ResponseEntity.ok(response1);
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
+            return ResponseEntity.ok(authService.login(request.email(), response));
         } catch (AuthenticationException | EntityNotFoundException e) {
-            log.error("Login process for user with email " + request.getEmail() + " failed", e);
+            log.error("Login process for user with email " + request.email() + " failed", e);
             return ResponseEntity.status(403).body(e.getMessage());
         }
     }

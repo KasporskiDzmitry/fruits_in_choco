@@ -46,7 +46,6 @@ public class RegistrationController {
             model.addAttribute("errorMessage", e.getMessage());
             return "registrationFailed";
         }
-        userMapper.confirmRegistration(token);
-        return "registrationComplete";
+        return userMapper.confirmRegistration(token);
     }
 }

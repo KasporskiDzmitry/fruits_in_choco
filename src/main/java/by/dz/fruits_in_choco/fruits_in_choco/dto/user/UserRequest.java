@@ -1,15 +1,14 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.user;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
-import lombok.Data;
 
 import java.util.List;
 
-@Data
-public class UserRequest {
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private List<ProductRating> ratings;
+public record UserRequest(
+        Long id,
+        String firstName,
+        String lastName,
+        String email,
+        List<ProductRating> ratings
+) {
 }

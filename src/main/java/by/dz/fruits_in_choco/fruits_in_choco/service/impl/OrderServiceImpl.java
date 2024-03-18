@@ -62,11 +62,7 @@ public class OrderServiceImpl implements OrderService {
 
         user.getCart().clear();
 
-        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", Notification.builder()
-                .date(new Date())
-                .type(NOTIFICATION_ORDER)
-                .build());
-
+        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", new Notification(new Date(), NOTIFICATION_ORDER));
         return order;
     }
 

@@ -141,15 +141,15 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Product.class.getSimpleName(), id));
 
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException(User.class.getSimpleName(), request.getUserId()));
+        User user = userRepository.findById(request.userId())
+                .orElseThrow(() -> new EntityNotFoundException(User.class.getSimpleName(), request.userId()));
 
         ProductRating rating = new ProductRating();
 
-        rating.setAuthor(request.getAuthor());
-        rating.setAuthorId(request.getUserId());
-        rating.setRating(request.getRating());
-        rating.setMessage(request.getMessage());
+        rating.setAuthor(request.author());
+        rating.setAuthorId(request.userId());
+        rating.setRating(request.rating());
+        rating.setMessage(request.message());
         rating.setDate(new Date());
         rating.setApproved(false);
         rating.setProduct(product);
@@ -157,11 +157,7 @@ public class ProductServiceImpl implements ProductService {
         product.getRatings().add(rating);
         user.getRatings().add(rating);
 
-        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", Notification.builder()
-                .date(new Date())
-                .type(NOTIFICATION_REVIEW)
-                .build());
-
+        simpMessagingTemplate.convertAndSendToUser("admin", "/notification", new Notification(new Date(), NOTIFICATION_REVIEW));
         return filterUnapprovedRatings(product);
     }
 
@@ -171,8 +167,8 @@ public class ProductServiceImpl implements ProductService {
         ProductRating rating = productRatingRepository.findById(ratingId)
                 .orElseThrow(() -> new EntityNotFoundException(ProductRating.class.getSimpleName(), ratingId));
 
-        rating.setApproved(newRating.isApproved());
-        rating.setMessage(newRating.getMessage());
+        rating.setApproved(newRating.approved());
+        rating.setMessage(newRating.message());
 
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new EntityNotFoundException(Product.class.getSimpleName(), productId));

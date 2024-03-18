@@ -1,17 +1,15 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.order;
 
-import lombok.Data;
-
 import java.util.Map;
 
-@Data
-public class OrderRequest {
-    private Long userId;
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String phone;
-    private float price;
-    private Boolean isAgreeToSendingMessages;
-    private Map<Long, Integer> productIds;
+public record OrderRequest(
+        Long userId,
+        String firstname,
+        String lastname,
+        String email,
+        String phone,
+        float price,
+        Boolean isAgreeToSendingMessages,
+        Map<Long, Integer> productIds
+) {
 }

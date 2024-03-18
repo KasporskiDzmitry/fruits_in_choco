@@ -1,11 +1,9 @@
 package by.dz.fruits_in_choco.fruits_in_choco.mapper;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingResponse;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.product.ProductResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.ProductRatingRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.ProductService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.CategoryServiceImpl;
@@ -55,21 +53,15 @@ public class ProductMapper {
         return mapToResponseDTO(service.rateProduct(request, id));
     }
 
-    public ProductRatingResponse mapToResponseDTO(ProductRating rating) {
-        return modelMapper.map(rating, ProductRatingResponse.class);
-    }
-
     public ProductResponse mapToResponseDTO(Product product) {
-        modelMapper.typeMap(Product.class, ProductResponse.class).addMappings(mapper -> {
-            mapper.map(src -> src.getCategory().getId(), ProductResponse::setCategoryId);
-        });
-        return modelMapper.map(product, ProductResponse.class);
+        ProductResponse response = modelMapper.map(product, ProductResponse.class);
+        response.setCategoryId(product.getCategory().getId());
+        return response;
     }
 
     public Product mapToEntity(ProductRequest request) {
-        modelMapper.typeMap(ProductRequest.class, Product.class).addMappings(mapper -> {
-            mapper.map(src -> categoryService.getCategoryById(request.getCategoryId()), Product::setCategory);
-        });
-        return modelMapper.map(request, Product.class);
+        Product entity = modelMapper.map(request, Product.class);
+        entity.setCategory(categoryService.getCategoryById(request.categoryId()));
+        return entity;
     }
 }

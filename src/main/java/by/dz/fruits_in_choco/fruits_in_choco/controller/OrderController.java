@@ -60,7 +60,7 @@ public class OrderController {
         try {
             return ResponseEntity.ok(orderMapper.makeOrder(orderRequest));
         } catch (EntityNotFoundException e) {
-            log.error("Failed to make order for user with email " + orderRequest.getEmail(), e);
+            log.error("Failed to make order for user with email " + orderRequest.email(), e);
             return ResponseEntity.status(404).body(e.getMessage());
         }
     }

@@ -36,12 +36,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category saveCategory(CategoryRequest request) {
         Category category = new Category();
-        category.setName(request.getName());
-        category.setDescription(request.getDescription());
-        category.setAttributes(request.getAttributes());
-        category.setImageURL(request.getImageURL());
+        category.setName(request.name());
+        category.setDescription(request.description());
+        category.setAttributes(request.attributes());
+        category.setImageURL(request.imageURL());
         Category savedCategory = categoryRepository.save(category);
-        for (CategoryAttribute attribute: request.getAttributes()) {
+        for (CategoryAttribute attribute: request.attributes()) {
             attribute.setCategory(savedCategory);
             savedCategory.getAttributes().add(categoryAttributeRepository.save(attribute));
         }

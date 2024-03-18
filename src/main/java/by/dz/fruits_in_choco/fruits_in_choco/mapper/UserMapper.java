@@ -39,9 +39,9 @@ public class UserMapper {
     }
 
     private UserResponse mapToResponseDTO(User user) {
-        modelMapper.typeMap(User.class, UserResponse.class).addMappings(mapper -> {
-            mapper.map(src -> user.getRatings().stream().map(productMapper::mapToResponseDTO).collect(Collectors.toList()), UserResponse::setRatings);
-        });
+//        modelMapper.typeMap(User.class, UserResponse.class).addMappings(mapper -> {
+//            mapper.map(src -> user.getRatings().stream().map(productMapper::mapToResponseDTO).collect(Collectors.toList()), UserResponse::setRatings);
+//        });
         return modelMapper.map(user, UserResponse.class);
     }
 

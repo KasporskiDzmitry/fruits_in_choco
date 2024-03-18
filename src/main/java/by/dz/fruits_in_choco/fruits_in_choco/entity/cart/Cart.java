@@ -1,5 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity.cart;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
@@ -27,6 +28,27 @@ public class Cart {
     @OneToOne(mappedBy = "cart")
     @JsonBackReference
     private User user;
+
+    public void add(CartItem cartItem) {
+        this.cartItems.add(cartItem);
+        refresh();
+    }
+
+    public CartItem update(Product product, int quantity) {
+        CartItem cartItem = this.getCartItems().stream()
+                .filter(i -> i.getProduct().getId() == product.getId())
+                .toList()
+                .get(0);
+
+        cartItem.setQuantity(quantity);
+        refresh();
+        return cartItem;
+    }
+
+    public void delete(Long id) {
+        this.getCartItems().removeIf(i -> i.getProduct().getId() == id);
+        refresh();
+    }
 
     public void refresh() {
         int quantity = 0;

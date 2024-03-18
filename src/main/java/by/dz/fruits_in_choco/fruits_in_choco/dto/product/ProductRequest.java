@@ -2,22 +2,21 @@ package by.dz.fruits_in_choco.fruits_in_choco.dto.product;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductRating;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.product.ProductStatus;
-import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
 
-@Data
-public class ProductRequest {
-    private Long categoryId;
-    private String description;
-    private Long id;
-    private String imageURL;
-    private String name;
-    private List<ProductRating> ratings;
-    private ProductStatus status;
-    private int quantity;
-    private float price;
-    private Map<String, Object> attributes;
-    private int avgRating;
+public record ProductRequest(
+        Long categoryId,
+        String description,
+        Long id,
+        String imageURL,
+        String name,
+        List<ProductRating> ratings,
+        ProductStatus status,
+        int quantity,
+        float price,
+        Map<String, Object> attributes,
+        int avgRating
+) {
 }

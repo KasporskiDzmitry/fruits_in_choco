@@ -50,13 +50,13 @@ public class ProfileController {
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/profile/cart")
     public ResponseEntity<Product> addToCart(@RequestBody ProductRequest product, Authentication authentication) {
-        return ResponseEntity.ok(cartService.addToCart(productMapper.mapToEntity(product), product.getQuantity(), authentication.getName()));
+        return ResponseEntity.ok(cartService.addToCart(productMapper.mapToEntity(product), product.quantity(), authentication.getName()));
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @PutMapping("/profile/cart")
     public ResponseEntity<CartItem> updateCart(@RequestBody ProductRequest request, Authentication authentication) {
-        return ResponseEntity.ok(cartService.updateCart(authentication.getName(), productMapper.mapToEntity(request), request.getQuantity()));
+        return ResponseEntity.ok(cartService.updateCart(authentication.getName(), productMapper.mapToEntity(request), request.quantity()));
     }
 
     @PreAuthorize("hasAuthority('USER')")

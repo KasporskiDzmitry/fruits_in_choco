@@ -1,5 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.order;
 
+import by.dz.fruits_in_choco.fruits_in_choco.entity.product.Product;
 import lombok.Data;
 
 import java.util.Date;
@@ -16,4 +17,11 @@ public class OrderResponse {
     private String email;
     private String phone;
     private List<OrderItemResponse> orderItems;
+
+    @Data
+    private static class OrderItemResponse {
+        private Long id;
+        private int quantity;
+        private Product product;
+    }
 }

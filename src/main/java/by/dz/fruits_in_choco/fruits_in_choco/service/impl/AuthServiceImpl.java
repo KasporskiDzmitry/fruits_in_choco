@@ -56,13 +56,15 @@ public class AuthServiceImpl implements AuthService {
 
         response.addCookie(cookieCreator.createRefreshTokenCookie(refreshToken.getToken(), Math.toIntExact(refreshTokenValidity)));
 
-        return AuthenticationResponse.builder().email(email)
-                .token(accessToken.getToken())
-                .role(user.getRole().name())
-                .name(user.getFirstName() + " " + user.getLastName())
-                .id(user.getId())
-                .cart(cartMapper.mapToResponseDTO(user.getCart()))
-                .build();
+        return new AuthenticationResponse(
+                user.getId(),
+                email,
+                accessToken.getToken(),
+                null,
+                user.getRole().name(),
+                user.getFirstName() + " " + user.getLastName(),
+                cartMapper.mapToResponseDTO(user.getCart())
+        );
     }
 
     @Override

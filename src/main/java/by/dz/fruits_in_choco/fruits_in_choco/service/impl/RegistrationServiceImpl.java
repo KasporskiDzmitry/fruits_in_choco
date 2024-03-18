@@ -53,8 +53,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
             userRepository.save(user);
 
-            String appUrl = request.getContextPath();
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, appUrl));
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getContextPath()));
         } else {
             throw new IllegalStateException("email already taken");
         }

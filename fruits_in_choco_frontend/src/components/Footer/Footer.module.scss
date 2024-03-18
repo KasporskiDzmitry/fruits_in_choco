@@ -1,53 +1,126 @@
 @import "src/App.module";
 
 .footer {
-    width: 100%;
-    background-color: rgba(49, 101, 103, 0.05);
+  width: 100%;
+  background-color: rgba(49, 101, 103, 0.05);
+  padding: 25px 0;
 
-    .footerWrapper {
-        padding: 100px 0 50px 0;
+  .footerWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @include md() {
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    @include xl() {
+      width: 80%;
+    }
+
+    .logoWrapper {
+      order: 4;
+      width: 50%;
+      margin-bottom: 35px;
+
+      @include md() {
+        order: 1;
+        margin: 0;
+        width: 25%;
+      }
+
+      @include xl() {
+        width: 20%;
+        max-width: 250px;
+      }
+
+      img {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    .navigation {
+      @include flexCenter;
+      font-size: 1.2em;
+      order: 1;
+      margin-bottom: 35px;
+      width: 100%;
+      text-transform: uppercase;
+      justify-content: center;
+      align-items: center;
+
+      @include md() {
+        order: 2;
+        margin: 0;
+        width: 20%;
+      }
+
+      div {
         display: flex;
-        justify-content: space-between;
-
-        .logoWrapper {
-            height: 80%;
-            width: 225px; // TODO: change to em
-
-            img {
-                height: auto;
-                width: 100%;
-            }
-        }
-
-        nav, .contactsWrapper {
-            @include flexCenter;
-            font-size: 20px;
-
-            div {
-                width: 100%;
-                text-align: center;
-                margin-bottom: 20px;
-                text-transform: uppercase;
-            }
-        }
-
-        .socialNetworksWrapper {
-            @include flexCenter;
-
-            img {
-                width: 50px;
-                margin-bottom: 20px;
-                cursor: pointer;
-
-                &:hover {
-                    filter: invert(54%) sepia(68%) saturate(5938%) hue-rotate(338deg) brightness(102%) contrast(92%);
-                }
-            }
-        }
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: 80%;
+      }
     }
 
-    .copyright {
-        text-align: center;
-        padding: 20px;
+    .contactsWrapper {
+      order: 3;
+      font-size: 1.1em;
+      width: 80%;
+      text-align: center;
+      margin: 35px 0;
+
+      div:nth-child(2) {
+        margin: 10px 0;
+      }
+
+      @include md() {
+        width: 40%;
+      }
     }
+
+    .socialNetworksWrapper {
+      display: flex;
+      order: 2;
+      justify-content: space-between;
+      width: 40%;
+
+      @include md() {
+        order: 4;
+        margin: 0;
+        flex-direction: column;
+        align-items: flex-end;
+        width: 10%;
+      }
+
+      div {
+        width: 50px;
+        cursor: pointer;
+
+        @include md() {
+          margin: 10px 0;
+        }
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+
+        &:hover {
+          filter: invert(54%) sepia(68%) saturate(5938%) hue-rotate(338deg) brightness(102%) contrast(92%);
+        }
+      }
+    }
+  }
+
+  .copyright {
+    width: 100%;
+    font-size: 0.85em;
+    text-align: center;
+  }
 }

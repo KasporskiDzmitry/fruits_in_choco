@@ -7,25 +7,26 @@ import {scrollToTarget} from "../utils/routes";
 import instagramIcon from "../../assets/images/instagram_footer_icon.svg";
 import tiktokIcon from "../../assets/images/tiktok_footer_icon.svg";
 
-const Footer = (props) => {
+const Footer = () => {
     return <footer className={`${appStyle.sectionOuter} ${style.footer}`}>
         <div className={`${appStyle.sectionInner} ${style.footerWrapper}`}>
-            <div className='logo' onClick={() => window.scrollTo(0,0)}>
+            <div className={style.logoWrapper} onClick={() => window.scrollTo(0, 0)}>
                 <Link to={"/"}>
-                    <div className={style.logoWrapper}>
-                        <img src={logo} alt="MARINA CUPCAKE"/>
-                    </div>
+                    <img src={logo} alt="MARINA CUPCAKE"/>
                 </Link>
             </div>
-            <nav>
+            <nav className={style.navigation}>
                 <div>
-                    <Link to={{pathname: '/', hash: "#production"}} onClick={() => scrollToTarget("production")}>Каталог</Link>
+                    <Link to={{pathname: '/', hash: "#production"}}
+                          onClick={() => scrollToTarget("production")}>Каталог</Link>
                 </div>
                 <div>
-                    <Link to={{pathname: '/', hash: "#about"}} onClick={() => scrollToTarget("about")}>О нас</Link>
+                    <Link to={{pathname: '/', hash: "#about"}}
+                          onClick={() => scrollToTarget("about")}>О нас</Link>
                 </div>
                 <div>
-                    <Link to={{pathname: '/', hash: "#contacts"}} onClick={() => scrollToTarget("contacts")}>Контакты</Link>
+                    <Link to={{pathname: '/', hash: "#contacts"}}
+                          onClick={() => scrollToTarget("contacts")}>Контакты</Link>
                 </div>
             </nav>
             <div id={"contacts"} className={style.contactsWrapper}>
@@ -35,7 +36,7 @@ const Footer = (props) => {
             </div>
             <div className={style.socialNetworksWrapper}>
                 <div>
-                    <img src={instagramIcon} alt="Ссылка на инстаграм"/> {/* сделать ссылки */}
+                    <img src={instagramIcon} alt="Ссылка на инстаграм"/> {/* TODO: сделать ссылки */}
                 </div>
                 <div>
                     <img src={tiktokIcon} alt="Ссылка на тикток"/>

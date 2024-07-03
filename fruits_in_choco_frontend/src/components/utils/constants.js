@@ -3,16 +3,3 @@ export const EMAIL_REGEXP = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)
 
 export const USER_ROLE_ADMIN = 'ADMIN';
 export const USER_ROLE_USER = 'USER';
-
-export const INGREDIENT_TYPE_BISCUIT = 'BISCUIT';
-export const INGREDIENT_TYPE_FILLING = 'FILLING';
-export const INGREDIENT_TYPE_DECORATION = 'DECORATION';
-export const INGREDIENT_STATUS_ACTIVE = 'ACTIVE';
-export const INGREDIENT_STATUS_DELETED = 'DELETED';
-
-export const ORDER_STATUS_CONFIRMED = 'CONFIRMED';
-export const ORDER_STATUS_DECLINED = 'DECLINED';
-export const ORDER_STATUS_NOT_CONFIRMED = 'NOT_CONFIRMED';
-
-export const NOTIFICATION_REVIEW = 'REVIEW';
-export const NOTIFICATION_ORDER = 'ORDER';

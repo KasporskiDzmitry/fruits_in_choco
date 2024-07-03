@@ -1,6 +1,6 @@
-export const LOGINATION_BEGIN = 'auth/LOGINATION_BEGIN';
-export const LOGINATION_SUCCESS = 'auth/LOGINATION_SUCCESS';
-export const LOGINATION_FAILURE = 'auth/LOGINATION_FAILURE';
+export const LOGIN_BEGIN = 'auth/LOGIN_BEGIN';
+export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 export const LOGOUT_BEGIN = 'auth/LOGOUT_BEGIN';
 export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';

@@ -3,18 +3,17 @@ import {
     FETCH_REFRESH_TOKEN_BEGIN,
     FETCH_REFRESH_TOKEN_FAILURE,
     FETCH_REFRESH_TOKEN_SUCCESS,
-    LOGINATION_BEGIN,
-    LOGINATION_FAILURE,
-    LOGINATION_SUCCESS,
+    LOGIN_BEGIN,
+    LOGIN_FAILURE,
+    LOGIN_SUCCESS,
     LOGOUT_BEGIN,
     LOGOUT_FAILURE,
-    LOGOUT_SUCCESS,
-    TOGGLE_IS_FETCHING
+    LOGOUT_SUCCESS
 } from "../action_types/auth_action_types";
 
 const initialState = {
     isTokenFetching: false,
-    isLoginationInProcess: false,
+    isLoginInProcess: false,
     isLogoutInProcess: false,
     error: null,
     userId: '',
@@ -27,25 +26,25 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOGINATION_BEGIN: {
+        case LOGIN_BEGIN: {
             return {
                 ...state,
-                isLoginationInProcess: true
+                isLoginInProcess: true
             }
         }
-        case LOGINATION_SUCCESS: {
+        case LOGIN_SUCCESS: {
             return {
                 ...state,
-                isLoginationInProcess: false,
+                isLoginInProcess: false,
                 isAuth: true,
                 ...action.payload
             }
         }
-        case LOGINATION_FAILURE: {
+        case LOGIN_FAILURE: {
             return {
                 ...state,
                 error: action.error,
-                isLoginationInProcess: false
+                isLoginInProcess: false
             }
         }
         case FETCH_REFRESH_TOKEN_BEGIN: {

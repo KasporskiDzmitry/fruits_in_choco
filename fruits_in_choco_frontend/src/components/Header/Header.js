@@ -5,7 +5,6 @@ import {Link, NavLink, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch} from "react-redux";
-import {toggleCartLayout, toggleSignInSignUpPopUp} from "../../redux/actions/app_actions";
 import {scrollToTarget} from "../utils/routes";
 import logo from "../../assets/images/logo.png";
 import cart from "../../assets/images/cart.svg";
@@ -19,10 +18,6 @@ const Header = (props) => {
     const nav = useRef(null);
     const menuButton = useRef(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const productsInCart = localStorage.products ? JSON.parse(localStorage.products) : [];
-
-    // change style of header on scroll
 
     useEffect(() => {
         const scroll = () => {
@@ -60,29 +55,6 @@ const Header = (props) => {
                     <Link to={{pathname: '/', hash: "#about"}} onClick={() => scrollToTarget("about")}>О нас</Link>
                     <Link to={{pathname: '/', hash: "#contacts"}} onClick={() => scrollToTarget("contacts")}>Контакты</Link>
                 </nav>
-                <div className={style.asideWrapper}>
-                    <div className={style.cartIcon} onClick={() => dispatch(toggleCartLayout())}>
-                        <img src={cart} alt="shopping_cart_icon"/>
-                    </div>
-                    <span>{productsInCart.length}</span>
-                    {localStorage.name ?
-                        <>
-                            <NavLink className={style.icon} to={'/profile'}>
-                                <FontAwesomeIcon icon={faUser}/>
-                                {(localStorage.role === USER_ROLE_ADMIN && (props.newOrders > 0 || props.newReviews > 0)) && <span>!</span>}
-                            </NavLink>
-                            <NavLink className={style.icon} to={pathname.includes('/profile') ? '/' : '#'}
-                                     onClick={() => dispatch(logout())}>
-                                <FontAwesomeIcon icon={faSignOutAlt}/>
-                            </NavLink>
-                        </> :
-                        <>
-                            <div className={`${style.icon} ${style.signInUP}`} onClick={() => dispatch(toggleSignInSignUpPopUp())}>
-                                Вход и регистрация
-                            </div>
-                        </>
-                    }
-                </div>
             </div>
         </div>
     </header>

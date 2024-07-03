@@ -1,17 +1,8 @@
-import {
-    INITIALIZED_SUCCESS,
-    TOGGLE_CART_LAYOUT,
-    TOGGLE_SIGN_IN_SIGN_UP_POPUP, ENQUEUE_SNACKBAR, CLOSE_SNACKBAR, REMOVE_SNACKBAR
-} from "../action_types/app_action_types";
+import {CLOSE_SNACKBAR, ENQUEUE_SNACKBAR, INITIALIZED_SUCCESS, REMOVE_SNACKBAR} from "../action_types/app_action_types";
 
 const initialState = {
-    pathnames: [
-        {path: '/', name: 'Главная'},
-        {path: '/shop', name: 'Магазин'}
-    ],
     initialized: false,
     isSignInSignUpPopUpShow: false,
-    isCartLayoutShow: false,
     notifications: []
 };
 
@@ -21,18 +12,6 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 initialized: true
-            }
-        }
-        case TOGGLE_SIGN_IN_SIGN_UP_POPUP: {
-            return {
-                ...state,
-                isSignInSignUpPopUpShow: !state.isSignInSignUpPopUpShow
-            }
-        }
-        case TOGGLE_CART_LAYOUT: {
-            return {
-                ...state,
-                isCartLayoutShow: !state.isCartLayoutShow
             }
         }
         case ENQUEUE_SNACKBAR:
@@ -46,7 +25,6 @@ const appReducer = (state = initialState, action) => {
                     },
                 ],
             };
-
         case CLOSE_SNACKBAR:
             return {
                 ...state,
@@ -56,7 +34,6 @@ const appReducer = (state = initialState, action) => {
                         : {...notification}
                 )),
             };
-
         case REMOVE_SNACKBAR:
             return {
                 ...state,
@@ -64,7 +41,6 @@ const appReducer = (state = initialState, action) => {
                     notification => notification.key !== action.key,
                 ),
             };
-
         default: {
             return state
         }

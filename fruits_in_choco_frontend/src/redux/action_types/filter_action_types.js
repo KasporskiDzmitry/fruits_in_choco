@@ -1,1 +1,0 @@
-export const SET_PRODUCTS = 'filter/SET_PRODUCTS';

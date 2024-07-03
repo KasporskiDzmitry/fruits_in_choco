@@ -2,9 +2,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.category.CategoryAttribute;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
-import by.dz.fruits_in_choco.fruits_in_choco.repository.CategoryAttributeRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.CategoryRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,19 +10,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-    private final CategoryAttributeRepository categoryAttributeRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryAttributeRepository categoryAttributeRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.categoryAttributeRepository = categoryAttributeRepository;
     }
 
     @Override
@@ -38,14 +32,8 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = new Category();
         category.setName(request.name());
         category.setDescription(request.description());
-        category.setAttributes(request.attributes());
         category.setImageURL(request.imageURL());
-        Category savedCategory = categoryRepository.save(category);
-        for (CategoryAttribute attribute: request.attributes()) {
-            attribute.setCategory(savedCategory);
-            savedCategory.getAttributes().add(categoryAttributeRepository.save(attribute));
-        }
-        return savedCategory;
+        return categoryRepository.save(category);
     }
 
     @Override
@@ -55,7 +43,6 @@ public class CategoryServiceImpl implements CategoryService {
         category.setName(newCategory.getName());
         category.setDescription(newCategory.getDescription());
         category.setImageURL(newCategory.getImageURL());
-        category.setAttributes(newCategory.getAttributes());
         return categoryRepository.save(category);
     }
 

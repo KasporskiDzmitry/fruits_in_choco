@@ -7,7 +7,6 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.user.TokenType;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException;
-import by.dz.fruits_in_choco.fruits_in_choco.mapper.CartMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.AuthService;
@@ -28,14 +27,12 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     @Value("${jwt.expirationRefresh}")
     private Long refreshTokenValidity;
-    private final CartMapper cartMapper;
     private final CookieCreator cookieCreator;
     private final TokenService tokenService;
 
-    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, CartMapper cartMapper, CookieCreator cookieCreator, TokenService tokenService) {
+    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, CookieCreator cookieCreator, TokenService tokenService) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.cartMapper = cartMapper;
         this.cookieCreator = cookieCreator;
         this.tokenService = tokenService;
     }
@@ -62,8 +59,7 @@ public class AuthServiceImpl implements AuthService {
                 accessToken.getToken(),
                 null,
                 user.getRole().name(),
-                user.getFirstName() + " " + user.getLastName(),
-                cartMapper.mapToResponseDTO(user.getCart())
+                user.getFirstName() + " " + user.getLastName()
         );
     }
 

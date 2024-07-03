@@ -30,21 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/login",
                         "/api/v1/auth/refreshToken",
-                        "/api/v1/orders",
-                        "/api/v1/orders/{id}",
-                        "/api/v1/registration",
-                        "/api/v1/registration/confirm",
                         "/api/v1/categories",
                         "/api/v1/categories/{id}",
-                        "/api/v1/products",
-                        "/api/v1/products/{id}",
-                        "/api/v1/products/search",
-                        "/api/v1/cakes",
-                        "/api/v1/constructor",
-                        "/api/v1/slide",
-                        "/ws",
-                        "/ws/**",
-                        "/app/notification"
+                        "/api/v1/slide"
                         ).permitAll()
                 .anyRequest()
                 .authenticated()

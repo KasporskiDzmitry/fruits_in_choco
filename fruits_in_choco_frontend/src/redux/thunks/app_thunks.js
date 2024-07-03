@@ -2,6 +2,7 @@ import {initializedSuccess} from "../actions/app_actions";
 import {fetchRefreshTokenBegin, fetchRefreshTokenFailure, fetchRefreshTokenSuccess} from "../actions/auth_actions";
 import RequestService from "../RequestService";
 import {loadCategories} from "./category_thunks";
+import {loadSlides} from "./slide_thunks";
 
 export const init = () => async dispatch => {
     if (localStorage.name) {
@@ -24,6 +25,6 @@ export const init = () => async dispatch => {
         // TODO: admin init
     }
 
-    await Promise.all([dispatch(loadCategories())]);
+    await Promise.all([dispatch(loadCategories(), dispatch(loadSlides()))]);
     dispatch(initializedSuccess());
 };

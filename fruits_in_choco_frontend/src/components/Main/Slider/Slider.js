@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {Carousel} from "react-bootstrap";
-import {Button} from 'react-bootstrap';
+import React from "react";
+import {Button, Carousel} from "react-bootstrap";
 import style from "./Slider.module.scss";
 import appStyle from "../../../App.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {loadSlides} from "../../../redux/thunks/slide_thunks";
+import {useSelector} from "react-redux";
 
 // test
 import banner from "../../../assets/images/banner.png"
@@ -12,11 +10,6 @@ import banner from "../../../assets/images/banner.png"
 
 const Slider = (props) => {
     const slides = useSelector(state => state.slideReducer.slides);
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(loadSlides());
-    }, [])
 
     return <Carousel fade interval={8000} controls={false}>
         {slides.map(slide => {

@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import style from './Main.module.scss';
 import Slider from "./Slider/Slider";
 import CategoryCard from "./CategoryCard";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import appStyle from '../../App.module.scss';
 import {scrollToTarget} from "../utils/routes";
@@ -14,7 +14,6 @@ import cakeIcon from "../../assets/images/cake.png"
 import deliveryIcon from "../../assets/images/delivery.png"
 
 const Main = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const categoryCards = useSelector(state => state.categoryReducer.categories);
     const [dimensions, setDimensions] = React.useState({

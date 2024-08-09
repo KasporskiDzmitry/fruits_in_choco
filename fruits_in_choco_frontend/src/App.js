@@ -12,6 +12,7 @@ import {NotFound} from "./components/NotFound/NotFound";
 
 const Main = React.lazy(() => import('./components/Main/Main'));
 const LoginPage = React.lazy(() => import('./components/Login/Login'))
+const ProfilePage = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 const App = () => {
     useNotifier();
@@ -29,6 +30,8 @@ const App = () => {
             <Routes>
                 <Route exact path='/'
                        element={<Main/>}/>
+                <Route path='/profile/*'
+                       element={<ProfilePage/>}/>
                 <Route exact path='/login'
                        element={<LoginPage/>}/>
                 <Route element={<NotFound/>}/>

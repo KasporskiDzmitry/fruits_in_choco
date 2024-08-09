@@ -25,7 +25,7 @@ export const login = (email, password) => async dispatch => {
             true));
         dispatch(reset('login'));
 
-        window.location.reload(true)
+        // window.location.reload(true)
     } catch (error) {
         console.log(error)
         dispatch(stopSubmit('login', {_error: error.response.data}));

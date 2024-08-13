@@ -17,11 +17,11 @@ const Admin = () => {
             <div className={`${appStyle.sectionInner}`}>
                 <div className={style.innerWrapper}>
                     <nav className={style.navbarNav}>
-                        <NavLink to={'/profile'}>Главная</NavLink>
-                        <NavLink to={'/profile/admin/categories'}>
+                        <NavLink to={'/admin'}>Главная</NavLink>
+                        <NavLink to={'/admin/categories'}>
                             Категории
                         </NavLink>
-                        <NavLink to={'/profile/admin/slider'}>Слайдер</NavLink>
+                        <NavLink to={'/admin/slider'}>Слайдер</NavLink>
                     </nav>
                     <>
                         <React.Suspense fallback={<Preloader />}>

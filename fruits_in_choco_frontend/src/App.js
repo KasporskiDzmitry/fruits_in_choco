@@ -13,7 +13,7 @@ import { ProductType } from './pages/ProductType/ProductType';
 
 const Main = React.lazy(() => import('./pages/Main/Main'));
 const LoginPage = React.lazy(() => import('./pages/Login/Login'));
-
+const AdminPage = React.lazy(() => import('./pages/Admin/Admin'));
 
 const App = () => {
     useNotifier();
@@ -30,6 +30,8 @@ const App = () => {
             <React.Suspense fallback={<Preloader />}>
                 <Routes>
                     <Route exact path="/" element={<Main />} />
+                    <Route path='/admin/*'
+                           element={<AdminPage />}/>
                     <Route exact path="/login" element={<LoginPage />} />
                     <Route element={<NotFound />} />
                     <Route

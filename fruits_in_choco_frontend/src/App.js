@@ -14,6 +14,7 @@ import { ProductType } from './pages/ProductType/ProductType';
 const Main = React.lazy(() => import('./pages/Main/Main'));
 const LoginPage = React.lazy(() => import('./pages/Login/Login'));
 
+
 const App = () => {
     useNotifier();
     const dispatch = useDispatch();

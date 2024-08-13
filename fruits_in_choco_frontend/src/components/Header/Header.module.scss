@@ -1,231 +1,228 @@
 @import '../../Global';
 
 .scrollDown {
-  box-shadow: -2px 2px 81px -27px rgba(0, 0, 0, 0.29);
-  //opacity: .8;
+    box-shadow: -2px 2px 81px -27px rgba(0, 0, 0, 0.29);
+    //opacity: .8;
 }
 .icon {
-  margin: 20px;
+    margin: 20px;
 }
 header {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  background: #FFF5EE;
-  color: $linkColor;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #fff5ee;
+    color: $linkColor;
 
-  > div:nth-child(1) {
-    width: 100%;
-    background: #FFF5EE;
-    padding: 0 5%;
+    > div:nth-child(1) {
+        width: 100%;
+        background: #fff5ee;
+        padding: 0 5%;
 
-    @include md {
-      padding: 0;
-      width: 90%;
+        @include md {
+            padding: 0;
+            width: 90%;
+        }
     }
-  }
 }
 
 .navbar {
-  display: flex;
-  align-items: center;
-  font-size: 2em;
-  height: 10vh;
-
-  .toggleNavBtn {
-    width: 20%;
     display: flex;
     align-items: center;
-    color: black;
-    cursor: pointer;
-    height: 30%;
+    font-size: 2em;
+    height: 10vh;
 
-    svg {
-      height: 80%;
-
-      @media(min-width: 400px) {
-        height: 100%;
-      }
-    }
-
-    @include md {
-      display: none;
-    }
-  }
-
-  .logoWrapper {
-    order: 2;
-    height: 100%;
-    text-align: center;
-    width: 60%;
-
-    a {
-      display: block;
-      height: 100%;
-    }
-
-    img {
-      height: 80%;
-
-      @media(min-width: 400px) {
-        height: 100%;
-      }
-    }
-
-    @include md {
-      order: 1;
-      width: 25%;
-      height: 100%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-    }
-  }
-
-  .openedNav {
-    top: 10vh;
-    box-shadow: -2px 2px 81px -27px rgba(0, 0, 0, 0.29);
-
-    @include md {
-      box-shadow: none;
-      top: 0;
-    }
-  }
-
-  nav {
-    transition: .7s;
-    order: 1;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    position: absolute;
-    top: -10vh;
-    left: 0;
-    width: 100%;
-    height: 20vh;
-    z-index: -1;
-
-    a {
-      text-transform: uppercase;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: 400;
-      color: black;
-      height: 33.33%;
-      background-color: #FFF5EE;
-      font-size: 0.5em;
-
-      &:not(:last-child) {
-        border-bottom: 1px solid black;
-      }
-
-      &:hover {
-        background-color: #fceee3;
-        color: #EC5118;
-      }
-
-      @include sm {
-        font-size: 0.6em;
-      }
-    }
-
-    @include md {
-      position: relative;
-      top: 0;
-      left: 0;
-      order: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: row;
-      width: 50%;
-      font-size: 0.7em;
-      z-index: 5;
-      height: 100%;
-
-      a {
-        background-color: transparent;
-        height: 60%;
+    .toggleNavBtn {
+        width: 20%;
         display: flex;
-        justify-content: center;
         align-items: center;
-        width: 33.33%;
+        color: black;
+        cursor: pointer;
+        height: 30%;
 
-        &:not(:last-child) {
-          border-bottom: none;
+        svg {
+            height: 80%;
+
+            @media (min-width: 400px) {
+                height: 100%;
+            }
         }
 
-        &:nth-child(2) {
-          border-left: 1px solid;
-          border-right: 1px solid;
+        @include md {
+            display: none;
+        }
+    }
+
+    .logoWrapper {
+        order: 2;
+        height: 100%;
+        text-align: center;
+        width: 60%;
+
+        a {
+            display: block;
+            height: 100%;
         }
 
-        &:hover {
-          background-color: transparent;
-          border-color: black;
-        }
-      }
-    }
+        img {
+            height: 80%;
 
-    @include lg {
-      font-size: 1em;
-    }
-  }
-
-  .asideWrapper {
-    height: 100%;
-    order: 3;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    cursor: pointer;
-    color: black;
-    width: 20%;
-
-    .cartIcon {
-      height: 30%;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-
-      img {
-        display: block;
-        height: 80%;
-
-        @media(min-width: 400px) {
-          height: 100%;
+            @media (min-width: 400px) {
+                height: 100%;
+            }
         }
 
-        &:hover {
-          filter: invert(54%) sepia(68%) saturate(5938%) hue-rotate(338deg) brightness(102%) contrast(92%);
+        @include md {
+            order: 1;
+            width: 25%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
         }
-      }
     }
 
-    span {
-      margin-left: 5px;
-      font-size: 0.7em;
+    .openedNav {
+        top: 10vh;
+        box-shadow: -2px 2px 81px -27px rgba(0, 0, 0, 0.29);
 
-      @include sm {
-        font-size: 0.8em;
-      }
-
-      @include md {
-        font-size: 0.6em;
-      }
-
-      @include lg {
-        font-size: 0.8em;
-      }
+        @include md {
+            box-shadow: none;
+            top: 0;
+        }
     }
 
-    @include md {
-      width: 25%;
-      justify-content: flex-end;
+    nav {
+        transition: 0.7s;
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        position: absolute;
+        top: -10vh;
+        left: 0;
+        width: 100%;
+        height: 20vh;
+        z-index: -1;
+
+        a {
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 400;
+            color: black;
+            height: 33.33%;
+            background-color: #fff5ee;
+            font-size: 0.5em;
+            padding: 1%;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid black;
+            }
+
+            &:hover {
+                background-color: #fceee3;
+                color: #ec5118;
+            }
+
+            @include sm {
+                font-size: 0.6em;
+            }
+        }
+
+        @include md {
+            position: relative;
+            top: 0;
+            left: 0;
+            order: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            //width: 50%;
+            font-size: 0.7em;
+            z-index: 5;
+            height: 100%;
+
+            a {
+                background-color: transparent;
+                height: 60%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 33.33%;
+                border-right: 1px solid;
+
+                &:not(:last-child) {
+                    border-bottom: none;
+                }
+                &:last-child {
+                    border-right: none;
+                }
+
+                &:hover {
+                    background-color: transparent;
+                    border-color: black;
+                }
+            }
+        }
+
+        @include lg {
+            font-size: 1em;
+        }
     }
-  }
+
+    .asideWrapper {
+        height: 100%;
+        order: 3;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        cursor: pointer;
+        color: black;
+        width: 20%;
+
+        //.cartIcon {
+        //  height: 30%;
+        //  overflow: hidden;
+        //  display: flex;
+        //  align-items: center;
+        //
+        //  img {
+        //    display: block;
+        //    height: 80%;
+        //
+        //    @media(min-width: 400px) {
+        //      height: 100%;
+        //    }
+        //
+        //    &:hover {
+        //      filter: invert(54%) sepia(68%) saturate(5938%) hue-rotate(338deg) brightness(102%) contrast(92%);
+        //    }
+        //  }
+        //}
+
+        span {
+            margin-left: 5px;
+            font-size: 0.7em;
+
+            @include sm {
+                font-size: 0.8em;
+            }
+
+            @include md {
+                font-size: 0.6em;
+            }
+
+            @include lg {
+                font-size: 0.8em;
+            }
+        }
+
+        @include md {
+            width: 25%;
+            justify-content: flex-end;
+        }
+    }
 }
-
-
-

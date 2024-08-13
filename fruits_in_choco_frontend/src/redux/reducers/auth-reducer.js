@@ -8,8 +8,8 @@ import {
     LOGIN_SUCCESS,
     LOGOUT_BEGIN,
     LOGOUT_FAILURE,
-    LOGOUT_SUCCESS
-} from "../action_types/auth_action_types";
+    LOGOUT_SUCCESS,
+} from '../action_types/auth_action_types';
 
 const initialState = {
     isTokenFetching: false,
@@ -21,7 +21,7 @@ const initialState = {
     name: '',
     role: '',
     token: '',
-    isAuth: false
+    isAuth: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -29,50 +29,50 @@ const authReducer = (state = initialState, action) => {
         case LOGIN_BEGIN: {
             return {
                 ...state,
-                isLoginInProcess: true
-            }
+                isLoginInProcess: true,
+            };
         }
         case LOGIN_SUCCESS: {
             return {
                 ...state,
                 isLoginInProcess: false,
                 isAuth: true,
-                ...action.payload
-            }
+                ...action.payload,
+            };
         }
         case LOGIN_FAILURE: {
             return {
                 ...state,
                 error: action.error,
-                isLoginInProcess: false
-            }
+                isLoginInProcess: false,
+            };
         }
         case FETCH_REFRESH_TOKEN_BEGIN: {
             return {
                 ...state,
-                isTokenFetching: true
-            }
+                isTokenFetching: true,
+            };
         }
         case FETCH_REFRESH_TOKEN_SUCCESS: {
             return {
                 ...state,
                 token: action.token,
                 isAuth: true,
-                isTokenFetching: false
-            }
+                isTokenFetching: false,
+            };
         }
         case FETCH_REFRESH_TOKEN_FAILURE: {
             return {
                 ...state,
                 error: action.error,
-                isTokenFetching: false
-            }
+                isTokenFetching: false,
+            };
         }
         case LOGOUT_BEGIN: {
             return {
                 ...state,
-                isLogoutInProcess: true
-            }
+                isLogoutInProcess: true,
+            };
         }
         case LOGOUT_SUCCESS: {
             return {
@@ -82,24 +82,24 @@ const authReducer = (state = initialState, action) => {
                 email: null,
                 login: null,
                 isAuth: false,
-                token: null
-            }
+                token: null,
+            };
         }
         case LOGOUT_FAILURE: {
             return {
                 ...state,
                 error: action.error,
-                isLogoutInProcess: false
-            }
+                isLogoutInProcess: false,
+            };
         }
         case CLEAR_TOKEN: {
             return {
                 ...state,
-                token: ""
-            }
+                token: '',
+            };
         }
         default: {
-            return state
+            return state;
         }
     }
 };

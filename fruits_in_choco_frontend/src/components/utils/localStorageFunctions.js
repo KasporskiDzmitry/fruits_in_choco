@@ -4,7 +4,7 @@ export const saveUserInfoToLS = (user) => {
     localStorage.setItem('role', user.role);
     localStorage.setItem('userId', user.id);
     localStorage.setItem('isAuth', 'true');
-}
+};
 
 export const removeUserInfoFromLS = () => {
     localStorage.removeItem('name');
@@ -12,5 +12,4 @@ export const removeUserInfoFromLS = () => {
     localStorage.removeItem('role');
     localStorage.removeItem('products');
     localStorage.removeItem('isAuth');
-}
-
+};

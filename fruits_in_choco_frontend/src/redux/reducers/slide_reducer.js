@@ -10,8 +10,8 @@ import {
     FETCH_SLIDES_SUCCESS,
     UPDATE_SLIDE_BEGIN,
     UPDATE_SLIDE_FAILURE,
-    UPDATE_SLIDE_SUCCESS
-} from "../action_types/slide_action_types";
+    UPDATE_SLIDE_SUCCESS,
+} from '../action_types/slide_action_types';
 
 const initialState = {
     isSlidesFetching: false,
@@ -19,7 +19,7 @@ const initialState = {
     isSlideUpdating: false,
     isSlideDeleting: false,
     error: null,
-    slides: []
+    slides: [],
 };
 
 const slide_reducer = (state = initialState, action) => {
@@ -27,86 +27,96 @@ const slide_reducer = (state = initialState, action) => {
         case FETCH_SLIDES_BEGIN: {
             return {
                 ...state,
-                isSlidesFetching: true
-            }
+                isSlidesFetching: true,
+            };
         }
         case FETCH_SLIDES_SUCCESS: {
             return {
                 ...state,
                 slides: action.slides,
-                isSlidesFetching: false
-            }
+                isSlidesFetching: false,
+            };
         }
         case FETCH_SLIDES_FAILURE: {
             return {
                 ...state,
                 error: action.error,
-                isSlidesFetching: false
-            }
+                isSlidesFetching: false,
+            };
         }
         case ADD_SLIDE_BEGIN: {
             return {
                 ...state,
-                isSlideAdding: true
-            }
+                isSlideAdding: true,
+            };
         }
         case ADD_SLIDE_SUCCESS: {
             return {
                 ...state,
                 slides: [...state.slides, action.slide],
-                isSlideAdding: false
-            }
+                isSlideAdding: false,
+            };
         }
         case ADD_SLIDE_FAILURE: {
             return {
                 ...state,
                 error: action.error,
-                isSlideAdding: false
-            }
+                isSlideAdding: false,
+            };
         }
         case UPDATE_SLIDE_BEGIN: {
             return {
                 ...state,
-                isSlideUpdating: true
-            }
+                isSlideUpdating: true,
+            };
         }
         case UPDATE_SLIDE_SUCCESS: {
             return {
                 ...state,
-                slides: [...state.slides.slice(0, state.slides.findIndex(i => i.id === action.slide.id)),
-                    action.slide, ...state.slides.slice(state.slides.findIndex(i => i.id === action.slide.id) + 1)],
-                isSlideUpdating: false
-            }
+                slides: [
+                    ...state.slides.slice(
+                        0,
+                        state.slides.findIndex((i) => i.id === action.slide.id)
+                    ),
+                    action.slide,
+                    ...state.slides.slice(
+                        state.slides.findIndex(
+                            (i) => i.id === action.slide.id
+                        ) + 1
+                    ),
+                ],
+                isSlideUpdating: false,
+            };
         }
         case UPDATE_SLIDE_FAILURE: {
             return {
                 ...state,
                 error: action.error,
-                isSlideUpdating: false
-            }
+                isSlideUpdating: false,
+            };
         }
         case DELETE_SLIDE_BEGIN: {
             return {
                 ...state,
-                isSlideDeleting: true
-            }
+                isSlideDeleting: true,
+            };
         }
         case DELETE_SLIDE_SUCCESS: {
             return {
                 ...state,
-                slides: state.slides.filter(i => i.id !== action.id),
-                isSlideDeleting: false
-            }
+                slides: state.slides.filter((i) => i.id !== action.id),
+                isSlideDeleting: false,
+            };
         }
         case DELETE_SLIDE_FAILURE: {
             return {
                 ...state,
                 error: action.error,
-                isSlideDeleting: false
-            }
+                isSlideDeleting: false,
+            };
         }
         default: {
-            return state
+            return state;
         }
     }
 };

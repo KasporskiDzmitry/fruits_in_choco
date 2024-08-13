@@ -1,6 +1,6 @@
 $linkColor: white;
 $trBgColor: darkseagreen;
-$btnBgColor: #3498DB;
+$btnBgColor: #3498db;
 $btnHoverBgColor: darken($btnBgColor, 15%);
 $btnColor: white;
 $boxShadow: 0 4px 8px rgba(34, 60, 80, 0.2);
@@ -18,31 +18,30 @@ $screen-lg-min: 992px;
 // Large tablets and desktops
 $screen-xl-min: 1200px;
 
-
 // Small devices
 @mixin sm {
-  @media (min-width: #{$screen-sm-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
 }
 
 // Medium devices
 @mixin md {
-  @media (min-width: #{$screen-md-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
 }
 
 // Large devices
 @mixin lg {
-  @media (min-width: #{$screen-lg-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
 }
 
 // Extra large devices
 @mixin xl {
-  @media (min-width: #{$screen-xl-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-xl-min}) {
+        @content;
+    }
 }

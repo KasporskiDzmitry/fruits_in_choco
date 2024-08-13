@@ -1,9 +1,14 @@
-import {CLOSE_SNACKBAR, ENQUEUE_SNACKBAR, INITIALIZED_SUCCESS, REMOVE_SNACKBAR} from "../action_types/app_action_types";
+import {
+    CLOSE_SNACKBAR,
+    ENQUEUE_SNACKBAR,
+    INITIALIZED_SUCCESS,
+    REMOVE_SNACKBAR,
+} from '../action_types/app_action_types';
 
 const initialState = {
     initialized: false,
     isSignInSignUpPopUpShow: false,
-    notifications: []
+    notifications: [],
 };
 
 const appReducer = (state = initialState, action) => {
@@ -11,8 +16,8 @@ const appReducer = (state = initialState, action) => {
         case INITIALIZED_SUCCESS: {
             return {
                 ...state,
-                initialized: true
-            }
+                initialized: true,
+            };
         }
         case ENQUEUE_SNACKBAR:
             return {
@@ -28,24 +33,23 @@ const appReducer = (state = initialState, action) => {
         case CLOSE_SNACKBAR:
             return {
                 ...state,
-                notifications: state.notifications.map(notification => (
-                    (action.dismissAll || notification.key === action.key)
-                        ? {...notification, dismissed: true}
-                        : {...notification}
-                )),
+                notifications: state.notifications.map((notification) =>
+                    action.dismissAll || notification.key === action.key
+                        ? { ...notification, dismissed: true }
+                        : { ...notification }
+                ),
             };
         case REMOVE_SNACKBAR:
             return {
                 ...state,
                 notifications: state.notifications.filter(
-                    notification => notification.key !== action.key,
+                    (notification) => notification.key !== action.key
                 ),
             };
         default: {
-            return state
+            return state;
         }
     }
 };
-
 
 export default appReducer;

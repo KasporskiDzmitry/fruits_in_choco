@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/auth/refreshToken",
                         "/api/v1/categories",
                         "/api/v1/categories/{id}",
-                        "/api/v1/slide"
+                        "/api/v1/slide",
+                        "/api/v1/review_slide"
                         ).permitAll()
                 .anyRequest()
                 .authenticated()

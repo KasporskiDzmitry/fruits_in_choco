@@ -1,13 +1,13 @@
 import React from 'react';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import {NavLink, Outlet, Route, Routes} from 'react-router-dom';
 import Preloader from '../../components/common/Preloader/Preloader';
 import { useSelector } from 'react-redux';
 import style from './Admin.module.scss';
 import appStyle from '../../App.module.scss';
 import { Dashboard } from '@material-ui/icons';
 
-const AdminCategories = React.lazy(() => import('./Category/Categories'));
-const AdminSlider = React.lazy(() => import('./Slider/Slider'));
+const AdminCategories = React.lazy(() => import('./Category/AdminCategories'));
+const AdminSlider = React.lazy(() => import('./Slider/AdminSlider'));
 
 const Admin = () => {
     const categories = useSelector((state) => state.categoryReducer.categories);
@@ -18,30 +18,14 @@ const Admin = () => {
                 <div className={style.innerWrapper}>
                     <nav className={style.navbarNav}>
                         <NavLink to={'/admin'}>Главная</NavLink>
-                        <NavLink to={'/admin/categories'}>
+                        <NavLink to={'categories'}>
                             Категории
                         </NavLink>
-                        <NavLink to={'/admin/slider'}>Слайдер</NavLink>
+                        <NavLink to={'slider'}>Слайдер</NavLink>
                     </nav>
                     <>
                         <React.Suspense fallback={<Preloader />}>
-                            <Routes>
-                                <Route exact path="/" element={<Dashboard />} />
-                                <Route
-                                    exact
-                                    path="/admin/categories"
-                                    element={
-                                        <AdminCategories
-                                            categories={categories}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    exact
-                                    path="/admin/slider"
-                                    element={<AdminSlider />}
-                                />
-                            </Routes>
+                            <Outlet />
                         </React.Suspense>
                     </>
                 </div>

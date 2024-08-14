@@ -34,7 +34,7 @@ export const init = () => async (dispatch) => {
         dispatch(
             loadCategories(),
             dispatch(loadSlides()),
-            dispatch(loadReviewSlides())
+            // dispatch(loadReviewSlides())
         ),
     ]);
     dispatch(initializedSuccess());

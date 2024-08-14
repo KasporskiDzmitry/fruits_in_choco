@@ -13,7 +13,7 @@ const CategoryTable = (props) => {
         <MaterialTable
             columns={columns}
             data={props.data}
-            title="Categories"
+            title="AdminCategories"
             options={{ search: true }}
         />
     );

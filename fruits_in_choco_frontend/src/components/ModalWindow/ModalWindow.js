@@ -22,7 +22,7 @@ export const ModalWindow = ({ images }) => {
             >
                 <img src={crossClose} alt="cross" onClick={closeModalWindow} />
                 <img src={images} alt="images"/>
-                {/*<Slider slides={images} />*/}
+                {/*<AdminSlider slides={images} />*/}
             </div>
         </div>,
         document.querySelector('#modal')

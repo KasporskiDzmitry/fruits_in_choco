@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Input } from '../../../components/common/FormsControls/FormsControls';
-import { required } from '../../../components/utils/validators/validators';
+import React, {useEffect} from 'react';
+import {Field, reduxForm} from 'redux-form';
+import {Input} from '../../../components/common/FormsControls/FormsControls';
+import {required} from '../../../components/utils/validators/validators';
 import formsControlsStyle from '../../../components/common/FormsControls/FormsControls.module.scss';
-import { Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import {Button} from 'react-bootstrap';
+import {useDispatch, useSelector} from 'react-redux';
 import style from './Slider.module.scss';
 import {
     deleteSlide,
@@ -13,7 +13,7 @@ import {
 } from '../../../redux/thunks/slide_thunks';
 import Slide from './Slide';
 
-const AddSlideForm = ({ handleSubmit, error, isFetching }) => {
+const AddSlideForm = ({handleSubmit, error, isFetching}) => {
     return (
         <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.fieldWrapper}>
@@ -68,9 +68,9 @@ const AddSlideForm = ({ handleSubmit, error, isFetching }) => {
     );
 };
 
-const AddSlideReduxForm = reduxForm({ form: 'add_slide' })(AddSlideForm);
+const AddSlideReduxForm = reduxForm({form: 'add_slide'})(AddSlideForm);
 
-const Slider = (props) => {
+const AdminSlider = (props) => {
     const dispatch = useDispatch();
     const slides = useSelector((state) => state.slideReducer.slides);
 
@@ -93,16 +93,16 @@ const Slider = (props) => {
     return (
         <div className={style.container}>
             <div>
-                <AddSlideReduxForm onSubmit={onSubmit} />
+                <AddSlideReduxForm onSubmit={onSubmit}/>
             </div>
             <div className={style.slidesContainer}>
                 {slides.length > 0 &&
                     slides.map((i) => (
-                        <Slide slide={i} removeSlide={removeSlide} />
+                        <Slide slide={i} removeSlide={removeSlide}/>
                     ))}
             </div>
         </div>
     );
 };
 
-export default Slider;
+export default AdminSlider;

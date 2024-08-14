@@ -49,7 +49,9 @@ const createRequest = (method, path, body, isAuthRequired, contentType) => {
 
 const setHeader = (isAuthRequired, contentType) => {
     const state = store.getState();
+    console.log(state);
     const token = state.authReducer.token;
+    console.log(token + "    IN set header");
     if ((token && token.length > 0) || isAuthRequired) {
         axios.defaults.headers.common['Authorization'] = token;
     } else {
@@ -81,7 +83,7 @@ axios.interceptors.response.use(
                 return axios(originalRequest);
             } catch (e) {
                 removeUserInfoFromLS();
-                window.location.href = '/';
+                // window.location.href = '/';
             }
         }
         return Promise.reject(error);

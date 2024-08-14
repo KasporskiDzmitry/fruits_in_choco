@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loadCategories } from '../../../redux/thunks/category_thunks';
 
-const Categories = (props) => {
+const AdminCategories = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const Categories = (props) => {
     return (
         <div>
             <div>
-                <Link to={'/profile/admin/add_category'}>
+                <Link to={'/admin/add_category'}>
                     <Button>Добавить категорию</Button>
                 </Link>
             </div>
@@ -26,4 +26,4 @@ const Categories = (props) => {
     );
 };
 
-export default Categories;
+export default AdminCategories;

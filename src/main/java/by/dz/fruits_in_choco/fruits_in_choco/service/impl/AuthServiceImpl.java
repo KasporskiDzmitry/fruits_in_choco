@@ -3,7 +3,6 @@ package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Status;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Token;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.user.TokenType;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException;
@@ -46,17 +45,14 @@ public class AuthServiceImpl implements AuthService {
             throw new UserNotConfirmedException("Account not confirmed");
         }
 
-        tokenService.deleteTokensByUser(user);
+        Token token = tokenService.updateToken(user);
 
-        Token accessToken = tokenService.createToken(user, TokenType.ACCESS);
-        Token refreshToken = tokenService.createToken(user, TokenType.REFRESH);
-
-        response.addCookie(cookieCreator.createRefreshTokenCookie(refreshToken.getToken(), Math.toIntExact(refreshTokenValidity)));
+        response.addCookie(cookieCreator.createRefreshTokenCookie(token.getRefresh(), Math.toIntExact(refreshTokenValidity)));
 
         return new AuthenticationResponse(
                 user.getId(),
                 email,
-                accessToken.getToken(),
+                token.getAccess(),
                 null,
                 user.getRole().name(),
                 user.getFirstName() + " " + user.getLastName()
@@ -68,18 +64,18 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByEmail(jwtTokenProvider.getUsername(refreshToken))
                 .orElseThrow(() -> new EntityNotFoundException("User doesn't exist"));
 
-        tokenService.deleteTokensByUser(user);
+        Token token = tokenService.updateToken(user);
 
         response.addCookie(cookieCreator.createRefreshTokenCookie(
-                tokenService.createToken(user, TokenType.REFRESH).getToken(),
+                token.getRefresh(),
                 Math.toIntExact(refreshTokenValidity)));
-        return tokenService.createToken(user, TokenType.ACCESS).getToken();
+        return token.getAccess();
     }
 
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
-            tokenService.deleteTokensByUser(userRepository.findByEmail(authentication.getName()).get());
+            tokenService.clearToken(userRepository.findByEmail(authentication.getName()).get());
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
     }

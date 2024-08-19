@@ -1,10 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.entity.user;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity(name = "User")
@@ -35,9 +33,9 @@ public class User {
     @Column(name = "activationtoken")
     private String activationToken;
 
-    @OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "user", orphanRemoval = true)
-    @JsonManagedReference
-    private List<Token> tokens;
+    @OneToOne(cascade = {CascadeType.REMOVE})
+    @JoinColumn(name = "token_id")
+    private Token token;
 
     @Override
     public String toString() {
@@ -50,7 +48,7 @@ public class User {
                 ", status=" + status +
                 ", role=" + role +
                 ", activationToken='" + activationToken + '\'' +
-                ", tokens=" + tokens +
+                ", token=" + token +
                 '}';
     }
 }

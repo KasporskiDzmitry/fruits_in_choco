@@ -1,19 +1,13 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Token;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.user.TokenType;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.TokenRepository;
-import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service("tokenService")
 @Slf4j
@@ -21,27 +15,30 @@ public class TokenServiceImpl implements TokenService {
     private final JwtTokenProvider tokenProvider;
     private final TokenRepository tokenRepository;
     @Value("${jwt.expiration}")
-    private Long tokenValidity;
+    private Long accessTokenValidity;
     @Value("${jwt.expirationRefresh}")
     private Long refreshTokenValidity;
 
-    public TokenServiceImpl(JwtTokenProvider tokenProvider, TokenRepository tokenRepository, UserRepository userRepository) {
+    public TokenServiceImpl(JwtTokenProvider tokenProvider, TokenRepository tokenRepository) {
         this.tokenProvider = tokenProvider;
         this.tokenRepository = tokenRepository;
     }
 
     @Override
-    public Token createToken(User user, TokenType tokenType) {
-        Long validity = tokenType == TokenType.ACCESS ? tokenValidity : refreshTokenValidity;
-        Token token = Token.builder()
-                .token(tokenProvider.createToken(user.getEmail(), user.getRole().name(), validity))
-                .tokenType(tokenType)
-                .user(user)
-                .build();
+    public Token updateToken(User user) {
+        Token token = user.getToken();
+        token.setAccess(tokenProvider.createToken(user.getEmail(), user.getRole().name(), accessTokenValidity));
+        token.setRefresh(tokenProvider.createToken(user.getEmail(), user.getRole().name(), refreshTokenValidity));
+
         return tokenRepository.save(token);
     }
 
-    public void deleteTokensByUser(User user) {
-        tokenRepository.deleteAll(user.getTokens());
+    @Override
+    public Token clearToken(User user) {
+        Token token = user.getToken();
+        token.setAccess(null);
+        token.setRefresh(null);
+
+        return tokenRepository.save(token);
     }
 }

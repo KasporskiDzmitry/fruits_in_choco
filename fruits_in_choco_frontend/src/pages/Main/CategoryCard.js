@@ -12,14 +12,14 @@ const Enum = {
 };
 
 const CategoryCard = ({category}) => {
-    const routeName = Object.entries(Enum).find((item) => item[1] === category.name)[0];
+    const routeName = Object.entries(Enum).find((item) => item[1] === category.title)[0];
 
     return (
         <div>
             <Link to={`/products/${routeName}`}>
-                <img src={category.imageURL} alt={category.name}/>
+                <img src={category.mainImageURL} alt={category.title}/>
             </Link>
-            <p>{category.name}</p>
+            <p>{category.title}</p>
         </div>
     );
 };

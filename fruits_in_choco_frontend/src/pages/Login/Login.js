@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Input } from '../../components/common/FormsControls/FormsControls';
-import { required } from '../../components/utils/validators/validators';
+import { required } from '../../util/validators/validators';
 import style from '../../components/common/FormsControls/FormsControls.module.scss';
 import { login } from '../../redux/thunks/auth_thunks';
 import { Button } from 'react-bootstrap';

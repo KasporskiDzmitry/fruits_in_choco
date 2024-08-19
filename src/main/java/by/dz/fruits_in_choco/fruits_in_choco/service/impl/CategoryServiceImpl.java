@@ -1,48 +1,49 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
+import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryPreview;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.category.Category;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
+import by.dz.fruits_in_choco.fruits_in_choco.mapper.CategoryMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.CategoryRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("categoryService")
+@Slf4j
+@AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    private final CategoryMapper categoryMapper;
 
     @Override
-    public List<Category> getCategories(int page, int size, String direction, String sortBy) {
-        Page<Category> categoryPage =  categoryRepository.findAll(PageRequest.of(page ,size, Sort.Direction.fromString(direction), sortBy));
-        return categoryPage.getContent();
+    public List<CategoryPreview> getCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        return categories.stream().map(categoryMapper::mapToCategoryPreview).collect(Collectors.toList());
     }
 
     @Override
     public Category saveCategory(CategoryRequest request) {
         Category category = new Category();
-        category.setName(request.name());
+        category.setTitle(request.title());
         category.setDescription(request.description());
-        category.setImageURL(request.imageURL());
+        category.setMainImageURL(request.mainImageURL());
         return categoryRepository.save(category);
     }
 
     @Override
     public Category updateCategory(Category newCategory, Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Category.class.getSimpleName(), id));
-        category.setName(newCategory.getName());
+                .orElseThrow(() -> new EntityNotFoundException("Category", id));
+        category.setTitle(newCategory.getTitle());
         category.setDescription(newCategory.getDescription());
-        category.setImageURL(newCategory.getImageURL());
+        category.setMainImageURL(newCategory.getMainImageURL());
         return categoryRepository.save(category);
     }
 
@@ -51,13 +52,13 @@ public class CategoryServiceImpl implements CategoryService {
         try {
             categoryRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException(Category.class.getSimpleName(), id);
+            throw new EntityNotFoundException("Category", id);
         }
     }
 
     @Override
     public Category getCategoryById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Category.class.getSimpleName(), id));
+                .orElseThrow(() -> new EntityNotFoundException("Category", id));
     }
 }

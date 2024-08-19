@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.slide.Slide;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.Slide;
 
 import java.util.List;
 

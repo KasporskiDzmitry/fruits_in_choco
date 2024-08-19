@@ -8,11 +8,10 @@ export const init = () => async (dispatch) => {
     }
 
     await Promise.all([
-        dispatch(
-            loadCategories(),
-            dispatch(loadSlides()),
-            // dispatch(loadReviewSlides())
-        ),
-    ]);
+        dispatch(loadCategories()),
+        dispatch(loadSlides()),
+        // dispatch(loadReviewSlides())
+    ])
+    ;
     dispatch(initializedSuccess());
 };

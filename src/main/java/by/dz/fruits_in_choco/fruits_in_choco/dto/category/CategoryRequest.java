@@ -1,8 +1,8 @@
 package by.dz.fruits_in_choco.fruits_in_choco.dto.category;
 
 public record CategoryRequest(
-        String name,
+        String title,
         String description,
-        String imageURL
+        String mainImageURL
 ) {
 }

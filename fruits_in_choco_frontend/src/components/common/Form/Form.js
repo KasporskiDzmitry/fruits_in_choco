@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, FieldArray } from 'redux-form';
 import { Input, Textarea } from '../FormsControls/FormsControls';
-import { required } from '../../utils/validators/validators';
+import { required } from '../../../util/validators/validators';
 import formsControlsStyle from '../FormsControls/FormsControls.module.scss';
 import { Button } from 'react-bootstrap';
 import style from './Form.module.scss';

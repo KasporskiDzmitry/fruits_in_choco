@@ -1,4 +1,4 @@
-package by.dz.fruits_in_choco.fruits_in_choco.entity.slide;
+package by.dz.fruits_in_choco.fruits_in_choco.entity;
 
 import lombok.Data;
 
@@ -19,5 +19,6 @@ public class Slide {
 
     private String href;
 
+    @Column(name = "image_url")
     private String imageURL;
 }

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Input} from '../../../components/common/FormsControls/FormsControls';
-import {required} from '../../../components/utils/validators/validators';
+import {required} from '../../../util/validators/validators';
 import formsControlsStyle from '../../../components/common/FormsControls/FormsControls.module.scss';
 import {Button} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux';

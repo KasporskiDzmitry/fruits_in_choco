@@ -3,7 +3,7 @@ import style from './Footer.module.scss';
 import logo from '../../assets/images/logo.png';
 import appStyle from '../../App.module.scss';
 import { Link } from 'react-router-dom';
-import { scrollToTarget } from '../utils/routes';
+import { scrollToTarget } from '../../util/routes';
 import instagramIcon from '../../assets/images/instagram_icon.png';
 import tiktokIcon from '../../assets/images/tiktok_footer_icon.png';
 

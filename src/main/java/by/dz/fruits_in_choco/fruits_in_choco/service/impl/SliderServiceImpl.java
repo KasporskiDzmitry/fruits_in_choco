@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.slide.Slide;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.Slide;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.SliderRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.service.SliderService;
@@ -30,7 +30,7 @@ public class SliderServiceImpl implements SliderService {
     @Override
     public Slide updateSlide(Slide newSlide, Long id) {
         Slide slide = sliderRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Slide.class.getSimpleName(), id));
+                .orElseThrow(() -> new EntityNotFoundException("Slide", id));
 
         slide.setTitle(newSlide.getTitle());
         slide.setText(newSlide.getText());
@@ -44,7 +44,7 @@ public class SliderServiceImpl implements SliderService {
         try {
             sliderRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException(Slide.class.getSimpleName(), id);
+            throw new EntityNotFoundException("Slide", id);
         }
     }
 }

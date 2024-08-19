@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
-import by.dz.fruits_in_choco.fruits_in_choco.entity.slide.Slide;
+import by.dz.fruits_in_choco.fruits_in_choco.entity.Slide;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.SliderService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.SliderServiceImpl;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/slide")
+@RequestMapping("/api/v1/slides")
 @Slf4j
 public class SliderController {
     private final SliderService sliderService;

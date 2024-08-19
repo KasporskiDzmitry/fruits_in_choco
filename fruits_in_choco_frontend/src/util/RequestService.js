@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {API_BASE_URL} from '../components/utils/constants';
+import {API_BASE_URL} from './constants';
 import store from '../redux/redux-store';
 import {
     clearToken,
@@ -8,7 +8,7 @@ import {
     fetchRefreshTokenFailure,
     fetchRefreshTokenSuccess
 } from '../redux/actions/auth_actions';
-import {removeUserInfoFromLS} from '../components/utils/localStorageFunctions';
+import {removeUserInfoFromLS} from './localStorageFunctions';
 
 class RequestService {
     get = (url, isAuthRequired = false, contentType = 'application/json') => {
@@ -73,11 +73,13 @@ axios.interceptors.response.use(
             (error.response.status === 403 && !originalRequest._retry)) {
             // TODO: need to monitor behavior
             store.dispatch(clearToken());
+            localStorage.removeItem("token");
             originalRequest._retry = true;
             try {
                 store.dispatch(fetchRefreshTokenBegin());
                 const response = await new RequestService().post('/auth/refreshToken');
                 store.dispatch(fetchRefreshTokenSuccess(response.data));
+                localStorage.setItem("token", response.data);
                 originalRequest.headers.Authorization = response.data;
                 return axios(originalRequest);
             } catch (e) {

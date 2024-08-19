@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Slider from './Slider/Slider';
 import {useSelector} from 'react-redux';
-import {scrollToTarget} from '../../components/utils/routes';
+import {scrollToTarget} from '../../util/routes';
 import {Advantages} from './Advantages';
 import {AboutUs} from './AboutUs';
 import {SocialNetwork} from './SocialNetwork';

@@ -11,7 +11,7 @@ import { reset, stopSubmit } from 'redux-form';
 import {
     removeUserInfoFromLS,
     saveUserInfoToLS,
-} from '../../components/utils/localStorageFunctions';
+} from '../../util/localStorageFunctions';
 
 export const login = (email, password) => async (dispatch) => {
     dispatch(loginBegin());

@@ -14,4 +14,5 @@ export const removeUserInfoFromLS = () => {
     localStorage.removeItem('products');
     localStorage.removeItem('isAuth');
     localStorage.removeItem('token');
+    localStorage.removeItem("userId");
 };

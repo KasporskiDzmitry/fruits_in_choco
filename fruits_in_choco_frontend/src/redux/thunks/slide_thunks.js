@@ -19,7 +19,7 @@ import {
 export const loadSlides = () => async (dispatch) => {
     try {
         dispatch(fetchSlidesBegin());
-        const response = await RequestService.get('/slide');
+        const response = await RequestService.get('/slides');
         dispatch(fetchSlidesSuccess(response.data));
     } catch (e) {
         console.log(e);
@@ -30,7 +30,7 @@ export const loadSlides = () => async (dispatch) => {
 export const saveSlide = (slide) => async (dispatch) => {
     try {
         dispatch(addSlideBegin());
-        const response = await RequestService.post('/slide', slide, true);
+        const response = await RequestService.post('/slides', slide, true);
         dispatch(addSlideSuccess(response.data));
         // dispatch(loadSlides());
         dispatch(reset('add_slide'));
@@ -46,7 +46,7 @@ export const updateSlide = (slide) => async (dispatch) => {
     try {
         dispatch(updateSlideBegin());
         const response = await RequestService.put(
-            `/slide/${slide.id}`,
+            `/slides/${slide.id}`,
             slide,
             true
         );
@@ -64,7 +64,7 @@ export const deleteSlide = (slide) => async (dispatch) => {
     try {
         dispatch(deleteSlideBegin());
         const response = await RequestService.delete(
-            `/slide/${slide.id}`,
+            `/slides/${slide.id}`,
             true
         );
         dispatch(enqueueSnackbar('Slide removed successfully', 'success'));

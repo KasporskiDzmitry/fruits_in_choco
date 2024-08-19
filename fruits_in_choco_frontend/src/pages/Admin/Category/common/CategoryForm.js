@@ -5,7 +5,7 @@ import {
     Input,
     Textarea,
 } from '../../../../components/common/FormsControls/FormsControls';
-import { required } from '../../../../components/utils/validators/validators';
+import { required } from '../../../../util/validators/validators';
 import style from './CategoryForm.module.scss';
 
 export const CategoryForm = ({ handleSubmit, error }) => {

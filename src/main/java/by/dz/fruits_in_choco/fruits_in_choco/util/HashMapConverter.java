@@ -2,8 +2,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.AttributeConverter;
@@ -11,9 +10,9 @@ import java.io.IOException;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class HashMapConverter implements AttributeConverter<Map<String, Object>, String> {
     private final ObjectMapper objectMapper;
-    private final static Logger log = LogManager.getLogger(HashMapConverter.class);
 
     public HashMapConverter(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;

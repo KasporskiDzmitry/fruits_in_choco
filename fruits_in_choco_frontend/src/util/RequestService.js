@@ -1,9 +1,14 @@
 import axios from 'axios';
 
-import { API_BASE_URL } from '../components/utils/constants';
-import store from './redux-store';
-import { clearToken, fetchRefreshTokenSuccess } from './actions/auth_actions';
-import { removeUserInfoFromLS } from '../components/utils/localStorageFunctions';
+import {API_BASE_URL} from '../components/utils/constants';
+import store from '../redux/redux-store';
+import {
+    clearToken,
+    fetchRefreshTokenBegin,
+    fetchRefreshTokenFailure,
+    fetchRefreshTokenSuccess
+} from '../redux/actions/auth_actions';
+import {removeUserInfoFromLS} from '../components/utils/localStorageFunctions';
 
 class RequestService {
     get = (url, isAuthRequired = false, contentType = 'application/json') => {
@@ -48,10 +53,7 @@ const createRequest = (method, path, body, isAuthRequired, contentType) => {
 };
 
 const setHeader = (isAuthRequired, contentType) => {
-    const state = store.getState();
-    console.log(state);
-    const token = state.authReducer.token;
-    console.log(token + "    IN set header");
+    const token = localStorage.getItem('token');
     if ((token && token.length > 0) || isAuthRequired) {
         axios.defaults.headers.common['Authorization'] = token;
     } else {
@@ -67,22 +69,21 @@ axios.interceptors.response.use(
     },
     async function (error) {
         const originalRequest = error.config;
-        if (
-            error.response.status === 401 ||
-            (error.response.status === 403 && !originalRequest._retry)
-        ) {
+        if (error.response.status === 401 ||
+            (error.response.status === 403 && !originalRequest._retry)) {
             // TODO: need to monitor behavior
             store.dispatch(clearToken());
             originalRequest._retry = true;
             try {
-                const response = await new RequestService().post(
-                    '/auth/refreshToken'
-                );
+                store.dispatch(fetchRefreshTokenBegin());
+                const response = await new RequestService().post('/auth/refreshToken');
                 store.dispatch(fetchRefreshTokenSuccess(response.data));
                 originalRequest.headers.Authorization = response.data;
                 return axios(originalRequest);
             } catch (e) {
                 removeUserInfoFromLS();
+                store.dispatch(fetchRefreshTokenFailure(e));
+                console.log(e);
                 // window.location.href = '/';
             }
         }

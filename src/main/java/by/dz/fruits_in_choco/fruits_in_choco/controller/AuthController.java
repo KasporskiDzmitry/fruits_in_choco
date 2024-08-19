@@ -1,12 +1,10 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationRequest;
-import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationResponse;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.AuthServiceImpl;
 import by.dz.fruits_in_choco.fruits_in_choco.util.CookieCreator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@Slf4j
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthServiceImpl authService;
-    private final Logger log = LogManager.getLogger(AuthController.class);
     private final CookieCreator cookieCreator;
 
     public AuthController(AuthenticationManager authenticationManager, AuthServiceImpl authService, CookieCreator cookieCreator) {
@@ -33,6 +31,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
+        log.info("Login request");
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
             return ResponseEntity.ok(authService.login(request.email(), response));
@@ -44,6 +43,7 @@ public class AuthController {
 
     @PostMapping("/refreshToken")
     public ResponseEntity<?> refreshToken(@CookieValue(name = "refreshToken") String refreshToken, HttpServletResponse response) {
+        log.info("/refreshToken");
         try {
             return ResponseEntity.ok(authService.refreshToken(refreshToken, response));
         } catch (EntityNotFoundException e) {

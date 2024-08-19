@@ -3,6 +3,7 @@ export const saveUserInfoToLS = (user) => {
     localStorage.setItem('email', user.email);
     localStorage.setItem('role', user.role);
     localStorage.setItem('userId', user.id);
+    localStorage.setItem('token', user.token);
     localStorage.setItem('isAuth', 'true');
 };
 
@@ -12,4 +13,5 @@ export const removeUserInfoFromLS = () => {
     localStorage.removeItem('role');
     localStorage.removeItem('products');
     localStorage.removeItem('isAuth');
+    localStorage.removeItem('token');
 };

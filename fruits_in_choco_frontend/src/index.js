@@ -11,7 +11,7 @@ import {router} from "./components/AppRouter/AppRouter";
 const root = createRoot(document.getElementById('root'));
 
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <Provider store={store}>
             {/*<ScrollToTop/>*/}
             {/*Commented scroll since routing doesn't work with it*/}
@@ -19,5 +19,5 @@ root.render(
                 <RouterProvider router={router}/>
             </SnackbarProvider>
         </Provider>
-    </React.StrictMode>
+    // </React.StrictMode>
 );

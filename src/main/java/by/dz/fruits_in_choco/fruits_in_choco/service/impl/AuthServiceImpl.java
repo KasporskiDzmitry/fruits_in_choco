@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String refreshToken(String refreshToken, HttpServletResponse response) {
+    public synchronized String refreshToken(String refreshToken, HttpServletResponse response) {
         User user = userRepository.findByEmail(jwtTokenProvider.getUsername(refreshToken))
                 .orElseThrow(() -> new EntityNotFoundException("User doesn't exist"));
 

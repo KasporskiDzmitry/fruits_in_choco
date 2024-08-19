@@ -1,4 +1,4 @@
-import RequestService from '../RequestService';
+import RequestService from '../../util/RequestService';
 import {
     loginBegin,
     loginFailure,
@@ -22,7 +22,6 @@ export const login = (email, password) => async (dispatch) => {
         });
 
         saveUserInfoToLS(response.data);
-        console.log(response.data);
         dispatch(
             loginSuccess(
                 response.data.id,

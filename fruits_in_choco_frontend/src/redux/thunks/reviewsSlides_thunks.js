@@ -1,4 +1,4 @@
-import RequestService from '../RequestService';
+import RequestService from '../../util/RequestService';
 import { reset } from 'redux-form';
 import { enqueueSnackbar } from '../actions/app_actions';
 import {

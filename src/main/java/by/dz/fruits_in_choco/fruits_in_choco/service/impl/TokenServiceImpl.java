@@ -7,10 +7,16 @@ import by.dz.fruits_in_choco.fruits_in_choco.repository.TokenRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.TokenService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service("tokenService")
+@Slf4j
 public class TokenServiceImpl implements TokenService {
     private final JwtTokenProvider tokenProvider;
     private final TokenRepository tokenRepository;

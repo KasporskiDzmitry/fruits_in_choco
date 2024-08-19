@@ -1,4 +1,4 @@
-import RequestService from '../RequestService';
+import RequestService from '../../util/RequestService';
 import {
     addCategoryBegin,
     addCategoryFailure,

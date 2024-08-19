@@ -7,7 +7,6 @@ import arrowForward from '../../../assets/images/Arrows/ArrowForward.png';
 import arrowBackward from '../../../assets/images/Arrows/ArrowBackward.png';
 
 const Slider = ({slides}) => {
-    console.log(slides);
     const controlForward = <img src={arrowForward} alt="arrowForward"/>;
     const controlBackward = <img src={arrowBackward} alt="controlBackward"/>;
 

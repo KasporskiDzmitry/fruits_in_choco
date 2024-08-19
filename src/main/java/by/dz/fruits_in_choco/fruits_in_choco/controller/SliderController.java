@@ -4,8 +4,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.entity.slide.Slide;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.SliderService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.SliderServiceImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/slide")
+@Slf4j
 public class SliderController {
     private final SliderService sliderService;
-    private final static Logger log = LogManager.getLogger(SliderController.class);
 
     public SliderController(SliderServiceImpl sliderService) {
         this.sliderService = sliderService;

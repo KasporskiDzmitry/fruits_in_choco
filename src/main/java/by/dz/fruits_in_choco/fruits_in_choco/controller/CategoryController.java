@@ -7,8 +7,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.mapper.CategoryMapper;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.CategoryServiceImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +18,8 @@ import static by.dz.fruits_in_choco.fruits_in_choco.util.Constants.*;
 
 @RestController
 @RequestMapping("/api/v1")
+@Slf4j
 public class CategoryController {
-    private final static Logger log = LogManager.getLogger(CategoryController.class);
     private final CategoryService categoryService;
     private final CategoryMapper mapper;
 

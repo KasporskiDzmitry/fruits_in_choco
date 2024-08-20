@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {API_BASE_URL} from './constants';
+import {API_BASE_URL} from '../util/constants';
 import store from '../redux/redux-store';
 import {
     clearToken,
@@ -8,7 +8,7 @@ import {
     fetchRefreshTokenFailure,
     fetchRefreshTokenSuccess
 } from '../redux/actions/auth_actions';
-import {removeUserInfoFromLS} from './localStorageFunctions';
+import {removeUserInfoFromLS} from '../util/localStorageFunctions';
 
 class RequestService {
     get = (url, isAuthRequired = false, contentType = 'application/json') => {
@@ -54,7 +54,7 @@ const createRequest = (method, path, body, isAuthRequired, contentType) => {
 
 const setHeader = (isAuthRequired, contentType) => {
     const token = localStorage.getItem('token');
-    if ((token && token.length > 0) || isAuthRequired) {
+    if ((token && token.length > 0) && isAuthRequired) {
         axios.defaults.headers.common['Authorization'] = token;
     } else {
         delete axios.defaults.headers.common['Authorization'];
@@ -78,9 +78,10 @@ axios.interceptors.response.use(
             try {
                 store.dispatch(fetchRefreshTokenBegin());
                 const response = await new RequestService().post('/auth/refreshToken');
-                store.dispatch(fetchRefreshTokenSuccess(response.data));
-                localStorage.setItem("token", response.data);
-                originalRequest.headers.Authorization = response.data;
+                const token = response.data;
+                store.dispatch(fetchRefreshTokenSuccess(token));
+                localStorage.setItem("token", token);
+                originalRequest.headers.Authorization = token;
                 return axios(originalRequest);
             } catch (e) {
                 removeUserInfoFromLS();

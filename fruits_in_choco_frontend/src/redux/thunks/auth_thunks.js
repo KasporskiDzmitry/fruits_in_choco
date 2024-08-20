@@ -1,4 +1,4 @@
-import RequestService from '../../util/RequestService';
+import RequestService from '../../api/RequestService';
 import {
     loginBegin,
     loginFailure,

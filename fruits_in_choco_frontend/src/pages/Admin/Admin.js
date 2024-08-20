@@ -1,16 +1,18 @@
 import React from 'react';
 import {NavLink, Outlet, Route, Routes} from 'react-router-dom';
 import Preloader from '../../components/common/Preloader/Preloader';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import style from './Admin.module.scss';
 import appStyle from '../../App.module.scss';
 import { Dashboard } from '@material-ui/icons';
+import {logout} from "../../redux/thunks/auth_thunks";
 
 const AdminCategories = React.lazy(() => import('./Category/AdminCategories'));
 const AdminSlider = React.lazy(() => import('./Slider/AdminSlider'));
 
 const Admin = () => {
     const categories = useSelector((state) => state.categoryReducer.categories);
+    const dispatch = useDispatch();
 
     return (
         <div className={`${appStyle.sectionOuter}`}>
@@ -25,6 +27,9 @@ const Admin = () => {
                     </nav>
                     <>
                         <React.Suspense fallback={<Preloader />}>
+                            <div>
+                                <NavLink className={style.icon} to={'/'} onClick={() => dispatch(logout())}>Выйти</NavLink>
+                            </div>
                             <Outlet />
                         </React.Suspense>
                     </>

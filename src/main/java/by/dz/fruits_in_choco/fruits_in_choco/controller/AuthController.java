@@ -31,7 +31,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
-        log.info("Login request");
+        log.info("Login attempt: /login");
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
             return ResponseEntity.ok(authService.login(request.email(), response));
@@ -43,7 +43,7 @@ public class AuthController {
 
     @PostMapping("/refreshToken")
     public ResponseEntity<?> refreshToken(@CookieValue(name = "refreshToken") String refreshToken, HttpServletResponse response) {
-        log.info("/refreshToken");
+        log.info("Generate new token pair: /refreshToken");
         try {
             return ResponseEntity.ok(authService.refreshToken(refreshToken, response));
         } catch (EntityNotFoundException e) {
@@ -55,6 +55,7 @@ public class AuthController {
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')") // оставить только USER?
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        log.info("Logout attempt: /logout");
         try {
             authService.logout(request, response);
             response.addCookie(cookieCreator.createRefreshTokenCookie(null, 0));

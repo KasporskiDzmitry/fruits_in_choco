@@ -9,4 +9,5 @@ public interface AuthService {
     AuthenticationResponse login(String email, HttpServletResponse response);
     String refreshToken(String refreshToken, HttpServletResponse response);
     void logout(HttpServletRequest request, HttpServletResponse response);
+    boolean verifyToken(HttpServletRequest request);
 }

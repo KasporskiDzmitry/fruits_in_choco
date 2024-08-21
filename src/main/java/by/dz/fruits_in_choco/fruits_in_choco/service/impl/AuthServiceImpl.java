@@ -79,4 +79,9 @@ public class AuthServiceImpl implements AuthService {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
     }
+
+    @Override
+    public boolean verifyToken(HttpServletRequest request) {
+        return tokenService.verifyToken(request.getHeader("Authorization"));
+    }
 }

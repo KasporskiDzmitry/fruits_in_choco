@@ -66,4 +66,11 @@ public class AuthController {
         }
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
+    @PostMapping("verifyToken")
+    public boolean verifyToken(HttpServletRequest request, HttpServletResponse response) {
+        log.info("Verify access token: /verifyToken");
+        return authService.verifyToken(request);
+    }
+
 }

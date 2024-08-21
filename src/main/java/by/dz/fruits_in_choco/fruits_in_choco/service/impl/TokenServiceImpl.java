@@ -41,4 +41,9 @@ public class TokenServiceImpl implements TokenService {
 
         return tokenRepository.save(token);
     }
+
+    @Override
+    public boolean verifyToken(String token) {
+        return tokenProvider.validateToken(token);
+    }
 }

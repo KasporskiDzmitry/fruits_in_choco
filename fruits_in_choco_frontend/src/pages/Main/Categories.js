@@ -14,9 +14,7 @@ export const Categories = () => {
 
     return (
         <div id={'production'} className={`${appStyle.sectionOuter} ${style.catalog}`}>
-            <div
-                className={appStyle.sectionInner}
-            >
+            <div className={appStyle.sectionInner}>
                 <div className={style.heading}>
                     <img src={arrowBackward} alt="Arrow"/>
                     <h1>Каталог</h1>

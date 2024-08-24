@@ -11,7 +11,6 @@ import {Categories} from './Categories';
 
 const Main = () => {
     const slides = useSelector((state) => state.slideReducer.slides);
-    // get reviewSlides and send as props into Reviews
 
     useEffect(() => {
         const anchor = window.location.hash.split('#')[1];

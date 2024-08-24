@@ -19,7 +19,7 @@ import {
 export const loadReviewSlides = () => async (dispatch) => {
     try {
         dispatch(fetchReviewsSlidesBegin());
-        const response = await RequestService.get('/review_slide');
+        const response = await RequestService.get('/reviews');
         dispatch(fetchReviewsSlidesSuccess(response.data));
     } catch (e) {
         console.log(e);

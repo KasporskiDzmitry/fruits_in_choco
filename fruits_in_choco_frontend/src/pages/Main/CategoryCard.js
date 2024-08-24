@@ -1,8 +1,5 @@
 import React from 'react';
-import style from './Main.module.scss';
 import {Link} from "react-router-dom";
-import cakes from "../../assets/images/Catalog/cakes.png";
-
 
 const Enum = {
     cakes: 'Торты',

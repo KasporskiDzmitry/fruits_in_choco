@@ -3,8 +3,8 @@ import appStyle from '../../App.module.scss';
 import style from './Main.module.scss';
 import arrowBackward from '../../assets/images/Arrows/ArrowBackward.png';
 import arrowForward from '../../assets/images/Arrows/ArrowForward.png';
-import Slider from './Slider/Slider';
 import { useSelector } from 'react-redux';
+import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 
 export const Reviews = () => {
     const reviewsSlides = useSelector(
@@ -22,7 +22,7 @@ export const Reviews = () => {
                     <h1>Отзывы</h1>
                     <img src={arrowForward} alt="Arrow" />
                 </div>
-                <Slider slides={reviewsSlides} />
+                <EmblaCarousel slides={reviewsSlides} />
             </div>
         </div>
     );

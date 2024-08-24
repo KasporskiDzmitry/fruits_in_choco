@@ -390,6 +390,8 @@
         flex-wrap: wrap;
 
         div {
+            margin-top: 2rem;
+
             flex-basis: 50%;
             display: flex;
             flex-direction: column;
@@ -409,6 +411,7 @@
                 }
             }
             p {
+                margin-top: 1rem;
                 font-family: 'Playfair Display SC';
                 font-style: normal;
                 font-weight: 400;

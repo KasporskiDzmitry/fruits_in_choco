@@ -41,6 +41,7 @@ public class AuthController {
         }
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/refreshToken")
     public ResponseEntity<?> refreshToken(@CookieValue(name = "refreshToken") String refreshToken, HttpServletResponse response) {
         log.info("Generate new token pair: /refreshToken");
@@ -52,7 +53,7 @@ public class AuthController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')") // оставить только USER?
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
         log.info("Logout attempt: /logout");

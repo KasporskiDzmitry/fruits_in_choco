@@ -68,7 +68,7 @@ axios.interceptors.response.use(
         return response;
     },
     async function (error) {
-        const originalRequest = error.config;
+        let originalRequest = error.config;
         if (error.response.status === 401 ||
             (error.response.status === 403 && !originalRequest._retry)) {
             // TODO: need to monitor behavior
@@ -77,11 +77,19 @@ axios.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 store.dispatch(fetchRefreshTokenBegin());
-                const response = await new RequestService().post('/auth/refreshToken');
+                const response = await new RequestService().post('/auth/refresh-token');
                 const token = response.data;
                 store.dispatch(fetchRefreshTokenSuccess(token));
                 localStorage.setItem("token", token);
-                originalRequest.headers.Authorization = token;
+
+                originalRequest = {
+                    ...originalRequest,
+                    headers: {
+                        ...originalRequest.headers,
+                        Authorization: token
+                    }
+                };
+
                 return axios(originalRequest);
             } catch (e) {
                 removeUserInfoFromLS();

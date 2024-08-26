@@ -10,7 +10,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.AuthService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.TokenService;
-import by.dz.fruits_in_choco.fruits_in_choco.util.CookieCreator;
+import by.dz.fruits_in_choco.fruits_in_choco.util.CookieHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,13 +26,13 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     @Value("${jwt.expirationRefresh}")
     private Long refreshTokenValidity;
-    private final CookieCreator cookieCreator;
+    private final CookieHelper cookieHelper;
     private final TokenService tokenService;
 
-    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, CookieCreator cookieCreator, TokenService tokenService) {
+    public AuthServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, CookieHelper cookieHelper, TokenService tokenService) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.cookieCreator = cookieCreator;
+        this.cookieHelper = cookieHelper;
         this.tokenService = tokenService;
     }
 
@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
 
         Token token = tokenService.updateToken(user);
 
-        response.addCookie(cookieCreator.createRefreshTokenCookie(token.getRefresh(), Math.toIntExact(refreshTokenValidity)));
+        response.addCookie(cookieHelper.createRefreshTokenCookie(token.getRefresh(), Math.toIntExact(refreshTokenValidity)));
 
         return new AuthenticationResponse(
                 user.getId(),
@@ -66,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
 
         Token token = tokenService.updateToken(user);
 
-        response.addCookie(cookieCreator.createRefreshTokenCookie(
+        response.addCookie(cookieHelper.createRefreshTokenCookie(
                 token.getRefresh(),
                 Math.toIntExact(refreshTokenValidity)));
         return token.getAccess();

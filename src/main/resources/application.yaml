@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    password: root
+    url: jdbc:mysql://localhost:3306/marina_cupcake?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8
+    username: root
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+front:
+  hostname: localhost
+  port: 3000
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+jwt:
+  expiration: 10000
+  expirationRefresh: 86400000
+  header: Authorization
+  secret: ENC(944RXrWsa3dlg7pFk4CpjA==)

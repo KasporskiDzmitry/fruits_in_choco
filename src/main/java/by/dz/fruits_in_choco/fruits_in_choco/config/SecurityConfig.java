@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/login",
-                        "/api/v1/auth/refreshToken",
+                        "/api/v1/auth/refresh-token",
                         "/api/v1/categories",
                         "/api/v1/categories/{id}",
                         "/api/v1/slides",

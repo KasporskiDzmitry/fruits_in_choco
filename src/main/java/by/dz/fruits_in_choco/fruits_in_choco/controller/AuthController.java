@@ -3,7 +3,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.controller;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.AuthServiceImpl;
-import by.dz.fruits_in_choco.fruits_in_choco.util.CookieCreator;
+import by.dz.fruits_in_choco.fruits_in_choco.util.CookieHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,12 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthServiceImpl authService;
-    private final CookieCreator cookieCreator;
+    private final CookieHelper cookieHelper;
 
-    public AuthController(AuthenticationManager authenticationManager, AuthServiceImpl authService, CookieCreator cookieCreator) {
+    public AuthController(AuthenticationManager authenticationManager, AuthServiceImpl authService, CookieHelper cookieHelper) {
         this.authenticationManager = authenticationManager;
         this.authService = authService;
-        this.cookieCreator = cookieCreator;
+        this.cookieHelper = cookieHelper;
     }
 
     @PostMapping("/login")
@@ -42,7 +42,7 @@ public class AuthController {
     }
 
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-    @PostMapping("/refreshToken")
+    @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshToken(@CookieValue(name = "refreshToken") String refreshToken, HttpServletResponse response) {
         log.info("Generate new token pair: /refreshToken");
         try {
@@ -59,7 +59,7 @@ public class AuthController {
         log.info("Logout attempt: /logout");
         try {
             authService.logout(request, response);
-            response.addCookie(cookieCreator.createRefreshTokenCookie(null, 0));
+            response.addCookie(cookieHelper.createRefreshTokenCookie(null, 0));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.error("Logout process failed", e);
@@ -68,7 +68,7 @@ public class AuthController {
     }
 
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-    @PostMapping("verifyToken")
+    @PostMapping("verify-token")
     public boolean verifyToken(HttpServletRequest request, HttpServletResponse response) {
         log.info("Verify access token: /verifyToken");
         return authService.verifyToken(request);

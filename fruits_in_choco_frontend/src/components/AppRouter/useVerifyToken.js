@@ -11,7 +11,7 @@ export const useVerifyToken = (token) => {
     }, [token])
 
     const verifyToken = async () => {
-        const response = await RequestService.post('/auth/verifyToken', true);
+        const response = await RequestService.post('/auth/verify-token', {}, true);
         console.log(response)
     }
 

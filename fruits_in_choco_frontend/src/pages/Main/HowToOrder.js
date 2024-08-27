@@ -9,10 +9,7 @@ import writeToInstagram from '../../assets/images/HowToOrder/writeToInstagram.pn
 
 export const HowToOrder = () => {
     return (
-        <div
-            id={'howToOrder'}
-            className={`${appStyle.sectionOuter} ${style.aboutSection}`}
-        >
+        <div id={'howToOrder'} className={`${appStyle.sectionOuter} ${style.aboutSection}`}>
             <div className={`${appStyle.sectionInner}`}>
                 <div className={style.heading}>
                     <img src={arrowBackward} alt="Arrow" />

@@ -1,43 +1,29 @@
 import axios from 'axios';
 
-import {API_BASE_URL} from '../util/constants';
+import { API_BASE_URL } from '../util/constants';
 import store from '../redux/redux-store';
 import {
     clearToken,
     fetchRefreshTokenBegin,
     fetchRefreshTokenFailure,
-    fetchRefreshTokenSuccess
+    fetchRefreshTokenSuccess,
 } from '../redux/actions/auth_actions';
-import {removeUserInfoFromLS} from '../util/localStorageFunctions';
+import { removeUserInfoFromLS } from '../util/localStorageFunctions';
 
 class RequestService {
     get = (url, isAuthRequired = false, contentType = 'application/json') => {
         return createRequest('GET', url, null, isAuthRequired, contentType);
     };
 
-    post = (
-        url,
-        body,
-        isAuthRequired = false,
-        contentType = 'application/json'
-    ) => {
+    post = (url, body, isAuthRequired = false, contentType = 'application/json') => {
         return createRequest('POST', url, body, isAuthRequired, contentType);
     };
 
-    put = (
-        url,
-        body,
-        isAuthRequired = false,
-        contentType = 'application/json'
-    ) => {
+    put = (url, body, isAuthRequired = false, contentType = 'application/json') => {
         return createRequest('PUT', url, body, isAuthRequired, contentType);
     };
 
-    delete = (
-        url,
-        isAuthRequired = false,
-        contentType = 'application/json'
-    ) => {
+    delete = (url, isAuthRequired = false, contentType = 'application/json') => {
         return createRequest('DELETE', url, null, isAuthRequired, contentType);
     };
 }
@@ -54,7 +40,7 @@ const createRequest = (method, path, body, isAuthRequired, contentType) => {
 
 const setHeader = (isAuthRequired, contentType) => {
     const token = localStorage.getItem('token');
-    if ((token && token.length > 0) && isAuthRequired) {
+    if (token && token.length > 0 && isAuthRequired) {
         axios.defaults.headers.common['Authorization'] = token;
     } else {
         delete axios.defaults.headers.common['Authorization'];
@@ -69,30 +55,32 @@ axios.interceptors.response.use(
     },
     async function (error) {
         let originalRequest = error.config;
-        if (error.response.data.message === 'JWT token is invalid'){
+        if (error.response.data.message === 'JWT token is invalid') {
             removeUserInfoFromLS();
-            return Promise.reject("Token is invalid");
+            return Promise.reject('Token is invalid');
         }
 
-        if (error.response.status === 401 ||
-            (error.response.status === 403 && !originalRequest._retry)) {
+        if (
+            error.response.status === 401 ||
+            (error.response.status === 403 && !originalRequest._retry)
+        ) {
             // TODO: need to monitor behavior
             store.dispatch(clearToken());
-            localStorage.removeItem("token");
+            localStorage.removeItem('token');
             originalRequest._retry = true;
             try {
                 store.dispatch(fetchRefreshTokenBegin());
                 const response = await new RequestService().post('/auth/refresh-token');
                 const token = response.data;
                 store.dispatch(fetchRefreshTokenSuccess(token));
-                localStorage.setItem("token", token);
+                localStorage.setItem('token', token);
 
                 originalRequest = {
                     ...originalRequest,
                     headers: {
                         ...originalRequest.headers,
-                        Authorization: token
-                    }
+                        Authorization: token,
+                    },
                 };
 
                 return axios(originalRequest);

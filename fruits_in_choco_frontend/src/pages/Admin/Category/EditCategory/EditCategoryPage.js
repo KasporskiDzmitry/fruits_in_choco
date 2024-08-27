@@ -4,10 +4,7 @@ import { reduxForm } from 'redux-form';
 import { connect, useDispatch } from 'react-redux';
 import { CategoryForm } from '../common/CategoryForm';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {
-    loadCategoryById,
-    updateCategoryThunk,
-} from '../../../../redux/thunks/category_thunks';
+import { loadCategoryById, updateCategoryThunk } from '../../../../redux/thunks/category_thunks';
 
 let EditCategoryReduxForm = reduxForm({
     form: 'edit_category',

@@ -24,10 +24,7 @@ const composeEnhancers = composeWithDevTools({
     trace: true,
 });
 
-let store = createStore(
-    reducers,
-    composeEnhancers(applyMiddleware(thunkMiddleware))
-);
+let store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
 window.store = store;
 

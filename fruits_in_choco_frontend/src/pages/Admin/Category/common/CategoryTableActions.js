@@ -19,9 +19,7 @@ class CategoryTableActions extends Component {
         const row = this.props.row;
         return (
             <div>
-                <NavLink to={`/profile/admin/categories/${row.id}`}>
-                    Edit
-                </NavLink>
+                <NavLink to={`/profile/admin/categories/${row.id}`}>Edit</NavLink>
                 <div onClick={(e) => this.handleDelete(e, row.id)}>Delete</div>
             </div>
         );
@@ -30,6 +28,4 @@ class CategoryTableActions extends Component {
 
 CategoryTableActions.propTypes = propTypes;
 
-export default connect(() => ({}), { deleteCategoryById })(
-    CategoryTableActions
-);
+export default connect(() => ({}), { deleteCategoryById })(CategoryTableActions);

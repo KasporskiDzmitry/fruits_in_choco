@@ -24,10 +24,7 @@ export const AboutUs = () => {
     }, []);
 
     return (
-        <div
-            id={'about'}
-            className={`${appStyle.sectionOuter} ${style.aboutSection}`}
-        >
+        <div id={'about'} className={`${appStyle.sectionOuter} ${style.aboutSection}`}>
             <div className={`${appStyle.sectionInner}`}>
                 <div className={style.heading}>
                     <img src={arrowBackward} alt="Arrow" />
@@ -41,9 +38,8 @@ export const AboutUs = () => {
                     <div className={style.aboutSectionDescription}>
                         <h2>MARINA CUPCAKE</h2>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Cras arcu quam, tristique non commodo vitae,
-                            dignissim eu dolor.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras arcu quam,
+                            tristique non commodo vitae, dignissim eu dolor.
                         </p>
                         {dimensions.width > 768 ? (
                             <div className={style.aboutSectionDescriptionLogo}>

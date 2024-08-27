@@ -80,9 +80,7 @@ const slide_reducer = (state = initialState, action) => {
                     ),
                     action.slide,
                     ...state.slides.slice(
-                        state.slides.findIndex(
-                            (i) => i.id === action.slide.id
-                        ) + 1
+                        state.slides.findIndex((i) => i.id === action.slide.id) + 1
                     ),
                 ],
                 isSlideUpdating: false,

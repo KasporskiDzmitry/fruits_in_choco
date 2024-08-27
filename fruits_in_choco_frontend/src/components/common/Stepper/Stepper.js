@@ -59,9 +59,7 @@ export const StepperHorizontal = (props) => {
                     const stepProps = {};
                     const labelProps = {};
                     if (isStepOptional(index)) {
-                        labelProps.optional = (
-                            <Typography variant="caption">Optional</Typography>
-                        );
+                        labelProps.optional = <Typography variant="caption">Optional</Typography>;
                     }
                     if (isStepSkipped(index)) {
                         stepProps.completed = false;
@@ -97,19 +95,13 @@ export const StepperHorizontal = (props) => {
                         </Button>
                         <Box sx={{ flex: '1 1 auto' }} />
                         {isStepOptional(activeStep) && (
-                            <Button
-                                color="inherit"
-                                onClick={handleSkip}
-                                sx={{ mr: 1 }}
-                            >
+                            <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                                 Skip
                             </Button>
                         )}
 
                         <Button onClick={handleNext}>
-                            {activeStep === props.steps.length - 1
-                                ? 'Finish'
-                                : 'Next'}
+                            {activeStep === props.steps.length - 1 ? 'Finish' : 'Next'}
                         </Button>
                     </Box>
                 </React.Fragment>

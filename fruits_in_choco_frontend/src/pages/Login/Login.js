@@ -6,7 +6,7 @@ import style from '../../components/common/FormsControls/FormsControls.module.sc
 import { login } from '../../redux/thunks/auth_thunks';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ handleSubmit, error }) => {
     return (

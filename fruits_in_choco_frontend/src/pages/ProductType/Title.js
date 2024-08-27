@@ -15,9 +15,7 @@ export const Title = ({ title, titleImage, description }) => {
                 <img src={arrowForward} alt="Arrow" />
             </div>
             <div className={productStyle.title}>
-                <div className={productStyle.text}>
-                    {description}{' '}
-                </div>
+                <div className={productStyle.text}>{description} </div>
                 <div className={productStyle.image}>
                     <img src={titleImage} alt="Cake" />
                 </div>

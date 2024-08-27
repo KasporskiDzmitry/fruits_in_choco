@@ -8,10 +8,9 @@ import cakes from '../../assets/images/Catalog/cakes.png';
 import cupCakes from '../../assets/images/Catalog/cupCakes.png';
 import cakePopses from '../../assets/images/Catalog/cakePopses.png';
 import bento from '../../assets/images/Catalog/bento.png';
-import {BiscuitAndFillingCard} from "./BiscuitAndFillingCard";
+import { BiscuitAndFillingCard } from './BiscuitAndFillingCard';
 
-export const BiscuitAndFilling = ({setOfBisquitAndFilling}) => {
-
+export const BiscuitAndFilling = ({ setOfBisquitAndFilling }) => {
     console.log(setOfBisquitAndFilling);
 
     return (

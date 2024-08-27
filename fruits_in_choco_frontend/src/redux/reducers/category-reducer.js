@@ -101,15 +101,11 @@ const categoryReducer = (state = initialState, action) => {
                 categories: [
                     ...state.categories.slice(
                         0,
-                        state.categories.findIndex(
-                            (i) => i.id === action.category.id
-                        )
+                        state.categories.findIndex((i) => i.id === action.category.id)
                     ),
                     action.category,
                     ...state.categories.slice(
-                        state.categories.findIndex(
-                            (i) => i.id === action.category.id
-                        ) + 1
+                        state.categories.findIndex((i) => i.id === action.category.id) + 1
                     ),
                 ],
                 isCategoryUpdating: false,

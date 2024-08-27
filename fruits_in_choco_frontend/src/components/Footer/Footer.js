@@ -11,10 +11,7 @@ const Footer = () => {
     return (
         <footer className={`${appStyle.sectionOuter} ${style.footer}`}>
             <div className={`${appStyle.sectionInner} ${style.footerWrapper}`}>
-                <div
-                    className={style.logoWrapper}
-                    onClick={() => window.scrollTo(0, 0)}
-                >
+                <div className={style.logoWrapper} onClick={() => window.scrollTo(0, 0)}>
                     <Link to={'/'}>
                         <img src={logo} alt="MARINA CUPCAKE" />
                     </Link>

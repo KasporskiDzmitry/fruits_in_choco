@@ -1,14 +1,14 @@
 import React from 'react';
-import {Button, Carousel} from 'react-bootstrap';
+import { Button, Carousel } from 'react-bootstrap';
 import style from './Slider.module.scss';
 import appStyle from '../../../App.module.scss';
 
 import arrowForward from '../../../assets/images/Arrows/ArrowForward.png';
 import arrowBackward from '../../../assets/images/Arrows/ArrowBackward.png';
 
-const Slider = ({slides}) => {
-    const controlForward = <img src={arrowForward} alt="arrowForward"/>;
-    const controlBackward = <img src={arrowBackward} alt="controlBackward"/>;
+const Slider = ({ slides }) => {
+    // const controlForward = <img src={arrowForward} alt="arrowForward" />;
+    // const controlBackward = <img src={arrowBackward} alt="controlBackward" />;
 
     return (
         <div className={style.sliderWrapper}>
@@ -16,8 +16,8 @@ const Slider = ({slides}) => {
                 fade
                 interval={8000}
                 controls={true}
-                prevIcon={controlBackward}
-                nextIcon={controlForward}
+                // prevIcon={controlBackward}
+                // nextIcon={controlForward}
             >
                 {slides.map((slide) => {
                     return (
@@ -54,7 +54,6 @@ const Slider = ({slides}) => {
                 })}
             </Carousel>
         </div>
-
     );
 };
 

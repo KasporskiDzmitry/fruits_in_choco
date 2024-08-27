@@ -22,15 +22,10 @@ export const Form = (props) => {
                 </div>
             ))}
             {props.fieldArray && (
-                <FieldArray
-                    name={props.fieldArray.name}
-                    component={props.fieldArray.fields}
-                />
+                <FieldArray name={props.fieldArray.name} component={props.fieldArray.fields} />
             )}
             {props.error && (
-                <div className={formsControlsStyle.formSummaryError}>
-                    {props.error}
-                </div>
+                <div className={formsControlsStyle.formSummaryError}>{props.error}</div>
             )}
             <div>
                 <Button type="submit" disabled={props.isFetching}>

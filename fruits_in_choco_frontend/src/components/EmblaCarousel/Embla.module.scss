@@ -1,84 +1,120 @@
 .embla {
-  max-width: 100%;
-  margin: auto;
-  --slide-height: 15rem;
-  --slide-spacing: 6rem;
-  --slide-size: 33.3%;
+    max-width: 100%;
+    margin: auto;
+    --slide-height: 15rem;
+    --slide-spacing: 6rem;
+    --slide-size: 33%;
 }
 
 .embla__viewport {
-  overflow: hidden;
-  max-width: 80%;
-  margin: 0 auto;
-  //display: flex;
+    overflow: hidden;
+    max-width: 80%;
+    margin: 0 auto;
 }
 
 .embla__container {
-  display: flex;
-  touch-action: pan-y pinch-zoom;
-  margin-left: calc(var(--slide-spacing) * -1);
+    display: flex;
+    touch-action: pan-y pinch-zoom; /* Поддержка жестов */
+    //margin: 0 auto;
 }
 
 .embla__slide {
-  transform: translate3d(0, 0, 0);
-  flex: 0 0 var(--slide-size);
-  min-width: 0;
-  padding-left: var(--slide-spacing);
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+    //margin-left: var(--slide-spacing);
+    display: flex; /* Flexbox для центрирования содержимого */
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
+    height: var(--slide-height); /* Указание высоты слайда */
+    overflow: hidden; /* Скрыть все, что выходит за пределы слайда */
 }
 
-.embla__slide__number {
-  box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
-  border-radius: 1.8rem;
-  display: flex;
-  //height: 80%;
-  align-items: center;
-  justify-content: center;
-  height: var(--slide-height);
-  user-select: none;
-  cursor: pointer;
+.embla__slide__image {
+    max-width: 100%; /* Ограничиваем максимальную ширину изображения */
+    max-height: 100%; /* Ограничиваем максимальную высоту изображения */
+    object-fit: cover; /* Заполнение слайда с сохранением пропорций */
+    display: block; /* Убираем нижний отступ */
 }
 
+/* Кнопки управления */
 .embla__buttons {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 }
 
 .embla__button {
-  -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: transparent;
-  touch-action: manipulation;
-  text-decoration: none;
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
-  width: 3.6rem;
-  height: 3.6rem;
-  z-index: 1;
-  border-radius: 50%;
-  color: var(--text-body);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 6rem;
-  &:hover{
+    -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    touch-action: manipulation;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
+    width: 3.6rem;
+    height: 3.6rem;
+    position: absolute;
+    top: 6rem;
+    z-index: 1;
+    border-radius: 50%;
+    color: var(--text-body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s; /* Плавное увеличение при наведении */
+}
+
+.embla__button:hover {
     transform: scale(1.2);
-  }
 }
 
 .embla__lastButton {
-  right: 6rem;
+    right: 1rem;
 }
 
 .embla__button:disabled {
-  color: var(--detail-high-contrast);
+    color: var(--detail-high-contrast);
 }
+
 .embla__button__svg {
-  width: 35%;
-  height: 35%;
+    width: 35%;
+    height: 35%;
+}
+
+/* Адаптивные стили */
+@media (max-width: 1200px) {
+    .embla {
+        --slide-size: 50%; /* два слайда по ширине */
+        --slide-height: 12rem; /* адаптация высоты слайдов */
+    }
+    //.embla__container {
+    //    display: flex;
+    //    touch-action: pan-y pinch-zoom; /* Поддержка жестов */
+    //    //transform: translateX(-50%); /* Сдвиг контейнера влево на половину слайда */
+    //}
+}
+
+@media (max-width: 400px) {
+    .embla {
+        --slide-size: 100%; /* один слайд по ширине */
+        --slide-height: 10rem; /* адаптация высоты слайдов */
+    }
+    //.embla__container {
+    //    display: flex;
+    //    touch-action: pan-y pinch-zoom; /* Поддержка жестов */
+    //}
+    .embla__slide {
+        flex: 0 0 var(--slide-size);
+        min-width: 0;
+        padding: 0 var(--slide-spacing);
+        display: flex; /* Flexbox для центрирования содержимого */
+        justify-content: center; /* Центрируем по горизонтали */
+        align-items: center; /* Центрируем по вертикали */
+        height: var(--slide-height); /* Указание высоты слайда */
+        overflow: hidden; /* Скрыть все, что выходит за пределы слайда */
+    }
 }

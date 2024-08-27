@@ -16,12 +16,9 @@ export const ModalWindow = ({ images }) => {
 
     return createPortal(
         <div className={modalStyle.modalBackground} onClick={closeModalWindow}>
-            <div
-                className={modalStyle.modalWindow}
-                onClick={(event) => event.stopPropagation()}
-            >
+            <div className={modalStyle.modalWindow} onClick={(event) => event.stopPropagation()}>
                 <img src={crossClose} alt="cross" onClick={closeModalWindow} />
-                <img src={images} alt="images"/>
+                <img src={images} alt="images" />
                 {/*<AdminSlider slides={images} />*/}
             </div>
         </div>,

@@ -8,10 +8,7 @@ import {
     logoutSuccess,
 } from '../actions/auth_actions';
 import { reset, stopSubmit } from 'redux-form';
-import {
-    removeUserInfoFromLS,
-    saveUserInfoToLS,
-} from '../../util/localStorageFunctions';
+import { removeUserInfoFromLS, saveUserInfoToLS } from '../../util/localStorageFunctions';
 
 export const login = (email, password, navigate) => async (dispatch) => {
     dispatch(loginBegin());

@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Outlet} from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Preloader from './components/common/Preloader/Preloader';
-import {init} from './redux/thunks/app_thunks';
+import { init } from './redux/thunks/app_thunks';
 import useNotifier from './components/hooks/useNotifier';
 
 // const Main = React.lazy(() => import('./pages/Main/Main'));

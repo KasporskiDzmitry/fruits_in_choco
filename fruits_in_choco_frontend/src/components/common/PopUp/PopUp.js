@@ -17,9 +17,7 @@ const PopUp = (props) => {
 
     return (
         <div
-            className={
-                props.isActive ? `${style.bg} ${style.active}` : style.bg
-            }
+            className={props.isActive ? `${style.bg} ${style.active}` : style.bg}
             onClick={handleClick}
         >
             {props.children}

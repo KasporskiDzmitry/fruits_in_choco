@@ -45,11 +45,7 @@ export const saveSlide = (slide) => async (dispatch) => {
 export const updateSlide = (slide) => async (dispatch) => {
     try {
         dispatch(updateSlideBegin());
-        const response = await RequestService.put(
-            `/slides/${slide.id}`,
-            slide,
-            true
-        );
+        const response = await RequestService.put(`/slides/${slide.id}`, slide, true);
         dispatch(updateSlideSuccess(response.data));
         dispatch(enqueueSnackbar('Slide updated successfully', 'success'));
         // dispatch(loadSlides());
@@ -63,10 +59,7 @@ export const updateSlide = (slide) => async (dispatch) => {
 export const deleteSlide = (slide) => async (dispatch) => {
     try {
         dispatch(deleteSlideBegin());
-        const response = await RequestService.delete(
-            `/slides/${slide.id}`,
-            true
-        );
+        const response = await RequestService.delete(`/slides/${slide.id}`, true);
         dispatch(enqueueSnackbar('Slide removed successfully', 'success'));
         dispatch(deleteSlideSuccess(slide.id));
         // dispatch(loadSlides());

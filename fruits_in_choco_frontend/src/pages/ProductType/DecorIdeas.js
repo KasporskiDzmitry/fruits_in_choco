@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import appStyle from '../../App.module.scss';
 import style from '../Main/Main.module.scss';
 import productStyle from './ProductType.module.scss';
@@ -6,13 +6,12 @@ import productStyle from './ProductType.module.scss';
 import arrowBackward from '../../assets/images/Arrows/ArrowBackward.png';
 import arrowForward from '../../assets/images/Arrows/ArrowForward.png';
 import writeToInstagram from '../../assets/images/HowToOrder/writeToInstagram.png';
-import {useDispatch, useSelector} from 'react-redux';
-import {openModal} from '../../redux/actions/modalWindow_actions';
-import {ModalWindow} from '../../components/ModalWindow/ModalWindow';
-import {DecorIdeaCard} from "./DecorIdeaCard";
+import { useDispatch, useSelector } from 'react-redux';
+import { openModal } from '../../redux/actions/modalWindow_actions';
+import { ModalWindow } from '../../components/ModalWindow/ModalWindow';
+import { DecorIdeaCard } from './DecorIdeaCard';
 
-
-export const DecorIdeas = ({setOfDecorIdeas}) => {
+export const DecorIdeas = ({ setOfDecorIdeas }) => {
     const [chosenImage, setChosenImage] = useState();
     const dispatch = useDispatch();
     const isModalOpen = useSelector((state) => state.modalReducer.isModalOpen);
@@ -34,7 +33,11 @@ export const DecorIdeas = ({setOfDecorIdeas}) => {
             </div>
             <div className={productStyle.decorIdeas}>
                 {setOfDecorIdeas.map((elem) => (
-                    <DecorIdeaCard key={elem.id} decorIdea={elem} onClick={extendImageHandleClick}/>
+                    <DecorIdeaCard
+                        key={elem.id}
+                        decorIdea={elem}
+                        onClick={extendImageHandleClick}
+                    />
                 ))}
             </div>
             <div className={productStyle.moreDecorIdeas}>

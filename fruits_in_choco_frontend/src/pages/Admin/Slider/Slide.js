@@ -61,19 +61,11 @@ const Slide = ({ slide, removeSlide }) => {
             </div>
             <div className={style.controlsWrapper}>
                 {isEditMode ? (
-                    <Button
-                        type="submit"
-                        className={style.saveBtn}
-                        onClick={onSubmit}
-                    >
+                    <Button type="submit" className={style.saveBtn} onClick={onSubmit}>
                         Сохранить
                     </Button>
                 ) : (
-                    <Button
-                        type="button"
-                        className={style.editBtn}
-                        onClick={toggleEditMode}
-                    >
+                    <Button type="button" className={style.editBtn} onClick={toggleEditMode}>
                         Редактировать
                     </Button>
                 )}

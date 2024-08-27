@@ -1,7 +1,7 @@
-import productStyle from "./ProductType.module.scss";
-import React from "react";
+import productStyle from './ProductType.module.scss';
+import React from 'react';
 
-export const BiscuitAndFillingCard = ({bisquitAndFilling}) => {
+export const BiscuitAndFillingCard = ({ bisquitAndFilling }) => {
     return (
         <div className={productStyle.flipCard}>
             <p>{bisquitAndFilling.title}</p>
@@ -14,5 +14,5 @@ export const BiscuitAndFillingCard = ({bisquitAndFilling}) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

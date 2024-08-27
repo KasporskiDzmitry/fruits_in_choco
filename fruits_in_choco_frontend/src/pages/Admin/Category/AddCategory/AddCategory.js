@@ -11,9 +11,7 @@ const AddCategory = () => {
     const dispatch = useDispatch();
 
     const onSubmit = (formData) => {
-        dispatch(
-            addCategory({ ...formData, attributes: formData.attributes || [] })
-        );
+        dispatch(addCategory({ ...formData, attributes: formData.attributes || [] }));
     };
 
     return (

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import RequestService from "../../api/RequestService";
+import React, { useEffect, useState } from 'react';
+import RequestService from '../../api/RequestService';
 
 export const useVerifyToken = (token) => {
     const [isValid, setIsValid] = useState(false);
@@ -10,7 +10,7 @@ export const useVerifyToken = (token) => {
                 .then(setIsValid)
                 .catch(() => setIsValid(false));
         }
-    }, [])
+    }, []);
 
     const verifyToken = async () => {
         try {
@@ -19,7 +19,7 @@ export const useVerifyToken = (token) => {
         } catch (error) {
             return false;
         }
-    }
+    };
 
     return isValid;
 };

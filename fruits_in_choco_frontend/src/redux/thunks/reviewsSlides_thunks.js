@@ -30,11 +30,7 @@ export const loadReviewSlides = () => async (dispatch) => {
 export const saveReviewSlide = (slide) => async (dispatch) => {
     try {
         dispatch(addReviewSlideBegin());
-        const response = await RequestService.post(
-            '/review_slide',
-            slide,
-            true
-        );
+        const response = await RequestService.post('/review_slide', slide, true);
         dispatch(addReviewSlideSuccess(response.data));
         dispatch(reset('add_review_slide'));
         dispatch(enqueueSnackbar('Review slide saved successfully', 'success'));
@@ -48,15 +44,9 @@ export const saveReviewSlide = (slide) => async (dispatch) => {
 export const updateReviewSlide = (slide) => async (dispatch) => {
     try {
         dispatch(updateReviewSlideBegin());
-        const response = await RequestService.put(
-            `/review_slide/${slide.id}`,
-            slide,
-            true
-        );
+        const response = await RequestService.put(`/review_slide/${slide.id}`, slide, true);
         dispatch(updateReviewSlideSuccess(response.data));
-        dispatch(
-            enqueueSnackbar('Review slide updated successfully', 'success')
-        );
+        dispatch(enqueueSnackbar('Review slide updated successfully', 'success'));
     } catch (e) {
         dispatch(enqueueSnackbar('Error while updating review slide', 'error'));
         console.log(e);
@@ -69,9 +59,7 @@ export const deleteReviewSlide = (slide) => async (dispatch) => {
         dispatch(deleteReviewSlideBegin());
         await RequestService.delete(`/review_slide/${slide.id}`, true);
         dispatch(deleteReviewSlideSuccess(slide.id));
-        dispatch(
-            enqueueSnackbar('Review slide removed successfully', 'success')
-        );
+        dispatch(enqueueSnackbar('Review slide removed successfully', 'success'));
     } catch (e) {
         dispatch(enqueueSnackbar('Error while removing review slide', 'error'));
         console.log(e);

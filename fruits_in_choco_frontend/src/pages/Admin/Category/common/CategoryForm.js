@@ -1,10 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Field, FieldArray } from 'redux-form';
-import {
-    Input,
-    Textarea,
-} from '../../../../components/common/FormsControls/FormsControls';
+import { Input, Textarea } from '../../../../components/common/FormsControls/FormsControls';
 import { required } from '../../../../util/validators/validators';
 import style from './CategoryForm.module.scss';
 

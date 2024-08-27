@@ -1,19 +1,15 @@
-import React, {useEffect} from 'react';
-import {Field, reduxForm} from 'redux-form';
-import {Input} from '../../../components/common/FormsControls/FormsControls';
-import {required} from '../../../util/validators/validators';
+import React, { useEffect } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { Input } from '../../../components/common/FormsControls/FormsControls';
+import { required } from '../../../util/validators/validators';
 import formsControlsStyle from '../../../components/common/FormsControls/FormsControls.module.scss';
-import {Button} from 'react-bootstrap';
-import {useDispatch, useSelector} from 'react-redux';
+import { Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './Slider.module.scss';
-import {
-    deleteSlide,
-    loadSlides,
-    saveSlide,
-} from '../../../redux/thunks/slide_thunks';
+import { deleteSlide, loadSlides, saveSlide } from '../../../redux/thunks/slide_thunks';
 import Slide from './Slide';
 
-const AddSlideForm = ({handleSubmit, error, isFetching}) => {
+const AddSlideForm = ({ handleSubmit, error, isFetching }) => {
     return (
         <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.fieldWrapper}>
@@ -56,11 +52,7 @@ const AddSlideForm = ({handleSubmit, error, isFetching}) => {
                     validate={[required]}
                 />
             </div>
-            {error && (
-                <div className={formsControlsStyle.formSummaryError}>
-                    {error}
-                </div>
-            )}
+            {error && <div className={formsControlsStyle.formSummaryError}>{error}</div>}
             <div>
                 <Button type="submit">Add</Button>
             </div>
@@ -68,7 +60,7 @@ const AddSlideForm = ({handleSubmit, error, isFetching}) => {
     );
 };
 
-const AddSlideReduxForm = reduxForm({form: 'add_slide'})(AddSlideForm);
+const AddSlideReduxForm = reduxForm({ form: 'add_slide' })(AddSlideForm);
 
 const AdminSlider = (props) => {
     const dispatch = useDispatch();
@@ -93,13 +85,11 @@ const AdminSlider = (props) => {
     return (
         <div className={style.container}>
             <div>
-                <AddSlideReduxForm onSubmit={onSubmit}/>
+                <AddSlideReduxForm onSubmit={onSubmit} />
             </div>
             <div className={style.slidesContainer}>
                 {slides.length > 0 &&
-                    slides.map((i) => (
-                        <Slide slide={i} removeSlide={removeSlide}/>
-                    ))}
+                    slides.map((i) => <Slide slide={i} removeSlide={removeSlide} />)}
             </div>
         </div>
     );

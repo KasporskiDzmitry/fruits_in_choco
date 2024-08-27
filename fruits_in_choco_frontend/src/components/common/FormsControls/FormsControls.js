@@ -5,9 +5,7 @@ import { Field } from 'redux-form';
 const FormControl = ({ input, meta, child, ...props }) => {
     const hasError = meta.touched && meta.error;
     return (
-        <div
-            className={style.formControl + ' ' + (hasError ? style.error : '')}
-        >
+        <div className={style.formControl + ' ' + (hasError ? style.error : '')}>
             <div>{props.children}</div>
             {hasError && <span>{meta.error}</span>}
         </div>

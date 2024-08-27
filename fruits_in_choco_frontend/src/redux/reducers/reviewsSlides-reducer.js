@@ -76,15 +76,11 @@ const reviewsSlidesReducer = (state = initialState, action) => {
                 reviewsSlides: [
                     ...state.reviewsSlides.slice(
                         0,
-                        state.reviewsSlides.findIndex(
-                            (i) => i.id === action.slide.id
-                        )
+                        state.reviewsSlides.findIndex((i) => i.id === action.slide.id)
                     ),
                     action.slide,
                     ...state.reviewsSlides.slice(
-                        state.reviewsSlides.findIndex(
-                            (i) => i.id === action.slide.id
-                        ) + 1
+                        state.reviewsSlides.findIndex((i) => i.id === action.slide.id) + 1
                     ),
                 ],
                 isReviewSlideUpdating: false,
@@ -106,9 +102,7 @@ const reviewsSlidesReducer = (state = initialState, action) => {
         case DELETE_REVIEW_SLIDE_SUCCESS: {
             return {
                 ...state,
-                reviewsSlides: state.reviewsSlides.filter(
-                    (i) => i.id !== action.id
-                ),
+                reviewsSlides: state.reviewsSlides.filter((i) => i.id !== action.id),
                 isReviewSlideDeleting: false,
             };
         }

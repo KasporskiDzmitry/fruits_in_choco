@@ -43,11 +43,7 @@ export const loadCategoryById = (id) => async (dispatch) => {
 export const addCategory = (category) => async (dispatch) => {
     try {
         dispatch(addCategoryBegin());
-        const response = await RequestService.post(
-            '/admin/categories',
-            category,
-            true
-        );
+        const response = await RequestService.post('/admin/categories', category, true);
         dispatch(addCategorySuccess(response.data));
         dispatch(reset('add_category'));
         dispatch(enqueueSnackbar('Category created successfully', 'success'));
@@ -61,10 +57,7 @@ export const addCategory = (category) => async (dispatch) => {
 export const deleteCategoryById = (id) => async (dispatch) => {
     try {
         dispatch(deleteCategoryBegin());
-        const response = await RequestService.delete(
-            `/admin/categories/${id}`,
-            true
-        );
+        const response = await RequestService.delete(`/admin/categories/${id}`, true);
         dispatch(deleteCategorySuccess(id));
         dispatch(enqueueSnackbar('Category removed successfully', 'success'));
     } catch (e) {

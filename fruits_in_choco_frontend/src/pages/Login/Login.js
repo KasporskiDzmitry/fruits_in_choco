@@ -6,6 +6,7 @@ import style from '../../components/common/FormsControls/FormsControls.module.sc
 import { login } from '../../redux/thunks/auth_thunks';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import {useNavigate} from "react-router-dom";
 
 const LoginForm = ({ handleSubmit, error }) => {
     return (
@@ -39,8 +40,9 @@ const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm);
 
 const Login = (props) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const onSubmit = (formData) => {
-        dispatch(login(formData.email, formData.password));
+        dispatch(login(formData.email, formData.password, navigate));
     };
 
     return (

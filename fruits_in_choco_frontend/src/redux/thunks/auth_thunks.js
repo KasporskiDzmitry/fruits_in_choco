@@ -13,7 +13,7 @@ import {
     saveUserInfoToLS,
 } from '../../util/localStorageFunctions';
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, navigate) => async (dispatch) => {
     dispatch(loginBegin());
     try {
         const response = await RequestService.post('/auth/login', {
@@ -33,8 +33,7 @@ export const login = (email, password) => async (dispatch) => {
             )
         );
         dispatch(reset('login'));
-
-        // window.location.reload(true)
+        navigate('/admin');
     } catch (error) {
         console.log(error);
         dispatch(stopSubmit('login', { _error: error.response.data }));

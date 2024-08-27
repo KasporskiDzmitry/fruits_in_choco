@@ -69,6 +69,11 @@ axios.interceptors.response.use(
     },
     async function (error) {
         let originalRequest = error.config;
+        if (error.response.data.message === 'JWT token is invalid'){
+            removeUserInfoFromLS();
+            return Promise.reject("Token is invalid");
+        }
+
         if (error.response.status === 401 ||
             (error.response.status === 403 && !originalRequest._retry)) {
             // TODO: need to monitor behavior

@@ -2,18 +2,24 @@ import React, {useEffect, useState} from 'react';
 import RequestService from "../../api/RequestService";
 
 export const useVerifyToken = (token) => {
-
+    const [isValid, setIsValid] = useState(false);
 
     useEffect(() => {
-        if (token){
-            verifyToken(token);
+        if (token) {
+            verifyToken()
+                .then(setIsValid)
+                .catch(() => setIsValid(false));
         }
-    }, [token])
+    }, [])
 
     const verifyToken = async () => {
-        const response = await RequestService.post('/auth/verify-token', {}, true);
-        console.log(response)
+        try {
+            const response = await RequestService.post('/auth/verify-token', {}, true);
+            return response.data === true;
+        } catch (error) {
+            return false;
+        }
     }
 
-    return true;
+    return isValid;
 };

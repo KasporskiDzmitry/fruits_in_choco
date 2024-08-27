@@ -19,7 +19,7 @@ jasypt:
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
 
 jwt:
-  expiration: 10000
+  expiration: 30000
   expirationRefresh: 86400000
   header: Authorization
   secret: ENC(944RXrWsa3dlg7pFk4CpjA==)

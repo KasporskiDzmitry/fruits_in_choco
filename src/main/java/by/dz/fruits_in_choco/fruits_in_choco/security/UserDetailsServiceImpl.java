@@ -1,7 +1,6 @@
-package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
+package by.dz.fruits_in_choco.fruits_in_choco.security;
 
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
-import by.dz.fruits_in_choco.fruits_in_choco.security.SecurityUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

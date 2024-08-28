@@ -40,11 +40,6 @@ public class JwtTokenProvider {
         return generateToken(claims, validity);
     }
 
-    public String createActivationAccountToken(String uuid, Long validity) {
-        Claims claims = Jwts.claims().setSubject(uuid);
-        return generateToken(claims, validity);
-    }
-
     private String generateToken(Claims claims, Long validity) {
         Date now = new Date();
 
@@ -67,7 +62,7 @@ public class JwtTokenProvider {
         }
     }
 
-    public Authentication getAuthentication(String token) {
+    public Authentication getAuthenticationToken(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }

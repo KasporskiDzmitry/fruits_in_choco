@@ -1,6 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.config;
 
-import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenFilter;
+import by.dz.fruits_in_choco.fruits_in_choco.filter.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

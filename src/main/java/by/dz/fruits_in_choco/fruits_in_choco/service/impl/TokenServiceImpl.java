@@ -27,8 +27,8 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public Token updateToken(User user) {
         Token token = user.getToken();
-        token.setAccess(tokenProvider.createToken(user.getEmail(), user.getRole().name(), accessTokenValidity));
-        token.setRefresh(tokenProvider.createToken(user.getEmail(), user.getRole().name(), refreshTokenValidity));
+        token.setAccess(tokenProvider.createToken(user, accessTokenValidity));
+        token.setRefresh(tokenProvider.createToken(user, refreshTokenValidity));
 
         return tokenRepository.save(token);
     }

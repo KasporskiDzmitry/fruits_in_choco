@@ -53,46 +53,49 @@ axios.interceptors.response.use(
     (response) => {
         return response;
     },
-    async function (error) {
-        let originalRequest = error.config;
-        if (error.response.data.message === 'JWT token is invalid') {
-            removeUserInfoFromLS();
-            return Promise.reject('Token is invalid');
-        }
+     async function (error) {
+         const notRetriableRequest = [
+             "http://localhost:8080/api/v1/auth/login",
+             "http://localhost:8080/api/v1/auth/refresh-token"
+         ]
 
-        if (
-            error.response.status === 401 ||
-            (error.response.status === 403 && !originalRequest._retry)
-        ) {
-            // TODO: need to monitor behavior
-            store.dispatch(clearToken());
-            localStorage.removeItem('token');
-            originalRequest._retry = true;
-            try {
-                store.dispatch(fetchRefreshTokenBegin());
-                const response = await new RequestService().post('/auth/refresh-token');
-                const token = response.data;
-                store.dispatch(fetchRefreshTokenSuccess(token));
-                localStorage.setItem('token', token);
+         let originalRequest = error.config;
+         const httpStatus = error.response.status;
 
-                originalRequest = {
-                    ...originalRequest,
-                    headers: {
-                        ...originalRequest.headers,
-                        Authorization: token,
-                    },
-                };
+         if (error.response.data.message === 'JWT token is invalid') {
+             removeUserInfoFromLS();
+             return Promise.reject('Token is invalid');
+         }
 
-                return axios(originalRequest);
-            } catch (e) {
-                removeUserInfoFromLS();
-                store.dispatch(fetchRefreshTokenFailure(e));
-                console.log(e);
-                // window.location.href = '/';
-            }
-        }
-        return Promise.reject(error);
-    }
+         if ((httpStatus === 401 || httpStatus === 403) && !originalRequest._retry && !notRetriableRequest.includes(originalRequest.url)) {
+             store.dispatch(clearToken());
+             localStorage.removeItem('token');
+             originalRequest._retry = true;
+             try {
+                 store.dispatch(fetchRefreshTokenBegin());
+                 const response = await new RequestService().post('/auth/refresh-token');
+                 const token = response.data;
+
+                 store.dispatch(fetchRefreshTokenSuccess(token));
+                 localStorage.setItem('token', token);
+
+                 originalRequest = {
+                     ...originalRequest,
+                     headers: {
+                         ...originalRequest.headers,
+                         Authorization: token,
+                     },
+                 };
+
+                 return axios(originalRequest);
+             } catch (e) {
+                 console.error(e);
+                 removeUserInfoFromLS();
+                 store.dispatch(fetchRefreshTokenFailure(e));
+             }
+         }
+         return Promise.reject(error);
+     }
 );
 
 export default new RequestService();

@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,9 @@ public class AuthController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
             return ResponseEntity.ok(authService.login(request.email(), response));
+        } catch (DisabledException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(401).body("Account not confirmed");
         } catch (AuthenticationException | EntityNotFoundException e) {
             log.error("Login process for user with email " + request.email() + " failed", e);
             return ResponseEntity.status(401).body(e.getMessage());

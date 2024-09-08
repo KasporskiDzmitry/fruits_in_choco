@@ -41,10 +41,6 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("User doesn't exist"));
 
-        if (user.getStatus() == Status.NOT_CONFIRMED) {
-            throw new UserNotConfirmedException("Account not confirmed");
-        }
-
         Token token = tokenService.updateToken(user);
 
         response.addCookie(cookieHelper.createRefreshTokenCookie(token.getRefresh(), Math.toIntExact(refreshTokenValidity)));

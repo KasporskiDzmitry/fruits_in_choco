@@ -37,7 +37,7 @@ public class AuthController {
             return ResponseEntity.ok(authService.login(request.email(), response));
         } catch (AuthenticationException | EntityNotFoundException e) {
             log.error("Login process for user with email " + request.email() + " failed", e);
-            return ResponseEntity.status(403).body(e.getMessage());
+            return ResponseEntity.status(401).body(e.getMessage());
         }
     }
 

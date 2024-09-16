@@ -9,9 +9,13 @@ spring:
       ddl-auto: validate
     show-sql: false
 
-front:
-  hostname: localhost
-  port: 3000
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+cors:
+  allowed-origins: http://localhost:3000
 
 jasypt:
   encryptor:
@@ -19,7 +23,7 @@ jasypt:
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
 
 jwt:
-  expiration: 30000
+  expiration: 60000
   expirationRefresh: 86400000
   header: Authorization
   secret: ENC(944RXrWsa3dlg7pFk4CpjA==)

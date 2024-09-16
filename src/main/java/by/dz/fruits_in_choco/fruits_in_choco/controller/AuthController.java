@@ -4,9 +4,9 @@ import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.impl.AuthServiceImpl;
 import by.dz.fruits_in_choco.fruits_in_choco.util.CookieHelper;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,18 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 @Slf4j
+@AllArgsConstructor
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthServiceImpl authService;
     private final CookieHelper cookieHelper;
-
-    public AuthController(AuthenticationManager authenticationManager, AuthServiceImpl authService, CookieHelper cookieHelper) {
-        this.authenticationManager = authenticationManager;
-        this.authService = authService;
-        this.cookieHelper = cookieHelper;
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
@@ -45,7 +40,6 @@ public class AuthController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshToken(@CookieValue(name = "refreshToken") String refreshToken, HttpServletResponse response) {
         log.info("Generate new token pair: /refreshToken");
@@ -57,7 +51,6 @@ public class AuthController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
         log.info("Logout attempt: /logout");
@@ -71,8 +64,7 @@ public class AuthController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-    @PostMapping("verify-token")
+    @PostMapping("/verify-token")
     public boolean verifyToken(HttpServletRequest request) {
         log.info("Verify access token: /verifyToken");
         return authService.verifyToken(request);

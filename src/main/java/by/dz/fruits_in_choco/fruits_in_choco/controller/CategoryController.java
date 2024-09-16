@@ -1,20 +1,18 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
-import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryPreview;
+import by.dz.fruits_in_choco.fruits_in_choco.dto.category.CategoryRequest;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Category;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.CategoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
 @Slf4j
 @AllArgsConstructor
 public class CategoryController {
@@ -35,19 +33,16 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.getCategories());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/admin/categories")
     public ResponseEntity<Category> saveCategory(@RequestBody CategoryRequest request) {
         return ResponseEntity.ok(categoryService.saveCategory(request));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/admin/categories/{id}")
     public ResponseEntity<Category> updateCategory(@RequestBody Category category, @PathVariable Long id) {
         return ResponseEntity.ok(categoryService.updateCategory(category, id));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/admin/categories/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
         try {

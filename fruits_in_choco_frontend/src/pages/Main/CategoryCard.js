@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Enum = {
     cakes: 'Торты',
-    cupcakes: 'Капкейки',
+    cupcakes: 'Капкейки1',
     cakepopses: 'Кейк-попсы',
     bentoes: 'Бенто-торты',
 };

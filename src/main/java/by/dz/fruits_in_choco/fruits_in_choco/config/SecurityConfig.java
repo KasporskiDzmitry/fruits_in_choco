@@ -40,13 +40,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/auth/login",
+                        .mvcMatchers("/auth/login",
                                 "/categories",
                                 "/categories/{id}",
                                 "/slides",
                                 "/reviews"
                         ).permitAll()
-                        .antMatchers("/admin/**").hasAuthority("ADMIN")
+                        .mvcMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

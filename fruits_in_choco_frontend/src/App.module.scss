@@ -14,7 +14,7 @@ body {
     margin: 0 auto;
     background-color: #fff5ee;
     background-image: url('./assets/images/background.png');
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
     max-width: 1730px;
     min-width: 320px;
@@ -133,11 +133,8 @@ textarea {
     flex-direction: column;
 }
 
-.appWrapper {
-    //min-height: 100vh;
-}
-
 .sectionOuter {
+    background-color: $mainBgColor;
     padding-left: 0;
     padding-right: 0;
     overflow: hidden;
@@ -204,8 +201,4 @@ textarea {
             }
         }
     }
-}
-
-.cartLayoutPopUp {
-    background-color: red;
 }

@@ -55,7 +55,7 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return this.isActive;
     }
 
     public static UserDetails fromUser(User user) {

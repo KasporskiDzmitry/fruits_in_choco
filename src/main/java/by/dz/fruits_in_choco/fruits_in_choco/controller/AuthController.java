@@ -6,6 +6,7 @@ import by.dz.fruits_in_choco.fruits_in_choco.service.impl.AuthServiceImpl;
 import by.dz.fruits_in_choco.fruits_in_choco.util.CookieHelper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DisabledException;
@@ -56,7 +57,7 @@ public class AuthController {
         log.info("Logout attempt: /logout");
         try {
             authService.logout(request, response);
-            response.addCookie(cookieHelper.createRefreshTokenCookie(null, 0));
+            response.addHeader(HttpHeaders.SET_COOKIE, (cookieHelper.createRefreshTokenCookie(null, 0)));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.error("Logout process failed", e);

@@ -1,3 +1,5 @@
+$mainBgColor: rgba(255, 229, 204, 0.3);
+
 $linkColor: white;
 $trBgColor: darkseagreen;
 $btnBgColor: #3498db;
@@ -18,6 +20,9 @@ $screen-lg-min: 992px;
 // Large tablets and desktops
 $screen-xl-min: 1200px;
 
+// Extra large screens
+$screen-xxl-min: 1600px;
+
 // Small devices
 @mixin sm {
     @media (min-width: #{$screen-sm-min}) {
@@ -32,16 +37,24 @@ $screen-xl-min: 1200px;
     }
 }
 
-// Large devices
+// Tablets and small desktops
 @mixin lg {
     @media (min-width: #{$screen-lg-min}) {
         @content;
     }
 }
 
-// Extra large devices
+// Large devices
 @mixin xl {
     @media (min-width: #{$screen-xl-min}) {
         @content;
     }
 }
+
+// Extra large devices
+@mixin xxl {
+    @media (min-width: #{$screen-xxl-min}) {
+        @content;
+    }
+}
+

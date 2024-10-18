@@ -16,7 +16,6 @@ const Main = () => {
         const anchor = window.location.hash.split('#')[1];
         if (anchor) {
             scrollToTarget(anchor);
-            scrollToTarget(anchor);
         }
     }, []);
 

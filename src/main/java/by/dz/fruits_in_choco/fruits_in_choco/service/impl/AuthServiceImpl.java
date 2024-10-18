@@ -1,17 +1,16 @@
 package by.dz.fruits_in_choco.fruits_in_choco.service.impl;
 
 import by.dz.fruits_in_choco.fruits_in_choco.dto.auth.AuthenticationResponse;
-import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Status;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.Token;
 import by.dz.fruits_in_choco.fruits_in_choco.entity.user.User;
 import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
-import by.dz.fruits_in_choco.fruits_in_choco.exception.UserNotConfirmedException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.UserRepository;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.service.AuthService;
 import by.dz.fruits_in_choco.fruits_in_choco.service.TokenService;
 import by.dz.fruits_in_choco.fruits_in_choco.util.CookieHelper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -43,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
 
         Token token = tokenService.updateToken(user);
 
-        response.addCookie(cookieHelper.createRefreshTokenCookie(token.getRefresh(), Math.toIntExact(refreshTokenValidity)));
+        response.addHeader(HttpHeaders.SET_COOKIE, (cookieHelper.createRefreshTokenCookie(token.getRefresh(), Math.toIntExact(refreshTokenValidity))));
 
         return new AuthenticationResponse(
                 user.getId(),
@@ -62,9 +61,9 @@ public class AuthServiceImpl implements AuthService {
 
         Token token = tokenService.updateToken(user);
 
-        response.addCookie(cookieHelper.createRefreshTokenCookie(
+        response.addHeader(HttpHeaders.SET_COOKIE, (cookieHelper.createRefreshTokenCookie(
                 token.getRefresh(),
-                Math.toIntExact(refreshTokenValidity)));
+                Math.toIntExact(refreshTokenValidity))).toString());
         return token.getAccess();
     }
 

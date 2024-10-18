@@ -9,14 +9,14 @@ import writeToInstagram from '../../assets/images/HowToOrder/writeToInstagram.pn
 
 export const HowToOrder = () => {
     return (
-        <div id={'howToOrder'} className={`${appStyle.sectionOuter} ${style.aboutSection}`}>
+        <div id={'howToOrder'} className={`${appStyle.sectionOuter} ${style.howToOrder}`}>
             <div className={`${appStyle.sectionInner}`}>
                 <div className={style.heading}>
                     <img src={arrowBackward} alt="Arrow" />
                     <h1>Как заказать</h1>
                     <img src={arrowForward} alt="Arrow" />
                 </div>
-                <div className={style.howToOrder}>
+                <div className={style.orderItemWrapper}>
                     <div className={style.orderItem}>
                         <img src={chooseTaste} alt="chooseTaste" />
                         <p>Выбери бисквит и начинку</p>

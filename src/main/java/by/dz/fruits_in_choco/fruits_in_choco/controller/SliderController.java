@@ -1,7 +1,6 @@
 package by.dz.fruits_in_choco.fruits_in_choco.controller;
 
 import by.dz.fruits_in_choco.fruits_in_choco.entity.Slide;
-import by.dz.fruits_in_choco.fruits_in_choco.exception.EntityNotFoundException;
 import by.dz.fruits_in_choco.fruits_in_choco.service.SliderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,7 @@ public class SliderController {
 
     @PostMapping("/admin/slides")
     public ResponseEntity<Slide> saveSlide(@RequestBody Slide slide) {
-        return ResponseEntity.ok(sliderService.saveSlide(slide));
+        return ResponseEntity.status(201).body(sliderService.saveSlide(slide));
     }
 
     @PutMapping("/admin/slides/{id}")
@@ -33,12 +32,7 @@ public class SliderController {
 
     @DeleteMapping("/admin/slides/{id}")
     public ResponseEntity<?> deleteSlide(@PathVariable Long id) {
-        try {
-            sliderService.deleteSlide(id);
-            return ResponseEntity.ok(200);
-        } catch (EntityNotFoundException e) {
-            log.error("Failed to delete slide with id " + id, e);
-            return ResponseEntity.status(404).body(e.getMessage());
-        }
+        sliderService.deleteSlide(id);
+        return ResponseEntity.ok().build();
     }
 }

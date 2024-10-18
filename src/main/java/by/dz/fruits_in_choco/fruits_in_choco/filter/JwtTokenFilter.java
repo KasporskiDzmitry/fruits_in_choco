@@ -2,7 +2,7 @@ package by.dz.fruits_in_choco.fruits_in_choco.filter;
 
 import by.dz.fruits_in_choco.fruits_in_choco.exception.JwtAuthenticationException;
 import by.dz.fruits_in_choco.fruits_in_choco.repository.TokenRepository;
-import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenFilterExceptionHandler;
+import by.dz.fruits_in_choco.fruits_in_choco.exception.handler.JwtTokenFilterExceptionHandler;
 import by.dz.fruits_in_choco.fruits_in_choco.security.JwtTokenProvider;
 import by.dz.fruits_in_choco.fruits_in_choco.util.CookieHelper;
 import io.jsonwebtoken.Claims;

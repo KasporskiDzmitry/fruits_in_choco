@@ -5,7 +5,4 @@ public class EntityNotFoundException extends RuntimeException{
         super(msg);
     }
     public EntityNotFoundException(String className, Long id) {super(className + " with id " + id + " not found");}
-    public EntityNotFoundException(String msg, Throwable cause) {
-        super(msg, cause);
-    }
 }

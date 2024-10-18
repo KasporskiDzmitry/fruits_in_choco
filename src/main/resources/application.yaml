@@ -9,6 +9,14 @@ spring:
       ddl-auto: validate
     show-sql: false
 
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG
+
 server:
   port: 8080
   servlet:

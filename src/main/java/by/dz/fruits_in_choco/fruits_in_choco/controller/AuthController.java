@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,7 +25,7 @@ public class AuthController {
     private final CookieHelper cookieHelper;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> login(@Valid @RequestBody AuthenticationRequest request, HttpServletResponse response) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
         return ResponseEntity.ok(authService.login(request.email(), response));
     }

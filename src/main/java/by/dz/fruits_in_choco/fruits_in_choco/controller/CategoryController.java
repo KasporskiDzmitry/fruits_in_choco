@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -28,12 +30,12 @@ public class CategoryController {
     }
 
     @PostMapping("/admin/categories")
-    public ResponseEntity<Category> saveCategory(@RequestBody CategoryRequest request) {
+    public ResponseEntity<Category> saveCategory(@Valid @RequestBody CategoryRequest request) {
         return ResponseEntity.status(201).body(categoryService.saveCategory(request));
     }
 
     @PutMapping("/admin/categories/{id}")
-    public ResponseEntity<Category> updateCategory(@RequestBody Category category, @PathVariable Long id) {
+    public ResponseEntity<Category> updateCategory(@NotNull @RequestBody Category category, @PathVariable Long id) {
         return ResponseEntity.ok(categoryService.updateCategory(category, id));
     }
 

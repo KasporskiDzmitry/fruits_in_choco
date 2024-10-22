@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -21,12 +22,12 @@ public class SliderController {
     }
 
     @PostMapping("/admin/slides")
-    public ResponseEntity<Slide> saveSlide(@RequestBody Slide slide) {
+    public ResponseEntity<Slide> saveSlide(@NotNull @RequestBody Slide slide) {
         return ResponseEntity.status(201).body(sliderService.saveSlide(slide));
     }
 
     @PutMapping("/admin/slides/{id}")
-    public ResponseEntity<Slide> updateSlide(@RequestBody Slide slide, @PathVariable Long id) {
+    public ResponseEntity<Slide> updateSlide(@NotNull @RequestBody Slide slide, @PathVariable Long id) {
         return ResponseEntity.ok(sliderService.updateSlide(slide, id));
     }
 

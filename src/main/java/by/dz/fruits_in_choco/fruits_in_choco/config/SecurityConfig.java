@@ -39,7 +39,8 @@ public class SecurityConfig {
                         .mvcMatchers("/auth/login",
                                 "/categories",
                                 "/categories/{id}",
-                                "/slides"
+                                "/slides",
+                                "/reviews"
                         ).permitAll()
                         .mvcMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
